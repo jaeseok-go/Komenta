@@ -41,19 +41,19 @@ gantt
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
 
     section 프로젝트 준비 
-    주제 선정				  :done, 1-11, 1-14
-    기능 목록 상세 도출			:done, 1-14, 3d
-    화면 기획				  :done, 1-14, 3d
-    개발 환경 구성             :done, 1-12, 2d
-    ERD                     : 1-18, 2d
+    주제 선정				  :done, 01-11, 01-14
+    기능 목록 상세 도출			:done, 01-14, 3d
+    화면 기획				  :done, 01-14, 3d
+    개발 환경 구성             :done, 01-12, 2d
+    ERD                     : 01-18, 2d
     
     
     section Auth server
-    MariaDB 구축 및 백업구현     	 :1-19, 2d
-    User CRUD 구현 		   :1-22, 3d
-    User SNS Login API          :1-25, 2d
-    User Session(JWT 인증)       :1-26, 1-27
-    User PW, 이메일 인증        :1,27, 1d
+    MariaDB 구축 및 백업구현     	 :01-19, 2d
+    User CRUD 구현 		   :01-22, 3d
+    User SNS Login API          :01-25, 2d
+    User Session(JWT 인증)       :01-26, 1-27
+    User PW, 이메일 인증        :01,27, 1d
     
     %%section 기타
 ```
