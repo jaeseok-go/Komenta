@@ -92,7 +92,7 @@ gantt
 
 ### branch
 
-`master -> develop -> feature/FE(김채린, 박수아, 정혜림) or feature/BE(고재석, 배상웅)`
+`master -> develop -> feature/FE/{기능이름}-{상세기능}(김채린, 박수아, 정혜림) or feature/BE/{기능이름}-{상세기능}(고재석, 배상웅)`
 
 ### merge
 
