@@ -1,5 +1,7 @@
 # Komenta
 
+
+
 ## 팀원 소개
 
 - 테크리더 : 배상웅
@@ -10,6 +12,8 @@
 
 - Git Master : 고재석
 
+
+
 ## 주제
 
 - 프로젝트명 : Komenta
@@ -17,6 +21,8 @@
   > 독일어 'Kommentar'에서 파생. (Commentary)
 
 - VOD 영상 플랫폼에서 영상 재생 시간별로 댓글과 연동하여 사용자에게 더 큰 재미를 주는 서비스를 제공한다.
+
+
 
 ## 기능
 
@@ -30,9 +36,13 @@
 
 5. 화면 구성
 
+
+
 ## 개발문서
 
 https://docs.google.com/spreadsheets/d/1f44yO4aeAmSMDSMzdjwmA0yPJ5i3DKCw0QpL_Lu572M/edit#gid=0
+
+
 
 ## Gantt Chart
 
@@ -72,7 +82,11 @@ gantt
 <img src="https://img.shields.io/badge/MariaDB-informational?style=flat-square&logo=MariaDB&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Docker-informational?style=flat-square&logo=Docker&logoColor=white"/></a>
 
+
+
 ## Code Style
+
+
 
 ## Git Rule
 
