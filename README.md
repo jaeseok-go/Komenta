@@ -41,7 +41,7 @@ gantt
     %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
 
     section 프로젝트 준비 
-    주제 선정				  :done, 1-11, 4d
+    주제 선정				  :done, 1-11, 1-14
     기능 목록 상세 도출			:done, 1-14, 3d
     화면 기획				  :done, 1-14, 3d
     개발 환경 구성             :done, 1-12, 2d
