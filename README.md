@@ -51,7 +51,7 @@ gantt
     section Auth server
     MariaDB 구축 및 백업구현     	 :, 1-19, 2d
     User CRUD 구현 		   :, dec1, 1-22, 3d
-    User SNS Login API          :, dec2, after dec1, 2d
+    User SNS Login API          :, after dec1, 2d
     User Session(JWT 인증)       : 1-26, 1-27
     User PW, 이메일 인증        : 1,27, 1d
     
