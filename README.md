@@ -47,13 +47,12 @@ gantt
     개발 환경 구성             :done, 01-12, 2d
     ERD                     : 01-18, 2d
     
-    
     section Auth server
     MariaDB 구축 및 백업구현     	 :01-19, 2d
     User CRUD 구현 		   :01-22, 3d
     User SNS Login API          :01-25, 2d
     User Session(JWT 인증)       :01-26, 1-27
-    User PW, 이메일 인증        :01,27, 1d
+    User PW, 이메일 인증        :01,28, 2d
     
     %%section 기타
 ```
