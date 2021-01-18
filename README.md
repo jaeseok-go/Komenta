@@ -34,8 +34,12 @@
 5-3. 사이드바 구성
 
 ## Stack
-<img src="https://img.shields.io/badge/쓰고자하는_텍스트-컬러코드?style=flat-square&logo=simpleicons에서_아이콘이름&logoColor=white"/></a>&nbsp 
-<img src="https://img.shields.io/badge/Spring-informational?style=flat-square&logo=Spring&logoColor=white"/></a>&nbsp 
+
+<img src="https://img.shields.io/badge/Spring-success?style=flat-square&logo=Spring&logoColor=white"/></a>&nbsp 
+<img src="https://img.shields.io/badge/IntelliJ-9cf?style=flat-square&logo=intelliJ IDEA&logoColor=white"/></a>
+
+<img src="https://img.shields.io/badge/Vue.js-brightgreen?style=flat-square&logo=Vue.js&logoColor=white"/></a>&nbsp 
+<img src="https://img.shields.io/badge/VSCode-informational?style=flat-square&logo=Visual Strudio Code&logoColor=white"/></a>
 
 ## Code Style
 
