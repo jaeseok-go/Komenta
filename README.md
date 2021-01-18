@@ -1,4 +1,4 @@
-#Komenta
+# Komenta
 
 
 ## 팀원 소개
@@ -27,12 +27,6 @@
 5. 화면 구성
 
 
-5-1. 대문화면 구성
-
-5-2. 메인화면 구성
-
-5-3. 사이드바 구성
-
 ## Stack
 
 <img src="https://img.shields.io/badge/Spring-success?style=flat-square&logo=Spring&logoColor=white"/></a> 
@@ -47,5 +41,19 @@
 
 ## Code Style
 
-## Commit Rule
+
+
+## Git Rule
+
+### branch
+
+`master -> develop -> feature/FE(김채린, 박수아, 정혜림) or feature/BE(고재석, 배상웅)`
+
+### merge
+
+``
+
+### commit
+
+``
 
