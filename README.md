@@ -155,3 +155,83 @@ gantt
 ### 5.VOD
 
 ![image-20210120205930506](README.assets/image-20210120205930506.png)
+
+
+
+### 6. VOD 상세페이지
+
+![image-20210120210438571](README.assets/image-20210120210438571.png)
+
+![image-20210120210518090](README.assets/image-20210120210518090.png)
+
+![image-20210120210530989](README.assets/image-20210120210530989.png)
+
+
+
+### 7. LOGIN
+
+![image-20210120210611090](README.assets/image-20210120210611090.png) 
+
+
+
+### 8. 회원가입
+
+![image-20210120210644966](README.assets/image-20210120210644966.png)
+
+
+
+### 9. ID/비밀번호 찾기
+
+![image-20210120210714766](README.assets/image-20210120210714766.png)
+
+
+
+### 10-1. 내 정보(1)
+
+![image-20210120210740969](README.assets/image-20210120210740969.png)
+
+
+
+### 10-2 내 정보 상세(2)
+
+![image-20210120210810731](README.assets/image-20210120210810731.png)
+
+
+
+### 11-1 타유저 피드(1)
+
+![image-20210120210850669](README.assets/image-20210120210850669.png)
+
+
+
+### 11-2 타유저 피드 상세(2)
+
+![image-20210120210908597](README.assets/image-20210120210908597.png)
+
+
+
+### 12-1 마이페이지(1)
+
+![image-20210120210943233](README.assets/image-20210120210943233.png)
+
+![image-20210120211000495](README.assets/image-20210120211000495.png)
+
+
+
+### 13. 관리자페이지
+
+![image-20210120211022844](README.assets/image-20210120211022844.png)
+
+![image-20210120211033822](README.assets/image-20210120211033822.png)
+
+
+
+### 14-1. 멤버십페이지(1)
+
+![image-20210120211051082](README.assets/image-20210120211051082.png)
+
+
+
+### 14-2 멤버십페이지 결제 창(2)
+
+![image-20210120211113446](README.assets/image-20210120211113446.png)
