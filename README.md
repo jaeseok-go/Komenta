@@ -1,5 +1,7 @@
 # Komenta
 
+[TOC]
+
 
 
 ## 팀원 소개
@@ -101,3 +103,55 @@ gantt
 ### commit
 
 ``
+
+
+
+## Prototype
+
+### 1. About-page(1)
+
+![image-20210120205153376](README.assets/image-20210120205153376.png)
+
+
+
+### 1-1.About-page(2)
+
+![image-20210120205257024](README.assets/image-20210120205257024.png)
+
+
+
+### 1-2. About-page(3)
+
+![image-20210120205321076](README.assets/image-20210120205321076.png)
+
+
+
+
+
+### 2-1.Main-page(1) 
+
+![image-20210120205407289](README.assets/image-20210120205407289.png)
+
+
+
+### 2-2.Main-page(2)
+
+![image-20210120205744348](README.assets/image-20210120205744348.png)
+
+
+
+### 3.My Streaming List
+
+![image-20210120205837584](README.assets/image-20210120205837584.png)
+
+
+
+### 4.My Streaming List 상세 페이지
+
+![image-20210120205858350](README.assets/image-20210120205858350.png)
+
+
+
+### 5.VOD
+
+![image-20210120205930506](README.assets/image-20210120205930506.png)
