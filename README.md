@@ -108,19 +108,19 @@ gantt
 
 ## Prototype
 
-### 1. About-page(1)
+### 1-1. About-page(1)
 
 ![image-20210120205153376](README.assets/image-20210120205153376.png)
 
 
 
-### 1-1.About-page(2)
+### 1-2.About-page(2)
 
 ![image-20210120205257024](README.assets/image-20210120205257024.png)
 
 
 
-### 1-2. About-page(3)
+### 1-3. About-page(3)
 
 ![image-20210120205321076](README.assets/image-20210120205321076.png)
 
