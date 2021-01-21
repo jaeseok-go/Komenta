@@ -1,28 +1,21 @@
 <template>
     <div>
-        
+        <h1>하이</h1>
+        <LoginForm></LoginForm>
     </div>
+  
 </template>
 
 <script>
+import LoginForm from '../../components/LoginForm'
 export default {
-    name: 'Login',
-    components: { ComponentName },
-    directives: { DirectiveName },
-    data() {
-        return {
-            
-        };
-    },
-    mounted() {
-        
-    },
-    methods: {
-        
-    },
-};
+    components: {
+        LoginForm
+    }
+
+}
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>
