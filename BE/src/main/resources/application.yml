@@ -6,5 +6,5 @@ spring:
     password: root
 
 mybatis:
-  type-aliases-package: com.test.examplelogin.mapper
+  type-aliases-package: com.komenta.be.mapper
   mapper-locations: mybatis/mapper/**/*.xml
