@@ -233,3 +233,14 @@ gantt
 ### 17. 멤버십페이지 결제 창 페이지(2)
 
 ![image-20210120211113446](README.assets/image-20210120211113446.png)
+
+`
+
+
+
+
+
+## ERD
+
+
+![ERD (Komenta)](README.assets/ERD (Komenta).png)
