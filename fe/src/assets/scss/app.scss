@@ -5,14 +5,200 @@ $form-border-color: #ced4da;
 $komenta-color: #fa243c;
 $test-color: #eb2239;
 
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(../fonts/Inter-Thin-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-Thin-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url(../fonts/Inter-ThinItalic-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-ThinItalic-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(../fonts/Inter-ExtraLight-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-ExtraLight-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url(../fonts/Inter-ExtraLightItalic-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-ExtraLightItalic-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/Inter-Light-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-Light-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/Inter-LightItalic-BETA.woff2) format('woff2'),
+    url(../fonts/Inter-LightItalic-BETA.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/Inter-Regular.woff2) format('woff2'),
+    url(../fonts/Inter-Regular.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/Inter-Italic.woff2) format('woff2'),
+    url(../fonts/Inter-Italic.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/Inter-Medium.woff2) format('woff2'),
+    url(../fonts/Inter-Medium.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/Inter-MediumItalic.woff2) format('woff2'),
+    url(../fonts/Inter-MediumItalic.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/Inter-SemiBold.woff2) format('woff2'),
+    url(../fonts/Inter-SemiBold.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/Inter-SemiBoldItalic.woff2) format('woff2'),
+    url(../fonts/Inter-SemiBoldItalic.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/Inter-Bold.woff2) format('woff2'),
+    url(../fonts/Inter-Bold.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../fonts/Inter-BoldItalic.woff2) format('woff2'),
+    url(../fonts/Inter-BoldItalic.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(../fonts/Inter-ExtraBold.woff2) format('woff2'),
+    url(../fonts/Inter-ExtraBold.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(../fonts/Inter-ExtraBoldItalic.woff2) format('woff2'),
+    url(../fonts/Inter-ExtraBoldItalic.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(../fonts/Inter-Black.woff2) format('woff2'),
+    url(../fonts/Inter-Black.woff) format('woff');
+}
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url(../fonts/Inter-BlackItalic.woff2) format('woff2'),
+    url(../fonts/Inter-BlackItalic.woff) format('woff');
+}
+
 *,
 ::after,
 ::before {
   box-sizing: border-box;
 }
 
+.alert-danger {
+  color: $bg-color !important;
+  background-color: #8b1221 !important;
+  border-color: #81101d !important;
+}
+
+.alert {
+  border-radius: 0;
+}
+
+.alert-message {
+  text-align: center;
+}
+
+.alert-dismissible .close {
+  top: -3px;
+  color: $bg-color;
+}
+
+.close {
+  opacity: 1;
+
+  &:focus,
+  &:hover {
+    color: #ffffff;
+  }
+}
+
 .block {
   display: block !important;
+}
+
+.bcol-login {
+  max-width: 50% !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+
+  & .input-group {
+    width: 64% !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
 //버튼 공통 설정
@@ -64,21 +250,6 @@ input {
 button,
 select {
   text-transform: none;
-}
-
-input {
-  &[type='checkbox'],
-  &[type='radio'] {
-    box-sizing: border-box;
-    padding: 0;
-  }
-
-  &[type='date'],
-  &[type='datetime-local'],
-  &[type='month'],
-  &[type='time'] {
-    -webkit-appearance: listbox;
-  }
 }
 
 .btn {
@@ -171,8 +342,107 @@ input {
   font-size: 0.875rem;
 }
 
-.btn-submit {
+.container-setting {
+  text-align: center;
+}
+
+.col-setting {
+  text-align: initial !important;
+  margin: auto;
+
+  & > .center {
+    text-align: center;
+  }
+}
+
+//공통 form design
+.form-control {
   display: block;
+  width: 70%;
+  height: calc(1.8125rem + 2px);
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-color;
+  background-color: $bg-color;
+  background-clip: padding-box;
+  border: 1px solid $form-border-color;
+  border-radius: 0.2rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc;
+  overflow: visible;
+  margin: 0;
+  font-family: inherit;
+}
+
+.form-control-plaintext.form-control-lg,
+.form-control-plaintext.form-control-sm {
+  padding-right: 0;
+  padding-left: 0;
+}
+.form-control-sm {
+  height: calc(1.425rem + 2px);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.1rem;
+}
+.form-control-lg {
+  height: calc(2.0875rem + 2px);
+  padding: 0.35rem 1rem;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000;
+}
+.h1,
+h1 {
+  font-size: 1.75rem;
+}
+.h2,
+h2 {
+  font-size: 1.53125rem;
+}
+.h3,
+h3 {
+  font-size: 1.3125rem;
+}
+.h4,
+h4 {
+  font-size: 1.09375rem;
+}
+.h5,
+.h6,
+h5,
+h6 {
+  font-size: 0.875rem;
 }
 
 //hr 공통 설정
@@ -187,8 +457,104 @@ hr {
   overflow: visible;
 }
 
+//hr 그라데이션
+.hrDesign.gradation {
+  background: $hr-color;
+  background-image: -webkit-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -moz-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -ms-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -o-linear-gradient(to left, #eee, #777, #eee);
+  background-image: linear-gradient(to left, #eee, #777, #eee);
+}
+
+input {
+  &[type='checkbox'],
+  &[type='radio'] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  &[type='date'],
+  &[type='datetime-local'],
+  &[type='month'],
+  &[type='time'] {
+    -webkit-appearance: listbox;
+  }
+}
+
+.input-group {
+  width: 70%;
+  border: 1px solid #ced4da;
+  border-radius: 0.2rem;
+  &:focus-within {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: 0;
+  }
+}
+
+.input-group-append,
+.input-group-prepend {
+  display: flex;
+}
+.input-group-append .btn,
+.input-group-prepend .btn {
+  position: relative;
+  z-index: 2;
+}
+.input-group-append .btn:focus,
+.input-group-prepend .btn:focus {
+  z-index: 3;
+}
+.input-group-append .btn + .btn,
+.input-group-append .btn + .input-group-text,
+.input-group-append .input-group-text + .btn,
+.input-group-append .input-group-text + .input-group-text,
+.input-group-prepend .btn + .btn,
+.input-group-prepend .btn + .input-group-text,
+.input-group-prepend .input-group-text + .btn,
+.input-group-prepend .input-group-text + .input-group-text {
+  margin-left: -1px;
+}
+.input-group-prepend {
+  margin-right: -1px;
+}
+.input-group-append {
+  margin-left: -1px;
+}
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border: none;
+  // border: 1px solid #ced4da;
+  // border-right-color: #fff;
+  border-radius: 0.2rem;
+}
+
+.input-group > input {
+  border: none;
+  width: 62.54%;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
 //또는
 .inContent.or {
+  margin-top: 2em;
+  margin-bottom: 3em;
+  width: 30%;
   &:after {
     content: '또는';
     box-sizing: border-box;
@@ -204,33 +570,35 @@ hr {
     // transform: rotate(60deg);
   }
 }
+.sns-login-logo {
+  margin: 2.3em;
+  border-radius: 4px;
+  &.kakao {
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(255, 235, 59);
 
-//hr 그라데이션
-.hrDesign.gradation {
-  background: $hr-color;
-  background-image: -webkit-linear-gradient(to left, #eee, #777, #eee);
-  background-image: -moz-linear-gradient(to left, #eee, #777, #eee);
-  background-image: -ms-linear-gradient(to left, #eee, #777, #eee);
-  background-image: -o-linear-gradient(to left, #eee, #777, #eee);
-  background-image: linear-gradient(to left, #eee, #777, #eee);
+    & svg {
+      position: relative;
+      top: 5px;
+    }
+  }
 }
 
-//공통 form design
-.form-control {
-  display: block;
-  width: 100%;
-  height: calc(1.8125rem + 2px);
-  padding: 0.25rem 0.7rem;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: $text-color;
-  background-color: $bg-color;
-  background-clip: padding-box;
-  border: 1px solid $form-border-color;
-  border-radius: 0.2rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc;
-  overflow: visible;
-  margin: 0;
-  font-family: inherit;
+.sign-setting {
+  margin: 3em;
+}
+
+.title-logo {
+  margin: 0.21em 0 0.51em 0.25em;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.title-text {
+  margin: 1.25rem 0;
+  font-weight: 700;
 }
