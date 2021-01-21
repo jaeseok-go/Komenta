@@ -1,7 +1,7 @@
-package com.test.examplelogin.controller;
+package com.komenta.be.controller;
 
-import com.test.examplelogin.model.MemberDTO;
-import com.test.examplelogin.service.MemberService;
+import com.komenta.be.model.MemberDTO;
+import com.komenta.be.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

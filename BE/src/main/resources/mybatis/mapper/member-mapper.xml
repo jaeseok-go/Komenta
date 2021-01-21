@@ -1,10 +1,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.test.examplelogin.mapper.MemberMapper">
+<mapper namespace="com.komenta.be.mapper.MemberMapper">
 
     <select id="getPw" parameterType="String"
-            resultType="com.test.examplelogin.model.MemberDTO">
+            resultType="com.komenta.be.model.MemberDTO">
         SELECT USERID, USERPW, USERNAME, EMAIL, ADDRESS
         FROM MEMBER
     </select>
