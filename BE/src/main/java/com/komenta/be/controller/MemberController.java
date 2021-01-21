@@ -1,6 +1,6 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.MemberDTO;
+import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

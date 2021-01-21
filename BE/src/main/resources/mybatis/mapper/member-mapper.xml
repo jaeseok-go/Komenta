@@ -4,7 +4,7 @@
 <mapper namespace="com.komenta.be.mapper.MemberMapper">
 
     <select id="getPw" parameterType="String"
-            resultType="com.komenta.be.model.MemberDTO">
+            resultType="com.komenta.be.model.member.MemberDTO">
         SELECT USERID, USERPW, USERNAME, EMAIL, ADDRESS
         FROM MEMBER
     </select>
