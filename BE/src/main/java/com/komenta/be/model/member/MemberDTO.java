@@ -8,10 +8,11 @@ public class MemberDTO{
     private String u_phone_number;
     private String u_nickname;
     private String u_expire_member;
+    private boolean u_is_blocked;
     private boolean u_is_admin;
     private String u_profile_pci;
 
-    public MemberDTO(int u_id, String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, String u_profile_pci) {
+    public MemberDTO(int u_id, String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, String u_profile_pci, boolean u_is_blocked) {
         this.u_id = u_id;
         this.u_email = u_email;
         this.u_pw = u_pw;
@@ -20,16 +21,27 @@ public class MemberDTO{
         this.u_expire_member = u_expire_member;
         this.u_is_admin = u_is_admin;
         this.u_profile_pci = u_profile_pci;
+        this.u_is_blocked = u_is_blocked;
     }
 
-    public MemberDTO(String u_email, String u_pw, String u_phone_number, String u_nickname, boolean u_is_admin, String u_profile_pci) {
+    public MemberDTO(boolean u_is_blocked, String u_email, String u_pw, String u_phone_number, String u_nickname, boolean u_is_admin, String u_profile_pci) {
         this.u_email = u_email;
         this.u_pw = u_pw;
         this.u_phone_number = u_phone_number;
         this.u_nickname = u_nickname;
         this.u_is_admin = u_is_admin;
         this.u_profile_pci = u_profile_pci;
+        this.u_is_blocked = u_is_blocked;
     }
+
+    public boolean isU_is_blocked() {
+        return u_is_blocked;
+    }
+
+    public void setU_is_blocked(boolean u_is_blocked) {
+        this.u_is_blocked = u_is_blocked;
+    }
+
     // u_id는 setter 없음
     public int getU_id() {
         return u_id;
@@ -100,6 +112,7 @@ public class MemberDTO{
                 ", u_phone_number='" + u_phone_number + '\'' +
                 ", u_nickname='" + u_nickname + '\'' +
                 ", u_expire_member='" + u_expire_member + '\'' +
+                ", u_is_blocked=" + u_is_blocked +
                 ", u_is_admin=" + u_is_admin +
                 ", u_profile_pci='" + u_profile_pci + '\'' +
                 '}';
