@@ -243,4 +243,4 @@ gantt
 ## ERD
 
 
-![ERD (Komenta)](README.assets/ERD (Komenta).png)
+![ERD (Komenta)](README.assets/ERD(Komenta).png)
