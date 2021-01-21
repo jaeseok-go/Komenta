@@ -5,12 +5,12 @@
       <form @sumbit.prevent="submitLogin">
           <div>
             <input 
-              v-model="email" 
+              v-model="userId" 
               placeholder="이메일"
               type="text" >
           </div>
           <p>
-            <span v-if="!isUserIdValid">
+            <span v-if="!isUserIdValid && userId">
                 이메일 형식으로 입력해주세요.
             </span>
           </p>
@@ -46,11 +46,9 @@ export default {
     },
     computed: {
       isUserIdValid() {
-        if (!this.userId) {
-          return true;
-        }
         return validateEmail(this.userId);
       },
+      
       isLoginValid() {
         if (!this.isUserIdValid || !this.password) {
           return true
