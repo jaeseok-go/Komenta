@@ -1,72 +1,107 @@
 <template>
-  <div>
-    <h1>가입하기</h1>
-    <p>{{ logMessage }}</p>
-    <form @submit.prevent="submitSignup">
-      <div>
-        <div>
+  <b-container>
+    <h2>회원가입하기</h2>
+    <!-- <p>{{ logMessage }}</p> -->
+    <b-form @submit.prevent="submitSignup">
+      <b-row>
+        <b-col>
           <div>
-            <input
-              v-model="userId"
-              placeholder="example@example.com"
-              type="text"
-              autocapitalize="off"
-            />
+            <div>
+              <b-form-input
+                v-model="userId"
+                class="form-control form-large"
+                placeholder="example@example.com"
+                type="text"
+                autocapitalize="off"
+              />
+            </div>
+            <p class="warning-text">
+              <span v-if="!isUserIdValid">
+                id를 이메일형식으로 입력하세요.
+              </span>
+            </p>
+
+            <div>
+              <input
+                v-model="password"
+                class="form-control"
+                type="password"
+                placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
+              />
+            </div>
+            <p>
+              <span v-if="!isPasswordValid">
+                password를 8자 이상 입력하세요.
+              </span>
+            </p>
+
+            <div>
+              <input
+                v-model="passwordConfirm"
+                class="form-control"
+                type="password"
+                placeholder="비밀번호를 다시 한번 입력하세요."
+              />
+            </div>
+            <p>
+              <span v-if="!isPasswordConfirmValid">
+                password가 일치하지 않습니다.
+              </span>
+            </p>
+
+            <div>
+              <input
+                v-model="username"
+                class="form-control"
+                placeholder="이름을 입력하세요."
+                type="text"
+              />
+            </div>
+
+            <button class="btn btn-normal btn-middle">휴대폰 인증</button>
           </div>
-          <p>
-            <span v-if="!isUserIdValid">
-              id를 이메일형식으로 입력하세요.
-            </span>
-          </p>
 
           <div>
-            <input
-              v-model="password"
-              type="password"
-              placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
-            />
+            <label>
+              <input v-model="isTerm" type="checkbox" id="term" />
+              <span>회원약관(필수)</span>
+            </label>
+            <span @click="termPopup = true">약관보기</span>
           </div>
-          <p>
-            <span v-if="!isPasswordValid">
-              password를 8자 이상 입력하세요.
-            </span>
-          </p>
-
           <div>
-            <input
-              v-model="passwordConfirm"
-              type="password"
-              placeholder="비밀번호를 다시 한번 입력하세요."
-            />
+            <label>
+              <input v-model="isTerm" type="checkbox" id="term" />
+              <span>개인정보 수집 및 이용 동의(필수)</span>
+            </label>
+            <span @click="termPopup = true">약관보기</span>
           </div>
-          <p>
-            <span v-if="!isPasswordConfirmValid">
-              password가 일치하지 않습니다.
-            </span>
-          </p>
-
           <div>
-            <input
-              v-model="username"
-              placeholder="이름을 입력하세요."
-              type="text"
-            />
+            <label>
+              <input v-model="isTerm" type="checkbox" id="term" />
+              <span>마케팅/홍보의 수집 및 이용 동의(선택)</span>
+            </label>
+            <span @click="termPopup = true">약관보기</span>
           </div>
-
-          <button>휴대폰번호입력</button>
-        </div>
-
-        <label>
-          <input v-model="isTerm" type="checkbox" id="term" />
-          <span>약관을 동의합니다.</span>
-        </label>
-        <span @click="termPopup = true">약관보기</span>
-        <button :disabled="isSignupDisabled" @click="signupComplete">
-          가입하기
-        </button>
-      </div>
-    </form>
-  </div>
+          <div>
+            <label>
+              <input v-model="isTerm" type="checkbox" id="term" />
+              <span>전체 동의</span>
+            </label>
+          </div>
+        </b-col>
+        <b-col>
+          광고 배너
+        </b-col>
+      </b-row>
+      <button
+        class="btn btn-normal btn-middle btn-submit"
+        :disabled="isSignupDisabled"
+        @click="signupComplete"
+      >
+        가입하기
+      </button>
+    </b-form>
+  </b-container>
 </template>
 
 <script>
