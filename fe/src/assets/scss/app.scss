@@ -537,9 +537,11 @@ input {
   white-space: nowrap;
   background-color: #fff;
   border: none;
-  // border: 1px solid #ced4da;
-  // border-right-color: #fff;
   border-radius: 0.2rem;
+}
+
+.input-group-button {
+  cursor: pointer;
 }
 
 .input-group > input {
@@ -590,6 +592,14 @@ input {
 
 .sign-setting {
   margin: 3em;
+
+  & h6 a {
+    border-radius: 4px;
+    background-color: $komenta-color;
+    color: $bg-color;
+    padding: 1px 2px;
+    text-decoration: none;
+  }
 }
 
 .title-logo {
@@ -601,4 +611,14 @@ input {
 .title-text {
   margin: 1.25rem 0;
   font-weight: 700;
+}
+
+.warning-form {
+  text-align: center;
+
+  &.warning-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f01c35;
+  }
 }
