@@ -1,4 +1,4 @@
-package com.test.examplelogin.model;
+package com.komenta.be.model;
 
 
 public class MemberDTO{

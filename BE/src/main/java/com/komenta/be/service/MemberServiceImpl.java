@@ -1,7 +1,7 @@
-package com.test.examplelogin.service;
+package com.komenta.be.service;
 
-import com.test.examplelogin.mapper.MemberMapper;
-import com.test.examplelogin.model.MemberDTO;
+import com.komenta.be.mapper.MemberMapper;
+import com.komenta.be.model.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
