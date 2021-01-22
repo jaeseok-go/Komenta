@@ -1,7 +1,7 @@
 <template>
     <div id="kakao-login">
 
-        <button @click="kakaoLogin">
+        <button @click="kakaoSignup">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="55"
@@ -36,15 +36,28 @@
     import axios from 'axios'
     export default {
         methods: {
-            kakaoLogin() {
-                console.log(window.Kakao);
-                window.Kakao.Auth.login({
-                    scope : 'account_email, profile, age_range, birthday',
-                    success: this.GetMe,
+            kakaoSignup(){
+                console.log('회원가입',window.Kakao);
+                window.Kakao.Auth.authorize({
+                redirectUri: '{http://127.0.0.1:8000/}'
                 });
             },
+            kakaoLogin() {
+                console.log('로그인',window.Kakao);
+                window.Kakao.Auth.login({
+                    scope : 'account_email, profile, age_range, birthday',
+                    success: function(response) {
+                        console.log('성공이다',response);
+                        this.GetMe;
+                    },
+                    fail: function(error) {
+                        console.log('실패닼ㅋㅋㅋㅋㅋㅋ',error);
+                    }
+                });
+                // console.log(window.Kakao.Auth.)
+            },
             GetMe(authObj){
-                console.log(authObj);
+                console.log('왜ㅐㅐㅐㅐㅐㅐㅐㅐ',authObj);
                 window.Kakao.API.request({
                     url:'/v2/user/me',
                     success : res => {
