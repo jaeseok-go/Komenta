@@ -37,9 +37,9 @@
     export default {
         methods: {
             kakaoLogin() {
-                // console.log(window.Kakao);
+                console.log(window.Kakao);
                 window.Kakao.Auth.login({
-                    scope : 'account_email, profile, age_range birthday',
+                    scope : 'account_email, profile, age_range, birthday',
                     success: this.GetMe,
                 });
             },
