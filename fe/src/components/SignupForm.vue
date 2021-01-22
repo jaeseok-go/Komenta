@@ -10,6 +10,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
+                    <!-- 메일아이콘 -->
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
@@ -41,6 +42,7 @@
                 class="icon-inline-block"
                 v-show="isUserIdValid && !isDuplicaion"
               >
+              <!-- 체크표시 아이콘 -->
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="40"
@@ -60,6 +62,7 @@
                 class="icon-inline-block"
                 v-show="isUserIdValid && !isDuplicaion"
               >
+              <!-- 엑스표시 아이콘 -->
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="40"
@@ -87,12 +90,12 @@
                 <input
                   v-model="password"
                   class="form-control form-control-lg"
-                  type="password"
+                  :type="passwordType"
                   placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
                 />
                 <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
                 <div class="input-group-append">
-                  <div class="input-group-text input-group-button">
+                  <div class="input-group-text input-group-button" @click="viewPassword">
                     <font-awesome-icon :icon="['far', 'eye']" :style="{color:'#495057'}" />
                   </div>
                 </div>
@@ -127,30 +130,41 @@
               />
             </div>
 
-            <button class="btn btn-normal btn-middle btn-center">
+            <div>
+              <p></p>
+              <input
+                v-model="userPhoneNumber"
+                class="form-control form-control-lg"
+                placeholder="휴대폰번호를 입력하세요."
+                type="text"
+              />
+              <input type="text" v-if="phonebtn" class="form-control form-control-lg">
+              <!-- 인증번호 시간 + 인증번호 다시보내기 버튼 필요 -->
+            </div>
+            <button class="btn btn-normal btn-middle btn-center" @click="clickphonebtn">
               휴대폰 인증
             </button>
           </div>
 
           <div>
-              <input type="checkbox" id="term1" value="회원약관" v-model="isTerm" />
+              <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1" />
               <label for="term1">회원약관(필수)</label>
               <!-- <span>회원약관(필수)</span> -->
-              <span @click="termPopup = true">약관보기</span>
+              <span>약관보기</span>
           </div>
           <div>
-            <input type="checkbox" id="term2" value="개인정보" v-model="isTerm" />
+            <input type="checkbox" id="term2" value="term2" v-model="isTerm.term2" />
             <label for="term2">개인정보 수집 및 이용 동의(필수)</label>
-            <span @click="termPopup = true">약관보기</span>
+            <span>약관보기</span>
           </div>
           <div>
-            <input type="checkbox" id="term3" value="마케팅홍보" v-model="isTerm" />
+            <input type="checkbox" id="term3" value="term3" v-model="isTerm.term3" />
             <label for="term3">마케팅/홍보의 수집 및 이용 동의(선택)</label>
-            <span @click="termPopup = true">약관보기</span>
+            <span>약관보기</span>
           </div>
           <div>
-            <input type="checkbox" id="term4" value="전체동의" v-model="allTerm" />
-            <label for="term4">전체 동의</label>
+            <input type="checkbox" id="allTerm" value="allTerm" v-model="allTerm" @click="allTermcheck"/>
+            <label for="allTerm">전체 동의</label>
           </div>
         </b-col>
         <b-col>
@@ -181,7 +195,14 @@ export default {
       passwordConfirm: '',
       username: '',
       userPhoneNumber: '',
-      isTerm: [],
+      phonebtn:false,
+      passwordType:"password",
+      isTerm: {
+        term1:false,
+        term2:false,
+        term3:false,
+      },
+      allTerm:false,
       termPopup: false,
       logMessage: '',
     };
@@ -227,6 +248,32 @@ export default {
     },
   },
   methods: {
+    clickphonebtn() {
+      this.phonebtn = !this.phonebtn
+    },
+    viewPassword() {
+      // tupe이 password가 tureaus text, false라면 type이 password
+      this.passwordType = this.passwordType==="password" ? "text" : "password";
+    },
+    isDuplicaion() {
+      console.log('DUPLICATED')
+    },
+    allTermcheck(){
+      console.log(this.allTerm)
+      this.allTerm=!this.allTerm
+      if (this.allTerm) {
+        this.isTerm.term1=true
+        this.isTerm.term2=true
+        this.isTerm.term3=true
+        // this.allTerm=true
+      } else {
+        this.isTerm.term1=false
+        this.isTerm.term2=false
+        this.isTerm.term3=false
+        // this.allTerm=false
+      }
+      console.log(this.isTerm)
+    },
     submitSignup() {
       // const userData = {
       //     username: this.username,
