@@ -62,18 +62,17 @@
             <input
               v-model="password"
               class="form-control form-control-lg"
-              type="password"
+              :type="passwordType"
               placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
             />
             <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
             <div class="input-group-append">
 
               <div class="input-group-text input-group-button" @click="viewPassword">
-                <!-- <i class="far fa-eye"></i> -->
-                <!-- <font-awesome-icon
-                  :icon="['far', 'eye']"
+                <font-awesome-icon
+                  :icon="['far', fwName]"
                   :style="{ color: '#495057' }"
-                /> -->
+                />
               </div>
             </div>
           </div>
@@ -109,6 +108,8 @@ export default {
     return {
       userId: '',
       password: '',
+      passwordType:"password",
+      fwName:"eye",
       //log
       logMessage: '',
     };
@@ -129,6 +130,11 @@ export default {
     viewPassword() {
       // tupe이 password가 tureaus text, false라면 type이 password
       this.passwordType = this.passwordType==="password" ? "text" : "password";
+      if(this.passwordType === "text") {
+        this.fwName = "eye-slash"
+      }else {
+        this.fwName = "eye"
+      }
     },
     async loginComplete() {
       try {

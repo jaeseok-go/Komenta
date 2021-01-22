@@ -1,7 +1,7 @@
 <template>
     <div id="kakao-login">
 
-        <button @click="kakaoSignup">
+        <button @click="kakaoLogin">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="55"
@@ -39,7 +39,7 @@
             kakaoSignup(){
                 console.log('회원가입',window.Kakao);
                 window.Kakao.Auth.authorize({
-                redirectUri: '{http://127.0.0.1:8000/}'
+                redirectUri: '{http://localhost:8080/}'
                 });
             },
             kakaoLogin() {
@@ -52,6 +52,7 @@
                     },
                     fail: function(error) {
                         console.log('실패닼ㅋㅋㅋㅋㅋㅋ',error);
+                        alert(JSON.stringify(error));
                     }
                 });
                 // console.log(window.Kakao.Auth.)
