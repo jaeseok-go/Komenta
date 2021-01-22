@@ -614,10 +614,15 @@ input {
 }
 
 .warning-form {
-  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-left: 6rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  // text-align: center;
 
   &.warning-text {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: #f01c35;
   }

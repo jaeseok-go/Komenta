@@ -623,11 +623,23 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .warning-form {
-  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-left: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .warning-form.warning-text {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   color: #f01c35;
 }
+/*# sourceMappingURL=app.css.map */
