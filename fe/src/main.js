@@ -9,11 +9,16 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 
+import '@/plugins/firebase'
+
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
 library.add(faEye)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+// kakao로그인
+window.Kakao.init("d338deb4552528c55c4410d779ed9f0d");
 
 new Vue({
   router,
