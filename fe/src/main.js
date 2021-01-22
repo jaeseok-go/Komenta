@@ -18,7 +18,7 @@ library.add(faEye)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kakao로그인
-window.Kakao.init("d338deb4552528c55c4410d779ed9f0d");
+window.Kakao.init(process.env.VUE_APP_KAKAO_API_KEY);
 
 new Vue({
   router,
