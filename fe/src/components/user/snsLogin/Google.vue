@@ -30,10 +30,13 @@
             </svg>
 
         </button>
+        
     </div>
 </template>
 
 <script>
+// import firebase from 'firebase'
+
     export default {
       methods:{
         async signWithGoogle(){
@@ -42,6 +45,11 @@
           const response = await this.$firebase.auth().signInWithPopup(provider)
           console.log(response)
         },
+        // signOutGoogle() {
+        //     firebase.auth().signOut()
+        //     .then((res)=>console.log(res))
+        //     .catch((err)=>console.error(err))
+        // }
       }
     }
 </script>
