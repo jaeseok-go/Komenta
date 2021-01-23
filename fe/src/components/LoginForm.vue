@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="alert alert-danger alert-dismissible" role="alert">
+    <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
       <button
         type="button"
         class="close"
@@ -63,9 +63,7 @@
               :type="passwordType"
               placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
             />
-            <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
             <div class="input-group-append">
-
               <div class="input-group-text input-group-button" @click="viewPassword">
                 <font-awesome-icon
                   :icon="['far', fwName]"
@@ -110,6 +108,7 @@ export default {
       fwName:"eye",
       //log
       logMessage: '',
+      display: 'none'
     };
   },
   computed: {
@@ -144,6 +143,7 @@ export default {
         this.$router.push('/main');
       } catch (error) {
         this.logMessage = error.response.error;
+        this.loginError();
       } finally {
         this.initForm();
       }
@@ -152,6 +152,9 @@ export default {
       this.userId = '';
       this.password = '';
     },
+    loginError() {
+      this.display = 'block';
+    }
   }
 };
 </script>

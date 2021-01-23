@@ -4,7 +4,7 @@
             <h1 class="title-logo">Komenta</h1>
             <hr>
         </div>
-        <button @click="signOutGoogle" >Logout</button>
+        <button @click="signOutGoogle">Logout</button>
         <!-- <h1>하이</h1> -->
         <LoginForm></LoginForm>
 
