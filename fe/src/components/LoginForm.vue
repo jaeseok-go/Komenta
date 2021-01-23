@@ -82,7 +82,7 @@
         </b-form>
         <div class="sign-setting">
           <h6><a href="#">비밀번호</a> 를 잊어버리셨습니까?</h6>
-          <h6>아직 계정이 없으시다면? <a href="#">회원 가입</a></h6>
+          <h6>아직 계정이 없으시다면? <router-link to="/signup">회원 가입</router-link></h6>
         </div>
       </b-col>
     </b-container>
