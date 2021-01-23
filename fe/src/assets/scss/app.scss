@@ -408,6 +408,32 @@ select {
   border-radius: 0.3rem;
 }
 
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+
+  &.fwCheck {
+    color: #02cf40;
+  }
+
+  &.fwTimes {
+    color: rgb(211, 12, 12);
+  }
+}
+
+.fw-checkbox {
+  & input {
+    display: none;
+  }
+  & .chk-label {
+    font-size: 1.5rem;
+    color: #495057;
+    margin-right: 0.33rem;
+    position: relative;
+    top: 0.1rem;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -624,6 +650,13 @@ input {
   }
 }
 
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
 .title-logo {
   margin: 0.21em 0 0.51em 0.25em;
   font-weight: 700;
@@ -631,17 +664,21 @@ input {
 }
 
 .title-text {
-  margin: 1.25rem 0;
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
   font-weight: 700;
+  text-align: left;
 }
 
 .warning-form {
   margin-bottom: 1rem;
-  // margin-left: 6rem;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-evenly;
-  // text-align: center;
+
+  &.warning-signup {
+    width: 70%;
+  }
 
   & .warning-text {
     font-size: 0.85rem;

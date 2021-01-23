@@ -406,6 +406,31 @@ select {
   border-radius: 0.3rem;
 }
 
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+}
+
+.fw-icon.fwCheck {
+  color: #02cf40;
+}
+
+.fw-icon.fwTimes {
+  color: #d30c0c;
+}
+
+.fw-checkbox input {
+  display: none;
+}
+
+.fw-checkbox .chk-label {
+  font-size: 1.5rem;
+  color: #495057;
+  margin-right: 0.33rem;
+  position: relative;
+  top: 0.1rem;
+}
+
 h1,
 h2,
 h3,
@@ -625,6 +650,13 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   text-decoration: none;
 }
 
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
 .title-logo {
   margin: 0.21em 0 0.51em 0.25em;
   font-weight: 700;
@@ -632,8 +664,10 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .title-text {
-  margin: 1.25rem 0;
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
   font-weight: 700;
+  text-align: left;
 }
 
 .warning-form {
@@ -648,6 +682,10 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+}
+
+.warning-form.warning-signup {
+  width: 70%;
 }
 
 .warning-form .warning-text {
