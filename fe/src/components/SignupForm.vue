@@ -11,22 +11,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <!-- 메일아이콘 -->
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#495057"
-                      stroke-width="1"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                      ></path>
-                      <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
+                    <font-awesome-icon :icon="['far', 'envelope' ]" :style="{color:'#495057'}" />
                   </div>
                 </div>
                 <input
@@ -38,49 +23,18 @@
                 />
               </div>
               <!-- 중복 아이디가 아닐 때 표출(구현예정) -->
-              <p
-                class="icon-inline-block"
-                v-show="isUserIdValid && !isDuplicaion"
-              >
+              <p class="icon-inline-block" v-show="isUserIdValid && !isDuplicaion">
               <!-- 체크표시 아이콘 -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  stroke="rgb(0, 218, 65)"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
+                <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 아이디일 때 표출(구현예정) -->
-              <p
-                class="icon-inline-block"
-                v-show="isUserIdValid && !isDuplicaion"
-              >
+              <p class="icon-inline-block" v-show="isUserIdValid && !isDuplicaion">
               <!-- 엑스표시 아이콘 -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 28 28"
-                  fill="none"
-                  stroke="rgb(211, 12, 12)"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+                <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
             </div>
-            <p class="warning-form warning-text">
-              <span v-if="!isUserIdValid">
+            <p class="warning-form warning-signup">
+              <span class="warning-text" v-if="!isUserIdValid">
                 id를 이메일형식으로 입력하세요.
               </span>
             </p>
@@ -101,8 +55,8 @@
                 </div>
               </div>
             </div>
-            <p>
-              <span v-if="!isPasswordValid">
+            <p class="warning-form warning-signup">
+              <span class="warning-text" v-if="!isPasswordValid">
                 password를 8자 이상 입력하세요.
               </span>
             </p>
@@ -115,8 +69,8 @@
                 placeholder="비밀번호를 다시 한번 입력하세요."
               />
             </div>
-            <p>
-              <span v-if="!isPasswordConfirmValid">
+            <p class="warning-form warning-signup">
+              <span class="warning-text" v-if="!isPasswordConfirmValid">
                 password가 일치하지 않습니다.
               </span>
             </p>
@@ -135,7 +89,7 @@
               <input
                 v-model="userPhoneNumber"
                 class="form-control form-control-lg"
-                placeholder="휴대폰번호를 입력하세요."
+                placeholder="휴대폰번호를 입력하세요(-제외한 숫자만 입력)"
                 type="text"
               />
               <input type="text" v-if="phonebtn" class="form-control form-control-lg">
@@ -148,22 +102,25 @@
 
           <div>
               <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1" />
+              <label for="term1"></label>
               <label for="term1">회원약관(필수)</label>
-              <!-- <span>회원약관(필수)</span> -->
-              <span>약관보기</span>
+              <span class="termView">약관보기</span>
           </div>
           <div>
             <input type="checkbox" id="term2" value="term2" v-model="isTerm.term2" />
+            <label for="term2"></label>
             <label for="term2">개인정보 수집 및 이용 동의(필수)</label>
-            <span>약관보기</span>
+            <span class="termView">약관보기</span>
           </div>
           <div>
             <input type="checkbox" id="term3" value="term3" v-model="isTerm.term3" />
+            <label for="term3"></label>
             <label for="term3">마케팅/홍보의 수집 및 이용 동의(선택)</label>
-            <span>약관보기</span>
+            <span class="termView">약관보기</span>
           </div>
           <div>
             <input type="checkbox" id="allTerm" value="allTerm" v-model="allTerm" @click="allTermcheck"/>
+            <label for="allTerm"></label>
             <label for="allTerm">전체 동의</label>
           </div>
         </b-col>
