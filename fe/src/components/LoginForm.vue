@@ -16,8 +16,6 @@
       </div>
     </div>
     <b-container class="container-setting">
-      <!-- <h1>로그인</h1> -->
-      <!-- <p>{{ logMessage }}</p> -->
       <google/>
       <kakao/>
       <hr class="inContent or" />
@@ -52,8 +50,8 @@
               autocapitalize="off"
             />
           </div>
-          <p class="warning-form warning-text">
-            <span v-if="!isUserIdValid && userId">
+          <p class="warning-form">
+            <span class="warning-text" v-if="!isUserIdValid && userId">
               id를 이메일형식으로 입력하세요.
             </span>
           </p>
