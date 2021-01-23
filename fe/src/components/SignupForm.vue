@@ -100,27 +100,27 @@
             </button>
           </div>
 
-          <div>
-              <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1" />
-              <label for="term1"></label>
+          <div class="fw-checkbox">
+              <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1"/>
+              <label for="term1"><font-awesome-icon class="chk-label" :icon="[isTerm.icon1, 'check-circle']" /></label>
               <label for="term1">회원약관(필수)</label>
               <span class="termView">약관보기</span>
           </div>
-          <div>
-            <input type="checkbox" id="term2" value="term2" v-model="isTerm.term2" />
-            <label for="term2"></label>
+          <div class="fw-checkbox">
+            <input type="checkbox" id="term2" value="term2" v-model="isTerm.term2"/>
+            <label for="term2"><font-awesome-icon class="chk-label" :icon="[isTerm.icon2, 'check-circle']" /></label>
             <label for="term2">개인정보 수집 및 이용 동의(필수)</label>
             <span class="termView">약관보기</span>
           </div>
-          <div>
-            <input type="checkbox" id="term3" value="term3" v-model="isTerm.term3" />
-            <label for="term3"></label>
+          <div class="fw-checkbox">
+            <input type="checkbox" id="term3" value="term3" v-model="isTerm.term3"/>
+            <label for="term3"><font-awesome-icon class="chk-label" :icon="[isTerm.icon3, 'check-circle']" /></label>
             <label for="term3">마케팅/홍보의 수집 및 이용 동의(선택)</label>
             <span class="termView">약관보기</span>
           </div>
-          <div>
+          <div class="fw-checkbox">
             <input type="checkbox" id="allTerm" value="allTerm" v-model="allTerm" @click="allTermcheck"/>
-            <label for="allTerm"></label>
+            <label for="allTerm"><font-awesome-icon class="chk-label" :icon="[isTerm.icon4, 'check-circle']" /></label>
             <label for="allTerm">전체 동의</label>
           </div>
         </b-col>
@@ -159,6 +159,10 @@ export default {
         term1:false,
         term2:false,
         term3:false,
+        icon1:'far',
+        icon2:'far',
+        icon3:'far',
+        icon4:'far'
       },
       allTerm:false,
       termPopup: false,
@@ -228,14 +232,21 @@ export default {
         this.isTerm.term1=true
         this.isTerm.term2=true
         this.isTerm.term3=true
+        this.isTerm.icon1 = 'fas'
+        this.isTerm.icon2 = 'fas'
+        this.isTerm.icon3 = 'fas'
+        this.isTerm.icon4 = 'fas'
         // this.allTerm=true
       } else {
         this.isTerm.term1=false
         this.isTerm.term2=false
         this.isTerm.term3=false
+        this.isTerm.icon1 = 'far'
+        this.isTerm.icon2 = 'far'
+        this.isTerm.icon3 = 'far'
+        this.isTerm.icon4 = 'far'
         // this.allTerm=false
       }
-      console.log(this.isTerm)
     },
     submitSignup() {
       // const userData = {
@@ -257,6 +268,29 @@ export default {
       this.nickname = '';
     },
   },
+  watch: {
+    'isTerm.term1': function() {
+      if(this.isTerm.term1) {
+        this.isTerm.icon1 = 'fas'
+      }else {
+        this.isTerm.icon1 = 'far'
+      }
+    },
+    'isTerm.term2': function() {
+      if(this.isTerm.term2) {
+        this.isTerm.icon2 = 'fas'
+      }else {
+        this.isTerm.icon2 = 'far'
+      }
+    },
+    'isTerm.term3': function() {
+      if(this.isTerm.term3) {
+        this.isTerm.icon3 = 'fas'
+      }else {
+        this.isTerm.icon3 = 'far'
+      }
+    },
+  }
 };
 </script>
 

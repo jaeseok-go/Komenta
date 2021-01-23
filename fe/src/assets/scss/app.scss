@@ -421,6 +421,19 @@ select {
   }
 }
 
+.fw-checkbox {
+  & input {
+    display: none;
+  }
+  & .chk-label {
+    font-size: 1.5rem;
+    color: #495057;
+    margin-right: 0.33rem;
+    position: relative;
+    top: 0.1rem;
+  }
+}
+
 h1,
 h2,
 h3,
