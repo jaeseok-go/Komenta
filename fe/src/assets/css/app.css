@@ -664,8 +664,10 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .title-text {
-  margin: 1.25rem 0;
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
   font-weight: 700;
+  text-align: left;
 }
 
 .warning-form {

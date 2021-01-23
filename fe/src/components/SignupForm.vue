@@ -1,10 +1,10 @@
 <template>
   <b-container class="container-setting">
-    <h2 class="title-text">회원가입하기</h2>
     <!-- <p>{{ logMessage }}</p> -->
     <b-form @submit.prevent="submitSignup">
       <b-row>
         <b-col class="col-setting">
+          <h2 class="title-text">회원가입하기</h2>
           <div>
             <div>
               <div class="input-group">
