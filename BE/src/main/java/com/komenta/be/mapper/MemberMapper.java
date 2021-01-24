@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 
     int joinMember(MemberDTO dto);
-    MemberDTO getPw(String userid);
+    MemberDTO getInfoUser(String userid);
     int updateMember(MemberDTO dto);
+    int deleteMember(int uid);
 }
