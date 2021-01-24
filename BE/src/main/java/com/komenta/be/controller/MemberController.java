@@ -18,16 +18,14 @@ public class MemberController{
     @Autowired
     MemberService mservice;
 
-
-
     @ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 create 후 결과 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "member", value = "회원 정보", dataType = "MemberDTO", required = true)
     })
     @PostMapping("/join")
-    public boolean createMember(MemberDTO member){
-
-        return true;
+    public int createMember(MemberDTO member){
+        int result = mservice.joinMember(member);
+        return result;
     }
 
 
