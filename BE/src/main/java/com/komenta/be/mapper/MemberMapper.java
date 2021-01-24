@@ -8,4 +8,5 @@ public interface MemberMapper {
 
     int joinMember(MemberDTO dto);
     MemberDTO getPw(String userid);
+    int updateMember(MemberDTO dto);
 }

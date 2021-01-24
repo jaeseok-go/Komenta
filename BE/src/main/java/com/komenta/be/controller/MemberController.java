@@ -35,10 +35,13 @@ public class MemberController{
             @ApiImplicitParam(name = "u_email", value = "유저 이메일", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_password", value = "유저 비밀번호", dataType = "String", required = true)
     })
-    @GetMapping("/login")
-    public boolean loginMemeber(String u_email, String u_password){
-
-        return true;
+    @PostMapping("/login")
+    public boolean loginMember(String u_email, String u_password){
+        MemberDTO member=  mservice.getPw(u_email);
+        if(member.getU_pw().equals(u_password)){
+            return true;
+        }
+        return false;
     }
 
 
@@ -48,9 +51,8 @@ public class MemberController{
             @ApiImplicitParam(name = "member", value = "회원 정보", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/update")
-    public boolean updateMember(MemberDTO member){
-
-        return true;
+    public int updateMember(MemberDTO member){
+        return mservice.updateMember(member);
     }
 
 

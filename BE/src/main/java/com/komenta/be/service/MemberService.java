@@ -5,6 +5,6 @@ import com.komenta.be.model.member.MemberDTO;
 public interface MemberService{
 
     public int joinMember(MemberDTO dto);
-    public MemberDTO getPw(String userid);
-
+    public MemberDTO getPw(String useremail);
+    public int updateMember(MemberDTO dto);
 }

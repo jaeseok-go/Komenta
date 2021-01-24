@@ -18,8 +18,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO getPw(String userid) {
-        return sqlsession.getMapper(MemberMapper.class).getPw(userid);
+    public MemberDTO getPw(String useremail) {
+        return sqlsession.getMapper(MemberMapper.class).getPw(useremail);
     }
 
+    @Override
+    public int updateMember(MemberDTO dto) {
+        return sqlsession.getMapper(MemberMapper.class).updateMember(dto);
+    }
 }
