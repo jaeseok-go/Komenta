@@ -3,6 +3,7 @@ package com.komenta.be.controller;
 import com.komenta.be.model.member.AuthEmailDTO;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
+import com.komenta.be.service.JwtService;
 import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,6 +18,9 @@ public class MemberController{
 
     @Autowired
     MemberService mservice;
+
+    @Autowired
+    JwtService jwtService;
 
     @ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 create 후 결과 반환")
     @ApiImplicitParams({
@@ -37,8 +41,10 @@ public class MemberController{
     })
     @PostMapping("/login")
     public boolean loginMember(String u_email, String u_password){
-        MemberDTO member=  mservice.getPw(u_email);
+        MemberDTO member=  mservice.getInfoUser(u_email);
         if(member.getU_pw().equals(u_password)){
+            // 성공하면 jwt token create
+            jwtService.create(member);
             return true;
         }
         return false;
@@ -62,9 +68,8 @@ public class MemberController{
             @ApiImplicitParam(name = "u_email", value = "회원 아이디", dataType = "String", required = true)
     })
     @DeleteMapping("/delete")
-    public boolean deleteMember(String u_email){
-
-        return true;
+    public int deleteMember(String u_email){
+        return mservice.deleteMember(mservice.getInfoUser(u_email).getU_id());
     }
 
 
