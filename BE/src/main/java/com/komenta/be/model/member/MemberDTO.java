@@ -12,6 +12,12 @@ public class MemberDTO{
     private boolean u_is_admin;
     private String u_profile_pci;
 
+    public MemberDTO(int u_id, String u_email, String u_pw) {
+        this.u_id = u_id;
+        this.u_email = u_email;
+        this.u_pw = u_pw;
+    }
+
     public MemberDTO(int u_id, String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, String u_profile_pci, boolean u_is_blocked) {
         this.u_id = u_id;
         this.u_email = u_email;
