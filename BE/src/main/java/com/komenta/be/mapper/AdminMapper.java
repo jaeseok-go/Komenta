@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
 
-   List<MemberDTO> selectAllMember();
-   int updateMember(String u_email);
-   int deleteMember(String u_email);
+   public List<MemberDTO> selectAllMember();
+   public int updateMember(String u_email);
+   public int deleteMember(String u_email);
 
    public int uploadVod(VodDTO vod);
    public List<VodDTO> selectAllVod();
