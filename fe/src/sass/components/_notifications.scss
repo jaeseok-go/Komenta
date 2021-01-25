@@ -1,0 +1,46 @@
+.alert-danger {
+  color: $bg-color !important;
+  background-color: #8b1221 !important;
+  border-color: #81101d !important;
+}
+
+.alert {
+  border-radius: 0;
+}
+
+.alert-message {
+  text-align: center;
+}
+
+.alert-dismissible .close {
+  top: -3px;
+  color: $bg-color;
+}
+
+.authentic {
+  display: inline !important;
+  width: 10rem !important;
+}
+
+// .authentic-form {
+//   position: relative;
+//   left: 4.7rem;
+// }
+
+.authentic-text {
+  font-size: 13px;
+
+  & b:hover {
+    color: $komenta-color;
+    cursor: pointer;
+  }
+}
+
+.close {
+  opacity: 1;
+
+  &:focus,
+  &:hover {
+    color: #ffffff;
+  }
+}

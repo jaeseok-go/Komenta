@@ -1,0 +1,103 @@
+input {
+  &[type='checkbox'],
+  &[type='radio'] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  &[type='date'],
+  &[type='datetime-local'],
+  &[type='month'],
+  &[type='time'] {
+    -webkit-appearance: listbox;
+  }
+}
+
+.input-group {
+  width: 70%;
+  border: 1px solid #ced4da;
+  border-radius: 0.2rem;
+  display: inline-flex;
+  &:focus-within {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: 0;
+  }
+}
+
+.input-group-append,
+.input-group-prepend {
+  display: flex;
+}
+.input-group-append .btn,
+.input-group-prepend .btn {
+  position: relative;
+  z-index: 2;
+}
+.input-group-append .btn:focus,
+.input-group-prepend .btn:focus {
+  z-index: 3;
+}
+.input-group-append .btn + .btn,
+.input-group-append .btn + .input-group-text,
+.input-group-append .input-group-text + .btn,
+.input-group-append .input-group-text + .input-group-text,
+.input-group-prepend .btn + .btn,
+.input-group-prepend .btn + .input-group-text,
+.input-group-prepend .input-group-text + .btn,
+.input-group-prepend .input-group-text + .input-group-text {
+  margin-left: -1px;
+}
+.input-group-prepend {
+  margin-right: -1px;
+}
+.input-group-append {
+  margin-left: -1px;
+}
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+.input-group-button {
+  cursor: pointer;
+}
+
+.input-group > input {
+  border: none;
+  width: 62.54%;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+//또는
+.inContent.or {
+  margin-top: 2em;
+  margin-bottom: 3em;
+  width: 30%;
+  &:after {
+    content: '또는';
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    padding: 0 10px;
+    background-color: $bg-color;
+    color: $hr-color;
+    font-size: 18px;
+  }
+}

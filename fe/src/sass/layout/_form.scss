@@ -1,0 +1,72 @@
+//공통 form design
+.form-control {
+  display: block;
+  width: 70%;
+  height: calc(1.8125rem + 2px);
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-color;
+  background-color: $bg-color;
+  background-clip: padding-box;
+  border: 1px solid $form-border-color;
+  border-radius: 0.2rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc;
+  overflow: visible;
+  margin: 0;
+  font-family: inherit;
+}
+
+.form-control-plaintext.form-control-lg,
+.form-control-plaintext.form-control-sm {
+  padding-right: 0;
+  padding-left: 0;
+}
+.form-control-sm {
+  height: calc(1.425rem + 2px);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.1rem;
+}
+.form-control-lg {
+  height: calc(2.0875rem + 2px);
+  padding: 0.35rem 1rem;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+
+.warning-form {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+
+  &.warning-signup {
+    width: 70%;
+  }
+
+  & .warning-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #f01c35;
+    margin-top: 0.25rem;
+  }
+}
+
+.phoneNum-form {
+  margin-top: 2rem;
+
+  & .form-sort {
+    display: inline-block;
+    margin-left: 1rem;
+
+    & .form-sort-text {
+      margin-bottom: 1rem;
+    }
+  }
+}
+

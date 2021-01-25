@@ -1,0 +1,63 @@
+.sns-login-logo {
+  display: inline-block;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+  & button {
+    border: none;
+    background-color: #fff;
+  }
+  // &.kakao {
+  //   position: relative;
+  //   margin-right: auto;
+  //   margin-left: auto;
+  //   width: 60px;
+  //   height: 60px;
+  //   background-color: rgb(255, 235, 59);
+
+  //   & svg {
+  //     position: relative;
+  //     top: 5px;
+  //   }
+  // }
+}
+
+
+.sign-setting {
+  margin: 3em;
+
+  & h6 a {
+    border-radius: 4px;
+    background-color: $komenta-color;
+    color: $bg-color;
+    padding: 1px 2px;
+    text-decoration: none;
+  }
+}
+
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
+
+.bcol-login {
+  max-width: 50% !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+
+  & .input-group {
+    width: 64% !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+
+.idView {
+  font-weight: 700;
+  color: $komenta-color;
+}

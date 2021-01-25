@@ -25,7 +25,9 @@
 
 <script>
 import { validatePhoneNum } from '@/utils/validations';
-import '@/assets/css/app.css';
+// import '@/assets/css/app.css';
+import '@/css/index.css'
+
 export default {
   data() {
     return {

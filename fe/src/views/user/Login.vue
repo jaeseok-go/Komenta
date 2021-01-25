@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import '@/assets/css/app.css';
+// import '@/assets/css/app.css';
 import LoginForm from '../../components/LoginForm'
 // import firebase from 'firebase'
 
