@@ -6,7 +6,7 @@ const kakaoHeader = {
 };
 
 const getKakaoToken = async (code) => {
-    console.log('이거뭐냐','loginWithKakao');
+    console.log('loginWithKakao');
     try {
         const data = {
             grant_type: 'authorization_code',

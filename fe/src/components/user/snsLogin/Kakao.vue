@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getKakaoToken, getKakaoUserInfo } from "@/api/login";
+import { getKakaoToken, getKakaoUserInfo } from "@/api/snslogin";
 export default {
     created() {
         if (this.$route.query.code) {
