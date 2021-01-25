@@ -140,7 +140,8 @@ export default {
           password: this.password,
         };
         await this.$store.dispatch('LOGIN', userData);
-        this.$router.push('/main');
+        // this.$router.push('/main');
+        console.log('아유데어?')
       } catch (error) {
         this.logMessage = error.response.error;
         this.loginError();
