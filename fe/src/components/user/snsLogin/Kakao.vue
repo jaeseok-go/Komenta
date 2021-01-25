@@ -1,5 +1,6 @@
 <template>
-    <div id="kakao-login">
+    <div id="kakao-login" class="sns-login-logo">
+
         <button @click="loginWithKakao">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
