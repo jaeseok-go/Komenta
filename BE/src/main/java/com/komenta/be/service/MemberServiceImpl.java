@@ -7,13 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     @Autowired
     SqlSession sqlsession;
 
     @Override
-    public MemberDTO getPw(String userid) {
-        return sqlsession.getMapper(MemberMapper.class).getPw(userid);
+    public int joinMember(MemberDTO dto) {
+        return sqlsession.getMapper(MemberMapper.class).joinMember(dto);
+    }
+
+    @Override
+    public MemberDTO getInfoUser(String u_email) {
+        return sqlsession.getMapper(MemberMapper.class).getInfoUser(u_email);
+    }
+
+    @Override
+    public int updateMember(MemberDTO dto) {
+        return sqlsession.getMapper(MemberMapper.class).updateMember(dto);
+    }
+
+    @Override
+    public int deleteMember(int u_id) {
+        return sqlsession.getMapper(MemberMapper.class).deleteMember(u_id);
     }
 }

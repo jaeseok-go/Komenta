@@ -1,10 +1,10 @@
 package com.komenta.be.model.follow;
 
-public class BlockedVodTableDTO {
+public class BlockedVodDTO {
     private int u_id;
     private int v_id;
 
-    public BlockedVodTableDTO(int u_id, int v_id) {
+    public BlockedVodDTO(int u_id, int v_id) {
         this.u_id = u_id;
         this.v_id = v_id;
     }

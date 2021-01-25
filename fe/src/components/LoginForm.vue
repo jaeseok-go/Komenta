@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="alert alert-danger alert-dismissible" role="alert">
+    <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
       <button
         type="button"
         class="close"
@@ -16,8 +16,6 @@
       </div>
     </div>
     <b-container class="container-setting">
-      <!-- <h1>로그인</h1> -->
-      <!-- <p>{{ logMessage }}</p> -->
       <google/>
       <kakao/>
       <hr class="inContent or" />
@@ -52,8 +50,8 @@
               autocapitalize="off"
             />
           </div>
-          <p class="warning-form warning-text">
-            <span v-if="!isUserIdValid && userId">
+          <p class="warning-form">
+            <span class="warning-text" v-if="!isUserIdValid && userId">
               id를 이메일형식으로 입력하세요.
             </span>
           </p>
@@ -65,9 +63,7 @@
               :type="passwordType"
               placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
             />
-            <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
             <div class="input-group-append">
-
               <div class="input-group-text input-group-button" @click="viewPassword">
                 <font-awesome-icon
                   :icon="['far', fwName]"
@@ -86,7 +82,7 @@
         </b-form>
         <div class="sign-setting">
           <h6><a href="#">비밀번호</a> 를 잊어버리셨습니까?</h6>
-          <h6>아직 계정이 없으시다면? <a href="#">회원 가입</a></h6>
+          <h6>아직 계정이 없으시다면? <router-link to="/signup">회원 가입</router-link></h6>
         </div>
       </b-col>
     </b-container>
@@ -112,6 +108,7 @@ export default {
       fwName:"eye",
       //log
       logMessage: '',
+      display: 'none'
     };
   },
   computed: {
@@ -146,6 +143,7 @@ export default {
         this.$router.push('/main');
       } catch (error) {
         this.logMessage = error.response.error;
+        this.loginError();
       } finally {
         this.initForm();
       }
@@ -154,6 +152,9 @@ export default {
       this.userId = '';
       this.password = '';
     },
+    loginError() {
+      this.display = 'block';
+    }
   }
 };
 </script>

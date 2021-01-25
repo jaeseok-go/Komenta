@@ -342,6 +342,19 @@ select {
   font-size: 0.875rem;
 }
 
+.ftw-icon {
+  margin-left: 0.7rem;
+
+  &.check-icon {
+    color: #00da41;
+    font-size: 24px;
+  }
+  &.times-icon {
+    color: #d30c0c;
+    font-size: 27px;
+  }
+}
+
 .container-setting {
   text-align: center;
 }
@@ -393,6 +406,32 @@ select {
   font-size: 0.925rem;
   line-height: 1.5;
   border-radius: 0.3rem;
+}
+
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+
+  &.fwCheck {
+    color: #02cf40;
+  }
+
+  &.fwTimes {
+    color: rgb(211, 12, 12);
+  }
+}
+
+.fw-checkbox {
+  & input {
+    display: none;
+  }
+  & .chk-label {
+    font-size: 1.5rem;
+    color: #495057;
+    margin-right: 0.33rem;
+    position: relative;
+    top: 0.1rem;
+  }
 }
 
 h1,
@@ -467,6 +506,10 @@ hr {
   background-image: linear-gradient(to left, #eee, #777, #eee);
 }
 
+.icon-inline-block {
+  display: inline-block;
+}
+
 input {
   &[type='checkbox'],
   &[type='radio'] {
@@ -486,6 +529,7 @@ input {
   width: 70%;
   border: 1px solid #ced4da;
   border-radius: 0.2rem;
+  display: inline-flex;
   &:focus-within {
     color: #495057;
     background-color: #fff;
@@ -567,27 +611,31 @@ input {
     background-color: $bg-color;
     color: $hr-color;
     font-size: 18px;
-    // -webkit-transform: rotate(60deg);
-    // -moz-transform: rotate(60deg);
-    // transform: rotate(60deg);
   }
 }
-.sns-login-logo {
-  margin: 2.3em;
-  border-radius: 4px;
-  &.kakao {
-    position: relative;
-    margin-right: auto;
-    margin-left: auto;
-    width: 60px;
-    height: 60px;
-    background-color: rgb(255, 235, 59);
 
-    & svg {
-      position: relative;
-      top: 5px;
-    }
+.sns-login-logo {
+  display: inline-block;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+  & button {
+    border: none;
+    background-color: #fff;
   }
+  // &.kakao {
+  //   position: relative;
+  //   margin-right: auto;
+  //   margin-left: auto;
+  //   width: 60px;
+  //   height: 60px;
+  //   background-color: rgb(255, 235, 59);
+
+  //   & svg {
+  //     position: relative;
+  //     top: 5px;
+  //   }
+  // }
 }
 
 .sign-setting {
@@ -602,6 +650,13 @@ input {
   }
 }
 
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
 .title-logo {
   margin: 0.21em 0 0.51em 0.25em;
   font-weight: 700;
@@ -609,16 +664,26 @@ input {
 }
 
 .title-text {
-  margin: 1.25rem 0;
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
   font-weight: 700;
+  text-align: left;
 }
 
 .warning-form {
-  text-align: center;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
 
-  &.warning-text {
-    font-size: 1rem;
+  &.warning-signup {
+    width: 70%;
+  }
+
+  & .warning-text {
+    font-size: 0.85rem;
     font-weight: 500;
     color: #f01c35;
+    margin-top: 0.25rem;
   }
 }

@@ -2,11 +2,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.komenta.be.mapper.MemberMapper">
+    <insert id="joinMember" parameterType="com.komenta.be.model.member.MemberDTO">
+        insert into MEMBER (u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic)
+        values (#{u_email}, #{u_pw}, #{u_phone_number}, #{u_nickname}, #{u_expire_member}, #{u_is_admin}, #{u_profile_pic})
+    </insert>
 
-    <select id="getPw" parameterType="String"
+    <select id="getInfoUser" parameterType="String"
             resultType="com.komenta.be.model.member.MemberDTO">
-        SELECT USERID, USERPW, USERNAME, EMAIL, ADDRESS
+        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic
         FROM MEMBER
+        WHERE u_email = #{u_email}
     </select>
 
+    <update id="updateMember" parameterType="com.komenta.be.model.member.MemberDTO">
+        update MEMBER
+        set u_pw = #{u_pw},
+            u_phone_number = #{u_phone_number},
+            u_nickname = #{u_nickname},
+            u_profile_pic = #{u_profile_pic}
+        where u_id = #{u_id}
+    </update>
+
+    <delete id="deleteMember" parameterType="Integer">
+        delete
+        from MEMBER
+        where u_id = #{u_id}
+    </delete>
 </mapper>

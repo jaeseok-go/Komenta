@@ -1,5 +1,9 @@
 <template>
 	<div>
+		<div>
+				<h1 class="title-logo">Komenta</h1>
+				<hr>
+		</div>
 		<SignupForm></SignupForm>
 	</div>
 </template>

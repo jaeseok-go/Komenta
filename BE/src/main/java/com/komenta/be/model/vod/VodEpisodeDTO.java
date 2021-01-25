@@ -1,18 +1,18 @@
 package com.komenta.be.model.vod;
 
-public class VodEpisodeTableDTO {
+public class VodEpisodeDTO {
     private int ve_id;
     private int v_id;
     private int ve_episode_num;
     private String ve_contents;
 
-    public VodEpisodeTableDTO(int v_id, int ve_episode_num, String ve_contents) {
+    public VodEpisodeDTO(int v_id, int ve_episode_num, String ve_contents) {
         this.v_id = v_id;
         this.ve_episode_num = ve_episode_num;
         this.ve_contents = ve_contents;
     }
 
-    public VodEpisodeTableDTO(int ve_id, int v_id, int ve_episode_num, String ve_contents) {
+    public VodEpisodeDTO(int ve_id, int v_id, int ve_episode_num, String ve_contents) {
         this.ve_id = ve_id;
         this.v_id = v_id;
         this.ve_episode_num = ve_episode_num;

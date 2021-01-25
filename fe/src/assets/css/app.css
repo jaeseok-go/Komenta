@@ -335,6 +335,20 @@ select {
   font-size: 0.875rem;
 }
 
+.ftw-icon {
+  margin-left: 0.7rem;
+}
+
+.ftw-icon.check-icon {
+  color: #00da41;
+  font-size: 24px;
+}
+
+.ftw-icon.times-icon {
+  color: #d30c0c;
+  font-size: 27px;
+}
+
 .container-setting {
   text-align: center;
 }
@@ -390,6 +404,31 @@ select {
   font-size: 0.925rem;
   line-height: 1.5;
   border-radius: 0.3rem;
+}
+
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+}
+
+.fw-icon.fwCheck {
+  color: #02cf40;
+}
+
+.fw-icon.fwTimes {
+  color: #d30c0c;
+}
+
+.fw-checkbox input {
+  display: none;
+}
+
+.fw-checkbox .chk-label {
+  font-size: 1.5rem;
+  color: #495057;
+  margin-right: 0.33rem;
+  position: relative;
+  top: 0.1rem;
 }
 
 h1,
@@ -465,6 +504,10 @@ hr {
   background-image: linear-gradient(to left, #eee, #777, #eee);
 }
 
+.icon-inline-block {
+  display: inline-block;
+}
+
 input[type='checkbox'], input[type='radio'] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -479,6 +522,9 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   width: 70%;
   border: 1px solid #ced4da;
   border-radius: 0.2rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 .input-group:focus-within {
@@ -581,22 +627,15 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .sns-login-logo {
-  margin: 2.3em;
-  border-radius: 4px;
+  display: inline-block;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  text-align: center;
 }
 
-.sns-login-logo.kakao {
-  position: relative;
-  margin-right: auto;
-  margin-left: auto;
-  width: 60px;
-  height: 60px;
-  background-color: #ffeb3b;
-}
-
-.sns-login-logo.kakao svg {
-  position: relative;
-  top: 5px;
+.sns-login-logo button {
+  border: none;
+  background-color: #fff;
 }
 
 .sign-setting {
@@ -611,6 +650,13 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   text-decoration: none;
 }
 
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
 .title-logo {
   margin: 0.21em 0 0.51em 0.25em;
   font-weight: 700;
@@ -618,13 +664,14 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .title-text {
-  margin: 1.25rem 0;
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
   font-weight: 700;
+  text-align: left;
 }
 
 .warning-form {
-  margin-bottom: 0.5rem;
-  margin-left: 6rem;
+  margin-bottom: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -637,9 +684,13 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
           justify-content: space-evenly;
 }
 
-.warning-form.warning-text {
-  font-size: 1rem;
+.warning-form.warning-signup {
+  width: 70%;
+}
+
+.warning-form .warning-text {
+  font-size: 0.85rem;
   font-weight: 500;
   color: #f01c35;
+  margin-top: 0.25rem;
 }
-/*# sourceMappingURL=app.css.map */
