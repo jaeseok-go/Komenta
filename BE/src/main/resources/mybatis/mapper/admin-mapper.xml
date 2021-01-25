@@ -24,7 +24,7 @@
     </delete>
 
     <insert id="uploadVod" parameterType="com.komenta.be.model.vod.VodDTO">
-
+        insert into(v_id, v_title, v_summaary, v_director, v_actors, v_age_grade, v_poster)
     </insert>
 
     <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">
