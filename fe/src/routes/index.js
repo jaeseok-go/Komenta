@@ -22,6 +22,16 @@ export default new Router({
 		name:"Kakao",
 		component: () => import('@/components/user/snsLogin/Kakao.vue'),
 		},
+	 {
+		path: '/findId',
+		name:"FindId",
+		component: () => import('@/components/FindID.vue'),
+    },
+    {
+		path:'/findpw',
+		name:"FindPW",
+		component: () => import('@/components/FindPW.vue')
+    },
 
 	],
 });
