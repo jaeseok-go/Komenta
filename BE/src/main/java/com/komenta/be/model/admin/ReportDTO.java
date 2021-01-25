@@ -1,6 +1,6 @@
 package com.komenta.be.model.admin;
 
-public class ReportTableDTO {
+public class ReportDTO {
     private int r_id;
     private String r_type;
     private String r_contents;
@@ -8,7 +8,7 @@ public class ReportTableDTO {
     private int c_id;
     private int rc_id;
 
-    public ReportTableDTO(String r_type, String r_contents, int u_id, int c_id, int rc_id) {
+    public ReportDTO(String r_type, String r_contents, int u_id, int c_id, int rc_id) {
         this.r_type = r_type;
         this.r_contents = r_contents;
         this.u_id = u_id;
@@ -16,7 +16,7 @@ public class ReportTableDTO {
         this.rc_id = rc_id;
     }
 
-    public ReportTableDTO(int r_id, String r_type, String r_contents, int u_id, int c_id, int rc_id) {
+    public ReportDTO(int r_id, String r_type, String r_contents, int u_id, int c_id, int rc_id) {
         this.r_id = r_id;
         this.r_type = r_type;
         this.r_contents = r_contents;

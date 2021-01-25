@@ -1,10 +1,10 @@
 package com.komenta.be.model.playlist;
 
-public class PlayListGoodTableDTO {
+public class PlayListGoodDTO {
     private int pl_id;
     private int u_id;
 
-    public PlayListGoodTableDTO(int pl_id, int u_id) {
+    public PlayListGoodDTO(int pl_id, int u_id) {
         this.pl_id = pl_id;
         this.u_id = u_id;
     }

@@ -1,20 +1,20 @@
 package com.komenta.be.model.follow;
 
-public class FollowTableDTO {
-    private int f_id;
+public class UnFollowDTO {
+    private int uf_id;
     private int u_id;
 
-    public FollowTableDTO(int f_id, int u_id) {
-        this.f_id = f_id;
+    public UnFollowDTO(int uf_id, int u_id) {
+        this.uf_id = uf_id;
         this.u_id = u_id;
     }
 
-    public int getF_id() {
-        return f_id;
+    public int getUf_id() {
+        return uf_id;
     }
 
-    public void setF_id(int f_id) {
-        this.f_id = f_id;
+    public void setUf_id(int uf_id) {
+        this.uf_id = uf_id;
     }
 
     public int getU_id() {
@@ -27,8 +27,8 @@ public class FollowTableDTO {
 
     @Override
     public String toString() {
-        return "FollowTableDTO{" +
-                "f_id=" + f_id +
+        return "UnFollowTableDTO{" +
+                "uf_id=" + uf_id +
                 ", u_id=" + u_id +
                 '}';
     }

@@ -1,16 +1,16 @@
 package com.komenta.be.model.playlist;
 
-public class PlayListContentsTableDTO {
+public class PlayListContentsDTO {
     private int plc_id;
     private int vh_id;
     private int pl_id;
 
-    public PlayListContentsTableDTO(int vh_id, int pl_id) {
+    public PlayListContentsDTO(int vh_id, int pl_id) {
         this.vh_id = vh_id;
         this.pl_id = pl_id;
     }
 
-    public PlayListContentsTableDTO(int plc_id, int vh_id, int pl_id) {
+    public PlayListContentsDTO(int plc_id, int vh_id, int pl_id) {
         this.plc_id = plc_id;
         this.vh_id = vh_id;
         this.pl_id = pl_id;
