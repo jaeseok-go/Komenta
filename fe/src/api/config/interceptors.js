@@ -1,4 +1,4 @@
-import store from '@/store/index.js';
+import store from '@/stores/index.js';
 import { getAuthFromCookie } from '@/utils/cookies.js';
 
 function setInterceptors(instance) {
