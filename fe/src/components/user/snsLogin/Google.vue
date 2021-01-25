@@ -38,6 +38,9 @@
 // import firebase from 'firebase'
 
     export default {
+      created() {
+        
+      },
       methods:{
         async signWithGoogle(){
           const provider = new this.$firebase.auth.GoogleAuthProvider()
