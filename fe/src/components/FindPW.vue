@@ -2,7 +2,7 @@
     <b-container class="container-setting">
         <b-col class="col-setting col-center">
             <div class="phoneNum-form">
-                <form @submit.prevent="putAuthenBtn">
+                <form @submit.prevent="sendCertificationNumber">
                     <div class="form-sort">
                         <div class="right-sort form-sort">
                             <p class="form-sort-text">아이디:</p>
@@ -20,7 +20,7 @@
             </div>
             <div class="authentic-form" :style="{display:authenDisplay}">
                 {{resTimeData}} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum">
-                <button class="btn btn-normal btn-authentic" @click="putIdBtn" :disabled="!putAuthenNum">인증하기</button>
+                <button class="btn btn-normal btn-authentic" @click="getPWchangeForm" :disabled="!putAuthenNum">인증하기</button>
                 <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
             </div>
         </b-col>
@@ -71,12 +71,12 @@ export default {
         }
     },
     methods: {
-        putAuthenBtn() {
+        sendCertificationNumber() {
            window.alert("인증 번호를 발송했습니다.");
            this.start();
            this.authenDisplay='block';
         },
-        putIdBtn(){
+        getPWchangeForm(){
             if(this.confirmNum === this.authenNum) {
             window.alert("인증에 성공했습니다.");
             this.authenDisplay='block';
