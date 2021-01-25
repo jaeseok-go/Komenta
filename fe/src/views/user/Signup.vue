@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import '@/assets/css/app.css';
+// import '@/assets/css/app.css';
 import SignupForm from '@/components/SignupForm.vue';
 
 export default {

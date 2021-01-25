@@ -12,6 +12,8 @@ import { faCheckCircle as fasCheckC, faCheck, faTimes } from "@fortawesome/free-
 // google 로그인
 import '@/plugins/firebase';
 
+import '@/css/index.css'
+
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 

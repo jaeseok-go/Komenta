@@ -1,148 +1,4 @@
 @charset "UTF-8";
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url(../fonts/Inter-Thin-BETA.woff2) format("woff2"), url(../fonts/Inter-Thin-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 100;
-  font-display: swap;
-  src: url(../fonts/Inter-ThinItalic-BETA.woff2) format("woff2"), url(../fonts/Inter-ThinItalic-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 200;
-  font-display: swap;
-  src: url(../fonts/Inter-ExtraLight-BETA.woff2) format("woff2"), url(../fonts/Inter-ExtraLight-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 200;
-  font-display: swap;
-  src: url(../fonts/Inter-ExtraLightItalic-BETA.woff2) format("woff2"), url(../fonts/Inter-ExtraLightItalic-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(../fonts/Inter-Light-BETA.woff2) format("woff2"), url(../fonts/Inter-Light-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 300;
-  font-display: swap;
-  src: url(../fonts/Inter-LightItalic-BETA.woff2) format("woff2"), url(../fonts/Inter-LightItalic-BETA.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(../fonts/Inter-Regular.woff2) format("woff2"), url(../fonts/Inter-Regular.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url(../fonts/Inter-Italic.woff2) format("woff2"), url(../fonts/Inter-Italic.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(../fonts/Inter-Medium.woff2) format("woff2"), url(../fonts/Inter-Medium.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 500;
-  font-display: swap;
-  src: url(../fonts/Inter-MediumItalic.woff2) format("woff2"), url(../fonts/Inter-MediumItalic.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url(../fonts/Inter-SemiBold.woff2) format("woff2"), url(../fonts/Inter-SemiBold.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 600;
-  font-display: swap;
-  src: url(../fonts/Inter-SemiBoldItalic.woff2) format("woff2"), url(../fonts/Inter-SemiBoldItalic.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(../fonts/Inter-Bold.woff2) format("woff2"), url(../fonts/Inter-Bold.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url(../fonts/Inter-BoldItalic.woff2) format("woff2"), url(../fonts/Inter-BoldItalic.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url(../fonts/Inter-ExtraBold.woff2) format("woff2"), url(../fonts/Inter-ExtraBold.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 800;
-  font-display: swap;
-  src: url(../fonts/Inter-ExtraBoldItalic.woff2) format("woff2"), url(../fonts/Inter-ExtraBoldItalic.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url(../fonts/Inter-Black.woff2) format("woff2"), url(../fonts/Inter-Black.woff) format("woff");
-}
-
-@font-face {
-  font-family: Inter;
-  font-style: italic;
-  font-weight: 900;
-  font-display: swap;
-  src: url(../fonts/Inter-BlackItalic.woff2) format("woff2"), url(../fonts/Inter-BlackItalic.woff) format("woff");
-}
-
 *,
 ::after,
 ::before {
@@ -150,48 +6,85 @@
           box-sizing: border-box;
 }
 
-.alert-danger {
-  color: #fff !important;
-  background-color: #8b1221 !important;
-  border-color: #81101d !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
-.alert {
-  border-radius: 0;
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000;
 }
 
-.alert-message {
+.h1,
+h1 {
+  font-size: 1.75rem;
+}
+
+.h2,
+h2 {
+  font-size: 1.53125rem;
+}
+
+.h3,
+h3 {
+  font-size: 1.3125rem;
+}
+
+.h4,
+h4 {
+  font-size: 1.09375rem;
+}
+
+.h5,
+.h6,
+h5,
+h6 {
+  font-size: 0.875rem;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0;
+  overflow: visible;
 }
 
-.alert-dismissible .close {
-  top: -3px;
-  color: #fff;
+.hrDesign.gradation {
+  background: #a3a3a3;
+  background-image: -webkit-gradient(linear, right top, left top, from(#eee), color-stop(#777), to(#eee));
+  background-image: linear-gradient(to left, #eee, #777, #eee);
 }
 
-.close {
-  opacity: 1;
-}
-
-.close:focus, .close:hover {
-  color: #ffffff;
+.right-sort {
+  text-align: right;
 }
 
 .block {
   display: block !important;
-}
-
-.bcol-login {
-  max-width: 50% !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
-  text-align: center !important;
-}
-
-.bcol-login .input-group {
-  width: 64% !important;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 button {
@@ -287,6 +180,7 @@ select {
   color: #fff;
   background-color: #fa243c;
   border-color: #fa243c;
+  padding: 0.35rem;
 }
 
 .btn-normal:focus, .btn-normal:hover {
@@ -320,6 +214,11 @@ select {
           box-shadow: 0 0 0 0.2rem rgba(248, 123, 136, 0.671);
 }
 
+.btn-authentic {
+  position: relative;
+  bottom: 2px;
+}
+
 .btn-large {
   padding: 0.55rem 8.7rem;
   font-size: 1.075rem;
@@ -335,6 +234,20 @@ select {
   font-size: 0.875rem;
 }
 
+.ftw-icon {
+  margin-left: 0.7rem;
+}
+
+.ftw-icon.check-icon {
+  color: #00da41;
+  font-size: 24px;
+}
+
+.ftw-icon.times-icon {
+  color: #d30c0c;
+  font-size: 27px;
+}
+
 .container-setting {
   text-align: center;
 }
@@ -346,6 +259,148 @@ select {
 
 .col-setting > .center {
   text-align: center;
+}
+
+.col-setting.col-center {
+  text-align: center !important;
+}
+
+.find {
+  display: inline;
+  width: 15rem;
+  margin-bottom: 0.5rem;
+}
+
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+}
+
+.fw-icon.fwCheck {
+  color: #02cf40;
+}
+
+.fw-icon.fwTimes {
+  color: #d30c0c;
+}
+
+.fw-checkbox input {
+  display: none;
+}
+
+.fw-checkbox .chk-label {
+  font-size: 1.5rem;
+  color: #495057;
+  margin-right: 0.33rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.icon-inline-block {
+  display: inline-block;
+}
+
+.alert-danger {
+  color: #fff !important;
+  background-color: #8b1221 !important;
+  border-color: #81101d !important;
+}
+
+.alert {
+  border-radius: 0;
+}
+
+.alert-message {
+  text-align: center;
+}
+
+.alert-dismissible .close {
+  top: -3px;
+  color: #fff;
+}
+
+.authentic {
+  display: inline !important;
+  width: 10rem !important;
+}
+
+.authentic-text {
+  font-size: 13px;
+}
+
+.authentic-text b:hover {
+  color: #fa243c;
+  cursor: pointer;
+}
+
+.close {
+  opacity: 1;
+}
+
+.close:focus, .close:hover {
+  color: #ffffff;
+}
+
+.title-logo {
+  margin: 0.21em 0 0.51em 0.25em;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.title-text {
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.sns-login-logo {
+  display: inline-block;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+}
+
+.sns-login-logo button {
+  border: none;
+  background-color: #fff;
+}
+
+.sign-setting {
+  margin: 3em;
+}
+
+.sign-setting h6 a {
+  border-radius: 4px;
+  background-color: #fa243c;
+  color: #fff;
+  padding: 1px 2px;
+  text-decoration: none;
+}
+
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
+.bcol-login {
+  max-width: 50% !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+}
+
+.bcol-login .input-group {
+  width: 64% !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.idView {
+  font-weight: 700;
+  color: #fa243c;
 }
 
 .form-control {
@@ -392,77 +447,42 @@ select {
   border-radius: 0.3rem;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 0.5rem;
-  font-weight: 400;
-  line-height: 1.2;
-  color: #000;
-}
-
-.h1,
-h1 {
-  font-size: 1.75rem;
-}
-
-.h2,
-h2 {
-  font-size: 1.53125rem;
-}
-
-.h3,
-h3 {
-  font-size: 1.3125rem;
-}
-
-.h4,
-h4 {
-  font-size: 1.09375rem;
-}
-
-.h5,
-.h6,
-h5,
-h6 {
-  font-size: 0.875rem;
-}
-
-hr {
-  margin-top: 1rem;
+.warning-form {
   margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  text-align: center;
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-  height: 0;
-  overflow: visible;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
-.hrDesign.gradation {
-  background: #a3a3a3;
-  background-image: -webkit-gradient(linear, right top, left top, from(#eee), color-stop(#777), to(#eee));
-  background-image: linear-gradient(to left, #eee, #777, #eee);
+.warning-form.warning-signup {
+  width: 70%;
+}
+
+.warning-form .warning-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f01c35;
+  margin-top: 0.25rem;
+}
+
+.phoneNum-form {
+  margin-top: 2rem;
+}
+
+.phoneNum-form .form-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.phoneNum-form .form-sort .form-sort-text {
+  margin-bottom: 1rem;
 }
 
 input[type='checkbox'], input[type='radio'] {
@@ -479,6 +499,9 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   width: 70%;
   border: 1px solid #ced4da;
   border-radius: 0.2rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 .input-group:focus-within {
@@ -579,56 +602,4 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   color: #a3a3a3;
   font-size: 18px;
 }
-
-.sns-login-logo {
-  margin: 2.3em;
-  border-radius: 4px;
-}
-
-.sns-login-logo.kakao {
-  position: relative;
-  margin-right: auto;
-  margin-left: auto;
-  width: 60px;
-  height: 60px;
-  background-color: #ffeb3b;
-}
-
-.sns-login-logo.kakao svg {
-  position: relative;
-  top: 5px;
-}
-
-.sign-setting {
-  margin: 3em;
-}
-
-.sign-setting h6 a {
-  border-radius: 4px;
-  background-color: #fa243c;
-  color: #fff;
-  padding: 1px 2px;
-  text-decoration: none;
-}
-
-.title-logo {
-  margin: 0.21em 0 0.51em 0.25em;
-  font-weight: 700;
-  font-size: 3rem;
-}
-
-.title-text {
-  margin: 1.25rem 0;
-  font-weight: 700;
-}
-
-.warning-form {
-  text-align: center;
-}
-
-.warning-form.warning-text {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #f01c35;
-}
-/*# sourceMappingURL=app.css.map */
+/*# sourceMappingURL=index.css.map */
