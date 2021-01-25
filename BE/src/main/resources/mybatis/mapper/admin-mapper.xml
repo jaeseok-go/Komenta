@@ -24,18 +24,30 @@
     </delete>
 
     <insert id="uploadVod" parameterType="com.komenta.be.model.vod.VodDTO">
-        insert into(v_id, v_title, v_summaary, v_director, v_actors, v_age_grade, v_poster)
+        insert into vod(v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
+        values (#{v_id}, #{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
     </insert>
 
     <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">
-
+        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
+        from vod;
     </select>
 
     <update id="updateVod" parameterType="com.komenta.be.model.vod.VodDTO">
-
+        update vod
+        set v_title = #{v_title},
+            v_summary = #{v_summary},
+            v_director = #{v_actors},
+            v_actors = #{v_actors},
+            v_age_grade = #{v_age_grade},
+            v_poster = #{v_poster},
+            gd_id = #{gd_id}
+        where v_id = #{v_id}
     </update>
 
     <delete id="deleteVod" parameterType="int">
-
+        delete
+        from vod
+        where v_id = #{v_id}
     </delete>
 </mapper>

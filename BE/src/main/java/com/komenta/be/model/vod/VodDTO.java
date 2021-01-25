@@ -8,16 +8,25 @@ public class VodDTO {
     private String v_actors;
     private int v_age_grade;
     private String v_poster;
-    private String gd_id;
+    private int gd_id;
 
-    public VodDTO(int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster) {
-        this.v_id = v_id;
+    public VodDTO(String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster) {
         this.v_title = v_title;
         this.v_summary = v_summary;
         this.v_director = v_director;
         this.v_actors = v_actors;
         this.v_age_grade = v_age_grade;
         this.v_poster = v_poster;
+    }
+
+    public VodDTO(String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster, int gd_id) {
+        this.v_title = v_title;
+        this.v_summary = v_summary;
+        this.v_director = v_director;
+        this.v_actors = v_actors;
+        this.v_age_grade = v_age_grade;
+        this.v_poster = v_poster;
+        this.gd_id = gd_id;
     }
 
     public int getV_id() {
@@ -72,11 +81,11 @@ public class VodDTO {
         this.v_poster = v_poster;
     }
 
-    public String getGd_id() {
+    public int getGd_id() {
         return gd_id;
     }
 
-    public void setGd_id(String gd_id) {
+    public void setGd_id(int gd_id) {
         this.gd_id = gd_id;
     }
 
