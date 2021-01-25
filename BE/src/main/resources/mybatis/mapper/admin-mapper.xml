@@ -24,8 +24,8 @@
     </delete>
 
     <insert id="uploadVod" parameterType="com.komenta.be.model.vod.VodDTO">
-        insert into vod(v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
-        values (#{v_id}, #{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
+        insert into vod(v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
+        values (#{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
     </insert>
 
     <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">

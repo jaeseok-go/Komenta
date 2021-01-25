@@ -7,9 +7,14 @@ import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -54,10 +59,37 @@ public class AdminController {
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
     })
     @PostMapping("/vod_upload")
-    public int uploadVod(VodDTO vod){
+    public int uploadVod(VodDTO vod, @RequestParam("file") MultipartFile multipartFile){
+        System.out.println(vod);
+        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
+        System.out.println(targetFile);
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            System.out.println("성공");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            e.printStackTrace();
+        }
         return adminService.uploadVod(vod);
     }
 
+    @PostMapping("/vod_uploadtest")
+    public int uploadVodtest(@RequestParam("v_title") String v_title, @RequestParam("v_summary") String v_summary,@RequestParam("v_director") String v_director,@RequestParam("v_actors") String v_actors,@RequestParam("v_age_grade") String v_age_grade,@RequestParam("v_poster") String v_poster,@RequestParam("gd_id") String gd_id, @RequestParam("file") MultipartFile multipartFile){
+        System.out.println(v_title);
+        File targetFile = new File("C:/Users/multicampus/Desktop/Komenta/s04p12b201/BE/src/main/resources/vod/" + multipartFile.getOriginalFilename());
+        System.out.println(targetFile);
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            System.out.println("성공");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            e.printStackTrace();
+        }
+        VodDTO vod = new VodDTO(v_title, v_summary, v_director, v_actors, Integer.parseInt(v_age_grade),v_poster,  Integer.parseInt(gd_id));
+        return adminService.uploadVod(vod);
+    }
 
 
     @ApiOperation(value = "VOD 목록 조회", notes = "모든 VOD 정보를 조회")
