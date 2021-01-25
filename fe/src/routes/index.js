@@ -9,15 +9,19 @@ export default new Router({
 	routes: [
 		{
 		path: '/login',
+		name:"Login",
 		component: () => import('@/views/user/Login.vue'),
 		},
 		{
 		path: '/signup',
+		name:"Signup",
 		component: () => import('@/views/user/Signup.vue'),
 		},
 		{
-			path: '/findId',
-			component: () => import('@/components/FindID.vue'),
-			},
+		path: '/auth',
+		name:"Kakao",
+		component: () => import('@/components/user/snsLogin/Kakao.vue'),
+		},
+
 	],
 });
