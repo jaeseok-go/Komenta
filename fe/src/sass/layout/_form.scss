@@ -38,7 +38,6 @@
   border-radius: 0.3rem;
 }
 
-
 .warning-form {
   margin-bottom: 1rem;
   display: flex;
@@ -57,6 +56,24 @@
   }
 }
 
+.newPW-form {
+  margin-top: 2rem;
+
+  & .form-sort {
+    display: inline-block;
+    margin-left: 1rem;
+
+    & .form-sort-text {
+      margin-bottom: 1rem;
+    }
+  }
+
+  & .newPW-form-move {
+    position: relative;
+    right: 3.5rem;
+  }
+}
+
 .phoneNum-form {
   margin-top: 2rem;
 
@@ -68,5 +85,9 @@
       margin-bottom: 1rem;
     }
   }
-}
 
+  & .phoneNum-form-move {
+    position: relative;
+    right: 3.5rem;
+  }
+}

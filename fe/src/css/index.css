@@ -150,13 +150,6 @@
           box-sizing: border-box;
 }
 
-*,
-::after,
-::before {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 h1,
 h2,
 h3,
@@ -307,6 +300,24 @@ hr {
   margin-top: 0.25rem;
 }
 
+.newPW-form {
+  margin-top: 2rem;
+}
+
+.newPW-form .form-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.newPW-form .form-sort .form-sort-text {
+  margin-bottom: 1rem;
+}
+
+.newPW-form .newPW-form-move {
+  position: relative;
+  right: 3.5rem;
+}
+
 .phoneNum-form {
   margin-top: 2rem;
 }
@@ -318,6 +329,11 @@ hr {
 
 .phoneNum-form .form-sort .form-sort-text {
   margin-bottom: 1rem;
+}
+
+.phoneNum-form .phoneNum-form-move {
+  position: relative;
+  right: 3.5rem;
 }
 
 input[type='checkbox'], input[type='radio'] {
@@ -576,8 +592,13 @@ select {
 }
 
 .btn-middle {
-  padding: 0.5rem 5.7rem;
+  padding: 0.5rem 4.5rem;
   font-size: 0.925rem;
+}
+
+.btn-middle.newPWBtn-move {
+  position: relative;
+  left: 0.65rem;
 }
 
 .btn-small {
