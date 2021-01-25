@@ -1,7 +1,7 @@
 <template>
     <div id="kakao-login">
 
-        <button @click="kakaoLogin">
+        <button @click="loginWithKakao">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="55"
@@ -33,65 +33,45 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    export default {
-        methods: {
-            kakaoSignup(){
-                console.log('회원가입',window.Kakao);
-                window.Kakao.Auth.authorize({
-                redirectUri: '{http://localhost:8080/}'
-                });
-            },
-            kakaoLogin() {
-                console.log('로그인',window.Kakao);
-                window.Kakao.Auth.login({
-                    scope : 'account_email, profile, age_range, birthday',
-                    success: function(response) {
-                        console.log('성공이다',response);
-                        this.GetMe;
-                    },
-                    fail: function(error) {
-                        console.log('실패닼ㅋㅋㅋㅋㅋㅋ',error);
-                        alert(JSON.stringify(error));
-                    }
-                });
-                // console.log(window.Kakao.Auth.)
-            },
-            GetMe(authObj){
-                console.log('왜ㅐㅐㅐㅐㅐㅐㅐㅐ',authObj);
-                window.Kakao.API.request({
-                    url:'/v2/user/me',
-                    success : res => {
-                        const kakao_account = res.kakao_account;
-                        const userInfo = {
-                            nickname : kakao_account.profile.nickname,
-                            email : kakao_account.email,
-                            password : '',
-                            account_type : 2,
-                        }
-
-                         axios.post(`http://localhost:8080/account/kakao`,{
-                             email : userInfo.email,
-                             nickname : userInfo.nickname
-                         })
-                         .then(res => {
-                            console.log(res);
-                            console.log("데이터베이스에 회원 정보가 있음!");
-                         })
-                         .catch(err => {
-                             console.log(err);
-                            console.log("데이터베이스에 회원 정보가 없음!");
-                         })
-                        console.log(userInfo);
-                        alert("로그인 성공!");
-                        this.$bvModal.hide("bv-modal-example");
-                    },
-                    fail : error => {
-                        this.$router.push("/");
-                        console.log(error);
-                    }
-                })
-            }
+import { getKakaoToken, getKakaoUserInfo } from "@/api/login";
+export default {
+    created() {
+        if (this.$route.query.code) {
+            this.setKakaoToken();
         }
+    },
+    methods: {
+        loginWithKakao() {
+        const params = {
+            redirectUri: "http://localhost:8080/auth",
+        };
+        window.Kakao.Auth.authorize(params);
+        },
+        async setKakaoToken () {
+        console.log('카카오 인증 코드', this.$route.query.code);
+        const { data } = await getKakaoToken(this.$route.query.code);
+        console.log('데이터잘있니',{data})
+        if (data.error) {
+            alert('카카오톡 로그인 오류입니다.');
+            this.$router.replace('/login');
+            return;
+        }
+        window.Kakao.Auth.setAccessToken(data.access_token);
+        // this.$cookies.set('access-token', data.access_token, '1d');
+        // this.$cookies.set('refresh-token', data.refresh_token, '1d');
+        await this.setUserInfo();
+        this.$router.replace('/signup');
+    },
+    async setUserInfo () {
+        const res = await getKakaoUserInfo();
+        const userInfo = {
+            name: res.kakao_account.profile.nickname,
+            platform: 'kakao',
+        };
+        this.$store.commit('setUser', userInfo);
+        console.log('유저',userInfo)
+    },
+    }
+            
     }
 </script>

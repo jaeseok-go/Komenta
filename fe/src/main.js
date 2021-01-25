@@ -9,16 +9,16 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 // google 로그인
-import '@/plugins/firebase'
+import '@/plugins/firebase';
 
-Vue.config.productionTip = false
-Vue.use(BootstrapVue)
+Vue.config.productionTip = false;
+Vue.use(BootstrapVue);
 
 library.add(faEye, faEyeSlash)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kakao로그인
-window.Kakao.init(process.env.VUE_APP_KAKAO_API_KEY);
+window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
 
 new Vue({
   router,
