@@ -18,8 +18,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO getInfoUser(String useremail) {
-        return sqlsession.getMapper(MemberMapper.class).getInfoUser(useremail);
+    public MemberDTO getInfoUser(String u_email) {
+        return sqlsession.getMapper(MemberMapper.class).getInfoUser(u_email);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int deleteMember(int uid) {
-        return sqlsession.getMapper(MemberMapper.class).deleteMember(uid);
+    public int deleteMember(int u_id) {
+        return sqlsession.getMapper(MemberMapper.class).deleteMember(u_id);
     }
 }

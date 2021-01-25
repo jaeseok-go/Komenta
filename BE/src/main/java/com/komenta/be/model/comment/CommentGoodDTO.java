@@ -1,20 +1,20 @@
 package com.komenta.be.model.comment;
 
-public class ReCommentGoodTableDTO {
-    private int rc_id;
+public class CommentGoodDTO {
+    private int c_id;
     private int u_id;
 
-    public ReCommentGoodTableDTO(int rc_id, int u_id) {
-        this.rc_id = rc_id;
+    public CommentGoodDTO(int c_id, int u_id) {
+        this.c_id = c_id;
         this.u_id = u_id;
     }
 
-    public int getRc_id() {
-        return rc_id;
+    public int getC_id() {
+        return c_id;
     }
 
-    public void setRc_id(int rc_id) {
-        this.rc_id = rc_id;
+    public void setC_id(int c_id) {
+        this.c_id = c_id;
     }
 
     public int getU_id() {
@@ -27,8 +27,8 @@ public class ReCommentGoodTableDTO {
 
     @Override
     public String toString() {
-        return "ReCommentGoodTableDTO{" +
-                "rc_id=" + rc_id +
+        return "CommentGoodTableDTO{" +
+                "c_id=" + c_id +
                 ", u_id=" + u_id +
                 '}';
     }

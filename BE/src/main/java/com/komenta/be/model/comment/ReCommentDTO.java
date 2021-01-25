@@ -1,20 +1,20 @@
 package com.komenta.be.model.comment;
 
-public class ReCommentTableDTO {
+public class ReCommentDTO {
     private int rc_id;
     private String rc_contents;
     private String rc_upload_time;
     private int u_id;
     private int c_id;
 
-    public ReCommentTableDTO(String rc_contents, String rc_upload_time, int u_id, int c_id) {
+    public ReCommentDTO(String rc_contents, String rc_upload_time, int u_id, int c_id) {
         this.rc_contents = rc_contents;
         this.rc_upload_time = rc_upload_time;
         this.u_id = u_id;
         this.c_id = c_id;
     }
 
-    public ReCommentTableDTO(int rc_id, String rc_contents, String rc_upload_time, int u_id, int c_id) {
+    public ReCommentDTO(int rc_id, String rc_contents, String rc_upload_time, int u_id, int c_id) {
         this.rc_id = rc_id;
         this.rc_contents = rc_contents;
         this.rc_upload_time = rc_upload_time;

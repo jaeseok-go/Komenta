@@ -1,14 +1,14 @@
 package com.komenta.be.model.genre;
 
-public class GenreTableDTO {
+public class GenreDTO {
     private int g_id;
     private String g_name;
 
-    public GenreTableDTO(String g_name) {
+    public GenreDTO(String g_name) {
         this.g_name = g_name;
     }
 
-    public GenreTableDTO(int g_id, String g_name) {
+    public GenreDTO(int g_id, String g_name) {
         this.g_id = g_id;
         this.g_name = g_name;
     }

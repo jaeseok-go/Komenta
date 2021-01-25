@@ -1,6 +1,6 @@
 package com.komenta.be.model.comment;
 
-public class CommentInfoTableDTO {
+public class CommentInfoDTO {
     private int c_id;
     private String c_contents;
     private String c_playtime;
@@ -8,7 +8,7 @@ public class CommentInfoTableDTO {
     private int u_id;
     private int ve_id;
 
-    public CommentInfoTableDTO(String c_contents, String c_playtime, String c_upload_time, int u_id, int ve_id) {
+    public CommentInfoDTO(String c_contents, String c_playtime, String c_upload_time, int u_id, int ve_id) {
         this.c_contents = c_contents;
         this.c_playtime = c_playtime;
         this.c_upload_time = c_upload_time;
@@ -16,7 +16,7 @@ public class CommentInfoTableDTO {
         this.ve_id = ve_id;
     }
 
-    public CommentInfoTableDTO(int c_id, String c_contents, String c_playtime, String c_upload_time, int u_id, int ve_id) {
+    public CommentInfoDTO(int c_id, String c_contents, String c_playtime, String c_upload_time, int u_id, int ve_id) {
         this.c_id = c_id;
         this.c_contents = c_contents;
         this.c_playtime = c_playtime;

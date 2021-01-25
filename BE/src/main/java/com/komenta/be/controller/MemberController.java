@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @RestController
 @RequestMapping(value ="/member")
@@ -40,11 +42,12 @@ public class MemberController{
             @ApiImplicitParam(name = "u_password", value = "유저 비밀번호", dataType = "String", required = true)
     })
     @PostMapping("/login")
-    public boolean loginMember(String u_email, String u_password){
+    public boolean loginMember(String u_email, String u_password, HttpServletResponse response){
         MemberDTO member=  mservice.getInfoUser(u_email);
         if(member.getU_pw().equals(u_password)){
             // 성공하면 jwt token create
-            jwtService.create(member);
+            String token = jwtService.create(member);
+            response.setHeader("auth-token", token);
             return true;
         }
         return false;

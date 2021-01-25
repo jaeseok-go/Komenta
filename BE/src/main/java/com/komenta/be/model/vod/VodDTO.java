@@ -1,6 +1,6 @@
 package com.komenta.be.model.vod;
 
-public class VodTableDTO {
+public class VodDTO {
     private int v_id;
     private String v_title;
     private String v_summary;
@@ -10,7 +10,7 @@ public class VodTableDTO {
     private String v_poster;
     private String gd_id;
 
-    public VodTableDTO(int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster) {
+    public VodDTO(int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster) {
         this.v_id = v_id;
         this.v_title = v_title;
         this.v_summary = v_summary;
