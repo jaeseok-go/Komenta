@@ -15,6 +15,9 @@ export default new Router({
 		path: '/signup',
 		component: () => import('@/views/user/Signup.vue'),
 		},
-
+		{
+			path: '/findId',
+			component: () => import('@/components/FindID.vue'),
+			},
 	],
 });

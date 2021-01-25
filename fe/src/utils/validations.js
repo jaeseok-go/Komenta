@@ -6,3 +6,8 @@ export function validateEmail(email) {
 export function validatePassword(value) {
   return value.length >= 8;
 }
+
+export function validatePhoneNum(number) {
+  var num = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
+  return num.test(String(number));
+}
