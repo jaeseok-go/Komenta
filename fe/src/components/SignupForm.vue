@@ -141,6 +141,7 @@
 </template>
 
 <script>
+import { registerUser } from '@/api/auth';
 // password,email유효성검사
 import { validateEmail, validatePassword } from '@/utils/validations';
 
@@ -248,19 +249,23 @@ export default {
         // this.allTerm=false
       }
     },
-    submitSignup() {
-      // const userData = {
-      //     username: this.username,
-      //     password: this.password,
-      //     nickname: this.nickname,
-      //     userPhoneNumber : this.userPhoneNumber,
-      // },
+    async submitSignup() {
+      // nickname params로 넘겨주기 추가해야함
+      const userData = {
+          userId:this.userId,
+          username: this.username,
+          password: this.password,
+          // nickname: this.nickname,
+          userPhoneNumber : this.userPhoneNumber,
+      };
+      const { data } = await registerUser(userData);
+      console.log(data.username);
       this.logMessage = `${this.username}님이 가입되었습니다`;
       this.initForm();
+      this.$router.push('/login');
     },
     signupComplete() {
       console.log('회원가입완료!');
-      this.$router.push('/login');
     },
     initForm() {
       this.username = '';

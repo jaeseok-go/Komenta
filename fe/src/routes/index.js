@@ -7,12 +7,12 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/login',
+      path: '/member/login',
       name: 'Login',
       component: () => import('@/views/user/Login.vue'),
     },
     {
-      path: '/signup',
+      path: '/member/join',
       name: 'Signup',
       component: () => import('@/views/user/Signup.vue'),
     },
