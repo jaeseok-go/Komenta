@@ -26,10 +26,10 @@ export default new Router({
       name: 'FindId',
       component: () => import('@/components/FindID.vue'),
     },
-    // {
-    // path:'/findpw',
-    // name:"FindPW",
-    // component: () => import('@/components/FindPW.vue')
-    // },
+    {
+    path:'/findpw',
+    name:"FindPW",
+    component: () => import('@/components/FindPW.vue')
+    },
   ],
 });

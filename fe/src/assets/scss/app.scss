@@ -347,6 +347,11 @@ select {
   }
 }
 
+.btn-authentic {
+  position: relative;
+  bottom: 2px;
+}
+
 .btn-large {
   padding: 0.55rem 8.7rem;
   font-size: 1.075rem;
@@ -360,11 +365,6 @@ select {
 .btn-small {
   padding: 0.45rem 3.2rem;
   font-size: 0.875rem;
-}
-
-.btn-authentic {
-  position: relative;
-  bottom: 2px;
 }
 
 .ftw-icon {
@@ -440,6 +440,7 @@ select {
 .find {
   display: inline;
   width: 15rem;
+  margin-bottom: 0.5rem;
 }
 
 .fw-icon {
@@ -653,8 +654,21 @@ input {
   }
 }
 
+.right-sort {
+  text-align: right;
+}
+
 .phoneNum-form {
   margin-top: 2rem;
+
+  & .form-sort {
+    display: inline-block;
+    margin-left: 1rem;
+
+    & .form-sort-text {
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 .sns-login-logo {

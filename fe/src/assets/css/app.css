@@ -335,6 +335,11 @@ select {
           box-shadow: 0 0 0 0.2rem rgba(248, 123, 136, 0.671);
 }
 
+.btn-authentic {
+  position: relative;
+  bottom: 2px;
+}
+
 .btn-large {
   padding: 0.55rem 8.7rem;
   font-size: 1.075rem;
@@ -348,11 +353,6 @@ select {
 .btn-small {
   padding: 0.45rem 3.2rem;
   font-size: 0.875rem;
-}
-
-.btn-authentic {
-  position: relative;
-  bottom: 2px;
 }
 
 .ftw-icon {
@@ -433,6 +433,7 @@ select {
 .find {
   display: inline;
   width: 15rem;
+  margin-bottom: 0.5rem;
 }
 
 .fw-icon {
@@ -660,8 +661,21 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   font-size: 18px;
 }
 
+.right-sort {
+  text-align: right;
+}
+
 .phoneNum-form {
   margin-top: 2rem;
+}
+
+.phoneNum-form .form-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.phoneNum-form .form-sort .form-sort-text {
+  margin-bottom: 1rem;
 }
 
 .sns-login-logo {

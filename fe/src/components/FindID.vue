@@ -2,8 +2,9 @@
   <b-container class="container-setting">
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
+        <form @submit.prevent="putAuthenBtn"></form>
         휴대폰 번호 : <input type="text" class="form-control form-control-lg find" v-model="userPhoneNum"/>
-        <button class="btn btn-normal btn-authentic" @click="putAuthenBtn" :disabled="!putPhoneNum">
+        <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
           휴대폰 인증</button>
         <br />
         <div class="authentic-form" :style="{ display: authenDisplay }">
