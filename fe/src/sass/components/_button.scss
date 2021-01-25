@@ -136,8 +136,13 @@ select {
 }
 
 .btn-middle {
-  padding: 0.5rem 5.7rem;
+  padding: 0.5rem 4.5rem;
   font-size: 0.925rem;
+
+  &.newPWBtn-move {
+    position: relative;
+    left: 0.65rem;
+  }
 }
 
 .btn-small {
