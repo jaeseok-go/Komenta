@@ -169,6 +169,20 @@
   color: #fff;
 }
 
+.authentic {
+  display: inline !important;
+  width: 10rem !important;
+}
+
+.authentic-text {
+  font-size: 13px;
+}
+
+.authentic-text b:hover {
+  color: #fa243c;
+  cursor: pointer;
+}
+
 .close {
   opacity: 1;
 }
@@ -287,6 +301,7 @@ select {
   color: #fff;
   background-color: #fa243c;
   border-color: #fa243c;
+  padding: 0.35rem;
 }
 
 .btn-normal:focus, .btn-normal:hover {
@@ -335,6 +350,11 @@ select {
   font-size: 0.875rem;
 }
 
+.btn-authentic {
+  position: relative;
+  bottom: 2px;
+}
+
 .ftw-icon {
   margin-left: 0.7rem;
 }
@@ -360,6 +380,10 @@ select {
 
 .col-setting > .center {
   text-align: center;
+}
+
+.col-setting.col-center {
+  text-align: center !important;
 }
 
 .form-control {
@@ -404,6 +428,11 @@ select {
   font-size: 0.925rem;
   line-height: 1.5;
   border-radius: 0.3rem;
+}
+
+.find {
+  display: inline;
+  width: 15rem;
 }
 
 .fw-icon {
@@ -506,6 +535,11 @@ hr {
 
 .icon-inline-block {
   display: inline-block;
+}
+
+.idView {
+  font-weight: 700;
+  color: #fa243c;
 }
 
 input[type='checkbox'], input[type='radio'] {
@@ -624,6 +658,10 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   background-color: #fff;
   color: #a3a3a3;
   font-size: 18px;
+}
+
+.phoneNum-form {
+  margin-top: 2rem;
 }
 
 .sns-login-logo {
