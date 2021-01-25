@@ -272,6 +272,54 @@ export default {
       this.password = '';
       this.nickname = '';
     },
+    // firebase email로 회원가입 추가
+    // signin() {
+    //   console.log("signin", this.email, this.password);
+    //   if(!this.email) {
+    //     alert("전자우편을 입력하여 주십시오.");
+    //     return;
+    //   }
+      
+    //   if(!this.password) {
+    //     alert("암호를 입력하여 주십시오.");
+    //     return;
+    //   }
+      
+    //   this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+    //   .then((user) => {
+    //     console.log("User", user)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //     if(error && error.message) {
+    //       alert(error.message);
+    //     }
+    //   })
+    // },
+    // signout() {
+    //   this.$firebase.auth().signOut().then((res) => {
+    //     console.log(res)
+    //     // Sign-out successful.
+    //   }).catch((error) => {
+    //     // An error happened.
+    //     console.log(error);
+    //   });
+    // }
+  },
+  created: () => {
+    // const user = this.$firebase.auth().currentUser;
+    // console.log(user);
+    // // firebase.auth().onAuthStateChanged(function(user) {
+    // //   if (user) {
+    // //     // User is signed in.
+    // //     console.log(user);
+    // //   } else {
+    // //     // No user is signed in.
+    // //   }
+    // // });
+    // if(user) {
+    //   this.isSignin = true;
+    // }
   },
   watch: {
     'isTerm.term1': function() {
@@ -295,7 +343,7 @@ export default {
         this.isTerm.icon3 = 'far'
       }
     },
-  }
+  },
 };
 </script>
 
