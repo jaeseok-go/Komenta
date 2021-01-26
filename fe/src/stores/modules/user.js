@@ -1,4 +1,4 @@
-import { loginUser } from '@/api/auth.js'
+import { loginUser } from '@/api/user.js'
 import jwtDecode from 'jwt-decode'
 
 const state = {
