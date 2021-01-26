@@ -19,9 +19,9 @@
                 </form>
             </div>
             <div class="authentic-form" :style="{display:authenDisplay}">
-                {{resTimeData}} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum">
+                <span class="authentic-form-warning-text">{{resTimeData}}</span> <input type="text" class="form-control form-control-lg authentic" v-model="authenNum">
                 <button class="btn btn-normal btn-authentic" @click="getPWchangeForm" :disabled="!putAuthenNum">인증하기</button>
-                <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
+                <p :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
             </div>
         </b-col>
         <b-col :style="{display:pwDisplay}">

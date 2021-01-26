@@ -6,7 +6,22 @@
         </div>
         <button @click="signOut">Logout</button>
         <!-- <h1>하이</h1> -->
+        
         <LoginForm></LoginForm>
+
+        <button @click="modalshow">??</button>
+             <Modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">
+          <h1>하이..</h1>
+        <router-link :to="{name:'FindId'}">아이디 찾기</router-link> |
+        <router-link :to="{name:'FindPw'}">비밀번호 찾기</router-link> |
+        <i class="closeModalBtn fa fa-times"
+          aria-hidden="true"
+          @click="showModal = false">
+        </i>
+      </h3>
+      <p slot="body"><router-view></router-view></p>
+    </Modal>
 
         <!-- <button @click="signOutGoogle" >Logout</button> -->
     </div>
@@ -16,16 +31,22 @@
 <script>
 // import '@/assets/css/app.css';
 import LoginForm from '../../components/LoginForm'
+import Modal from '@/components/common/Modal'
+
+// import FindIdPw from '@/views/user/FindIdPw'
 // import firebase from 'firebase'
 
 export default {
     data() {
         return {
+            showModal:false,
             isSignin:false,
         }
     },
     components: {
-        LoginForm
+        LoginForm,
+        // FindIdPw,
+        Modal,
     },
     methods: {
         async signOut() {
@@ -33,7 +54,8 @@ export default {
         .then((res)=>console.log(res))
         .catch((err)=>console.error(err))
         console.log('로그아웃',response)
-        }
+        },
+        
     },
     created () {
     // 현재 로그인한 사용자를 가져오는 함수
