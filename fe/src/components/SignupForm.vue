@@ -1,7 +1,7 @@
 <template>
   <b-container class="container-setting">
     <!-- <p>{{ logMessage }}</p> -->
-    <b-form @submit.prevent="signin">
+    <b-form @submit.prevent="submitSignup">
       <b-row>
         <b-col class="col-setting">
           <h2 class="title-text">회원가입하기</h2>
@@ -249,6 +249,7 @@ export default {
         // this.allTerm=false
       }
     },
+    // 우리서버이용
     async submitSignup() {
       // nickname params로 넘겨주기 추가해야함
       const userData = {
