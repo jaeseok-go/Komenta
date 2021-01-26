@@ -782,4 +782,37 @@ select {
   font-weight: 700;
   color: #fa243c;
 }
+
+.modal-header {
+  display: block;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+}
+
+.modal-header .findIdPw__title {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.modal-header .findIdPw__contents {
+  font-size: 1.1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+.modal-header .findIdPw__contents .findIdPw__content:hover {
+  background-color: pink;
+}
 /*# sourceMappingURL=index.css.map */

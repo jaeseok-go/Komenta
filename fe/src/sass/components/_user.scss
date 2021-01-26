@@ -69,3 +69,34 @@
   font-weight: 700;
   color: $komenta-color;
 }
+
+
+.modal-header{
+  
+  display: block;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+  
+  .findIdPw__title {
+    color: black;
+    font-size: 1.5rem;
+  }
+
+  .findIdPw__contents {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+
+  .findIdPw__content:hover {
+    background-color: pink;
+  }
+  
+  
+  }
+  
+}
