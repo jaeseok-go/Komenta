@@ -75,11 +75,11 @@ export default {
         // User is signed in.
         console.log('유저있당',user);
         const userInfo = {
-          name : user.displayName,
-          userId : user.email,
-          phoneNumber: user.phoneNumber,
-          token : user.refreshToken,
-          uid : user.uid  
+          u_nickname : user.displayName,
+          u_email : user.email,
+          u_phone_number: user.phoneNumber,
+          u_pw : user.refreshToken,
+          u_id : user.uid  
         }
         console.log('유저정보다',userInfo)
       } else {

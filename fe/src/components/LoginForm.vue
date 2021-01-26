@@ -121,19 +121,21 @@ export default {
       }
     },
     async loginComplete() {
-      try {
-        const userData = {
-          userId: this.userId,
-          password: this.password,
-        };
-        await this.$store.dispatch('LOGIN', userData);
-        // this.$router.push('/main');
-        console.log('아유데어?')
+       try {
+        const response = await this.$store.dispatch('LOGIN', {
+          u_email: this.userId,
+          u_password: this.password
+        })
+        if (response.status === 204) {
+          alert('비밀번호를 다시 입력해주세요.')
+          return
+        }
+        this.initForm()
+        this.$router.push('/');
       } catch (error) {
-        this.logMessage = error.response.error;
-        this.loginError();
-      } finally {
-        this.initForm();
+        if(error.status === 500) {
+          alert('등록되지 않은 계정입니다.')
+        }
       }
     },
     initForm() {
@@ -151,11 +153,11 @@ export default {
         alert(`${user.user.displayName}님 환영합니다`)
         console.log('로그인했당',user)
         const userInfo = {
-          name : user.user.displayName,
-          userId : user.user.email,
-          phoneNumber: user.user.phoneNumber,
-          token : user.user.refreshToken,
-          uid : user.user.uid  
+          u_nickname : user.user.displayName,
+          u_email : user.user.email,
+          u_phone_number: user.user.phoneNumber,
+          u_pw : user.user.refreshToken,
+          u_id : user.user.uid  
         }
         // Signed in
         console.log('로그인한유저정보',userInfo)

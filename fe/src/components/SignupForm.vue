@@ -1,11 +1,11 @@
 <template>
   <b-container class="container-setting">
-    <!-- <p>{{ logMessage }}</p> -->
+
     <b-form @submit.prevent="submitSignup">
       <b-row>
         <b-col class="col-setting">
           <h2 class="title-text">회원가입하기</h2>
-          <div>
+ 
             <div>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -83,27 +83,7 @@
                 type="text"
               />
             </div>
-
-            <div>
-              <p></p>
-              <input
-                v-model="userPhoneNumber"
-                class="form-control form-control-lg"
-                placeholder="휴대폰번호를 입력하세요(-제외한 숫자만 입력)"
-                type="text"
-              />
-             </div>
-              <!-- 인증번호 시간 + 인증번호 다시보내기 버튼 필요 -->
-            <button class="btn btn-normal btn-large" @click="sendCertificationNumber" :disabled="!putPhoneNum">
-              {{authenResult}}
-            </button>
-            <div class="authentic-form-join" :style="{ display: authenDisplay }">
-              {{ resTimeData }} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum" />
-              <button class="btn btn-normal btn-authentic" @click="checkCertification" :disabled="!putAuthenNum">인증하기</button>
-              <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
-              <hr>
-            </div>
-          </div>
+            <phone-certification @checkCertification="checkCertification"></phone-certification>
 
           <div class="fw-checkbox">
               <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1"/>
@@ -146,11 +126,14 @@
 </template>
 
 <script>
+import PhoneCertification from './user/PhoneCertification.vue';
+// import axios from 'axios'
 import { registerUser } from '@/api/user';
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
 
 export default {
+  components: { PhoneCertification },
   data() {
     return {
       userId: '',
@@ -172,15 +155,7 @@ export default {
       },
       allTerm:false,
       termPopup: false,
-      logMessage: '',
-      
-      timeCount: 300,
-      resTimeData : '',
-      polling: null,
-      authenDisplay: 'none',
-      resetBtnDisplay: 'none',
-      authenNum: '',
-      confirmNum: '0000',
+      showCertiForm: true,
       isAuthentic:false,
       authenResult:'휴대폰 인증'
     };
@@ -241,6 +216,11 @@ export default {
     },
   },
   methods: {
+    checkCertification() {
+
+      this.showCertiForm = false;
+
+    },
     clickphonebtn() {
       this.phonebtn = !this.phonebtn
     },
@@ -283,17 +263,17 @@ export default {
     async submitSignup() {
       // nickname params로 넘겨주기 추가해야함
       const userData = {
-          userId:this.userId,
-          username: this.username,
-          password: this.password,
+          u_email:this.userId,
+          u_nickname: this.username,
+          u_pw: this.password,
           // nickname: this.nickname,
-          userPhoneNumber : this.userPhoneNumber,
+          u_phone_number : this.userPhoneNumber,
       };
       const { data } = await registerUser(userData);
       console.log(data.username);
       this.logMessage = `${this.username}님이 가입되었습니다`;
       this.initForm();
-      this.$router.push('/login');
+      this.$router.push({name:'Login'});
     },
     signupComplete() {
       console.log('회원가입완료!');
@@ -331,57 +311,6 @@ export default {
         // console.log(errorCode)
         // console.log(errorCode)
       });
-    },
-    sendCertificationNumber() {
-      window.alert('인증 번호를 발송했습니다.');
-      this.start();
-      this.authenDisplay = 'block';
-    },
-    checkCertification() {
-      if (this.confirmNum === this.authenNum) {
-        window.alert('인증에 성공했습니다.');
-        this.timeStop();
-        this.resetBtnDisplay = 'none';
-        this.authenDisplay = 'none';
-        this.isAuthentic = true;
-        this.authenResult = '인증 완료';
-      } else {
-        window.alert('인증 실패했습니다. 다시 시도해주세요.');
-      }
-    },
-    start(){ // 1초에 한번씩 start 호출
-      this.resTimeData = this.prettyTime();
-      this.polling = setInterval(()=>{
-        this.timeCount--;
-        this.resTimeData = this.prettyTime();
-        if(this.timeCount == 0) this.timeStop();
-        if(this.timeCount == 270) {
-          this.resetBtnDisplay = 'block'
-        }
-      }, 1000);
-    },
-    // 시간 형식으로 변환 리턴
-    prettyTime() { 
-      let time = this.timeCount / 60;
-      let minutes = parseInt(time);
-      let secondes = Math.round((time - minutes) * 60);
-      return this.pad(minutes, 2) + ":" + this.pad(secondes, 2);
-    },
-    // 2자리수로 만들어줌 09,08... 
-    pad(n, width) {
-      n = n + '';
-      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
-    },
-    timeStop() {
-      clearInterval(this.polling);
-      this.polling = null;
-    },
-    // 재발행 
-    smsReset() {
-      clearInterval(this.polling);
-      this.timeCount = 300;
-      //sms 인증 문자 다시 보내는 로직(구현예정)
-      this.start();
     },
   },
   watch: {
