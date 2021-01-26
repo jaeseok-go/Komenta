@@ -86,14 +86,29 @@
     font-size: 1.5rem;
   }
 
+  a {
+   color: #000; 
+  }
   .findIdPw__contents {
+    // color: black;
     font-size: 1.1rem;
     display: flex;
     justify-content: space-around;
     margin-top: 1.5rem;
 
   .findIdPw__content:hover {
-    background-color: pink;
+    // background-color: pink;
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-decoration: none;
+    color:white;
+    background-color: $komenta-color;
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 1px solid $komenta-color;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+
   }
   
   
