@@ -65,8 +65,13 @@
           <button class="btn btn-normal btn-large" :disabled="isLoginValid">로그인</button>
         </b-form>
         <div class="sign-setting">
+<<<<<<< HEAD
           <!-- <router-link :to="{name:'FindIdPw'}"><div class="sign-setting-findIdPw">아이디 또는 비밀번호를 잊으셨습니까?</div></router-link> -->
           <h6>아직 계정이 없으시다면? <router-link :to="{name:'Signup'}">회원 가입</router-link></h6>
+=======
+          <button @click="showModalForm">아이디 또는 비밀번호를 잊으셨습니까?</button>
+          <h6>아직 계정이 없으시다면? <router-link to="/signup">회원 가입</router-link></h6>
+>>>>>>> master
         </div>
       </b-col>
     </b-container>
@@ -108,6 +113,9 @@ export default {
     },
   },
   methods: {
+    showModalForm() {
+      this.$emit('showModalForm')
+    },
     viewPassword() {
       // tupe이 password가 tureaus text, false라면 type이 password
       this.passwordType = this.passwordType==="password" ? "text" : "password";

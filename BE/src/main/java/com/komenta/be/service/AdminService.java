@@ -10,7 +10,7 @@ import java.util.List;
 public interface AdminService {
 
     public List<MemberDTO> selectAllMember();
-    public int updateMember(String u_email);
+    public int updateMember(MemberDTO member);
     public int deleteMember(String u_email);
 
     public int registVod(VodDTO vod);

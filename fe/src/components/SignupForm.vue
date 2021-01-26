@@ -93,8 +93,8 @@
                 type="text"
               />
               <input type="text" v-if="phonebtn" class="form-control form-control-lg">
+             </div>
               <!-- 인증번호 시간 + 인증번호 다시보내기 버튼 필요 -->
-            </div>
             <button class="btn btn-normal btn-middle btn-center" @click="clickphonebtn">
               휴대폰 인증
             </button>

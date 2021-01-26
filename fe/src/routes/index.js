@@ -10,6 +10,18 @@ export default new Router({
       path: '/member/login',
       name: 'Login',
       component: () => import('@/views/user/Login.vue'),
+      children: [
+        {
+          path: 'findId',
+          name: 'FindId',
+          component: () => import('@/components/FindId.vue'),
+        },
+        {
+          path: 'findPw',
+          name: "FindPw",
+          component: () => import('@/components/FindPw.vue')
+        },
+      ]
     },
     {
       path: '/member/join',
@@ -22,22 +34,9 @@ export default new Router({
       component: () => import('@/components/user/snsLogin/Kakao.vue'),
     },
     {
-      path:'/member/find',
-      name:"FindIdPw",
-      component: () => import('@/views/user/FindIdPw.vue'),
-      redirect: '/member/find/findId',
-      children: [     
-        {
-          path: 'findId',
-          name: 'FindId',
-          component: () => import('@/components/FindId.vue'),
-        },
-        {
-          path:'findPw',
-          name:"FindPw",
-          component: () => import('@/components/FindPw.vue')
-        },
-      ]
+      path: '/member/certification',
+      name: "PhoneCertification",
+      component: () => import('@/components/user/PhoneCertification.vue'),
     },
   ],
 });
