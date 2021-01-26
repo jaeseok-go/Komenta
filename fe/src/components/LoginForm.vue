@@ -1,18 +1,11 @@
 <template>
   <div>
     <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
       <div class="alert-message">
-        <strong
-          >아이디 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</strong
-        >
+        <strong>아이디 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</strong>
       </div>
     </div>
     <b-container class="container-setting">
@@ -65,20 +58,11 @@
             />
             <div class="input-group-append">
               <div class="input-group-text input-group-button" @click="viewPassword">
-                <font-awesome-icon
-                  :icon="['far', fwName]"
-                  :style="{ color: '#495057' }"
-                />
+                <font-awesome-icon :icon="['far', fwName]" :style="{ color: '#495057' }"/>
               </div>
             </div>
           </div>
-          <button
-            class="btn btn-normal btn-large"
-            :disabled="isLoginValid"
-   
-          >
-            로그인
-          </button>
+          <button class="btn btn-normal btn-large" :disabled="isLoginValid">로그인</button>
         </b-form>
         <div class="sign-setting">
           <a @click="showModalForm">아이디 또는 비밀번호를 잊으셨습니까?</a>
