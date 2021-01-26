@@ -739,7 +739,15 @@ select {
 }
 
 .sign-setting {
-  margin: 3em;
+  height: 8rem;
+  margin: 2rem;
+}
+
+.sign-setting-findIdPw {
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+  padding: 1px 2px;
+  color: black;
 }
 
 .sign-setting h6 a {
@@ -774,3 +782,4 @@ select {
   font-weight: 700;
   color: #fa243c;
 }
+/*# sourceMappingURL=index.css.map */
