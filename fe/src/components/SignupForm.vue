@@ -92,12 +92,17 @@
                 placeholder="휴대폰번호를 입력하세요(-제외한 숫자만 입력)"
                 type="text"
               />
-              <input type="text" v-if="phonebtn" class="form-control form-control-lg">
              </div>
               <!-- 인증번호 시간 + 인증번호 다시보내기 버튼 필요 -->
-            <button class="btn btn-normal btn-middle btn-center" @click="clickphonebtn">
-              휴대폰 인증
+            <button class="btn btn-normal btn-large" @click="sendCertificationNumber" :disabled="!putPhoneNum">
+              {{authenResult}}
             </button>
+            <div class="authentic-form-join" :style="{ display: authenDisplay }">
+              {{ resTimeData }} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum" />
+              <button class="btn btn-normal btn-authentic" @click="checkCertification" :disabled="!putAuthenNum">인증하기</button>
+              <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
+              <hr>
+            </div>
           </div>
 
           <div class="fw-checkbox">
@@ -143,7 +148,7 @@
 <script>
 import { registerUser } from '@/api/auth';
 // password,email유효성검사
-import { validateEmail, validatePassword } from '@/utils/validations';
+import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
 
 export default {
   data() {
@@ -168,6 +173,16 @@ export default {
       allTerm:false,
       termPopup: false,
       logMessage: '',
+      
+      timeCount: 300,
+      resTimeData : '',
+      polling: null,
+      authenDisplay: 'none',
+      resetBtnDisplay: 'none',
+      authenNum: '',
+      confirmNum: '0000',
+      isAuthentic:false,
+      authenResult:'휴대폰 인증'
     };
   },
   computed: {
@@ -205,6 +220,21 @@ export default {
         !this.isPasswordConfirmValid ||
         !this.isTerm
       ) {
+        return true;
+      }
+      return false;
+    },
+    putAuthenBtn() {
+      return validatePhoneNum(this.userPhoneNumber);
+    },
+    putPhoneNum() {
+      if(this.putAuthenBtn && !this.isAuthentic) {
+        return true;
+      }
+      return false;
+    },
+    putAuthenNum() {
+      if (this.authenNum.length >= 4) {
         return true;
       }
       return false;
@@ -301,10 +331,58 @@ export default {
         // console.log(errorCode)
         // console.log(errorCode)
       });
-
- 
     },
-
+    sendCertificationNumber() {
+      window.alert('인증 번호를 발송했습니다.');
+      this.start();
+      this.authenDisplay = 'block';
+    },
+    checkCertification() {
+      if (this.confirmNum === this.authenNum) {
+        window.alert('인증에 성공했습니다.');
+        this.timeStop();
+        this.resetBtnDisplay = 'none';
+        this.authenDisplay = 'none';
+        this.isAuthentic = true;
+        this.authenResult = '인증 완료';
+      } else {
+        window.alert('인증 실패했습니다. 다시 시도해주세요.');
+      }
+    },
+    start(){ // 1초에 한번씩 start 호출
+      this.resTimeData = this.prettyTime();
+      this.polling = setInterval(()=>{
+        this.timeCount--;
+        this.resTimeData = this.prettyTime();
+        if(this.timeCount == 0) this.timeStop();
+        if(this.timeCount == 270) {
+          this.resetBtnDisplay = 'block'
+        }
+      }, 1000);
+    },
+    // 시간 형식으로 변환 리턴
+    prettyTime() { 
+      let time = this.timeCount / 60;
+      let minutes = parseInt(time);
+      let secondes = Math.round((time - minutes) * 60);
+      return this.pad(minutes, 2) + ":" + this.pad(secondes, 2);
+    },
+    // 2자리수로 만들어줌 09,08... 
+    pad(n, width) {
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    },
+    timeStop() {
+      clearInterval(this.polling);
+      this.polling = null;
+    },
+    // 재발행 
+    smsReset() {
+      clearInterval(this.polling);
+      this.timeCount = 300;
+      //sms 인증 문자 다시 보내는 로직(구현예정)
+      this.start();
+    },
   },
   watch: {
     'isTerm.term1': function() {
@@ -328,6 +406,7 @@ export default {
         this.isTerm.icon3 = 'far'
       }
     },
+    
   },
 };
 </script>

@@ -15,8 +15,12 @@
               </span>
               <hr>
               <div class="findIdPw__contents">
-                <router-link :to="{name:'FindId'}"><span class="findIdPw__content">아이디 찾기</span></router-link> 
-                <router-link :to="{name:'FindPw'}"><span class="findIdPw__content">비밀번호 찾기</span></router-link> 
+                <div>
+                 <router-link :to="{name:'FindId'}"><span class="findIdPw__content">아이디 찾기</span></router-link> 
+                </div>
+                <div>
+                  <router-link :to="{name:'FindPw'}"><span class="findIdPw__content">비밀번호 찾기</span></router-link> 
+                </div>
               </div>                                                                                                        
             </h3>
             <p slot="body">

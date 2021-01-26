@@ -10,7 +10,7 @@
       <p class="idView" :style="{ display: 'inline-block' }">{{ userId }}</p>
       입니다.
        <div class="sign-setting" >
-          <button @click="$emit('close')">로그인</button>
+          <button class="btn btn-normal btn-small" @click="$emit('close')">로그인</button>
         </div>
     </b-col>
   </b-container>

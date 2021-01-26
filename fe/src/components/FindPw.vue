@@ -1,21 +1,17 @@
 <template> 
-
     <b-container class="container-setting">
-
         <template v-if="showCertiForm">
-          <div class="right-sort form-sort">
-              <p class="form-sort-text">아이디:</p>
-              <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/> <br>
-              <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디확인</button>
+          <div class="form-sort id-chk">
+              아이디: <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/>
+              <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디 확인</button>
           </div>
           <div @click="checkId">
-          <phone-certification
-            @checkCertification="checkCertification"
-          ></phone-certification>
+            <phone-certification
+              @checkCertification="checkCertification"
+            ></phone-certification>
           </div>
             <hr>
         </template>
-
 
           <b-col :style="{display:pwDisplay}">
           <div class="newPW-form">
