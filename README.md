@@ -70,7 +70,7 @@ gantt
 
     section Admin
     Video Upload Test       :01-26, 2d
-    Video Crud          :01-26, 3d
+    Video Crud          :01-27, 3d
     
     %%section 기타
 ```
