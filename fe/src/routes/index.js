@@ -22,14 +22,22 @@ export default new Router({
       component: () => import('@/components/user/snsLogin/Kakao.vue'),
     },
     {
-      path: '/findId',
-      name: 'FindId',
-      component: () => import('@/components/FindID.vue'),
-    },
-    {
-    path:'/findpw',
-    name:"FindPW",
-    component: () => import('@/components/FindPW.vue')
+      path:'/member/find',
+      name:"FindIdPw",
+      component: () => import('@/views/user/FindIdPw.vue'),
+      redirect: '/member/find/findId',
+      children: [     
+        {
+          path: 'findId',
+          name: 'FindId',
+          component: () => import('@/components/FindId.vue'),
+        },
+        {
+          path:'findPw',
+          name:"FindPw",
+          component: () => import('@/components/FindPw.vue')
+        },
+      ]
     },
   ],
 });
