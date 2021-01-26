@@ -49,6 +49,9 @@ export default {
         Modal,
     },
     methods: {
+        modalshow() {
+          this.showModal = true
+        },
         async signOut() {
         const response = await this.$firebase.auth().signOut()
         .then((res)=>console.log(res))
