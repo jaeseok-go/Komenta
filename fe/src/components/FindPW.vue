@@ -3,6 +3,7 @@
         <b-col class="col-setting col-center">
             <div class="phoneNum-form">
                 <form @submit.prevent="sendCertificationNumber">
+                <!-- <form @submit.prevent="changePw"> -->
                     <div class="form-sort">
                         <div class="right-sort form-sort">
                             <p class="form-sort-text">아이디:</p>
@@ -128,10 +129,31 @@ export default {
             //sms 인증 문자 다시 보내는 로직(구현예정)
             this.start();
         },
+        // 메일로 비밀번호 찾기
+    //     changePw() {
+    //     // const user = this.$firebase.auth().currentUser;
+    //     // const newPassword = getASecureRandomPassword();
+    //     // user.updatePassword(newPassword).then(() {
+    //     // // Update successful.
+    //     // }).catch(function(error) {
+    //     // // An error happened.
+    //     // });
+    //     const auth = this.$firebase.auth();
+    //     const emailAddress = this.userId;
+
+    //     auth.sendPasswordResetEmail(emailAddress).then(() => {
+    //         console.log('email보내졌니?')
+    //     // Email sent.
+    //     }).catch((error)=>{
+    //     // An error happened.
+    //         console.log(error)
+    //     });
+    // }
     },
     beforeDestroy() { 
         clearInterval(this.polling) 
-    }
+    },
+    
 }
 </script>
 
