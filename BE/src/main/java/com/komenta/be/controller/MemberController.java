@@ -1,7 +1,5 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.member.AuthEmailDTO;
-import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.MemberService;
@@ -42,15 +40,15 @@ public class MemberController{
             @ApiImplicitParam(name = "u_password", value = "유저 비밀번호", dataType = "String", required = true)
     })
     @PostMapping("/login")
-    public boolean loginMember(String u_email, String u_password, HttpServletResponse response){
+    public MemberDTO loginMember(String u_email, String u_password, HttpServletResponse response){
         MemberDTO member=  mservice.getInfoUser(u_email);
         if(member.getU_pw().equals(u_password)){
             // 성공하면 jwt token create
             String token = jwtService.create(member);
             response.setHeader("auth-token", token);
-            return true;
+            return member;
         }
-        return false;
+        return null;
     }
 
 

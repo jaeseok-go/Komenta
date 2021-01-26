@@ -2,6 +2,7 @@ package com.komenta.be.service;
 import java.util.Map;
 
 import com.komenta.be.model.member.MemberDTO;
+import io.jsonwebtoken.Claims;
 
 public interface JwtService {
 
