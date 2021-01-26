@@ -5,25 +5,25 @@
             <hr>
         </div>
         <button @click="signOut">Logout</button>
-        <!-- <h1>하이</h1> -->
-        
-        <LoginForm></LoginForm>
-
-        <button @click="modalshow">??</button>
-             <Modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header">
-          <h1>하이..</h1>
-        <router-link :to="{name:'FindId'}">아이디 찾기</router-link> |
-        <router-link :to="{name:'FindPw'}">비밀번호 찾기</router-link> |
-        <i class="closeModalBtn fa fa-times"
-          aria-hidden="true"
-          @click="showModal = false">
-        </i>
-      </h3>
-      <p slot="body"><router-view></router-view></p>
-    </Modal>
-
-        <!-- <button @click="signOutGoogle" >Logout</button> -->
+        <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
+      
+        <Modal v-if="showModal" @close="showModal = false">
+            <h3 slot="header">
+              <div class="findIdPw__title">아이디 및 비밀번호 찾기</div>
+              <hr>
+              <div class="findIdPw__contents">
+                <router-link :to="{name:'FindId'}"><span class="findIdPw__content">아이디 찾기</span></router-link> 
+                <router-link :to="{name:'FindPw'}"><span class="findIdPw__content">비밀번호 찾기</span></router-link> 
+              </div>
+              <i class="closeModalBtn fa fa-times"
+                aria-hidden="true"
+                @click="showModal = false">
+              </i>                                                                                                                  
+            </h3>
+            <p slot="body">
+              <router-view></router-view>
+              </p>
+        </Modal>
     </div>
   
 </template>
@@ -49,7 +49,7 @@ export default {
         Modal,
     },
     methods: {
-        modalshow() {
+        showModalForm() {
           this.showModal = true
         },
         async signOut() {

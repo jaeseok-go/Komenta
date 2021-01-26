@@ -40,7 +40,8 @@
 }
 
 .modal-container {
-  width: 300px;
+  width: 800px;
+  height: 500px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -53,6 +54,7 @@
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
+  text-align: center;
 }
 
 .modal-body {
