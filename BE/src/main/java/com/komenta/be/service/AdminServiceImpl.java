@@ -2,6 +2,7 @@ package com.komenta.be.service;
 
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
+import com.komenta.be.model.vod.VodEpisodeDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public int uploadVod(VodDTO vod) {
+    public int registVod(VodDTO vod) {
         return 0;
     }
 
@@ -40,6 +41,26 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public int deleteVod(int v_id) {
+        return 0;
+    }
+
+    @Override
+    public int uploadEpisode(VodEpisodeDTO episode) {
+        return 0;
+    }
+
+    @Override
+    public List<VodEpisodeDTO> selectEpisode(int v_id) {
+        return null;
+    }
+
+    @Override
+    public int updateEpisode(VodEpisodeDTO episode) {
+        return 0;
+    }
+
+    @Override
+    public int deleteEpisode(int ve_id) {
         return 0;
     }
 }
