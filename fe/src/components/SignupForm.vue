@@ -1,7 +1,7 @@
 <template>
   <b-container class="container-setting">
     <!-- <p>{{ logMessage }}</p> -->
-    <b-form @submit.prevent="submitSignup">
+    <b-form @submit.prevent="signin">
       <b-row>
         <b-col class="col-setting">
           <h2 class="title-text">회원가입하기</h2>
@@ -273,53 +273,37 @@ export default {
       this.nickname = '';
     },
     // firebase email로 회원가입 추가
-    // signin() {
-    //   console.log("signin", this.email, this.password);
-    //   if(!this.email) {
-    //     alert("전자우편을 입력하여 주십시오.");
-    //     return;
-    //   }
-      
-    //   if(!this.password) {
-    //     alert("암호를 입력하여 주십시오.");
-    //     return;
-    //   }
-      
-    //   this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-    //   .then((user) => {
-    //     console.log("User", user)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //     if(error && error.message) {
-    //       alert(error.message);
-    //     }
-    //   })
-    // },
-    // signout() {
-    //   this.$firebase.auth().signOut().then((res) => {
-    //     console.log(res)
-    //     // Sign-out successful.
-    //   }).catch((error) => {
-    //     // An error happened.
-    //     console.log(error);
-    //   });
-    // }
-  },
-  created: () => {
-    // const user = this.$firebase.auth().currentUser;
-    // console.log(user);
-    // // firebase.auth().onAuthStateChanged(function(user) {
-    // //   if (user) {
-    // //     // User is signed in.
-    // //     console.log(user);
-    // //   } else {
-    // //     // No user is signed in.
-    // //   }
-    // // });
-    // if(user) {
-    //   this.isSignin = true;
-    // }
+    async signin() {
+      this.$firebase.auth().createUserWithEmailAndPassword(this.userId, this.password)
+      .then(() => {
+        // Signed in
+        const user = this.$firebase.auth().currentUser;
+        console.log('폰번',this.userPhoneNumber,user.phoneNumber)
+        user.updateProfile({
+          displayName : this.username,
+          phoneNumber : this.userPhoneNumber
+        })
+        .then(()=>{
+          console.log('유저있니',user.user)
+          this.$firebase.auth().signInWithEmailAndPassword(this.userId, this.password)
+          console.log(`${this.username}님이 로그인!!!`)
+          console.log('비번은이걸로',user.refreshToken)
+          this.$router.push({name:'Login'})
+
+        })
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode,errorMessage)
+        // console.log(errorCode)
+        // console.log(errorCode)
+      });
+
+ 
+    },
+
   },
   watch: {
     'isTerm.term1': function() {

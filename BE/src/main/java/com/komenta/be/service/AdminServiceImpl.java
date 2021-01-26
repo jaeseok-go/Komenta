@@ -1,5 +1,6 @@
 package com.komenta.be.service;
 
+import com.komenta.be.model.admin.ReportListDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
@@ -62,5 +63,20 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int deleteEpisode(int ve_id) {
         return 0;
+    }
+
+    @Override
+    public int updateCommentPermission(int u_id) {
+        return 0;
+    }
+
+    @Override
+    public List<MemberDTO> selectBlockedMember() {
+        return null;
+    }
+
+    @Override
+    public List<ReportListDTO> selectReportedCommentAndReComment() {
+        return null;
     }
 }
