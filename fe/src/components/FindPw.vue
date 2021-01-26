@@ -37,12 +37,9 @@
 import { mapState } from 'vuex';
 import PhoneCertification from './user/PhoneCertification.vue';
 import { validateEmail, validatePassword } from '@/utils/validations';
-import { updateUser } from '@/api/auth';
+import { updateMyInfo } from '@/api/user';
 
 export default {
-    created() {
-      this.setUserInfo();
-    },
     components: { PhoneCertification },
     data() {
         return {
@@ -103,10 +100,10 @@ export default {
         submitChangePw() {
           const userData = {
             ...this.$store.state.userInfo,
-            password: this.newPw,
+            u_password: this.newPw,
           };
           console.log(userData)
-          updateUser(userData)
+          updateMyInfo(userData)
           // 로그인 버튼 누르고 라우터로 가게 하기
           
         },

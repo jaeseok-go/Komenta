@@ -65,11 +65,11 @@ export default {
     async setUserInfo () {
         const res = await getKakaoUserInfo();
         const userInfo = {
-            name: res.kakao_account.profile.nickname,
+            u_nickname: res.kakao_account.profile.nickname,
             platform: 'kakao',
             age_range: res.kakao_account.age_range,
             birthday: res.kakao_account.birthday,
-            email:res.kakao_account.email
+            u_email:res.kakao_account.email
         };
         this.$store.commit('setUser', userInfo);
         console.log('카카오유저',userInfo)

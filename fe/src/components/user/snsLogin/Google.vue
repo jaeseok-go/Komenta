@@ -49,11 +49,11 @@
             const user = result.user;
             // ...
             const userInfo = {
-            name: user.displayName,
+            u_nickname: user.displayName,
             platform: 'google',
-            phoneNumber: user.phoneNumber,
-            email : user.email,
-            token: user.refreshToken
+            u_phone_number: user.phoneNumber,
+            u_email : user.email,
+            u_pw: user.refreshToken
             };
             console.log('구글유저',userInfo)
             

@@ -5,7 +5,7 @@
       <phone-certification @checkCertification="checkCertification"></phone-certification>
     </template>
     <b-col class="showID" :style="{ display: idDisplay }">
-      <!-- <hr /> -->
+
       고객님의 아이디는
       <p class="idView" :style="{ display: 'inline-block' }">{{ userId }}</p>
       입니다.
