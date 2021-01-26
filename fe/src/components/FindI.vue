@@ -71,6 +71,8 @@ export default {
       if (this.confirmNum === this.authenNum) {
         window.alert('인증에 성공했습니다.');
         this.idDisplay = 'block';
+        this.timeStop();
+        this.resetBtnDisplay = 'none';
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }
