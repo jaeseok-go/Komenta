@@ -81,8 +81,7 @@
           </button>
         </b-form>
         <div class="sign-setting">
-          <!-- <router-link :to="{name:'findID'}">아이디를 잊어버리셨습니까?</router-link>
-          <router-link :to="{name:'findPW'}">비밀번호를 잊어버리셨습니까?</router-link> -->
+          <router-link :to="{name:'FindIdPw'}">아이디 비밀번호 찾기</router-link>
           <h6>아직 계정이 없으시다면? <router-link to="/signup">회원 가입</router-link></h6>
         </div>
       </b-col>
