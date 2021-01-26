@@ -28,7 +28,6 @@ export default new Vuex.Store({
         clearToken(state) {
             state.token = '';
         }
-
     },
     actions: {
         async LOGIN({ commit }, userData) {

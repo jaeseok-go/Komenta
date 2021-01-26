@@ -1,13 +1,13 @@
-import { instance } from './index'
+import { auth } from './index'
 
 //회원가입 API
 function registerUser(userData) {
-    return instance.post('member/join', userData);
+    return auth.post('member/join', userData);
 }
 
 //로그인 API
 function loginUser(userData) {
-    return instance.post('member/login', userData);
+    return auth.post('member/login', userData);
 }
 
 export {
