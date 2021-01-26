@@ -1,23 +1,17 @@
 import axios from 'axios';
 import { setInterceptors } from './config/interceptors'
 
-function createInstance() {
-    return axios.create({
-        baseURL: process.env.VUE_APP_URL,
-    })
+function createInstance(url, options) {
+    const instance = axios.create(Object.assign({ baseURL: url }, options));
+    return instance;
 }
 
 
-function createInstanceWithAuth(url) {
-    const instance = axios.create({
-        baseURL: `${process.env.VUE_APP_URL}${url}`,
-        // headers: {
-        //   Authorization: store.state.token,
-        // }
-    });
-    // 인터셉터까지 설정된 인스턴스 리턴
-    return setInterceptors(instance)
+function createInstanceWithAuth(url, options) {
+    const instance = axios.create(Object.assign({ baseURL: url }, options));
+    setInterceptors(instance);
+    return instance;
 }
 
-export const instance = createInstance()
-export const posts = createInstanceWithAuth('posts');
+export const auth = createInstance(process.env.VUE_APP_URL)
+export const vod = createInstanceWithAuth(`${process.env.VUE_APP_API_URL}vod/`);
