@@ -784,6 +784,7 @@ select {
 }
 
 .modal-header {
+  position: relative;
   display: block;
   -webkit-box-align: start;
       -ms-flex-align: start;
@@ -802,8 +803,15 @@ select {
   font-size: 1.5rem;
 }
 
+.modal-header #closeModalBtn {
+  position: absolute;
+  color: black;
+  top: 0.3rem;
+  right: 0;
+}
+
 .modal-header a {
-  color: #000;
+  color: black;
 }
 
 .modal-header .findIdPw__contents {
@@ -817,13 +825,13 @@ select {
 }
 
 .modal-header .findIdPw__contents .findIdPw__content:hover {
-  font-size: 1.2rem;
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: 150;
   text-decoration: none;
   color: white;
   background-color: #fa243c;
   display: inline-block;
-  padding-bottom: 3px;
+  padding-bottom: 2px;
   border-bottom: 1px solid #fa243c;
   -webkit-transition: all .5s;
   transition: all .5s;

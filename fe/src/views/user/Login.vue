@@ -10,15 +10,14 @@
         <Modal v-if="showModal" @close="showModal = false">
             <h3 slot="header">
               <div class="findIdPw__title">아이디 및 비밀번호 찾기</div>
-              <i class="closeModalBtn fa fa-times"
-                aria-hidden="true"
-                @click="showModal = false">
+              <span id="closeModalBtn">
+                <i class="fa fa-times" aria-hidden="true" @click="showModal = false"></i>
+              </span>
               <hr>
               <div class="findIdPw__contents">
                 <router-link :to="{name:'FindId'}"><span class="findIdPw__content">아이디 찾기</span></router-link> 
                 <router-link :to="{name:'FindPw'}"><span class="findIdPw__content">비밀번호 찾기</span></router-link> 
-              </div>
-              </i>                                                                                                                  
+              </div>                                                                                                        
             </h3>
             <p slot="body">
               <router-view></router-view>

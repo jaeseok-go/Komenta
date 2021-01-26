@@ -71,7 +71,12 @@
 }
 
 
+// .modal-container {
+//   color: black;
+// }
+
 .modal-header{
+  position: relative;
   
   display: block;
   align-items: flex-start;
@@ -80,15 +85,30 @@
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: calc(.3rem - 1px);
   border-top-right-radius: calc(.3rem - 1px);
+
+  // .modal-header h3 {
+  //   /* margin-top: 0; */
+  //   color: blanchedalmond;
+  //   text-align: center;
+  // }
   
   .findIdPw__title {
     color: black;
     font-size: 1.5rem;
   }
 
-  a {
-   color: #000; 
+  #closeModalBtn {
+    position: absolute;
+    color:black;
+    top: 0.3rem;
+    right: 0;
+    
   }
+
+  a {
+    color: black;
+  }
+
   .findIdPw__contents {
     // color: black;
     font-size: 1.1rem;
@@ -113,5 +133,4 @@
   
   
   }
-  
 }
