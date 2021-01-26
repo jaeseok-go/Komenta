@@ -22,12 +22,11 @@
   // }
 }
 
-
 .sign-setting {
   height: 8rem;
   margin: 2rem;
 
-  &-findIdPw{
+  &-findIdPw {
     font-size: 0.92rem;
     margin-bottom: 1rem;
     padding: 1px 2px;
@@ -37,9 +36,10 @@
   & h6 a {
     border-radius: 4px;
     background-color: $komenta-color;
-    color: $bg-color;
+    color: $bg-color !important;
     padding: 1px 2px;
     text-decoration: none;
+    cursor: pointer;
   }
 }
 
@@ -49,7 +49,6 @@
   margin-left: 0.23rem;
   cursor: pointer;
 }
-
 
 .bcol-login {
   max-width: 50% !important;
@@ -64,45 +63,47 @@
   }
 }
 
-
 .idView {
   font-weight: 700;
   color: $komenta-color;
 }
 
-
 // .modal-container {
 //   color: black;
 // }
 
-.modal-header{
+.modal-header {
   position: relative;
-  
+
   display: block;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 1rem 1rem 0 1rem;
   border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: calc(.3rem - 1px);
-  border-top-right-radius: calc(.3rem - 1px);
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
 
   // .modal-header h3 {
   //   /* margin-top: 0; */
   //   color: blanchedalmond;
   //   text-align: center;
   // }
-  
+
+  & h3 {
+    margin: 0;
+  }
+
   .findIdPw__title {
     color: black;
     font-size: 1.5rem;
   }
 
   #closeModalBtn {
+    cursor: pointer;
     position: absolute;
-    color:black;
+    color: black;
     top: 0.3rem;
     right: 0;
-    
   }
 
   a {
@@ -116,24 +117,36 @@
     justify-content: space-around;
     margin-top: 1.5rem;
 
-  .findIdPw__content:hover {
-    // background-color: pink;
-    font-size: 1rem;
-    font-weight: 150;
-    text-decoration: none;
-    color:white;
-    background-color: $komenta-color;
-    display: inline-block;
-    padding-bottom: 2px;
-    border-bottom: 1px solid $komenta-color;
-    -webkit-transition: all .5s;
-    transition: all .5s;
+    & div {
+      width: 100%;
+      padding-bottom: 1rem;
 
-  }
-  
+      &:focus-within {
+        // background-color: $komenta-color;
+        border-bottom: 7px solid $komenta-color;
+        font-weight: 700;
+      }
+    }
+
+    & a {
+      text-decoration: none;
+    }
+
+    // .findIdPw__content:focus-within {
+    // background-color: pink;
+    // font-size: 1rem;
+    // font-weight: 700;
+    // text-decoration: none;
+    // color: white;
+    // background-color: $komenta-color;
+    // display: inline-block;
+    // padding-bottom: 2px;
+    // border-bottom: 1px solid $komenta-color;
+    // -webkit-transition: all 0.5s;
+    // transition: all 0.5s;
+    // }
   }
 }
-
 
 .showID {
   padding: 3rem;

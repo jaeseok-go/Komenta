@@ -275,6 +275,11 @@ hr {
   border-radius: 0.3rem;
 }
 
+.form-sort.id-chk {
+  position: relative;
+  left: 1.3rem;
+}
+
 .warning-form {
   margin-bottom: 1rem;
   display: -webkit-box;
@@ -316,10 +321,6 @@ hr {
 .newPW-form .newPW-form-move {
   position: relative;
   right: 3.5rem;
-}
-
-.phoneNum-form {
-  margin-top: 2rem;
 }
 
 .phoneNum-form .form-sort {
@@ -696,6 +697,17 @@ select {
   width: 10rem !important;
 }
 
+.authentic-form-join {
+  position: relative;
+  left: 3.5rem;
+}
+
+.authentic-form-join hr {
+  position: relative;
+  right: 8.5rem;
+  width: 80%;
+}
+
 .authentic-text {
   font-size: 13px;
 }
@@ -707,6 +719,7 @@ select {
 
 .close {
   opacity: 1;
+  cursor: pointer;
 }
 
 .close:focus, .close:hover {
@@ -753,9 +766,10 @@ select {
 .sign-setting h6 a {
   border-radius: 4px;
   background-color: #fa243c;
-  color: #fff;
+  color: #fff !important;
   padding: 1px 2px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .termView {
@@ -792,10 +806,14 @@ select {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 1rem 1rem 0 1rem;
   border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: calc(.3rem - 1px);
-  border-top-right-radius: calc(.3rem - 1px);
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-header h3 {
+  margin: 0;
 }
 
 .modal-header .findIdPw__title {
@@ -804,6 +822,7 @@ select {
 }
 
 .modal-header #closeModalBtn {
+  cursor: pointer;
   position: absolute;
   color: black;
   top: 0.3rem;
@@ -824,20 +843,20 @@ select {
   margin-top: 1.5rem;
 }
 
-.modal-header .findIdPw__contents .findIdPw__content:hover {
-  font-size: 1rem;
-  font-weight: 150;
+.modal-header .findIdPw__contents div {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.modal-header .findIdPw__contents div:focus-within {
+  border-bottom: 7px solid #fa243c;
+  font-weight: 700;
+}
+
+.modal-header .findIdPw__contents a {
   text-decoration: none;
-  color: white;
-  background-color: #fa243c;
-  display: inline-block;
-  padding-bottom: 2px;
-  border-bottom: 1px solid #fa243c;
-  -webkit-transition: all .5s;
-  transition: all .5s;
 }
 
 .showID {
   padding: 3rem;
 }
-/*# sourceMappingURL=index.css.map */

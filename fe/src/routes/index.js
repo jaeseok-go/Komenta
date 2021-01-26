@@ -45,5 +45,10 @@ export default new Router({
       name: "PhoneCertification",
       component: () => import('@/components/user/PhoneCertification.vue'),
     },
+    {
+      path: '/member/membership',
+      name: "Membership",
+      component: () => import('@/components/Membership.vue'),
+    }
   ],
 });

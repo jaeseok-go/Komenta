@@ -65,7 +65,7 @@
           <button class="btn btn-normal btn-large" :disabled="isLoginValid">로그인</button>
         </b-form>
         <div class="sign-setting">
-          <a @click="showModalForm">아이디 또는 비밀번호를 잊으셨습니까?</a>
+          <h6><a @click="showModalForm">아이디 또는 비밀번호</a>를 잊으셨습니까?</h6>
           <h6>아직 계정이 없으시다면? <router-link :to="{name:'Signup'}">회원 가입</router-link></h6>
         </div>
       </b-col>

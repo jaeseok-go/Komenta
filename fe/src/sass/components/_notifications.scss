@@ -22,10 +22,16 @@
   width: 10rem !important;
 }
 
-// .authentic-form {
-//   position: relative;
-//   left: 4.7rem;
-// }
+.authentic-form-join {
+  position: relative;
+  left: 3.5rem;
+
+  & hr {
+    position: relative;
+    right: 8.5rem;
+    width: 80%;
+  }
+}
 
 .authentic-text {
   font-size: 13px;
@@ -38,7 +44,7 @@
 
 .close {
   opacity: 1;
-
+  cursor: pointer;
   &:focus,
   &:hover {
     color: #ffffff;

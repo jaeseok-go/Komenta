@@ -38,6 +38,11 @@
   border-radius: 0.3rem;
 }
 
+.form-sort.id-chk {
+  position: relative;
+  left: 1.3rem;
+}
+
 .warning-form {
   margin-bottom: 1rem;
   display: flex;
@@ -75,8 +80,6 @@
 }
 
 .phoneNum-form {
-  margin-top: 2rem;
-
   & .form-sort {
     display: inline-block;
     margin-left: 1rem;

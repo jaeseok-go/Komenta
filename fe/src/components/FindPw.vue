@@ -1,21 +1,17 @@
 <template> 
-
     <b-container class="container-setting">
-
         <template v-if="showCertiForm">
-          <div class="right-sort form-sort">
-              <p class="form-sort-text">아이디:</p>
-              <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/> <br>
-              <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디확인</button>
+          <div class="form-sort id-chk">
+              아이디: <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/>
+              <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디 확인</button>
           </div>
           <div @click="checkId">
-          <phone-certification
-            @checkCertification="checkCertification"
-          ></phone-certification>
+            <phone-certification
+              @checkCertification="checkCertification"
+            ></phone-certification>
           </div>
             <hr>
         </template>
-
 
           <b-col :style="{display:pwDisplay}">
           <div class="newPW-form">
@@ -38,10 +34,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import PhoneCertification from './user/PhoneCertification.vue';
 import { validateEmail, validatePassword } from '@/utils/validations';
+import { updateUser } from '@/api/auth';
 
 export default {
+    created() {
+      this.setUserInfo();
+    },
     components: { PhoneCertification },
     data() {
         return {
@@ -53,6 +54,9 @@ export default {
         }
     },
     computed : {
+      ...mapState({
+        userInfo: state => state.user.userInfo['access-Token']
+        }),
       isUserIdValid() {
         if (!this.userId) {
           return true;
@@ -86,23 +90,25 @@ export default {
     methods: {
         checkId(){
           console.log(this.userId)
-          if (this.userId !== 'test@ssafy.com') {
+          if (this.userId !== 'a@a.com') {
              alert('아이디가 틀렸습니다.')
             this.userId = ""
           } 
           return;
-        },
+          },
         checkCertification() {
           this.showCertiForm =  false;
           this.pwDisplay = 'block';
-        },
-        async submitChangePw() {
+          },
+        submitChangePw() {
           const userData = {
-          password: this.newPw,
-      };
-      console.log(userData)
-      alert('비밀번호가 변경됐어용')
-      // const { data } = await 비밀번호변경 api(userData);
+            ...this.$store.state.userInfo,
+            password: this.newPw,
+          };
+          console.log(userData)
+          updateUser(userData)
+          // 로그인 버튼 누르고 라우터로 가게 하기
+          
         },
         // 메일로 비밀번호 찾기
     //     changePw() {
