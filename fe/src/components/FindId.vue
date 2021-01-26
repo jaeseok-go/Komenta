@@ -1,11 +1,17 @@
 <template>
   <b-container class="container-setting">
-    <phone-certification @checkCertification="checkCertification"></phone-certification>
-    <b-col :style="{ display: idDisplay }">
-      <hr />
+
+    <template v-if="showCertiForm">
+      <phone-certification @checkCertification="checkCertification"></phone-certification>
+    </template>
+    <b-col class="showID" :style="{ display: idDisplay }">
+      <!-- <hr /> -->
       고객님의 아이디는
       <p class="idView" :style="{ display: 'inline-block' }">{{ userId }}</p>
       입니다.
+       <div class="sign-setting" >
+          <button @click="$emit('close')">로그인</button>
+        </div>
     </b-col>
   </b-container>
 </template>
@@ -20,11 +26,18 @@ export default {
     return {
       userId: 'test@ssafy.com',
       idDisplay: 'none',
+      showCertiForm: true,
     };
   },
   methods: {
     checkCertification() {
       this.idDisplay = 'block';
+      this.showCertiForm = false;
+
+    },
+    closeModal(e) {
+      console.log(e)
+      this.$emit('closeModal')
     },
   },
 };
