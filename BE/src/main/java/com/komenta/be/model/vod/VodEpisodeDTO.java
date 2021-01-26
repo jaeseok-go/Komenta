@@ -6,6 +6,12 @@ public class VodEpisodeDTO {
     private int ve_episode_num;
     private String ve_contents;
 
+
+    private String ve_uploaddate;
+    private String ve_admin;
+
+    private VodDTO vodDTO;
+
     public VodEpisodeDTO(int v_id, int ve_episode_num, String ve_contents) {
         this.v_id = v_id;
         this.ve_episode_num = ve_episode_num;
