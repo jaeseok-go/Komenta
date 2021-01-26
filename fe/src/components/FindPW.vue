@@ -20,11 +20,7 @@
             </div>
             <div class="authentic-form" :style="{display:authenDisplay}">
                 {{resTimeData}} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum">
-<<<<<<< HEAD
-                <button class="btn btn-normal btn-authentic" @click="putPWBtn" :disabled="!putAuthenNum">인증하기</button>
-=======
                 <button class="btn btn-normal btn-authentic" @click="getPWchangeForm" :disabled="!putAuthenNum">인증하기</button>
->>>>>>> master
                 <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
             </div>
         </b-col>
@@ -90,11 +86,7 @@ export default {
            this.start();
            this.authenDisplay='block';
         },
-<<<<<<< HEAD
-        putPWBtn(){
-=======
         getPWchangeForm(){
->>>>>>> master
             if(this.confirmNum === this.authenNum) {
             window.alert("인증에 성공했습니다.");
             this.pwDisplay='block';
