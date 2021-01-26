@@ -69,8 +69,8 @@ gantt
     User PW, 이메일 인증        :01,28, 2d
 
     section Admin
-    Video Upload Test       :01-25, 2d
-    Video Crud          :01-25, 3d
+    Video Upload Test       :01-26, 2d
+    Video Crud          :01-26, 3d
     
     %%section 기타
 ```
