@@ -41,7 +41,7 @@ const getKakaoUserInfo = async () => {
 
 const getGoogleToken = (googleUser) => {
     console.log('구글test');
-    var profile = googleUser.getBasicProfile();
+    const profile = googleUser.getBasicProfile();
     console.log('ID Token: ', googleUser.getAuthResponse().id_token);
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
