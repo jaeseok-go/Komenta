@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public int updateMember(String u_email) {
+    public int updateMember(MemberDTO member) {
         return 0;
     }
 

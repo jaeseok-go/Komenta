@@ -33,5 +33,10 @@ export default new Router({
       name: 'Kakao',
       component: () => import('@/components/user/snsLogin/Kakao.vue'),
     },
+    {
+      path: '/member/certification',
+      name: "PhoneCertification",
+      component: () => import('@/components/user/PhoneCertification.vue'),
+    },
   ],
 });
