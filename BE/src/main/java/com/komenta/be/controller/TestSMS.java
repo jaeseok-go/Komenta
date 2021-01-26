@@ -18,6 +18,10 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @RestController
 @RequestMapping(value ="/check")
 public class TestSMS {
+    @ApiOperation(value = "휴대폰 인증", notes = "인증번호를 만들어서 아이디와 함께 클라이언트에 반환하고 휴대폰에는 문자 전송")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true)
+    })
     @GetMapping("/sendSMS")
     public String sendSMS(String phoneNumber){
         Random rand = new Random();

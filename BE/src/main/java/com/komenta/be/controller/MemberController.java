@@ -76,28 +76,4 @@ public class MemberController{
     }
 
 
-
-    @ApiOperation(value = "휴대폰 인증", notes = "인증번호를 만들어서 아이디와 함께 클라이언트에 반환하고 휴대폰에는 문자 전송")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true)
-    })
-    @GetMapping("/authPhone")
-    public AuthPhoneDTO authPhone(String u_phone_number){
-
-        return new AuthPhoneDTO();
-    }
-
-
-
-    @ApiOperation(value = "이메일 인증", notes = "인증번호를 만들어서 비밀번호와 함께 클라이언트에는 반환하고 회원 메일로는 이메일 전송")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_email", value = "회원 아이디", dataType = "String", required = true)
-    })
-    @GetMapping("/authEmail")
-    public AuthEmailDTO authEmail(String u_email){
-
-        return new AuthEmailDTO();
-    }
-
-
 }
