@@ -18,7 +18,7 @@ export default {
   components: { PhoneCertification },
   data() {
     return {
-      userId: 'test',
+      userId: 'test@ssafy.com',
       idDisplay: 'none',
     };
   },
