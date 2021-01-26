@@ -6,7 +6,13 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   routes: [
-    {
+    // Main은 나중에 바꿀예정
+      {
+      path: '/',
+      name: 'Main',
+      component: () => import('@/views/user/Login.vue'),
+      },
+      {
       path: '/member/login',
       name: 'Login',
       component: () => import('@/views/user/Login.vue'),
