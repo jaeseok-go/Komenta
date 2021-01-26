@@ -141,6 +141,7 @@
 </template>
 
 <script>
+import { registerUser } from '@/api/auth';
 // password,email유효성검사
 import { validateEmail, validatePassword } from '@/utils/validations';
 
@@ -248,25 +249,77 @@ export default {
         // this.allTerm=false
       }
     },
-    submitSignup() {
-      // const userData = {
-      //     username: this.username,
-      //     password: this.password,
-      //     nickname: this.nickname,
-      //     userPhoneNumber : this.userPhoneNumber,
-      // },
+    async submitSignup() {
+      // nickname params로 넘겨주기 추가해야함
+      const userData = {
+          userId:this.userId,
+          username: this.username,
+          password: this.password,
+          // nickname: this.nickname,
+          userPhoneNumber : this.userPhoneNumber,
+      };
+      const { data } = await registerUser(userData);
+      console.log(data.username);
       this.logMessage = `${this.username}님이 가입되었습니다`;
       this.initForm();
+      this.$router.push('/login');
     },
     signupComplete() {
       console.log('회원가입완료!');
-      this.$router.push('/login');
     },
     initForm() {
       this.username = '';
       this.password = '';
       this.nickname = '';
     },
+    // firebase email로 회원가입 추가
+    // signin() {
+    //   console.log("signin", this.email, this.password);
+    //   if(!this.email) {
+    //     alert("전자우편을 입력하여 주십시오.");
+    //     return;
+    //   }
+      
+    //   if(!this.password) {
+    //     alert("암호를 입력하여 주십시오.");
+    //     return;
+    //   }
+      
+    //   this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+    //   .then((user) => {
+    //     console.log("User", user)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //     if(error && error.message) {
+    //       alert(error.message);
+    //     }
+    //   })
+    // },
+    // signout() {
+    //   this.$firebase.auth().signOut().then((res) => {
+    //     console.log(res)
+    //     // Sign-out successful.
+    //   }).catch((error) => {
+    //     // An error happened.
+    //     console.log(error);
+    //   });
+    // }
+  },
+  created: () => {
+    // const user = this.$firebase.auth().currentUser;
+    // console.log(user);
+    // // firebase.auth().onAuthStateChanged(function(user) {
+    // //   if (user) {
+    // //     // User is signed in.
+    // //     console.log(user);
+    // //   } else {
+    // //     // No user is signed in.
+    // //   }
+    // // });
+    // if(user) {
+    //   this.isSignin = true;
+    // }
   },
   watch: {
     'isTerm.term1': function() {
@@ -290,7 +343,7 @@ export default {
         this.isTerm.icon3 = 'far'
       }
     },
-  }
+  },
 };
 </script>
 

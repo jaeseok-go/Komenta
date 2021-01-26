@@ -67,11 +67,18 @@ export default {
         const userInfo = {
             name: res.kakao_account.profile.nickname,
             platform: 'kakao',
+            age_range: res.kakao_account.age_range,
+            birthday: res.kakao_account.birthday,
+            email:res.kakao_account.email
         };
         this.$store.commit('setUser', userInfo);
-        console.log('유저',userInfo)
+        console.log('카카오유저',userInfo)
     },
-    }
+  },
+   mounted() {
+ 
+  },
+
             
-    }
+}
 </script>

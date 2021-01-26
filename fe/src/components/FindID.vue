@@ -2,11 +2,11 @@
   <b-container class="container-setting">
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
-        <form @submit.prevent="putAuthenBtn">
-          휴대폰 번호 : <input type="text" class="form-control form-control-lg find" v-model="userPhoneNum"/>
-          <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
-            휴대폰 인증</button>
-        </form>
+        <form @submit.prevent="putAuthenBtn"></form>
+        휴대폰 번호 : <input type="text" class="form-control form-control-lg find" v-model="userPhoneNum"/>
+        <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
+          휴대폰 인증</button>
+        <br />
         <div class="authentic-form" :style="{ display: authenDisplay }">
           {{ resTimeData }} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum" />
           <button class="btn btn-normal btn-authentic" @click="putIdBtn" :disabled="!putAuthenNum">인증하기</button>
@@ -44,7 +44,7 @@ export default {
     };
   },
   computed: {
-    isUserPhoneNumValid() {
+    putAuthenBtn() {
       return validatePhoneNum(this.userPhoneNum);
     },
     putPhoneNum() {
@@ -61,7 +61,7 @@ export default {
     },
   },
   methods: {
-    putAuthenBtn() {
+    sendCertificationNumber() {
       window.alert('인증 번호를 발송했습니다.');
       this.start();
       this.authenDisplay = 'block';

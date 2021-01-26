@@ -45,8 +45,40 @@
         async signWithGoogle(){
           const provider = new this.$firebase.auth.GoogleAuthProvider()
           this.$firebase.auth().languageCode = 'ko';
-          const response = await this.$firebase.auth().signInWithPopup(provider)
-          console.log(response)
+        const response = await this.$firebase.auth().signInWithPopup(provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const token = result.credential.accessToken;
+            console.log('구글토큰',token)
+            // The signed-in user info.
+            const user = result.user;
+            // ...
+            const userInfo = {
+            name: user.displayName,
+            platform: 'google',
+            phoneNumber: user.phoneNumber,
+            email : user.email,
+            token: user.refreshToken
+            };
+            console.log('구글유저',userInfo)
+            
+            this.$router.push("/signup");
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                console.log('에러어어어')
+                console.log(errorCode)
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                // The email of the user's account used.
+                const email = error.email;
+                console.log(email)
+                // The firebase.auth.AuthCredential type that was used.
+                const credential = error.credential;
+                console.log(credential)
+                // ...
+            });
+        console.log('응답',response)
         },
         // signOutGoogle() {
         //     firebase.auth().signOut()
