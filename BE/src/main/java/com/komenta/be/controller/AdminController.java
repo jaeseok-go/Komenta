@@ -2,6 +2,7 @@ package com.komenta.be.controller;
 
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
+import com.komenta.be.model.vod.VodEpisodeDTO;
 import com.komenta.be.service.AdminService;
 import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -54,12 +55,12 @@ public class AdminController {
 
 
 
-    @ApiOperation(value = "VOD 업로드", notes = "VOD 정보를 입력받아 스트리밍 서버에 업로드")
+    @ApiOperation(value = "VOD 업로드", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
     })
-    @PostMapping("/vod_upload")
-    public int uploadVod(VodDTO vod, @RequestParam("file") MultipartFile multipartFile){
+    @PostMapping("/vod_regist")
+    public int registVod(VodDTO vod, @RequestParam("file") MultipartFile multipartFile){
         System.out.println(vod);
         File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
         System.out.println(targetFile);
@@ -71,7 +72,7 @@ public class AdminController {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
-        return adminService.uploadVod(vod);
+        return adminService.registVod(vod);
     }
 
     @PostMapping("/vod_uploadtest")
@@ -88,7 +89,7 @@ public class AdminController {
             e.printStackTrace();
         }
         VodDTO vod = new VodDTO(v_title, v_summary, v_director, v_actors, Integer.parseInt(v_age_grade),v_poster,  Integer.parseInt(gd_id));
-        return adminService.uploadVod(vod);
+        return adminService.registVod(vod);
     }
 
 
@@ -118,5 +119,43 @@ public class AdminController {
     @DeleteMapping("/vod_delete")
     public int deleteVod(int v_id){
         return adminService.deleteVod(v_id);
+    }
+
+
+
+    @ApiOperation(value = "VOD 회차 업로드", notes = "VOD 회차 정보를 입력받아 회차를 업로드")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "episode", value = "VDO 회차 정보", dataType = "VodEpisodeDTO", required = true)
+    })
+    @PostMapping("/episode_upload")
+    public int uploadEpisode(VodEpisodeDTO episode){
+        return adminService.uploadEpisode(episode);
+    }
+
+    @ApiOperation(value = "VOD 회차 목록 조회", notes = "VOD 하위의 모든 회차를 조회")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "v_id", value = "VDO 아이디", dataType = "Integer", required = true)
+    })
+    @GetMapping("/episode_list")
+    public List<VodEpisodeDTO> selectEpisode(int v_id){
+        return adminService.selectEpisode(v_id);
+    }
+
+    @ApiOperation(value = "VOD 회차 정보 수정", notes = "VOD 회차 정보를 수정하고 결과를 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "episode", value = "VOD 회차 정보", dataType = "VodEpisodeDTO", required = true)
+    })
+    @PutMapping("/episode_update")
+    public int updateVod(VodEpisodeDTO episode){
+        return adminService.updateEpisode(episode);
+    }
+
+    @ApiOperation(value = "VOD 회차 삭제", notes = "VOD 회차 아이디로 delete 후 결과 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ve_id", value = "VOD 회차 아이디", dataType = "Integer", required = true)
+    })
+    @DeleteMapping("/episode_delete")
+    public int deleteEpisode(int ve_id){
+        return adminService.deleteEpisode(ve_id);
     }
 }
