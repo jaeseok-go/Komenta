@@ -20,17 +20,27 @@
             </div>
             <div class="authentic-form" :style="{display:authenDisplay}">
                 {{resTimeData}} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum">
-                <button class="btn btn-normal btn-authentic" @click="putIdBtn" :disabled="!putAuthenNum">인증하기</button>
+                <button class="btn btn-normal btn-authentic" @click="putPWBtn" :disabled="!putAuthenNum">인증하기</button>
                 <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
             </div>
         </b-col>
-        <b-col :style="{display:idDisplay}">
-        <hr>
+        <b-col :style="{display:pwDisplay}">
+          <hr>
+          <div class="newPW-form">
             <form @submit.prevent="changePW">
-                <div>새 비밀번호: <input type="text" v-model="newPw"></div>
-                <div>비밀번호 확인: <input type="text" v-model="newPwConfirm"></div>
-                <button>비밀번호 변경</button>
+              <div class="newPW-form-move">
+                <div class="right-sort form-sort">
+                  <p class="form-sort-text">새 비밀번호:</p>
+                  <p class="form-sort-text">비밀번호 확인:</p>
+                </div>
+                <div class="form-sort">
+                  <input v-model="newPw" class="form-control form-control-lg find" type="password"/> <br>
+                  <input v-model="newPwConfirm" class="form-control form-control-lg find" type="password"/>
+                </div>
+              </div>
+              <button class="btn btn-normal btn-middle newPWBtn-move">비밀번호 변경</button>
             </form>
+          </div>
         </b-col>
     </b-container>
 </template>
@@ -51,7 +61,7 @@ export default {
             resTimeData : '',
             polling: null,
             authenDisplay:'none',
-            idDisplay:'none',
+            pwDisplay:'none',
             authenNum: "",
             confirmNum:'0000'
         }
@@ -76,10 +86,10 @@ export default {
            this.start();
            this.authenDisplay='block';
         },
-        putIdBtn(){
+        putPWBtn(){
             if(this.confirmNum === this.authenNum) {
             window.alert("인증에 성공했습니다.");
-            this.authenDisplay='block';
+            this.pwDisplay='block';
             }else {
              window.alert("인증 실패했습니다. 다시 시도해주세요.");
             }
