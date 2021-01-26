@@ -802,6 +802,10 @@ select {
   font-size: 1.5rem;
 }
 
+.modal-header a {
+  color: #000;
+}
+
 .modal-header .findIdPw__contents {
   font-size: 1.1rem;
   display: -webkit-box;
@@ -813,6 +817,15 @@ select {
 }
 
 .modal-header .findIdPw__contents .findIdPw__content:hover {
-  background-color: pink;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-decoration: none;
+  color: white;
+  background-color: #fa243c;
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #fa243c;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 /*# sourceMappingURL=index.css.map */
