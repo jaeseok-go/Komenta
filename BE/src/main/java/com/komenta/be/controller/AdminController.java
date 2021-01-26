@@ -36,11 +36,19 @@ public class AdminController {
 
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 받아서 update 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_email", value = "회원 아이디", dataType = "String", required = true)
+            @ApiImplicitParam(name = "u_email", value = "회원 이메일(아이디 아님)", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean", required = true),
+            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean", required = true),
+            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true)
     })
     @PutMapping("/member_update")
-    public int updateMember(String u_email){
-        return adminService.updateMember(u_email);
+    public int updateMember(MemberDTO member){
+        return adminService.updateMember(member);
     }
 
 
@@ -56,7 +64,7 @@ public class AdminController {
 
 
 
-    @ApiOperation(value = "VOD 업로드", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
+    @ApiOperation(value = "VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
     })
@@ -104,7 +112,14 @@ public class AdminController {
 
     @ApiOperation(value = "VOD 정보 수정", notes = "VOD 정보를 수정하고 결과를 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VOD 정보", dataType = "VodDTO", required = true)
+            @ApiImplicitParam(name = "gd_id", value = "세부 장르 아이디", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "v_actors", value = "출연자들 이름", dataType = "String", required = true),
+            @ApiImplicitParam(name = "v_age_grade", value = "연령 등급", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "v_director", value = "감독", dataType = "String", required = true),
+            @ApiImplicitParam(name = "v_id", value = "VOD 아이디", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "v_poster", value = "VOD 포스터 경로", dataType = "String", required = true),
+            @ApiImplicitParam(name = "v_summary", value = "VOD 요약", dataType = "String", required = true),
+            @ApiImplicitParam(name = "v_title", value = "VOD 제목", dataType = "String", required = true)
     })
     @PutMapping("/vod_update")
     public int updateVod(VodDTO vod){
@@ -126,7 +141,10 @@ public class AdminController {
 
     @ApiOperation(value = "VOD 회차 업로드", notes = "VOD 회차 정보를 입력받아 회차를 업로드")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "episode", value = "VDO 회차 정보", dataType = "VodEpisodeDTO", required = true)
+            @ApiImplicitParam(name = "v_id", value = "VOD 회차가 포함된 VOD 아이디", dataType = "Integer"),
+            @ApiImplicitParam(name = "ve_contents", value = "VOD 회차 영상 URL", dataType = "String", required = true),
+            @ApiImplicitParam(name = "ve_episode_num", value = "VOD 회차 번호", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "ve_id", value = "VOD 회차 아이디", dataType = "Integer", required = true)
     })
     @PostMapping("/episode_upload")
     public int uploadEpisode(VodEpisodeDTO episode){
@@ -142,14 +160,23 @@ public class AdminController {
         return adminService.selectEpisode(v_id);
     }
 
+
+
+
     @ApiOperation(value = "VOD 회차 정보 수정", notes = "VOD 회차 정보를 수정하고 결과를 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "episode", value = "VOD 회차 정보", dataType = "VodEpisodeDTO", required = true)
+            @ApiImplicitParam(name = "v_id", value = "VOD 회차가 포함된 VOD 아이디(null로 줘도 됨)", dataType = "Integer"),
+            @ApiImplicitParam(name = "ve_contents", value = "VOD 회차 영상 URL", dataType = "String", required = true),
+            @ApiImplicitParam(name = "ve_episode_num", value = "VOD 회차 번호", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "ve_id", value = "VOD 회차 아이디", dataType = "Integer", required = true)
     })
     @PutMapping("/episode_update")
     public int updateVod(VodEpisodeDTO episode){
         return adminService.updateEpisode(episode);
     }
+
+
+
 
     @ApiOperation(value = "VOD 회차 삭제", notes = "VOD 회차 아이디로 delete 후 결과 반환")
     @ApiImplicitParams({
@@ -160,14 +187,18 @@ public class AdminController {
         return adminService.deleteEpisode(ve_id);
     }
 
+
+
+
     @ApiOperation(value = "댓글 기능 차단 당한 회원 리스트 조회", notes = "모든 차단당한 회원 리스트 반환")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "v_id", value = "VDO 아이디", dataType = "Integer", required = true)
-    })
     @GetMapping("/blocked_member_list")
     public List<MemberDTO> selectBlockedMember(){
         return adminService.selectBlockedMember();
     }
+
+
+
+
 
     @ApiOperation(value = "사용자 댓글 기능 차단 설정 / 해제", notes = "사용자의 댓글 기능이 차단되어 있으면 해제, 해제되어 있으면 차단")
     @ApiImplicitParams({
@@ -195,7 +226,7 @@ public class AdminController {
             @ApiImplicitParam(name = "u_profil_pic", value = "신고당한 사용자 프로필 파일", dataType = "String", required = true)
 
     })
-    @GetMapping("/blocked_member_list")
+    @GetMapping("/reported_member_list")
     public List<ReportListDTO> selectReportedCommentAndReComment(){
         return adminService.selectReportedCommentAndReComment();
     }
