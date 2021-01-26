@@ -20,7 +20,7 @@
       <kakao/>
       <hr class="inContent or" />
       <b-col class="bcol-login">
-        <b-form @sumbit.prevent="submitLogin">
+        <b-form @submit.prevent="signIn">
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
@@ -75,7 +75,7 @@
           <button
             class="btn btn-normal btn-large"
             :disabled="isLoginValid"
-            @click="loginComplete"
+   
           >
             로그인
           </button>
@@ -155,6 +155,30 @@ export default {
     },
     loginError() {
       this.display = 'block';
+    },
+    signIn(){
+      console.log('로그인하니?',this.userId,this.password)
+      this.$firebase.auth().signInWithEmailAndPassword(this.userId, this.password)
+      .then((user) => {
+        alert(`${user.user.displayName}님 환영합니다`)
+        console.log('로그인했당',user)
+        const userInfo = {
+          name : user.user.displayName,
+          userId : user.user.email,
+          phoneNumber: user.user.phoneNumber,
+          token : user.user.refreshToken,
+          uid : user.user.uid  
+        }
+        // Signed in
+        console.log('로그인한유저정보',userInfo)
+        // ...
+      })
+        
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert('에러야???',errorCode,errorMessage)
+      });
     }
   }
 };

@@ -4,7 +4,7 @@
             <h1 class="title-logo">Komenta</h1>
             <hr>
         </div>
-        <button @click="signOutGoogle">Logout</button>
+        <button @click="signOut">Logout</button>
         <!-- <h1>하이</h1> -->
         <LoginForm></LoginForm>
 
@@ -28,7 +28,7 @@ export default {
         LoginForm
     },
     methods: {
-        async signOutGoogle() {
+        async signOut() {
         const response = await this.$firebase.auth().signOut()
         .then((res)=>console.log(res))
         .catch((err)=>console.error(err))
@@ -38,20 +38,35 @@ export default {
     created () {
     // 현재 로그인한 사용자를 가져오는 함수
     // 방법1
-    this.$firebase.auth().onAuthStateChanged(function(user) {
+    this.$firebase.auth().onAuthStateChanged((user)=> {
       if (user) {
         // User is signed in.
-        console.log('구글유저있당',user);
+        console.log('유저있당',user);
+        const userInfo = {
+          name : user.displayName,
+          userId : user.email,
+          phoneNumber: user.phoneNumber,
+          token : user.refreshToken,
+          uid : user.uid  
+        }
+        console.log('유저정보다',userInfo)
       } else {
-          console.log('구글유저없당')
+          console.log('유저없당')
         // No user is signed in.
       }
     });
     // 방법2 사용자가 로그인 상태가 아니라면 currentUser 값이 null값
-    // const user = this.$firebase.auth().currentUser;
-    // console.log('구글유저야아아',user);
-    // if(user) {
-    //   this.isSignin = true;
+    // var user = firebase.auth().currentUser;
+    // var name, email, photoUrl, uid, emailVerified;
+
+    // if (user != null) {
+    //   name = user.displayName;
+    //   email = user.email;
+    //   photoUrl = user.photoURL;
+    //   emailVerified = user.emailVerified;
+    //   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+    //                   // this value to authenticate with your backend server, if
+    //                   // you have one. Use User.getToken() instead.
     // }
   },
 
