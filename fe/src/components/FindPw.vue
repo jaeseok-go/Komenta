@@ -1,17 +1,23 @@
 <template> 
+
     <b-container class="container-setting">
-        <div class="right-sort form-sort">
-            <p class="form-sort-text">아이디:</p>
-            <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/> <br>
-            <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디확인</button>
-        </div>
-        <div @click="checkId">
-        <phone-certification
-          @checkCertification="checkCertification"
-         ></phone-certification>
-        </div>
-        <b-col :style="{display:pwDisplay}">
-          <hr>
+
+        <template v-if="showCertiForm">
+          <div class="right-sort form-sort">
+              <p class="form-sort-text">아이디:</p>
+              <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/> <br>
+              <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디확인</button>
+          </div>
+          <div @click="checkId">
+          <phone-certification
+            @checkCertification="checkCertification"
+          ></phone-certification>
+          </div>
+            <hr>
+        </template>
+
+
+          <b-col :style="{display:pwDisplay}">
           <div class="newPW-form">
             <form @submit.prevent="submitChangePw">
               <div class="newPW-form-move">
@@ -43,6 +49,7 @@ export default {
             newPw: "",
             newPwConfirm: "",
             pwDisplay:'none',
+            showCertiForm: true,
         }
     },
     computed : {
@@ -86,6 +93,7 @@ export default {
           return;
         },
         checkCertification() {
+          this.showCertiForm =  false;
           this.pwDisplay = 'block';
         },
         async submitChangePw() {
