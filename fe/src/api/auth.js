@@ -10,6 +10,7 @@ function loginUser(userData) {
     return auth.post('login', userData);
 }
 
+//회원정보 수정 API
 function updateUser(userData) {
     return auth.post('update', userData);
 }
