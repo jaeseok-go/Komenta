@@ -13,7 +13,7 @@
       <kakao/>
       <hr class="inContent or" />
       <b-col class="bcol-login">
-        <b-form @submit.prevent="signIn">
+        <b-form @submit.prevent="loginComplete">
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
@@ -143,6 +143,7 @@ export default {
     loginError() {
       this.display = 'block';
     },
+    // 이건 firebase사용버전 나중에 우리 api로 바꾸면됨
     signIn(){
       console.log('로그인하니?',this.userId,this.password)
       this.$firebase.auth().signInWithEmailAndPassword(this.userId, this.password)
