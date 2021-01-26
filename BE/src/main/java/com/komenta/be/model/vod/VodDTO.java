@@ -1,5 +1,8 @@
 package com.komenta.be.model.vod;
 
+import com.komenta.be.model.genre.GenreDTO;
+import com.komenta.be.model.genre.GenreDetailDTO;
+
 public class VodDTO {
     private int v_id;
     private String v_title;
@@ -9,6 +12,8 @@ public class VodDTO {
     private int v_age_grade;
     private String v_poster;
     private int gd_id;
+
+    private GenreDetailDTO gedto;
 
     public VodDTO(String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster) {
         this.v_title = v_title;
