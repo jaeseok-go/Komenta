@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { registerUser } from '@/api/auth';
+import { registerUser } from '@/api/user';
 // password,email유효성검사
 import { validateEmail, validatePassword } from '@/utils/validations';
 

@@ -5,6 +5,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: 'history',
+  // base: process.env.VUE_APP_URL,
   routes: [
     // Main은 나중에 바꿀예정
       {

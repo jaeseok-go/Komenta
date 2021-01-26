@@ -1,12 +1,17 @@
+import axios from "axios"
 import store from '@/stores/index.js';
-import { getAuthFromCookie } from '@/utils/cookies.js';
 
-function setInterceptors(instance) {
+ export function setInterceptors() {
+	let instance = axios.create({
+		baseURL: process.env.VUE_APP_URL,
+	 })
 	instance.interceptors.request.use(
 		config => {
-			config.headers.Authorization =
-				store.getters['userToken'] || getAuthFromCookie();
-			return config;
+			let token = store.state.user.token
+			if (token) {
+				config.headers['access-token'] = token
+			}
+			return config
 		},
 		error => Promise.reject(error.response),
 	);
@@ -16,5 +21,3 @@ function setInterceptors(instance) {
 	);
 	return instance;
 }
-
-export { setInterceptors };
