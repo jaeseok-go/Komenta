@@ -1,5 +1,6 @@
 package com.komenta.be.controller;
 
+import com.komenta.be.model.admin.ReportListDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
@@ -158,4 +159,47 @@ public class AdminController {
     public int deleteEpisode(int ve_id){
         return adminService.deleteEpisode(ve_id);
     }
+
+    @ApiOperation(value = "댓글 기능 차단 당한 회원 리스트 조회", notes = "모든 차단당한 회원 리스트 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "v_id", value = "VDO 아이디", dataType = "Integer", required = true)
+    })
+    @GetMapping("/blocked_member_list")
+    public List<MemberDTO> selectBlockedMember(){
+        return adminService.selectBlockedMember();
+    }
+
+    @ApiOperation(value = "사용자 댓글 기능 차단 설정 / 해제", notes = "사용자의 댓글 기능이 차단되어 있으면 해제, 해제되어 있으면 차단")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_id", value = "사용자 아이디(이메일 아님)", dataType = "integer", required = true)
+    })
+    @PutMapping("/member_block_unblock")
+    public int updateCommentPermission(int u_id){
+        return adminService.updateCommentPermission(u_id);
+    }
+
+    @ApiOperation(value = "신고당한 댓글 리스트 조회", notes = "모든 신고당한 댓글 리스트 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "r_id", value = "신고 내역 아이디", dataType = "integer", required = true),
+            @ApiImplicitParam(name = "r_type", value = "신고 내역 타입", dataType = "String", required = true),
+            @ApiImplicitParam(name = "r_contents", value = "신고 내용", dataType = "String", required = true),
+            @ApiImplicitParam(name = "cu_id", value = "신고한 사용자 아이디", dataType = "integer", required = true),
+            @ApiImplicitParam(name = "u_id", value = "댓글이나 대댓글 남긴 사용자 아이디", dataType = "integer", required = true),
+            @ApiImplicitParam(name = "u_email", value = "신고당한 사용자 이메일", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_pw", value = "신고당한 사용자 비밀번호", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_phone_number", value = "신고당한 사용자 전화번호", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_nickname", value = "신고당한 사용자 닉네임", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_expire_member", value = "신고당한 사용자 멤버쉽 만료일", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_is_admin", value = "신고당한 사용자 관리자 여부", dataType = "boolean", required = true),
+            @ApiImplicitParam(name = "u_is_blocked", value = "신고당한 사용자 댓글 기능 차단 여부", dataType = "boolean", required = true),
+            @ApiImplicitParam(name = "u_profil_pic", value = "신고당한 사용자 프로필 파일", dataType = "String", required = true)
+
+    })
+    @GetMapping("/blocked_member_list")
+    public List<ReportListDTO> selectReportedCommentAndReComment(){
+        return adminService.selectReportedCommentAndReComment();
+    }
+
+
+
 }
