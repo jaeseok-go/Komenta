@@ -21,7 +21,7 @@ public class MemberDTO{
         this.u_pw = u_pw;
     }
 
-    public MemberDTO(int u_id, String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, String u_profile_pic, boolean u_is_blocked) {
+    public MemberDTO(int u_id, String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, boolean u_is_blocked, String u_profile_pic) {
         this.u_id = u_id;
         this.u_email = u_email;
         this.u_pw = u_pw;
