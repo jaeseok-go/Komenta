@@ -1,23 +1,45 @@
 package com.komenta.be.controller;
 
-
-import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.*;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.json.simple.JSONObject;
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @RestController
-@RequestMapping(value ="/check")
-public class TestSMS {
+@RequestMapping("/check")
+public class ValidController {
+
+    @Autowired
+    public JavaMailSender javaMailSender;
+
+    @ApiOperation(value = "이메일 인증", notes = "인증번호를 만들어서 비밀번호와 함께 클라이언트에는 반환하고 회원 메일로는 이메일 전송")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_email", value = "회원 아이디", dataType = "String", required = true)
+    })
+    @GetMapping("/sendEmail")
+    public void sendMail(String EmailAddress) throws MessagingException {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(EmailAddress);
+//        message.setFrom("komento201@gmail.com");
+        message.setSubject("Test Email");
+        message.setText("Did you get it?");
+        javaMailSender.send(message);
+    }
+
+
     @ApiOperation(value = "휴대폰 인증", notes = "인증번호를 만들어서 아이디와 함께 클라이언트에 반환하고 휴대폰에는 문자 전송")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true)
@@ -41,7 +63,7 @@ public class TestSMS {
 
         String api_key = "테스트할때는 쓰기 아깝네요";
         String api_secret = "허허허";
-        Message coolsms = new Message(api_key, api_secret);
+        net.nurigo.java_sdk.api.Message coolsms = new Message(api_key, api_secret);
 
         // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
@@ -60,5 +82,4 @@ public class TestSMS {
         }
 
     }
-
 }
