@@ -100,7 +100,7 @@ export default {
         submitChangePw() {
           const userData = {
             ...this.$store.state.userInfo,
-            u_password: this.newPw,
+            u_pw: this.newPw,
           };
           console.log(userData)
           updateMyInfo(userData)

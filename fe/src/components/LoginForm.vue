@@ -124,18 +124,20 @@ export default {
        try {
         const response = await this.$store.dispatch('LOGIN', {
           u_email: this.userId,
-          u_password: this.password
+          u_pw: this.password
         })
-        if (response.status === 204) {
-          alert('비밀번호를 다시 입력해주세요.')
-          return
-        }
+        console.log(response,'로그인응답')
+        // if (response.status === 204) {
+        //   alert('비밀번호를 다시 입력해주세요.')
+        //   return
+        // }
         this.initForm()
         this.$router.push('/');
       } catch (error) {
-        if(error.status === 500) {
-          alert('등록되지 않은 계정입니다.')
-        }
+        console.log(error,'로그인에러ㅓ')
+        // if(error.status === 500) {
+        //   alert('등록되지 않은 계정입니다.')
+        // }
       }
     },
     initForm() {
