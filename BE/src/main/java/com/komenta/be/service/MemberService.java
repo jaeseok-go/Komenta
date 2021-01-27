@@ -6,7 +6,7 @@ public interface MemberService{
 
     public int joinMember(MemberDTO dto);
     public MemberDTO getMyInfo(String u_email);
-    MemberDTO getInfoUser(int u_id);
+    public MemberDTO getInfoUser(int u_id);
     public int updateMember(MemberDTO dto);
     public int deleteMember(int uid);
 }
