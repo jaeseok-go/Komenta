@@ -23,38 +23,45 @@ public class JwtServiceImpl implements JwtService{
 
     //	로그인 성공시 사용자 정보를 기반으로 JWTToken을 생성하여 반환.
     public String create(MemberDTO member) {
-        JwtBuilder jwtBuilder = Jwts.builder();
-//		JWT Token = Header + Payload + Signature
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("typ", "JWT");
+        headers.put("alg", "HS256");
 
-//		Header 설정
-        jwtBuilder.setHeaderParam("typ", "JWT"); // 토큰의 타입으로 고정 값.
-        System.out.println("!" + jwtBuilder);
+        Map<String, Object> payloads = new HashMap<>();
+        Long expiredTime = 1000 * 60 * expireMin;
+        Date now = new Date();
+        now.setTime(now.getTime()+expiredTime);
+        payloads.put("u_id", member.getU_id());
+        payloads.put("is_admin", member.isU_is_admin());
 
-
-//		Payload 설정
-        Map<String, Object> claims = new HashMap<>();
-
-        claims.put("u_id", member.getU_id());
-        claims.put("is_admin", member.isU_is_admin());
-
-        jwtBuilder
-                .setSubject("로그인토큰") // 토큰의 제목 설정
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)) // 유효기간 설정
-                .setClaims(claims);
-                /*
-                    is_admin 으로 회원 정보를 바꿨을 때, jwt의 정보가 바뀌지않아서 문제가 생길수있다..?
-                    토큰은 클라이언트에 저장되어 데이터베이스에서 사용자 정보를 조작하더라도 토큰에 직접 적용할 수 없습니다.
-                    (http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
-                 */
-
-//		signature 설정
-        jwtBuilder.signWith(SignatureAlgorithm.HS256, signature.getBytes());
-
-//		마지막 직렬화 처리
-        String jwt = jwtBuilder.compact();
-        logger.info("jwt : {}", jwt);
-
+        String jwt = Jwts.builder().setHeader(headers).setClaims(payloads).signWith(SignatureAlgorithm.HS256, signature.getBytes()).compact();
+        System.out.println(jwt);
         return jwt;
+//        JwtBuilder jwtBuilder = Jwts.builder();
+////		JWT Token = Header + Payload + Signature
+//
+////		Header 설정
+//        jwtBuilder.setHeaderParam("typ", "JWT"); // 토큰의 타입으로 고정 값.
+//
+////		Payload 설정
+//        jwtBuilder
+//                .setSubject("로그인토큰") // 토큰의 제목 설정
+//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)) // 유효기간 설정
+//                .claim("u_id", member.getU_id())
+//                .claim("is_admin", member.isU_is_admin());
+//                /*
+//                    is_admin 으로 회원 정보를 바꿨을 때, jwt의 정보가 바뀌지않아서 문제가 생길수있다..?
+//                    토큰은 클라이언트에 저장되어 데이터베이스에서 사용자 정보를 조작하더라도 토큰에 직접 적용할 수 없습니다.
+//                    (http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
+//                 */
+////		signature 설정
+//        jwtBuilder.signWith(SignatureAlgorithm.HS256, signature.getBytes());
+//        System.out.println(jwtBuilder.toString());
+////		마지막 직렬화 처리
+//        String jwt = jwtBuilder.compact();
+//        logger.info("jwt : {}", jwt);
+//
+//        return jwt;
     }
 
     //	전달 받은 토큰이 제대로 생성된것이니 확인 하고 문제가 있다면 RuntimeException을 발생.
