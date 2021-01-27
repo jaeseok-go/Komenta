@@ -19,7 +19,7 @@ export function setInterceptors() {
       //   config.headers['Authorization'] = 'JWT ' + store.state.user.token
       // }
       if (token) {
-        config.headers['access-token'] = token;
+        config.headers['auth-token'] = token;
       }
       return config;
     },

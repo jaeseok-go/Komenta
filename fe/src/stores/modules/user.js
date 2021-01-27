@@ -37,11 +37,23 @@ const mutations = {
 
 const actions = {
     async LOGIN({ commit }, userData) {
-        const response = await loginUser(userData)
+        console.log("야야야야야ㅑ야",commit,userData)
+        const response = await loginUser(userData);
+        
+        var client = new XMLHttpRequest();
+        client.onreadystatechange = function () {
+            // if (this.readyState == this.HEADERS_RECEIVED) {
+                var contentType = client.getResponseHeader("auth-token");
+                console.log(contentType);
+            // }
+        }
+        // var myHeaders = new Headers();
+        // console.log(myHeaders.get('auth-token'));
+        // console.log("response 이후",)
         // if (response.data.token) {
         // commit('setToken', response.data.token)
-        if (response.headers['access-token']) {
-            commit('setToken', response.headers['access-token'])
+        if (response.headers['auth-token']) {
+            commit('setToken', response.headers['auth-token'])
         } else {
             commit('loginError')
         }
