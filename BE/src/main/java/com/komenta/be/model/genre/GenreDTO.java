@@ -4,6 +4,9 @@ public class GenreDTO {
     private int g_id;
     private String g_name;
 
+    public GenreDTO(){
+    }
+
     public GenreDTO(String g_name) {
         this.g_name = g_name;
     }

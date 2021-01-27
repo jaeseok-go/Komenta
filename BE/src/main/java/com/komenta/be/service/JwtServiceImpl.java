@@ -1,6 +1,7 @@
 package com.komenta.be.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.komenta.be.model.member.MemberDTO;
@@ -27,18 +28,25 @@ public class JwtServiceImpl implements JwtService{
 
 //		Header 설정
         jwtBuilder.setHeaderParam("typ", "JWT"); // 토큰의 타입으로 고정 값.
+        System.out.println("!" + jwtBuilder);
+
 
 //		Payload 설정
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("u_id", member.getU_id());
+        claims.put("is_admin", member.isU_is_admin());
+
         jwtBuilder
                 .setSubject("로그인토큰") // 토큰의 제목 설정
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)) // 유효기간 설정
-                .claim("u_id", member.getU_id())
-                .claim("is_admin", member.isU_is_admin());
+                .setClaims(claims);
                 /*
                     is_admin 으로 회원 정보를 바꿨을 때, jwt의 정보가 바뀌지않아서 문제가 생길수있다..?
                     토큰은 클라이언트에 저장되어 데이터베이스에서 사용자 정보를 조작하더라도 토큰에 직접 적용할 수 없습니다.
                     (http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
                  */
+
 //		signature 설정
         jwtBuilder.signWith(SignatureAlgorithm.HS256, signature.getBytes());
 
