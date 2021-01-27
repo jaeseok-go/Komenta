@@ -44,6 +44,13 @@ public class MemberDTO{
         this.u_is_blocked = u_is_blocked;
     }
 
+    public MemberDTO(String u_email, String u_pw, String u_phone_number, String u_nickname) {
+        this.u_email = u_email;
+        this.u_pw = u_pw;
+        this.u_phone_number = u_phone_number;
+        this.u_nickname = u_nickname;
+    }
+
 
     public boolean isU_is_blocked() {
         return u_is_blocked;
