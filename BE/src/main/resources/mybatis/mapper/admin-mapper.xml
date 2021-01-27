@@ -67,7 +67,11 @@
             ve_contents = #{ve_contents}
         where ve_id = #{ve_id}
     </update>
-
+    <delete id="deleteAllEpisode" parameterType="int">
+        delete
+        from vod_episode
+        where v_id= #{v_id}
+    </delete>
     <delete id="deleteEpisode" parameterType="int">
         delete
         from vod_episode
