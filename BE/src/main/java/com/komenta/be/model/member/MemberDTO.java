@@ -12,6 +12,9 @@ public class MemberDTO{
     private boolean u_is_admin;
     private String u_profile_pic;
 
+    public MemberDTO() {
+    }
+
     public MemberDTO(int u_id, String u_email, String u_pw) {
         this.u_id = u_id;
         this.u_email = u_email;
@@ -51,6 +54,14 @@ public class MemberDTO{
     // u_id는 setter 없음
     public int getU_id() {
         return u_id;
+    }
+
+    public void setU_id(int u_id) {
+        this.u_id = u_id;
+    }
+
+    public void setU_profile_pic(String u_profile_pic) {
+        this.u_profile_pic = u_profile_pic;
     }
 
     public String getU_email() {
