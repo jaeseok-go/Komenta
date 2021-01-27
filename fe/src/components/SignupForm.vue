@@ -135,12 +135,12 @@ export default {
   components: { PhoneCertification },
   data() {
     return {
-      userId: 'a@nav.com',
+      userId: '',
       password: 'asdf1234',
       passwordConfirm: 'asdf1234',
       fwName:"eye",
       username: 'Komenta',
-      userPhoneNumber: '000000',
+      userPhoneNumber: '01023456789',
       phonebtn:false,
       clickSignupBtn:false,
       passwordType:"password",
@@ -268,10 +268,10 @@ export default {
       try {
         const userData = {
             u_email:this.userId,
-            u_expire_member :null,
+            // u_expire_member :null,
             u_nickname: this.username,
             u_phone_number : this.userPhoneNumber,
-            u_profile_pic:null,
+            // u_profile_pic:null,
             u_pw: this.password,
         };
         console.log(userData,'유저데이터다')

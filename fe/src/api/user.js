@@ -3,11 +3,10 @@ import { setInterceptors } from './config/interceptors'
 
 const instance = setInterceptors()
 
-
 //회원가입 API
 function registerUser(userData) {
     console.log('넘어는왔니?',userData)
-    return instance.post('member/join', userData);
+    return instance.post('join', userData);
 }
 
 //로그인 API
