@@ -26,9 +26,9 @@ public class MemberController{
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "회원 이메일(아이디 아님)", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디", dataType = "Integer", required = true),
-            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean", required = true),
-            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디", dataType = "Integer"),
+            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean"),
+            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean"),
             @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String", required = true),
@@ -40,7 +40,15 @@ public class MemberController{
         return result;
     }
 
-
+    @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
+    @ApiImplicitParams({
+           @ApiImplicitParam(name = "u_id", value = "u_id 번호", dataType = "Integer", required = true),
+    })
+    @GetMapping("/info")
+    public MemberDTO getInfoUser(int u_id){
+        MemberDTO member = mservice.getInfoUser(u_id);
+        return member;
+    }
 
     @ApiOperation(value = "로그인", notes = "성공 시 jwt 토큰을 헤더에 넣어서 반환")
     @ApiImplicitParams({
@@ -49,7 +57,7 @@ public class MemberController{
     })
     @PostMapping("/login")
     public MemberDTO loginMember(String u_email, String u_password, HttpServletResponse response){
-        MemberDTO member=  mservice.getInfoUser(u_email);
+        MemberDTO member=  mservice.getMyInfo(u_email);
         if(member.getU_pw().equals(u_password)){
             // 성공하면 jwt token create
             String token = jwtService.create(member);
