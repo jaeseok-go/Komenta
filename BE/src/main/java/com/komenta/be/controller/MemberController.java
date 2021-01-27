@@ -46,7 +46,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
     @ApiImplicitParams({
-           @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer", required = true),
     })
     @GetMapping("/info")
     public MemberDTO getInfoUser(int u_id){
