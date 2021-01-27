@@ -18,7 +18,7 @@
 
 <script>
 import { validatePhoneNum } from '@/utils/validations';
-import { phoneAuth } from '@/api/user'
+// import { phoneAuth } from '@/api/user'
 
 export default {
     name: 'PhoneCertification',
@@ -33,7 +33,7 @@ export default {
             idDisplay: 'none',
             resetBtnDisplay: 'none',
             authenNum: '',
-            confirmNum: '',
+            confirmNum: '0000',
         };
     },
     computed: {
@@ -54,11 +54,11 @@ export default {
     },
   },
   methods: {
-    async sendCertificationNumber() {
-      const response = await phoneAuth(this.userPhoneNum)
+    sendCertificationNumber() {
+      // const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params확인필요
-      this.authenNum = response.auth_number;
-      console.log(response)
+      // this.authenNum = response;
+      // console.log(response)
       window.alert('인증 번호를 발송했습니다.');
       this.start();
       this.authenDisplay = 'block';
@@ -68,7 +68,8 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        this.$emit('checkCertification')
+        
+        this.$emit('checkCertification',this.userPhoneNum)
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }

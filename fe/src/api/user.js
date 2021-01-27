@@ -1,21 +1,23 @@
 import { setInterceptors } from './config/interceptors'
 
+
 const instance = setInterceptors()
 
 
 //회원가입 API
 function registerUser(userData) {
-    return instance.post('join', userData);
+    console.log('넘어는왔니?',userData)
+    return instance.post('member/join', userData);
 }
 
 //로그인 API
 function loginUser(userData) {
-    return instance.post('login', userData);
+    return instance.post('member/login', userData);
 }
 
-// 내 정보 가져오는 API -> 마이페이지....api추가 필요...
+// 내 정보 가져오는 API
 function fetchMyInfo(userId) {
-    return instance.get(`member/${userId}`)
+    return instance.get(`member/info`,userId)
 }
 
 // 내 정보 수정
@@ -30,12 +32,12 @@ function deleteMyInfo(userId) {
 
 // 이메일 인증
 function emailAuth(userId) {
-    return instance.get(`member/authEmail`, userId)
+    return instance.get(`check/sendEmail`, userId)
 }
 
 // 휴대폰 인증
 function phoneAuth(userPhonenum) {
-    return instance.get(`member/authPhone`, userPhonenum)
+    return instance.get(`check/sendSMS`, userPhonenum)
 }
 
 // 유저 전체 목록 불러오기(관리자용)
