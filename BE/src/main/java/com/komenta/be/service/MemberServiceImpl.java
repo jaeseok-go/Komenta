@@ -24,7 +24,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDTO getInfoUser(int u_id) {
-        return sqlsession.getMapper(MemberMapper.class).getInfoUser(u_id);
+        MemberDTO dto = sqlsession.getMapper(MemberMapper.class).getInfoUser(u_id);
+        System.out.println("Service part : "+dto);
+        return dto;
     }
 
     @Override

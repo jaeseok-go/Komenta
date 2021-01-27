@@ -46,7 +46,9 @@ public class MemberController{
     })
     @GetMapping("/info")
     public MemberDTO getInfoUser(int u_id){
+        System.out.println("controller part : "+u_id);
         MemberDTO member = mservice.getInfoUser(u_id);
+        System.out.println(member);
         return member;
     }
 
