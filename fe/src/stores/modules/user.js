@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
     adminAuth: 0,
-    token: sessionStorage.getItem('token') || null,
+    token: sessionStorage.getItem('token'),
     isLogin: sessionStorage.getItem('token') === null ? false : true,
     isLoginError: false,
     userInfo: sessionStorage.getItem('token') === null ? {} : jwtDecode(sessionStorage.getItem('token')),
@@ -38,6 +38,8 @@ const mutations = {
 const actions = {
     async LOGIN({ commit }, userData) {
         const response = await loginUser(userData)
+        // if (response.data.token) {
+        // commit('setToken', response.data.token)
         if (response.headers['access-token']) {
             commit('setToken', response.headers['access-token'])
         } else {
