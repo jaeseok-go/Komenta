@@ -269,14 +269,14 @@ export default {
       try {
         const userData = {
             // u_id:100,
-            "u_email":this.userId,
-            "u_pw": this.password,
-            "u_phone_number" : this.userPhoneNumber,
-            "u_nickname": this.username,
-            "u_expire_member" :null,
-            "u_is_admin":false,
-            "u_is_blocked":false,
-            "u_profile_pic":null,
+            u_email:this.userId,
+            u_pw: this.password,
+            u_phone_number : this.userPhoneNumber,
+            u_nickname : this.username,
+            // u_expire_member :null,
+            // u_is_admin:false,
+            // u_is_blocked:false,
+            // u_profile_pic:null,
         };
         console.log(userData,'유저데이터다')
         console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)
