@@ -25,7 +25,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 create 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer"),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int"),
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
@@ -46,7 +46,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
     })
     @GetMapping("/info")
     public MemberDTO getInfoUser(int u_id){
@@ -79,7 +79,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 받아서 update 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
@@ -100,7 +100,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보 삭제", notes = "회원 정보를 받아서 delete 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "Integer", required = true)
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true)
     })
     @DeleteMapping("/delete")
     public int deleteMember(int u_id){
