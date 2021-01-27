@@ -33,15 +33,17 @@ public class MemberDTO{
         this.u_is_blocked = u_is_blocked;
     }
 
-    public MemberDTO(boolean u_is_blocked, String u_email, String u_pw, String u_phone_number, String u_nickname, boolean u_is_admin, String u_profile_pic) {
+    public MemberDTO(String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, boolean u_is_blocked, String u_profile_pic) {
         this.u_email = u_email;
         this.u_pw = u_pw;
         this.u_phone_number = u_phone_number;
         this.u_nickname = u_nickname;
+        this.u_expire_member = u_expire_member;
         this.u_is_admin = u_is_admin;
         this.u_profile_pic = u_profile_pic;
         this.u_is_blocked = u_is_blocked;
     }
+
 
     public boolean isU_is_blocked() {
         return u_is_blocked;

@@ -3,20 +3,20 @@
 
 <mapper namespace="com.komenta.be.mapper.MemberMapper">
     <insert id="joinMember" parameterType="com.komenta.be.model.member.MemberDTO">
-        insert into member (u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic)
-        values (#{u_email}, #{u_pw}, #{u_phone_number}, #{u_nickname}, #{u_expire_member}, #{u_is_admin}, #{u_profile_pic})
+        insert into member (u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic, u_is_blocked)
+        values (#{u_email}, #{u_pw}, #{u_phone_number}, #{u_nickname}, #{u_expire_member}, #{u_is_admin}, #{u_profile_pic}, #{u_is_blocked})
     </insert>
 
     <select id="getMyInfo" parameterType="String"
             resultType="com.komenta.be.model.member.MemberDTO">
-        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_is_blocked, u_profile_pic
+        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic, u_is_blocked
         FROM member
         WHERE u_email = #{u_email}
     </select>
 
     <select id="getInfoUser" parameterType="int"
             resultType="com.komenta.be.model.member.MemberDTO">
-        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_is_blocked, u_profile_pic
+        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_profile_pic, u_is_blocked
         FROM member
         WHERE u_id = #{u_id}
     </select>

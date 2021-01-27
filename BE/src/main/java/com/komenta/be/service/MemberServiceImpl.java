@@ -13,8 +13,8 @@ public class MemberServiceImpl implements MemberService {
     SqlSession sqlsession;
 
     @Override
-    public int joinMember(MemberDTO dto) {
-        return sqlsession.getMapper(MemberMapper.class).joinMember(dto);
+    public int joinMember(MemberDTO member) {
+        return sqlsession.getMapper(MemberMapper.class).joinMember(member);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int updateMember(MemberDTO dto) {
-        return sqlsession.getMapper(MemberMapper.class).updateMember(dto);
+    public int updateMember(MemberDTO member) {
+        return sqlsession.getMapper(MemberMapper.class).updateMember(member);
     }
 
     @Override
