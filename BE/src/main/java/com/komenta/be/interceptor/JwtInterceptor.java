@@ -20,6 +20,11 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.info(request.getParameter("u_email")+ " " +
+                request.getParameter("u_nickname")+ " " +
+                request.getParameter("u_phone_number")+ " " +
+                request.getParameter("u_pw"));
+
         logger.info(request.getMethod() + " : " + request.getServletPath());
 
         // request의 parameter에서 auth_token으로 넘어온 녀석을 찾아본다.
