@@ -18,8 +18,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO getInfoUser(String u_email) {
+    public MemberDTO getMyInfo(String u_email) {
         return sqlsession.getMapper(MemberMapper.class).getInfoUser(u_email);
+    }
+
+    @Override
+    MemberDTO getInfoUser(int u_id) {
+        return sqlsession.getMapper(MemberMapper.class).getInfoAnotherUser(u_id);
     }
 
     @Override
