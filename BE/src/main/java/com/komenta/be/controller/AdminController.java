@@ -1,10 +1,12 @@
 package com.komenta.be.controller;
 
 import com.komenta.be.model.admin.ReportListDTO;
+import com.komenta.be.model.genre.GenreDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import com.komenta.be.service.AdminService;
+import com.komenta.be.service.GenreService;
 import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,13 +27,13 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
-
+    @Autowired
+    GenreService genreService;
     @ApiOperation(value = "회원목록 조회", notes = "모든 회원 정보를 리스트로 반환")
     @GetMapping("/member_list")
     public List<MemberDTO> selectAllMembers(){
         return adminService.selectAllMember();
     }
-
 
 
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 받아서 update 후 결과 반환")
@@ -62,15 +64,20 @@ public class AdminController {
         return adminService.deleteMember(u_email);
     }
 
-
-
-    @ApiOperation(value = "VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
+    @ApiOperation(value = "정보가 없던 VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
+            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true),
+            @ApiImplicitParam(name = "vod", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
+
+
     })
-    @PostMapping("/vod_regist")
-    public int registVod(VodDTO vod, @RequestParam("file") MultipartFile multipartFile){
-        System.out.println(vod);
+    @PostMapping("/vod_regist_first")
+    public int registVodFirst(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
+        int a = adminService.registVod(vdto);
+        int b = adminService.uploadEpisode(vedto);
+        /*
+        * 파일 업로드
+         */
         File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
         System.out.println(targetFile);
         try {
@@ -81,7 +88,32 @@ public class AdminController {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
-        return adminService.registVod(vod);
+
+        return -1+a+b;
+    }
+    @ApiOperation(value = "VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
+    })
+    @PostMapping("/vod_regist")
+    public int registVod(VodEpisodeDTO vode, @RequestParam("file") MultipartFile multipartFile){
+        int result = adminService.uploadEpisode(vode);
+
+        /*
+        * VOD 파일 업로드
+         */
+
+        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
+        System.out.println(targetFile);
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            System.out.println("성공");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @PostMapping("/vod_uploadtest")
@@ -107,8 +139,6 @@ public class AdminController {
     public List<VodDTO> selectAllVod(){
         return adminService.selectAllVod();
     }
-
-
 
     @ApiOperation(value = "VOD 정보 수정", notes = "VOD 정보를 수정하고 결과를 반환")
     @ApiImplicitParams({
