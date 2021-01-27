@@ -127,7 +127,6 @@
 
 <script>
 import PhoneCertification from './user/PhoneCertification.vue';
-// import axios from 'axios'
 import { registerUser } from '@/api/user';
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
@@ -136,13 +135,14 @@ export default {
   components: { PhoneCertification },
   data() {
     return {
-      userId: '',
-      password: '',
-      passwordConfirm: '',
+      userId: 'a@nav.com',
+      password: 'asdf1234',
+      passwordConfirm: 'asdf1234',
       fwName:"eye",
-      username: '',
-      userPhoneNumber: '',
+      username: 'Komenta',
+      userPhoneNumber: '000000',
       phonebtn:false,
+      clickSignupBtn:false,
       passwordType:"password",
       isTerm: {
         term1:false,
@@ -216,8 +216,8 @@ export default {
     },
   },
   methods: {
-    checkCertification() {
-
+    checkCertification(e) {
+      this.userPhoneNumber = e;
       this.showCertiForm = false;
 
     },
@@ -261,21 +261,33 @@ export default {
     },
     // 우리서버이용
     async submitSignup() {
+      if (!this.clickSignupBtn) {
+        return
+      }
       // nickname params로 넘겨주기 추가해야함
-      const userData = {
-          u_email:this.userId,
-          u_nickname: this.username,
-          u_pw: this.password,
-          // nickname: this.nickname,
-          u_phone_number : this.userPhoneNumber,
-      };
-      const { data } = await registerUser(userData);
-      console.log(data.username);
-      this.initForm();
-      this.$router.push({name:'Login'});
+      try {
+        const userData = {
+            u_email:this.userId,
+            u_expire_member :null,
+            u_nickname: this.username,
+            u_phone_number : this.userPhoneNumber,
+            u_profile_pic:null,
+            u_pw: this.password,
+        };
+        console.log(userData,'유저데이터다')
+        const response = await registerUser(userData);
+        console.log('응답은왔니',response);
+        // this.initForm();
+        this.$router.push({name:'Login'});
+      } catch(error) {
+        console.log('에러다ㅏㅏㅏ')
+
+        console.log(error)
+      }
     },
     signupComplete() {
       console.log('회원가입완료!');
+      this.clickSignupBtn =true;
     },
     initForm() {
       this.username = '';

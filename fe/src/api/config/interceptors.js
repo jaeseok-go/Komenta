@@ -4,10 +4,15 @@ import store from '@/stores/index.js';
 export function setInterceptors() {
   let instance = axios.create({
     baseURL: process.env.VUE_APP_URL,
+    // CORS 방지코드
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json; charset = utf-8'
+    }
   });
   instance.interceptors.request.use(
     (config) => {
-      let token = store.state.user.token;
+      let token = store.state.userInfo.token;
       if (token) {
         config.headers['access-token'] = token;
       }
