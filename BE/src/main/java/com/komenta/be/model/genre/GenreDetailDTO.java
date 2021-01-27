@@ -7,6 +7,9 @@ public class GenreDetailDTO {
 
     private GenreDTO gdto;
 
+    public GenreDetailDTO(){
+    }
+
     public GenreDetailDTO(String gd_name, int g_id) {
         this.gd_name = gd_name;
         this.g_id = g_id;

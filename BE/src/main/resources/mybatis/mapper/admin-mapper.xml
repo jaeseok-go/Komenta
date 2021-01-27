@@ -5,11 +5,11 @@
 
     <select id="selectAllMember" resultType="com.komenta.be.model.member.MemberDTO">
         SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_is_blocked, u_profile_pic
-        FROM MEMBER
+        FROM member
     </select>
 
     <update id="updateMember" parameterType="com.komenta.be.model.member.MemberDTO">
-        update MEMBER
+        update member
         set u_pw = #{u_pw},
             u_phone_number = #{u_phone_number},
             u_nickname = #{u_nickname},
@@ -19,7 +19,7 @@
 
     <delete id="deleteMember" parameterType="String">
         delete
-        from MEMBER
+        from member
         where u_email = #{u_email}
     </delete>
 
@@ -99,7 +99,7 @@
                        from report
                        where rc_id is null) A
                           inner join comment_info B
-                                     on A.c_id = B.c_id)
+                          on A.c_id = B.c_id)
                 union
                 ( select A.r_id, A.r_type, A.r_contents, A.u_id as cu_id, A.c_id, A.rc_id, B.u_id
                   from
@@ -107,8 +107,8 @@
                        from report
                        where rc_id is not null) A
                           inner join re_comment B
-                                     on A.rc_id = B.rc_id)
+                          on A.rc_id = B.rc_id)
             ) R left outer join member M
-                                on R.u_id = M.u_id
+                on R.u_id = M.u_id
     </select>
 </mapper>
