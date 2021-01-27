@@ -94,7 +94,7 @@ public class MemberController{
     })
     @DeleteMapping("/delete")
     public int deleteMember(String u_email){
-        return mservice.deleteMember(mservice.getInfoUser(u_email).getU_id());
+        return mservice.deleteMember(mservice.getMyInfo(u_email).getU_id());
     }
 
 
