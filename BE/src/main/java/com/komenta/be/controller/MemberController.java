@@ -60,12 +60,12 @@ public class MemberController{
     @ApiOperation(value = "로그인", notes = "성공 시 jwt 토큰을 헤더에 넣어서 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_password", value = "회원 비밀번호", dataType = "String", required = true)
+            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true)
     })
     @PostMapping("/login")
-    public MemberDTO loginMember(String u_email, String u_password, HttpServletResponse response){
-        MemberDTO member=  mservice.getMyInfo(u_email);
-        if(member.getU_pw().equals(u_password)){
+    public MemberDTO loginMember(String u_email, String u_pw, HttpServletResponse response){
+        MemberDTO member = mservice.getMyInfo(u_email);
+        if(member.getU_pw().equals(u_pw)){
             // 성공하면 jwt token create
             String token = jwtService.create(member);
             response.setHeader("auth-token", token);

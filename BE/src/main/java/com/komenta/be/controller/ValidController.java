@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.*;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,8 @@ import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Random;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/check")
 public class ValidController {

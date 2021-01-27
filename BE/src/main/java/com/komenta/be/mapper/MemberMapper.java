@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
 
-    int joinMember(MemberDTO dto);
+    int joinMember(MemberDTO member);
     MemberDTO getMyInfo(String u_email);
     MemberDTO getInfoUser(int u_id);
-    int updateMember(MemberDTO dto);
+    int updateMember(MemberDTO member);
     int deleteMember(int u_id);
 
 }
