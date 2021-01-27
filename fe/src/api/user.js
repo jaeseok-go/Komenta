@@ -1,13 +1,13 @@
 import { setInterceptors } from './config/interceptors'
-import axios from 'axios';
+// import axios from 'axios';
 
 const instance = setInterceptors()
 
 //회원가입 API
 function registerUser(userData) {
     console.log('넘어는왔니?',userData)
-    // return instance.post('member/join/', userData);
-    return axios.post(`http://i4b201.p.ssafy.io:8080/member/join/`,userData)
+    return instance.post('member/join/', userData);
+    // return axios.post(`http://i4b201.p.ssafy.io:8080/member/join/`,userData)
 }
 
 //로그인 API

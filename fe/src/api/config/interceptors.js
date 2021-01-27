@@ -3,7 +3,7 @@ import store from '@/stores/index.js';
 
 export function setInterceptors() {
   let instance = axios.create({
-    baseURL: 'http://i4b201.p.ssafy.io:8080/',
+    baseURL: process.env.VUE_APP_URL,
     // CORS 방지코드
     // headers: {
     //   'Access-Control-Allow-Origin': '*',
