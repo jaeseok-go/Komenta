@@ -32,13 +32,24 @@ function deleteMyInfo(userId) {
 
 // 이메일 인증
 function emailAuth(userId) {
-    return instance.get(`check/sendEmail/`, userId)
+    //비밀번호 찾기
+    return instance.get(`check/sendEmail`, userId)
+}
+
+//비밀번호 찾기 - 아이디 확인
+function userIdChk(userId) {
+    return instance.get(`member/find_pw/`, {
+        params: { u_email: userId }
+    })
 }
 
 // 휴대폰 인증
 function phoneAuth(userPhonenum) {
-    console.log(typeof userPhonenum)
-    return instance.get(`member/find_id/`,userPhonenum)
+    // console.log(typeof userPhonenum)
+    //아이디찾기
+    return instance.get(`member/find_id/`, {
+        params: { u_phone_number: userPhonenum }
+    })
 }
 
 // 유저 전체 목록 불러오기(관리자용)
@@ -57,4 +68,5 @@ export {
     fetchAllUsers,
     emailAuth,
     phoneAuth,
+    userIdChk,
 }
