@@ -12,9 +12,14 @@ export function setInterceptors() {
   });
   instance.interceptors.request.use(
     (config) => {
+      console.log(config,'컨피그')
       let token = store.state.user.token;
+      console.log(token,'????')
+      // if (token) {
+      //   config.headers['Authorization'] = 'JWT ' + store.state.user.token
+      // }
       if (token) {
-        config.headers['access-token'] = token;
+        config.headers['auth-token'] = token;
       }
       return config;
     },

@@ -123,8 +123,8 @@ export default {
     async loginComplete() {
        try {
         const response = await this.$store.dispatch('LOGIN', {
-          u_email: this.userId,
-          u_pw: this.password
+          u_email:this.userId,
+          u_pw:this.password
         })
         console.log(response,'로그인응답')
         // if (response.status === 204) {
@@ -132,7 +132,7 @@ export default {
         //   return
         // }
         this.initForm()
-        this.$router.push('/');
+        // this.$router.push('/');
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
         // if(error.status === 500) {

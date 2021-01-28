@@ -7,11 +7,16 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value ="/member")
@@ -70,15 +75,25 @@ public class MemberController{
             @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean")
     })
     @PostMapping("/login")
-    public MemberDTO loginMember(@RequestBody MemberDTO member, HttpServletResponse response){
-        MemberDTO getMember = mservice.getMyInfo(member.getU_email());
-        if(getMember.getU_pw().equals(member.getU_pw())){
-            // 성공하면 jwt token create
-            String token = jwtService.create(member);
-            response.setHeader("auth-token", token);
-            return member;
+    public ResponseEntity<Map<String, Object>> loginMember(@RequestBody MemberDTO member, HttpServletResponse response){
+       HttpStatus status = null;
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            MemberDTO getMember = mservice.getMyInfo(member.getU_email());
+            if(getMember.getU_pw().equals(member.getU_pw())) {
+                String token = jwtService.create(member);
+                response.setHeader("auth-token", token);
+                resultMap.put("status", true);
+                resultMap.put("data", getMember);
+                status = HttpStatus.ACCEPTED;
+            }
         }
-        return null;
+        catch(RuntimeException e){
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Map<String,Object>>(resultMap, status);
     }
 
 

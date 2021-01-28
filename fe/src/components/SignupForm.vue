@@ -265,16 +265,21 @@ export default {
         return
       }
       // nickname params로 넘겨주기 추가해야함
+      // String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, boolean u_is_blocked, String u_profile_pic
       try {
         const userData = {
+            // u_id:100,
             u_email:this.userId,
-            // u_expire_member :null,
-            u_nickname: this.username,
-            u_phone_number : this.userPhoneNumber,
-            // u_profile_pic:null,
             u_pw: this.password,
+            u_phone_number : this.userPhoneNumber,
+            u_nickname : this.username,
+            // u_expire_member :null,
+            // u_is_admin:false,
+            // u_is_blocked:false,
+            // u_profile_pic:null,
         };
         console.log(userData,'유저데이터다')
+        console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)
         const response = await registerUser(userData);
         console.log('응답은왔니',response);
         // this.initForm();
