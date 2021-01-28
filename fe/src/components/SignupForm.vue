@@ -140,7 +140,7 @@ export default {
       passwordConfirm: '',
       fwName:"eye",
       username: '',
-      userPhoneNumber: '',
+      userPhoneNumber: '01044778822',
       phonebtn:false,
       clickSignupBtn:false,
       passwordType:"password",
