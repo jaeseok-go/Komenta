@@ -323,6 +323,11 @@ hr {
   right: 3.5rem;
 }
 
+.phoneNum-form .phone-label {
+  display: inline-block;
+  margin-right: 0.2rem;
+}
+
 .phoneNum-form .form-sort {
   display: inline-block;
   margin-left: 1rem;
@@ -335,6 +340,31 @@ hr {
 .phoneNum-form .phoneNum-form-move {
   position: relative;
   right: 3.5rem;
+}
+
+.join-authentic {
+  width: 70%;
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+}
+
+.join-authentic .phone-label {
+  display: none;
+}
+
+.join-authentic input {
+  width: 104.5%;
+  margin-top: 1rem;
+}
+
+.join-authentic .btn-authentic {
+  display: block;
+  font-size: 1.075rem;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0.4rem 5.3rem;
 }
 
 input[type='checkbox'], input[type='radio'] {
