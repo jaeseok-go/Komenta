@@ -13,6 +13,12 @@ public interface MemberService{
     // 다른 사람 정보 조회
     public MemberDTO getInfoUser(int u_id);
 
+    // 아이디 찾기
+    public String findId(String u_phone_number);
+
+    // 비밀번호 찾기
+    public String findPw(String u_email);
+
     // 회원 정보 수정
     public int updateMember(MemberDTO member);
 

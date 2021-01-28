@@ -11,13 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value ="/member")
@@ -31,15 +29,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 create 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int"),
-            @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String"),
-            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean"),
-            @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String"),
-            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean")
+            @ApiImplicitParam(name = "member", value = "u_email(이메일), u_pw(비밀번호), u_nickname(닉네임), u_phone_number(휴대전화 번호)", dataType = "MemberDTO", required = true)
     })
     @PostMapping("/join")
     public int createMember(@RequestBody MemberDTO member){
@@ -50,29 +40,48 @@ public class MemberController{
 
 
 
+
+
     @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int",required = true)
     })
     @GetMapping("/info")
-    public ResponseEntity<Map<String, Object>> getInfoUser(@RequestBody int u_id, HttpServletRequest req){
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
-        try{
-            MemberDTO info = mservice.getInfoUser(u_id);
-            resultMap.putAll(jwtService.get(req.getHeader("auth-token")));
-            resultMap.put("status", true);
-            resultMap.put("info", info);
-            resultMap.put("request_body", u_id);
-            status = HttpStatus.ACCEPTED;
-        }
-        catch (RuntimeException e){
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    public MemberDTO getInfoUser(int u_id){
+        return mservice.getInfoUser(u_id);
     }
+
+
+
+
+
+
+
+    @ApiOperation(value = "아이디 찾기", notes = "휴대전화 인증 후 해당 요청 시 휴대폰 번호로 아이디 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_phone_number", value = "휴대전화 번호", dataType = "String", required = true)
+    })
+    @GetMapping("/find_id")
+    public String getIdbyPhoneNumber(String u_phone_number){
+        return mservice.findId(u_phone_number);
+    }
+
+
+
+
+
+
+
+    @ApiOperation(value = "비밀번호 찾기", notes = "이메일 인증 후 요청 시 이메일로 비밀번호 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
+    })
+    @GetMapping("/find_pw")
+    public String getPwByEamil(String u_email){
+        return mservice.findPw(u_email);
+    }
+
+
 
 
 
@@ -80,15 +89,8 @@ public class MemberController{
 
     @ApiOperation(value = "로그인", notes = "성공 시 jwt 토큰을 헤더에 넣어서 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int"),
-            @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String"),
-            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String"),
-            @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String"),
-            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean"),
-            @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String"),
-            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean")
+            @ApiImplicitParam(name = "member", value = "u_email(이메일), u_pw(비밀번호)", dataType = "MemberDTO", required = true)
+
     })
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginMember(@RequestBody MemberDTO member, HttpServletResponse response){
@@ -123,15 +125,8 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보 수정", notes = "회원 정보를 받아서 update 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
-            @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean", required = true),
-            @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean", required = true)
+            @ApiImplicitParam(name = "member", value = "u_id(회원번호), u_email(이메일), u_pw(비밀번호), u_nickname(닉네임), u_phone_number(휴대전화 번호)," +
+                    " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/update")
     public int updateMember(@RequestBody MemberDTO member){
@@ -144,7 +139,7 @@ public class MemberController{
 
     @ApiOperation(value = "회원정보 삭제", notes = "회원 정보를 받아서 delete 후 결과 반환")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true)
+            @ApiImplicitParam(name = "u_id", value = "회원 번호", dataType = "int", required = true)
     })
     @DeleteMapping("/delete")
     public int deleteMember(@RequestBody int u_id){

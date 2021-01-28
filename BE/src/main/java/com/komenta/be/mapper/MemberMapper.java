@@ -9,6 +9,8 @@ public interface MemberMapper {
     int joinMember(MemberDTO member);
     MemberDTO getMyInfo(String u_email);
     MemberDTO getInfoUser(int u_id);
+    String findId(String u_phone_number);
+    String findPw(String u_email);
     int updateMember(MemberDTO member);
     int deleteMember(int u_id);
 

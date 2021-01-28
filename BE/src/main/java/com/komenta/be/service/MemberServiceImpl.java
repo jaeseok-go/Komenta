@@ -23,10 +23,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO getInfoUser(int u_id) {
-        MemberDTO dto = sqlsession.getMapper(MemberMapper.class).getInfoUser(u_id);
-        System.out.println("Service part : "+dto);
-        return dto;
+    public MemberDTO getInfoUser(int u_id) { return sqlsession.getMapper(MemberMapper.class).getInfoUser(u_id); }
+
+    @Override
+    public String findId(String u_phone_number) {
+        return sqlsession.getMapper(MemberMapper.class).findId(u_phone_number);
+    }
+
+    @Override
+    public String findPw(String u_email) {
+        return sqlsession.getMapper(MemberMapper.class).findPw(u_email);
     }
 
     @Override

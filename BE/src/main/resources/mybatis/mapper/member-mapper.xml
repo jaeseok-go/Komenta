@@ -21,6 +21,18 @@
         WHERE u_id = #{u_id}
     </select>
 
+    <select id="findId" parameterType="String" resultType="String">
+        select u_email
+        from member
+        where u_phone_number = #{u_phone_number}
+    </select>
+
+    <select id="findPw" parameterType="String" resultType="String">
+        select u_pw
+        from member
+        where u_email = #{u_email}
+    </select>
+
     <update id="updateMember" parameterType="com.komenta.be.model.member.MemberDTO">
         update member
         set u_pw = #{u_pw},
