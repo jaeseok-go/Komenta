@@ -50,14 +50,17 @@
             // ...
             const userInfo = {
             u_nickname: user.displayName,
-            platform: 'google',
+            // platform: 'google',
             u_phone_number: user.phoneNumber,
             u_email : user.email,
             u_pw: user.refreshToken
             };
+            if (!this.u_phone_number) {
+                this.router.push({name:"PhoneCertification"})
+            }
             console.log('구글유저',userInfo)
             
-            this.$router.push("/signup");
+            this.$router.push('/member/login');
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;

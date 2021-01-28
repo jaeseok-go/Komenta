@@ -49,7 +49,7 @@ function phoneAuth(userPhonenum) {
     //아이디찾기
     return instance.get(`member/find_id/`, {
         params: { u_phone_number: userPhonenum }
-    })
+    }) 
 }
 
 // 유저 전체 목록 불러오기(관리자용)
