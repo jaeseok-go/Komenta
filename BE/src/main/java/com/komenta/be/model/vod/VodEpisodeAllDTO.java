@@ -5,6 +5,8 @@ public class VodEpisodeAllDTO {
     private int ve_id;
     private int ve_episode_num;
     private String ve_contents;
+    private String ve_admin;
+    private String ve_upload_date;
     private int v_id;
     private String v_title;
     private String v_summary;
@@ -19,12 +21,14 @@ public class VodEpisodeAllDTO {
     public VodEpisodeAllDTO() {
     }
 
-    public VodEpisodeAllDTO(int ve_id, int ve_episode_num, String ve_contents, int v_id, String v_title, String v_summary,
-                            String v_director, String v_actors, int v_age_grade, String v_poster, int gd_id, String g_name,
-                            String gd_name) {
+    public VodEpisodeAllDTO(int ve_id, int ve_episode_num, String ve_contents, String ve_admin, String ve_upload_date,
+                            int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade,
+                            String v_poster, int gd_id, String g_name, String gd_name) {
         this.ve_id = ve_id;
         this.ve_episode_num = ve_episode_num;
         this.ve_contents = ve_contents;
+        this.ve_admin = ve_admin;
+        this.ve_upload_date = ve_upload_date;
         this.v_id = v_id;
         this.v_title = v_title;
         this.v_summary = v_summary;
@@ -59,6 +63,22 @@ public class VodEpisodeAllDTO {
 
     public void setVe_contents(String ve_contents) {
         this.ve_contents = ve_contents;
+    }
+
+    public String getVe_admin() {
+        return ve_admin;
+    }
+
+    public void setVe_admin(String ve_admin) {
+        this.ve_admin = ve_admin;
+    }
+
+    public String getVe_upload_date() {
+        return ve_upload_date;
+    }
+
+    public void setVe_upload_date(String ve_upload_date) {
+        this.ve_upload_date = ve_upload_date;
     }
 
     public int getV_id() {
@@ -147,6 +167,8 @@ public class VodEpisodeAllDTO {
                 "ve_id=" + ve_id +
                 ", ve_episode_num=" + ve_episode_num +
                 ", ve_contents='" + ve_contents + '\'' +
+                ", ve_admin='" + ve_admin + '\'' +
+                ", ve_upload_date='" + ve_upload_date + '\'' +
                 ", v_id=" + v_id +
                 ", v_title='" + v_title + '\'' +
                 ", v_summary='" + v_summary + '\'' +
