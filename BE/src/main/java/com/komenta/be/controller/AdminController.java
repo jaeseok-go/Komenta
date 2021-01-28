@@ -4,6 +4,7 @@ import com.komenta.be.model.admin.ReportListDTO;
 import com.komenta.be.model.genre.GenreDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
+import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import com.komenta.be.service.AdminService;
 import com.komenta.be.service.GenreService;
@@ -30,8 +31,10 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+
     @Autowired
     GenreService genreService;
+
     @ApiOperation(value = "회원목록 조회", notes = "모든 회원 정보를 리스트로 반환")
     @GetMapping("/member_list")
     public List<MemberDTO> selectAllMembers(){
@@ -206,14 +209,17 @@ public class AdminController {
         return adminService.selectEpisode(v_id);
     }
 
+
+
+
     @GetMapping("/episode_all")
-    public ResponseEntity<List<VodEpisodeDTO>> selectAllEpisode(){
-        List<VodEpisodeDTO> result = adminService.selectAllEpisode();
-        for(VodEpisodeDTO dto:result) {
+    public ResponseEntity<List<VodEpisodeAllDTO>> selectAllEpisode(){
+        List<VodEpisodeAllDTO> result = adminService.selectAllEpisode();
+        for(VodEpisodeAllDTO dto:result) {
             System.out.println(dto);
         }
 
-        return new ResponseEntity<List<VodEpisodeDTO>>(result, HttpStatus.OK);
+        return new ResponseEntity<List<VodEpisodeAllDTO>>(result, HttpStatus.OK);
     }
 
 
