@@ -39,14 +39,8 @@ const actions = {
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야",commit,userData)
         const response = await loginUser(userData);
-        
-        var client = new XMLHttpRequest();
-        client.onreadystatechange = function () {
-            // if (this.readyState == this.HEADERS_RECEIVED) {
-                var contentType = client.getResponseHeader("auth-token");
-                console.log(contentType);
-            // }
-        }
+        // console.log("response: ", response)
+        // console.log("auth-token: ", response.headers['auth-token']);
         // var myHeaders = new Headers();
         // console.log(myHeaders.get('auth-token'));
         // console.log("response 이후",)

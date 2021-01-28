@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +55,23 @@ public class MemberController{
             @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
     })
     @GetMapping("/info")
-    public MemberDTO getInfoUser(@RequestBody int u_id){
-        return mservice.getInfoUser(u_id);
+    public ResponseEntity<Map<String, Object>> getInfoUser(@RequestBody int u_id, HttpServletRequest req){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+        try{
+            MemberDTO info = mservice.getInfoUser(u_id);
+            resultMap.putAll(jwtService.get(req.getHeader("auth-token")));
+            resultMap.put("status", true);
+            resultMap.put("info", info);
+            resultMap.put("request_body", u_id);
+            status = HttpStatus.ACCEPTED;
+        }
+        catch (RuntimeException e){
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 
@@ -82,10 +98,16 @@ public class MemberController{
             MemberDTO getMember = mservice.getMyInfo(member.getU_email());
             if(getMember.getU_pw().equals(member.getU_pw())) {
                 String token = jwtService.create(member);
+                
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
                 resultMap.put("data", getMember);
+                resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
+                System.out.println(response.getHeader("auth-token"));
+            }
+            else{
+                System.out.println("아디 비번 다름");
             }
         }
         catch(RuntimeException e){
@@ -93,7 +115,7 @@ public class MemberController{
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<Map<String,Object>>(resultMap, status);
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 
