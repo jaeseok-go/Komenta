@@ -55,5 +55,10 @@ export default new Router({
       name: 'AdminTest',
       component: () => import('@/components/admin/AdminTest.vue'),
     },
+    {
+      path: '/admin/test',
+      name: 'Test',
+      component: () => import('@/components/admin/Test.vue'),
+    },
   ],
 });

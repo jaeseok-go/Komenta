@@ -68,9 +68,9 @@
         from vod_episode
     </select>
     <select id="selectAllEpisode" resultType="com.komenta.be.model.vod.VodEpisodeAllDTO">
-        select C.ve_id, C.ve_episode, C.ve_contents, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, C.gd_id, D.g_name, D.gd_name
+        select C.ve_id, C.ve_episode_num, C.ve_contents, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, C.gd_id, D.g_name, D.gd_name
         from
-            (select A.ve_id, A.ve_episode, A.ve_contents, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
+            (select A.ve_id, A.ve_episode_num, A.ve_contents, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
              from vod_episode A left outer join vod B
              on A.v_id = B.v_id) C
              left outer join
