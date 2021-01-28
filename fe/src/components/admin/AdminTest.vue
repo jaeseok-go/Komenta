@@ -43,25 +43,27 @@
           <b-button @click="send">추가</b-button>
         </b-form>
       </b-col>
+
+
       <b-col>
-        <b-table>
-          <tr>
-            <th>등록번호</th>
-            <th>제목</th>
-            <th>종류/장르</th>
-            <th>등록일</th>
-            <th>담당자</th>
-            <th>설정</th>
-          </tr>
-          <tr href="admin/test">
-            <td>{{ all_episode.ve_id }}</td>
-            <td>{{ all_episode.v_title }}-{{ all_episode.ve_episode_num }}화</td>
-            <td>{{ all_episode.g_name }}/{{all_episode.gd_name}}</td>
-            <td>{{ all_episode.ve_uploaddate }}</td>
-            <td>{{ all_episode.ve_admin }}</td>
-            <td>수정/삭제</td>
-          </tr>
-        </b-table>
+        <table>
+          <b-tr>
+            <b-th>등록번호</b-th>
+            <b-th>제목</b-th>
+            <b-th>종류/장르</b-th>
+            <b-th>등록일</b-th>
+            <b-th>담당자</b-th>
+            <b-th>설정</b-th>
+          </b-tr>
+          <b-tr @click="toVideo()" v-for="all_episode in all_episode" :key=all_episode.ve_id>
+            <b-td>{{ all_episode.ve_id }}</b-td>
+            <b-td>{{ all_episode.v_title }}-{{ all_episode.ve_episode_num }}화</b-td>
+            <b-td>{{ all_episode.g_name }}/{{all_episode.gd_name}}</b-td>
+            <b-td>{{ all_episode.ve_upload_date }}</b-td>
+            <b-td>{{ all_episode.ve_admin }}</b-td>
+            <b-td>수정/삭제</b-td>
+          </b-tr>
+        </table>
       </b-col>
 
 
@@ -177,6 +179,9 @@ export default {
      }
      
    },
+   toVideo(){
+     location.href="test";
+   }
   }
 };
 </script>
