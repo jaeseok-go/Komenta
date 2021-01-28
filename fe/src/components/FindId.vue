@@ -24,7 +24,7 @@ export default {
   components: { PhoneCertification },
   data() {
     return {
-      userId: 'test@ssafy.com',
+      userId: '',
       idDisplay: 'none',
       showCertiForm: true,
     };
