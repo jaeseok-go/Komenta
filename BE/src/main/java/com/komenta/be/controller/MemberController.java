@@ -36,7 +36,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean")
     })
     @PostMapping("/join")
-    public int createMember(MemberDTO member){
+    public int createMember(@RequestBody MemberDTO member){
         return mservice.joinMember(member);
     }
 
@@ -49,7 +49,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true),
     })
     @GetMapping("/info")
-    public MemberDTO getInfoUser(int u_id){
+    public MemberDTO getInfoUser(@RequestBody int u_id){
         return mservice.getInfoUser(u_id);
     }
 
@@ -59,13 +59,20 @@ public class MemberController{
 
     @ApiOperation(value = "로그인", notes = "성공 시 jwt 토큰을 헤더에 넣어서 반환")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int"),
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
-            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true)
+            @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String"),
+            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String"),
+            @ApiImplicitParam(name = "u_expire_member", value = "멤버쉽 종료일자", dataType = "String"),
+            @ApiImplicitParam(name = "u_is_admin", value = "회원 관리자 여부", dataType = "boolean"),
+            @ApiImplicitParam(name = "u_profile_pic", value = "회원 프로필 사진 경로", dataType = "String"),
+            @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean")
     })
     @PostMapping("/login")
-    public MemberDTO loginMember(String u_email, String u_pw, HttpServletResponse response){
-        MemberDTO member = mservice.getMyInfo(u_email);
-        if(member.getU_pw().equals(u_pw)){
+    public MemberDTO loginMember(@RequestBody MemberDTO member, HttpServletResponse response){
+        MemberDTO getMember = mservice.getMyInfo(member.getU_email());
+        if(getMember.getU_pw().equals(member.getU_pw())){
             // 성공하면 jwt token create
             String token = jwtService.create(member);
             response.setHeader("auth-token", token);
@@ -90,7 +97,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_is_blocked", value = "회원 댓글기능 차단 여부", dataType = "boolean", required = true)
     })
     @PutMapping("/update")
-    public int updateMember(MemberDTO member){
+    public int updateMember(@RequestBody MemberDTO member){
         return mservice.updateMember(member);
     }
 
@@ -103,7 +110,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int", required = true)
     })
     @DeleteMapping("/delete")
-    public int deleteMember(int u_id){
+    public int deleteMember(@RequestBody int u_id){
         return mservice.deleteMember(u_id);
     }
 
