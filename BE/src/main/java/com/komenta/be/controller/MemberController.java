@@ -82,10 +82,16 @@ public class MemberController{
             MemberDTO getMember = mservice.getMyInfo(member.getU_email());
             if(getMember.getU_pw().equals(member.getU_pw())) {
                 String token = jwtService.create(member);
+                
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
                 resultMap.put("data", getMember);
+                resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
+                System.out.println(response.getHeader("auth-token"));
+            }
+            else{
+                System.out.println("아디 비번 다름");
             }
         }
         catch(RuntimeException e){
@@ -93,7 +99,7 @@ public class MemberController{
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<Map<String,Object>>(resultMap, status);
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 
