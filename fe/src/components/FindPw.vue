@@ -38,12 +38,14 @@ import { mapState } from 'vuex';
 import PhoneCertification from './user/PhoneCertification.vue';
 import { validateEmail, validatePassword } from '@/utils/validations';
 import { updateMyInfo } from '@/api/user';
+import { userIdChk } from '@/api/user'
 
 export default {
     components: { PhoneCertification },
     data() {
         return {
             userId: "",
+            authenId:"",
             newPw: "",
             newPwConfirm: "",
             pwDisplay:'none',
@@ -85,9 +87,12 @@ export default {
       },
     },
     methods: {
-        checkId(){
-          console.log(this.userId)
-          if (this.userId !== 'a@a.com') {
+        async checkId(){
+          const response = await userIdChk(this.userId)
+          // 인증번호 params확인필요
+          console.log(response)
+          this.authenId = response.data;
+          if (response.data === 'success') {
              alert('아이디가 틀렸습니다.')
             this.userId = ""
           } 

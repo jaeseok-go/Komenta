@@ -2,7 +2,7 @@
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
         <form @submit.prevent="sendCertificationNumber">
-          휴대폰 번호 : <input type="text" class="form-control form-control-lg find" v-model="userPhoneNum"/>
+          <p class="phone-label">휴대폰 번호 : </p><input type="text" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
           <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
             휴대폰 인증</button>
           <br />
@@ -18,7 +18,7 @@
 
 <script>
 import { validatePhoneNum } from '@/utils/validations';
-// import { phoneAuth } from '@/api/user'
+import { phoneAuth } from '@/api/user'
 
 export default {
     name: 'PhoneCertification',
@@ -54,11 +54,11 @@ export default {
     },
   },
   methods: {
-    sendCertificationNumber() {
-      // const response = await phoneAuth(this.userPhoneNum)
+    async sendCertificationNumber() {
+      const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params확인필요
-      // this.authenNum = response;
-      // console.log(response)
+      this.authenNum = response;
+      console.log(response)
       window.alert('인증 번호를 발송했습니다.');
       this.start();
       this.authenDisplay = 'block';
