@@ -3,26 +3,27 @@ import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
     adminAuth: 0,
-    token: sessionStorage.getItem('access-token'),
-    isLogin: sessionStorage.getItem('access-token') === null ? false : true,
+    token: sessionStorage.getItem('auth-token'),
+    isLogin: sessionStorage.getItem('auth-token') === null ? false : true,
     isLoginError: false,
-    userInfo: sessionStorage.getItem('access-token') === null ? {} : jwtDecode(sessionStorage.getItem('access-token')),
+    userInfo: sessionStorage.getItem('auth-token') === null ? {} : jwtDecode(sessionStorage.getItem('auth-token')),
     isPasswordConfirmed: false,
 };
 
 const mutations = {
-    setToken(state, token,userData) {
+    setToken(state, token) {
         state.token = token
-        sessionStorage.setItem('access-token', token)
+        sessionStorage.setItem('auth-token', token)
         state.isLogin = true
         state.isLoginError = false
-        state.userInfo = userData
+        // state.userInfo = userData
+        // console.log(state.userInfo)
         // state.userInfo = jwtDecode(token)
     },
-    // fetchInfo(state,userData) {
-    //     state.userInfo = userData
-    //     console.log(state.userInfo,'제대로 들어갔냐')
-    // },
+    fetchInfo(state,userData) {
+        state.userInfo = userData
+        console.log(state.userInfo,'제대로 들어갔냐')
+    },
     logout(state) {
         state.token = ''
         state.isLogin = false
@@ -51,19 +52,21 @@ const actions = {
         // console.log("response 이후",)
         // if (response.data.token) {
         // commit('setToken', response.data.token)
-        if (response.headers['auth-token']) {
-            commit('setToken', response.headers['auth-token'], response.data)
-            console.log(response.data,'유저정보들어왔니')
+        if (response.data['auth-token']) {
+            commit('setToken', response.data['auth-token'])
+            commit('fetchInfo', response.data.data)
+            console.log(response.data.data,'유저정보들어왔니')
         } else {
             commit('loginError')
         }
+        console.log(state.userInfo)
         return response
     },
     async PASSWORDCONFIRM({ commit }, userData) {
         const response = await loginUser(userData)
-        if (response.headers['access-token']) {
+        if (response.data['access-token']) {
             commit('confirmComplete')
-            commit('setToken', response.headers['access-token'])
+            commit('setToken', response.data['access-token'])
         } else {
             commit('loginError')
         }
