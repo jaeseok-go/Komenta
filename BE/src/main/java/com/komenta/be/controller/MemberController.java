@@ -81,6 +81,7 @@ public class MemberController{
 
         String chkEmail = mservice.findPw(u_email);
 
+
         if(chkEmail == null || chkEmail == "") return false;
         else return true;
     }
