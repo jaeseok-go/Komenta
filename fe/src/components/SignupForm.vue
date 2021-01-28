@@ -83,7 +83,7 @@
                 type="text"
               />
             </div>
-            <phone-certification @checkCertification="checkCertification"></phone-certification>
+            <phone-certification class="join-authentic" @checkCertification="checkCertification"></phone-certification>
 
           <div class="fw-checkbox">
               <input type="checkbox" id="term1" value="term1" v-model="isTerm.term1"/>
@@ -136,11 +136,11 @@ export default {
   data() {
     return {
       userId: '',
-      password: 'asdf1234',
-      passwordConfirm: 'asdf1234',
+      password: '',
+      passwordConfirm: '',
       fwName:"eye",
-      username: 'Komenta',
-      userPhoneNumber: '01023456789',
+      username: '',
+      userPhoneNumber: '',
       phonebtn:false,
       clickSignupBtn:false,
       passwordType:"password",

@@ -2,7 +2,7 @@
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
         <form @submit.prevent="sendCertificationNumber">
-          휴대폰 번호 : <input type="text" class="form-control form-control-lg find" v-model="userPhoneNum"/>
+          <p class="phone-label">휴대폰 번호 : </p><input type="text" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
           <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
             휴대폰 인증</button>
           <br />
