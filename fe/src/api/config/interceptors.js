@@ -26,7 +26,11 @@ export function setInterceptors() {
     (error) => Promise.reject(error.response)
   );
   instance.interceptors.response.use(
-    (config) => config,
+    (config) => {
+      console.log("status: ", config.data.status);
+      console.log("token: ", config.headers['auth-token']);
+      config
+    },
     (error) => Promise.reject(error.response)
   );
   return instance;
