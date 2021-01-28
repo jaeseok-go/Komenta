@@ -53,7 +53,7 @@
             <th>담당자</th>
             <th>설정</th>
           </tr>
-          <tr @click="showVideo()">
+          <tr href="admin/test">
             <td>{{ all_episode.ve_id }}</td>
             <td>{{ all_episode.v_title }}-{{ all_episode.ve_episode_num }}화</td>
             <td>{{ all_episode.g_name }}/{{all_episode.gd_name}}</td>
@@ -93,10 +93,7 @@ export default {
       vod_list:[],
       vod_episode_list:[],
       genre_detail_list:[],
-      all_episode:[{
-        ve_id:0,
-        v_id,
-      }],
+      all_episode:[],
     };
   },
   created(){
@@ -179,8 +176,7 @@ export default {
      })
      }
      
-   }
-
+   },
   }
 };
 </script>
