@@ -3,6 +3,7 @@ package com.komenta.be.mapper;
 import com.komenta.be.model.admin.ReportListDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
+import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import org.mapstruct.Mapper;
 
@@ -23,7 +24,7 @@ public interface AdminMapper {
 
    public int uploadEpisode(VodEpisodeDTO episode);
    public List<VodEpisodeDTO> selectEpisode(int v_id);
-   public List<VodEpisodeDTO> selectAllEpisode();
+   public List<VodEpisodeAllDTO> selectAllEpisode();
    public int updateEpisode(VodEpisodeDTO episode);
    public int deleteEpisode(int ve_id);
 

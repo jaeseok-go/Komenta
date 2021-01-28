@@ -4,6 +4,7 @@ import com.komenta.be.mapper.AdminMapper;
 import com.komenta.be.model.admin.ReportListDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
+import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class AdminServiceImpl implements AdminService{
         return sqlSession.getMapper(AdminMapper.class).selectEpisode(v_id);
     }
     @Override
-    public List<VodEpisodeDTO> selectAllEpisode() {
+    public List<VodEpisodeAllDTO> selectAllEpisode() {
         return sqlSession.getMapper(AdminMapper.class).selectAllEpisode();
     }
     @Override
