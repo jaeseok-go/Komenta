@@ -5,17 +5,27 @@ public class VodEpisodeDTO {
     private int v_id;
     private int ve_episode_num;
     private String ve_contents;
-
-
-    private String ve_uploaddate;
+    private String ve_upload_date;
     private String ve_admin;
 
-    private VodDTO vodDTO;
+    public VodEpisodeDTO() {
+    }
 
-    public VodEpisodeDTO(int v_id, int ve_episode_num, String ve_contents) {
+    public VodEpisodeDTO(int ve_id, int v_id, int ve_episode_num, String ve_contents, String ve_admin, String ve_upload_date) {
+        this.ve_id = ve_id;
         this.v_id = v_id;
         this.ve_episode_num = ve_episode_num;
         this.ve_contents = ve_contents;
+        this.ve_upload_date = ve_upload_date;
+        this.ve_admin = ve_admin;
+    }
+
+    public VodEpisodeDTO(int v_id, int ve_episode_num, String ve_contents, String ve_upload_date, String ve_admin) {
+        this.v_id = v_id;
+        this.ve_episode_num = ve_episode_num;
+        this.ve_contents = ve_contents;
+        this.ve_upload_date = ve_upload_date;
+        this.ve_admin = ve_admin;
     }
 
     public VodEpisodeDTO(int ve_id, int v_id, int ve_episode_num, String ve_contents) {
@@ -23,6 +33,26 @@ public class VodEpisodeDTO {
         this.v_id = v_id;
         this.ve_episode_num = ve_episode_num;
         this.ve_contents = ve_contents;
+    }
+
+    public void setVe_id(int ve_id) {
+        this.ve_id = ve_id;
+    }
+
+    public String getVe_upload_date() {
+        return ve_upload_date;
+    }
+
+    public void setVe_upload_date(String ve_upload_date) {
+        this.ve_upload_date = ve_upload_date;
+    }
+
+    public String getVe_admin() {
+        return ve_admin;
+    }
+
+    public void setVe_admin(String ve_admin) {
+        this.ve_admin = ve_admin;
     }
 
     public int getVe_id() {

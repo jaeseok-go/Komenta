@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value ="/admin")
 public class AdminController {
@@ -96,13 +99,12 @@ public class AdminController {
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
     })
     @PostMapping("/vod_regist")
-    public int registVod(VodEpisodeDTO vode, @RequestParam("file") MultipartFile multipartFile){
-        int result = adminService.uploadEpisode(vode);
-
+    public int registVod(@RequestBody VodDTO vdto, @RequestParam("file") MultipartFile multipartFile){
+        int result = adminService.registVod(vdto);
+        System.out.println("result :"+result);
         /*
         * VOD 파일 업로드
          */
-
         File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
         System.out.println(targetFile);
         try {
@@ -136,10 +138,24 @@ public class AdminController {
 
     @ApiOperation(value = "VOD 목록 조회", notes = "모든 VOD 정보를 조회")
     @GetMapping("/vod_list")
-    public List<VodDTO> selectAllVod(){
-        return adminService.selectAllVod();
+    public ResponseEntity<List<VodDTO>> selectAllVod(){
+        List<VodDTO> result = adminService.selectAllVod();
+        for(VodDTO dto:result) {
+            System.out.println(dto);
+        }
+        return new ResponseEntity<List<VodDTO>>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/vod_list_by_gdid/{gd_id}")
+    public ResponseEntity<List<VodDTO>> selectVodByGd(@PathVariable int gd_id){
+
+        List<VodDTO> result = adminService.selectVodByGd(gd_id);
+        for(VodDTO dto:result) {
+            System.out.println(dto);
+        }
+
+        return new ResponseEntity<List<VodDTO>>(result, HttpStatus.OK);
+    }
     @ApiOperation(value = "VOD 정보 수정", notes = "VOD 정보를 수정하고 결과를 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "gd_id", value = "세부 장르 아이디", dataType = "Integer", required = true),
@@ -177,7 +193,7 @@ public class AdminController {
             @ApiImplicitParam(name = "ve_id", value = "VOD 회차 아이디", dataType = "Integer", required = true)
     })
     @PostMapping("/episode_upload")
-    public int uploadEpisode(VodEpisodeDTO episode){
+    public int uploadEpisode(@RequestBody VodEpisodeDTO episode){
         return adminService.uploadEpisode(episode);
     }
 
@@ -190,7 +206,15 @@ public class AdminController {
         return adminService.selectEpisode(v_id);
     }
 
+    @GetMapping("/episode_all")
+    public ResponseEntity<List<VodEpisodeDTO>> selectAllEpisode(){
+        List<VodEpisodeDTO> result = adminService.selectAllEpisode();
+        for(VodEpisodeDTO dto:result) {
+            System.out.println(dto);
+        }
 
+        return new ResponseEntity<List<VodEpisodeDTO>>(result, HttpStatus.OK);
+    }
 
 
     @ApiOperation(value = "VOD 회차 정보 수정", notes = "VOD 회차 정보를 수정하고 결과를 반환")
