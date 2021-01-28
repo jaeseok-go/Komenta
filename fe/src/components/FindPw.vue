@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import PhoneCertification from './user/PhoneCertification.vue';
 import { validateEmail, validatePassword } from '@/utils/validations';
 import { updateMyInfo } from '@/api/user';
@@ -53,9 +52,6 @@ export default {
         }
     },
     computed : {
-      ...mapState({
-        userInfo: state => state.user.userInfo['access-Token']
-        }),
       isUserIdValid() {
         if (!this.userId) {
           return true;
@@ -92,10 +88,10 @@ export default {
           // 인증번호 params확인필요
           console.log(response)
           this.authenId = response.data;
-          if (response.data === 'success') {
+          if (response.data === false) {
              alert('아이디가 틀렸습니다.')
             this.userId = ""
-          } 
+          }
           return;
           },
         checkCertification() {
