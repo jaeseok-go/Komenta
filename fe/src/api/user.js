@@ -37,7 +37,8 @@ function emailAuth(userId) {
 
 // 휴대폰 인증
 function phoneAuth(userPhonenum) {
-    return instance.get(`check/sendSMS/`, userPhonenum)
+    console.log(typeof userPhonenum)
+    return instance.get(`member/find_id/`,userPhonenum)
 }
 
 // 유저 전체 목록 불러오기(관리자용)
