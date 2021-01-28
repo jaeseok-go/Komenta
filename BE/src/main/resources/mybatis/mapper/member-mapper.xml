@@ -28,7 +28,7 @@
     </select>
 
     <select id="findPw" parameterType="String" resultType="String">
-        select u_pw
+        select u_email
         from member
         where u_email = #{u_email}
     </select>
