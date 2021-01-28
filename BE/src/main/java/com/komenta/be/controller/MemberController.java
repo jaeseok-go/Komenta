@@ -72,13 +72,17 @@ public class MemberController{
 
 
 
-    @ApiOperation(value = "비밀번호 찾기", notes = "이메일 인증 후 요청 시 이메일로 비밀번호 반환")
+    @ApiOperation(value = "비밀번호 찾기", notes = "DB에 등록된 아이디인지 확인")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
     })
     @GetMapping("/find_pw")
-    public String getPwByEamil(String u_email){
-        return mservice.findPw(u_email);
+    public boolean isEamil(String u_email){
+
+        String chkEmail = mservice.findPw(u_email);
+
+        if(chkEmail == null || chkEmail == "") return false;
+        else return true;
     }
 
 
