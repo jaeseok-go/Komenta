@@ -89,7 +89,6 @@ public class MemberController{
             }
         }
         catch(RuntimeException e){
-            System.out.println("로그인 실패 ", e);
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
