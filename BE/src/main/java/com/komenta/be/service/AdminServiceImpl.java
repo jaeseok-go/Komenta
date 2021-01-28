@@ -6,12 +6,14 @@ import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService{
+    @Autowired
     SqlSession sqlSession;
     @Override
     public List<MemberDTO> selectAllMember() {
@@ -31,12 +33,19 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public int registVod(VodDTO vod) {
-        return sqlSession.getMapper(AdminMapper.class).registVod(vod);
+        int a = sqlSession.getMapper(AdminMapper.class).registVod(vod);
+        System.out.println("key값"+vod.getV_id());
+        return a;
     }
 
     @Override
     public List<VodDTO> selectAllVod() {
         return sqlSession.getMapper(AdminMapper.class).selectAllVod();
+    }
+
+    @Override
+    public List<VodDTO> selectVodByGd(int gd_id){
+        return sqlSession.getMapper(AdminMapper.class).selectVodByGd(gd_id);
     }
 
     @Override
@@ -58,7 +67,10 @@ public class AdminServiceImpl implements AdminService{
     public List<VodEpisodeDTO> selectEpisode(int v_id) {
         return sqlSession.getMapper(AdminMapper.class).selectEpisode(v_id);
     }
-
+    @Override
+    public List<VodEpisodeDTO> selectAllEpisode() {
+        return sqlSession.getMapper(AdminMapper.class).selectAllEpisode();
+    }
     @Override
     public int updateEpisode(VodEpisodeDTO episode) {
         return sqlSession.getMapper(AdminMapper.class).updateEpisode(episode);

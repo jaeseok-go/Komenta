@@ -8,12 +8,12 @@ export default new Router({
   // base: process.env.VUE_APP_URL,
   routes: [
     // Main은 나중에 바꿀예정
-      {
+    {
       path: '/',
       name: 'Main',
       component: () => import('@/views/user/Login.vue'),
-      },
-      {
+    },
+    {
       path: '/member/login',
       name: 'Login',
       component: () => import('@/views/user/Login.vue'),
@@ -49,6 +49,11 @@ export default new Router({
       path: '/member/membership',
       name: "Membership",
       component: () => import('@/components/Membership.vue'),
-    }
+    },
+    {
+      path: '/admin/admintest',
+      name: 'AdminTest',
+      component: () => import('@/components/admin/AdminTest.vue'),
+    },
   ],
 });

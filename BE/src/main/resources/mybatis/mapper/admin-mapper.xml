@@ -23,9 +23,11 @@
         where u_email = #{u_email}
     </delete>
 
-    <insert id="registVod" parameterType="com.komenta.be.model.vod.VodDTO">
+    <insert id="registVod" parameterType="com.komenta.be.model.vod.VodDTO" useGeneratedKeys="true"
+            keyProperty="v_id">
         insert into vod(v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
         values (#{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
+
     </insert>
 
     <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">
@@ -33,6 +35,11 @@
         from vod;
     </select>
 
+    <select id="selectVodByGd" parameterType="Integer" resultType="com.komenta.be.model.vod.VodDTO">
+        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
+        from vod
+        where gd_id = #{gd_id};
+    </select>
     <update id="updateVod" parameterType="com.komenta.be.model.vod.VodDTO">
         update vod
         set v_title = #{v_title},
@@ -52,11 +59,15 @@
     </delete>
 
     <insert id="uploadEpisode" parameterType="com.komenta.be.model.vod.VodEpisodeDTO">
-        insert into vod_episode(ve_id, v_id, ve_episode_num, ve_contents)
-        values(#{ve_id},#{v_id},#{ve_episode_num},#{ve_contents})
+        insert into vod_episode(ve_id, v_id, ve_episode_num, ve_contents, ve_admin, ve_upload_date)
+        values(#{ve_id},#{v_id},#{ve_episode_num},#{ve_contents}, #{ve_admin}, #{ve_upload_date})
     </insert>
 
     <select id="selectEpisode" parameterType="int" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
+        select ve_id, v_id, ve_episode_num, ve_contents
+        from vod_episode
+    </select>
+    <select id="selectAllEpisode" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
         select ve_id, v_id, ve_episode_num, ve_contents
         from vod_episode
     </select>
@@ -67,11 +78,7 @@
             ve_contents = #{ve_contents}
         where ve_id = #{ve_id}
     </update>
-    <delete id="deleteAllEpisode" parameterType="int">
-        delete
-        from vod_episode
-        where v_id= #{v_id}
-    </delete>
+
     <delete id="deleteEpisode" parameterType="int">
         delete
         from vod_episode
