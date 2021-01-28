@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.*;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.util.HashMap;
@@ -33,12 +30,16 @@ public class ValidController {
             @ApiImplicitParam(name = "u_email", value = "회원 아이디", dataType = "String", required = true)
     })
     @GetMapping("/sendEmail")
-    public void sendMail(String EmailAddress) throws MessagingException {
-        SimpleMailMessage message = new SimpleMailMessage();
+    public void sendMail(@RequestBody String EmailAddress) throws MessagingException {
+        SimpleMailMessage message = new SimpleMailMessage();String numStr = "";
+        Random rand = new Random();
+        for(int i=0; i<4; i++){
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr+=ran;
+        }
         message.setTo(EmailAddress);
-//        message.setFrom("komento201@gmail.com");
-        message.setSubject("Test Email");
-        message.setText("Did you get it?");
+        message.setSubject("이메일 인증");
+        message.setText("인증 번호는 "+numStr+" 입니다.");
         javaMailSender.send(message);
     }
 
@@ -48,7 +49,7 @@ public class ValidController {
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true)
     })
     @GetMapping("/sendSMS")
-    public String sendSMS(String phoneNumber){
+    public String sendSMS(@RequestBody String phoneNumber){
         Random rand = new Random();
         String numStr = "";
         for(int i=0; i<4; i++){
@@ -58,7 +59,7 @@ public class ValidController {
 
         System.out.println("수신자 번호 : "+phoneNumber);
         System.out.println("인증 번호 : "+numStr);
-        certifiedPhoneNumber(phoneNumber,numStr);
+//        certifiedPhoneNumber(phoneNumber,numStr);
 
         return numStr;
     }
