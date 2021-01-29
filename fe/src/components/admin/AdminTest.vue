@@ -40,7 +40,7 @@
           작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input>
           
           VOD<input type="file" id="file" required>
-          <b-button @click="send">추가</b-button>
+          <b-button @click="send" class="testbtn">추가</b-button>
         </b-form>
       </b-col>
 
@@ -73,6 +73,12 @@
 
   </div>
 </template>
+<style>
+.testbtn{
+  color : black;
+  background-color: gray;
+}
+</style>
 
 <script>
 import axios from 'axios';
