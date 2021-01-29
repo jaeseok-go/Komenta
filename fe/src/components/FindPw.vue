@@ -100,7 +100,7 @@ export default {
           },
         submitChangePw() {
           const userData = {
-            ...this.$store.state.userInfo,
+            // ...this.$store.state.userInfo,
             u_email:this.userId,
             u_pw: this.newPw,
           };
