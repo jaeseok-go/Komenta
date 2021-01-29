@@ -33,7 +33,7 @@ function deleteMyInfo(userId) {
 // 이메일 인증
 function emailAuth(userId) {
     //비밀번호 찾기
-    return instance.get(`check/sendEmail`, userId)
+    return instance.get(`check/sendEmail/`, userId)
 }
 
 //비밀번호 찾기 - 아이디 확인
