@@ -36,12 +36,6 @@ public class MemberController{
         return mservice.joinMember(member);
     }
 
-
-
-
-
-
-
     @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_id", value = "회원 아이디(이메일 아님)", dataType = "int",required = true)
@@ -106,8 +100,10 @@ public class MemberController{
         Map<String, Object> resultMap = new HashMap<>();
         try{
             MemberDTO getMember = mservice.getMyInfo(member.getU_email());
+            System.out.println("rquest : "+member);
+            System.out.println("controller : " + getMember);
             if(getMember.getU_pw().equals(member.getU_pw())) {
-                String token = jwtService.create(member);
+                String token = jwtService.create(getMember);
                 
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
