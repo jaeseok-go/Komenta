@@ -52,11 +52,6 @@ public class MemberController{
     }
 
 
-
-
-
-
-
     @ApiOperation(value = "아이디 찾기", notes = "휴대전화 인증 후 해당 요청 시 휴대폰 번호로 아이디 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_phone_number", value = "휴대전화 번호", dataType = "String", required = true)
@@ -66,6 +61,15 @@ public class MemberController{
         return mservice.findId(u_phone_number);
     }
 
+    @ApiOperation(value = "비번 찾기에서 비번 바꾸기", notes = "비번 바꾸자")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_email", value = "이메일", dataType = "String", required = true),
+            @ApiImplicitParam(name = "u_pw", value = "비밀번호", dataType = "String", required = true)
+    })
+    @PutMapping("/change_pw")
+    public int updatePassword(@RequestBody MemberDTO dto){
+        return mservice.updatePassword(dto);
+    }
 
 
 
