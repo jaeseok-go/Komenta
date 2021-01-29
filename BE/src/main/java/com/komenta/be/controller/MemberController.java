@@ -55,6 +55,7 @@ public class MemberController{
         return mservice.findId(u_phone_number);
     }
 
+
     @ApiOperation(value = "비번 찾기에서 비번 바꾸기", notes = "비번 바꾸자")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "이메일", dataType = "String", required = true),
@@ -62,6 +63,7 @@ public class MemberController{
     })
     @PutMapping("/change_pw")
     public int updatePassword(@RequestBody MemberDTO dto){
+        System.out.println(dto);
         return mservice.updatePassword(dto);
     }
 
@@ -100,7 +102,6 @@ public class MemberController{
         Map<String, Object> resultMap = new HashMap<>();
         try{
             MemberDTO getMember = mservice.getMyInfo(member.getU_email());
-            System.out.println("rquest : "+member);
             System.out.println("controller : " + getMember);
             if(getMember.getU_pw().equals(member.getU_pw())) {
                 String token = jwtService.create(getMember);
