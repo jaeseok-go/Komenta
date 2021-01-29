@@ -36,6 +36,7 @@ public class JwtServiceImpl implements JwtService{
         payloads.put("u_phone_number", member.getU_phone_number());
         payloads.put("u_nickname", member.getU_nickname());
         payloads.put("u_expire_member", member.getU_expire_member());
+        payloads.put("is_blocked", member.isU_is_blocked());
         payloads.put("is_admin", member.isU_is_admin());
         payloads.put("u_profile_pic", member.getU_profile_pic());
 
