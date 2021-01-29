@@ -33,7 +33,7 @@ export default {
     checkCertification() {
       this.idDisplay = 'block';
       this.showCertiForm = false;
-
+      this.userId = this.$store.state.userInfo.u_email;
     },
     closeModal(e) {
       console.log(e)
