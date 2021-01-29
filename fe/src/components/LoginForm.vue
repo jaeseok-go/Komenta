@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="temp-bc">
     <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>
@@ -62,7 +62,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-normal btn-large" :disabled="isLoginValid">로그인</button>
+          <button class="btn btn-normal btn-large temp-color" :disabled="isLoginValid">로그인</button>
         </b-form>
         <div class="sign-setting">
           <h6><a @click="showModalForm">아이디 또는 비밀번호</a>를 잊으셨습니까?</h6>
@@ -175,3 +175,18 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+
+  .temp-bc {
+    background-color: #FFFFFF;
+    margin-top: 100px;
+    
+  }
+
+  .temp-color {
+    color:white
+  }
+
+</style>

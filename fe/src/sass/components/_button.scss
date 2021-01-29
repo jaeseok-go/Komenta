@@ -89,7 +89,6 @@ select {
 }
 
 .btn-normal {
-  color: $bg-color;
   background-color: $komenta-color;
   border-color: $komenta-color;
   padding: 0.35rem;
@@ -108,8 +107,8 @@ select {
 
   &:disabled {
     color: #fff;
-    background-color: $komenta-color;
-    border-color: $komenta-color;
+    background-color: #88888C;
+    border-color: #88888C;
     box-shadow: none;
     cursor: default;
   }

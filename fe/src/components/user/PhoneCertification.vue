@@ -57,6 +57,7 @@ export default {
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params확인필요
+       
       this.authenNum = response;
       console.log(response)
       window.alert('인증 번호를 발송했습니다.');
