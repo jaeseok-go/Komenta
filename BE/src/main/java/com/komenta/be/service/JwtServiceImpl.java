@@ -32,7 +32,12 @@ public class JwtServiceImpl implements JwtService{
         Date now = new Date();
         now.setTime(now.getTime()+expiredTime);
         payloads.put("u_id", member.getU_id());
+        payloads.put("u_email", member.getU_email());
+        payloads.put("u_phone_number", member.getU_phone_number());
+        payloads.put("u_nickname", member.getU_nickname());
+        payloads.put("u_expire_member", member.getU_expire_member());
         payloads.put("is_admin", member.isU_is_admin());
+        payloads.put("u_profile_pic", member.getU_profile_pic());
 
         String jwt = Jwts.builder().setHeader(headers).setClaims(payloads).signWith(SignatureAlgorithm.HS256, signature.getBytes()).compact();
         System.out.println(jwt);
