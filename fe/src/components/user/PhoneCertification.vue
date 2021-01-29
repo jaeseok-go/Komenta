@@ -70,8 +70,8 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        this.$store.state.userInfo.u_phone_number = this.userPhoneNum
-        this.$store.state.userInfo.u_email = this.userId
+        this.$store.commit('setEmail', this.userId);
+        this.$store.commit('setPhonenum',this.u_phone_number);
         this.$emit('checkCertification')
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
