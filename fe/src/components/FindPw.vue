@@ -36,7 +36,7 @@
 <script>
 import PhoneCertification from './user/PhoneCertification.vue';
 import { validateEmail, validatePassword } from '@/utils/validations';
-import { updateMyInfo } from '@/api/user';
+import { changePw } from '@/api/user';
 import { userIdChk } from '@/api/user'
 
 export default {
@@ -105,7 +105,7 @@ export default {
             u_pw: this.newPw,
           };
           console.log(userData)
-          updateMyInfo(userData)
+          changePw(userData)
           // 로그인 버튼 누르고 라우터로 가게 하기
           
         },

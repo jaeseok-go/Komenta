@@ -43,6 +43,11 @@ function userIdChk(userId) {
     })
 }
 
+//비밀번호 찾기 - 새 비밀번호 변경
+function changePw(userData) {
+    return instance.put(`member/change_pw`,userData)
+}
+
 // 휴대폰 인증
 function phoneAuth(userPhonenum) {
     // console.log(typeof userPhonenum)
@@ -69,4 +74,5 @@ export {
     emailAuth,
     phoneAuth,
     userIdChk,
+    changePw
 }
