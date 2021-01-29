@@ -113,10 +113,6 @@ export default {
   }
 
   img {
-    -webkit-filter: opacity(.5) drop-shadow(0 0 0 #FFEDBC);
-    filter: opacity(.5) drop-shadow( #ED4264);
-    /* -webkit-filter: linear-gradient(to right, #FFEDBC, #ED4264); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     margin-left: 10px;
     margin-top: 10px;
     height: 75px;

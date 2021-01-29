@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { loadView,loadComponent } from '@/utils/loadPage'
 
 Vue.use(Router);
 
@@ -11,7 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'Main',
-      component: () => import('@/views/user/Login.vue'),
+      component: loadComponent('Main','Main'),
     },
     {
       path: '/member/login',
