@@ -130,6 +130,7 @@ import PhoneCertification from './user/PhoneCertification.vue';
 import { registerUser } from '@/api/user';
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
+import store from '@/stores/modules/user'
 
 export default {
   components: { PhoneCertification },
@@ -217,7 +218,8 @@ export default {
   },
   methods: {
     checkCertification() {
-      this.userPhoneNumber = this.$store.state.userInfo.u_phone_number;
+      console.log(store.state.userInfo,'들어왓니 유저정보야')
+      this.userPhoneNumber = store.state.userInfo.u_phone_number;
       this.showCertiForm = false;
 
     },
