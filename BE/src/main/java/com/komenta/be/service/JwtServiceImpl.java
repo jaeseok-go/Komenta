@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService{
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("alg", "HS256");
-
+        System.out.println(member);
         Map<String, Object> payloads = new HashMap<>();
         Long expiredTime = 1000 * 60 * expireMin;
         Date now = new Date();
