@@ -1,19 +1,25 @@
 package com.komenta.be.controller;
 
+import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 @CrossOrigin(origins = "*")
@@ -26,6 +32,7 @@ public class MemberController{
 
     @Autowired
     JwtService jwtService;
+
 
     @ApiOperation(value = "회원가입", notes = "회원 정보를 받아서 create 후 결과 반환")
     @ApiImplicitParams({
@@ -46,25 +53,64 @@ public class MemberController{
     }
 
 
+
+
+
+
     @ApiOperation(value = "아이디 찾기", notes = "휴대전화 인증 후 해당 요청 시 휴대폰 번호로 아이디 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_phone_number", value = "휴대전화 번호", dataType = "String", required = true)
     })
     @GetMapping("/find_id")
-    public String getIdbyPhoneNumber(String u_phone_number){
-        return mservice.findId(u_phone_number);
+    public AuthPhoneDTO getIdbyPhoneNumber(String u_phone_number){
+
+        // 인증 번호 생성
+        Random rand = new Random();
+        String auth_number = "";
+        for(int i=0; i<4; i++){
+            String ran = Integer.toString(rand.nextInt(10));
+            auth_number += ran;
+        }
+
+        // SMS 인증 서비스 API env
+        String api_key = "테스트할때는 쓰기 아깝네요";
+        String api_secret = "허허허";
+        net.nurigo.java_sdk.api.Message coolsms = new Message(api_key, api_secret);
+
+        // 4 params(to, from, type, text) are mandatory. must be filled
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("to", u_phone_number);    // 수신전화번호
+        params.put("from", "번호쓰는곳");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("type", "SMS");
+        params.put("text", " 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
+        params.put("app_version", "test app 1.2"); // application name and version
+
+        try {
+            JSONObject obj = (JSONObject) coolsms.send(params);
+            System.out.println(obj.toString());
+        } catch (CoolsmsException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCode());
+        }
+
+        AuthPhoneDTO result = new AuthPhoneDTO(Integer.parseInt(auth_number), mservice.findId(u_phone_number));
+
+        return result;
     }
 
 
-    @ApiOperation(value = "비번 찾기에서 비번 바꾸기", notes = "비번 바꾸자")
+
+
+
+
+    @ApiOperation(value = "비밀번호 바꾸기", notes = "바꿀 비밀번호를 입력받아 update후 결과 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "이메일", dataType = "String", required = true),
             @ApiImplicitParam(name = "u_pw", value = "비밀번호", dataType = "String", required = true)
     })
     @PutMapping("/change_pw")
-    public int updatePassword(@RequestBody MemberDTO dto){
-        System.out.println(dto);
-        return mservice.updatePassword(dto);
+    public int updatePassword(@RequestBody MemberDTO member){
+        return mservice.updatePassword(member);
     }
 
 
@@ -72,11 +118,11 @@ public class MemberController{
 
 
 
-    @ApiOperation(value = "비밀번호 찾기", notes = "DB에 등록된 아이디인지 확인")
+    @ApiOperation(value = "아이디 가입 여부 확인" , notes = "DB에 등록된 아이디인지 확인")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String", required = true),
     })
-    @GetMapping("/find_pw")
+    @GetMapping("/chk_id")
     public boolean isEamil(String u_email){
 
         String chkEmail = mservice.findPw(u_email);
