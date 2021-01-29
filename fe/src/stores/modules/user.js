@@ -34,6 +34,12 @@ const mutations = {
     //     state.userInfo = userData
     //     console.log(state.userInfo,'제대로 들어갔냐')
     // },
+    setEmail(state,email){
+        state.userInfo.u_email = email
+    },
+    setPhonenum(state,phone){
+        state.userInfo.u_phone_number = phone
+    },
     logout(state) {
         state.token = ''
         state.isLogin = false
