@@ -132,7 +132,7 @@ export default {
         //   return
         // }
         this.initForm()
-        // this.$router.push('/');
+        this.$router.push('/member/myPage');
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
         // if(error.status === 500) {

@@ -60,5 +60,10 @@ export default new Router({
       name: 'Test',
       component: () => import('@/components/admin/Test.vue'),
     },
+    {
+      path: '/member/myPage',
+      name: 'MyPage',
+      component: () => import('@/components/MyPage.vue'),
+    },
   ],
 });
