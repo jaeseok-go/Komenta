@@ -19,6 +19,7 @@
 <script>
 import '@/css/index.css'
 import PhoneCertification from './user/PhoneCertification.vue';
+import store from '@/stores/modules/user';
 
 export default {
   components: { PhoneCertification },
@@ -33,7 +34,7 @@ export default {
     checkCertification() {
       this.idDisplay = 'block';
       this.showCertiForm = false;
-      this.userId = this.$store.state.userInfo.u_email;
+      this.userId = store.state.userInfo.u_email;
     },
     closeModal(e) {
       console.log(e)

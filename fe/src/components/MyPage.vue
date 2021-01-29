@@ -42,10 +42,10 @@ export default {
       const response = jwtDecode(store.state.token);
       console.log("store userinfo : ",response);
       // const response = await this.$store.dispatch('LOGIN', {});
-      // this.userId = response.u_email;
-      // this.userPassword = response.u_pw;
-      // this.userNickName = response.u_nickname;
-      // this.userPhoneNumber = response.u_phone_number;
+      this.userId = response.u_email;
+      this.userPassword = response.u_pw;
+      this.userNickName = response.u_nickname;
+      this.userPhoneNumber = response.u_phone_number;
     },
     modifyUser() {
       this.modiForm = 'block';
@@ -58,7 +58,7 @@ export default {
           u_nickname : this.userNickName,
           u_phone_number : this.userPhoneNumber
         };
-
+        console.log(userData)
         const response = await updateMyInfo(userData);
         console.log("수정 modify",response);
       }catch(err) {
