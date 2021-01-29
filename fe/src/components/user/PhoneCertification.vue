@@ -19,6 +19,8 @@
 <script>
 import { validatePhoneNum } from '@/utils/validations';
 import { phoneAuth } from '@/api/user'
+import store from '@/stores/index'
+
 
 export default {
     name: 'PhoneCertification',
@@ -70,8 +72,8 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        this.$store.commit('setEmail', this.userId);
-        this.$store.commit('setPhonenum',this.u_phone_number);
+        store.commit('setEmail', this.userId);
+        store.commit('setPhonenum',this.userPhoneNum);
         this.$emit('checkCertification')
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
