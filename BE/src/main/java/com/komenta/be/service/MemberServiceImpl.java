@@ -36,6 +36,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public int updatePassword(MemberDTO member) {
+        return sqlsession.getMapper(MemberMapper.class).updatePassword(member);
+    }
+
+    @Override
     public int updateMember(MemberDTO member) {
         return sqlsession.getMapper(MemberMapper.class).updateMember(member);
     }

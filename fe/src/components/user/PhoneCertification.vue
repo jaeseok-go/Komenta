@@ -24,6 +24,7 @@ export default {
     name: 'PhoneCertification',
     data() {
         return {
+            userId:'',
             userPhoneNum:'',
             phonebtn:false,
             timeCount: 300,
@@ -56,9 +57,9 @@ export default {
   methods: {
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
-      // 인증번호 params확인필요
-       
-      this.authenNum = response;
+      // 인증번호 params response에서 확인필요
+      // this.confirmNum = response;
+      this.userId = response.data;
       console.log(response)
       window.alert('인증 번호를 발송했습니다.');
       this.start();
@@ -69,8 +70,9 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        
-        this.$emit('checkCertification',this.userPhoneNum)
+        this.$store.commit('setEmail', this.userId);
+        this.$store.commit('setPhonenum',this.u_phone_number);
+        this.$emit('checkCertification')
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }

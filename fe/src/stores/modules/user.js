@@ -6,7 +6,17 @@ const state = {
     token: sessionStorage.getItem('auth-token'),
     isLogin: sessionStorage.getItem('auth-token') === null ? false : true,
     isLoginError: false,
-    userInfo: sessionStorage.getItem('auth-token') === null ? {} : jwtDecode(sessionStorage.getItem('auth-token')),
+    userInfo: sessionStorage.getItem('auth-token') === null ? {
+        u_id:null,
+        u_email: null,
+        // u_pw: null,
+        u_phone_number: null,
+        u_nickname: null,
+        u_expire_member :null,
+        u_is_admin:false,
+        u_is_blocked:false,
+        u_profile_pic:null,
+    } : jwtDecode(sessionStorage.getItem('auth-token')),
     isPasswordConfirmed: false,
 };
 
@@ -18,11 +28,17 @@ const mutations = {
         state.isLoginError = false
         // state.userInfo = userData
         // console.log(state.userInfo)
-        // state.userInfo = jwtDecode(token)
+        state.userInfo = jwtDecode(token)
     },
-    fetchInfo(state,userData) {
-        state.userInfo = userData
-        console.log(state.userInfo,'제대로 들어갔냐')
+    // fetchInfo(state,userData) {
+    //     state.userInfo = userData
+    //     console.log(state.userInfo,'제대로 들어갔냐')
+    // },
+    setEmail(state,email){
+        state.userInfo.u_email = email
+    },
+    setPhonenum(state,phone){
+        state.userInfo.u_phone_number = phone
     },
     logout(state) {
         state.token = ''
@@ -54,7 +70,7 @@ const actions = {
         // commit('setToken', response.data.token)
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
-            commit('fetchInfo', response.data.data)
+            // commit('fetchInfo', response.data.data)
             console.log(response.data.data,'유저정보들어왔니')
         } else {
             commit('loginError')

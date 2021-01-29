@@ -11,6 +11,7 @@ public interface MemberMapper {
     MemberDTO getInfoUser(int u_id);
     String findId(String u_phone_number);
     String findPw(String u_email);
+    int updatePassword(MemberDTO member);
     int updateMember(MemberDTO member);
     int deleteMember(int u_id);
 
