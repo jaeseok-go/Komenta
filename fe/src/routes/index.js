@@ -49,6 +49,11 @@ export default new Router({
       path: '/member/membership',
       name: "Membership",
       component: () => import('@/components/Membership.vue'),
-    }
+    },
+    {
+      path: '/member/myPage',
+      name: "MyPage",
+      component: () => import('@/components/MyPage.vue'),
+    },
   ],
 });
