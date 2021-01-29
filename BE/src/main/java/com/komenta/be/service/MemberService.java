@@ -19,6 +19,9 @@ public interface MemberService{
     // 비밀번호 찾기
     public String findPw(String u_email);
 
+    // 비밀 번호 변경
+    public int updatePassword(MemberDTO member);
+
     // 회원 정보 수정
     public int updateMember(MemberDTO member);
 

@@ -15,6 +15,11 @@ public class MemberDTO{
     public MemberDTO() {
     }
 
+    public MemberDTO(String u_email, String u_pw) {
+        this.u_email = u_email;
+        this.u_pw = u_pw;
+    }
+
     public MemberDTO(int u_id, String u_email, String u_pw) {
         this.u_id = u_id;
         this.u_email = u_email;
@@ -125,9 +130,6 @@ public class MemberDTO{
         return u_profile_pic;
     }
 
-    public void setU_profile_ppic(String u_profile_pic) {
-        this.u_profile_pic = u_profile_pic;
-    }
 
     @Override
     public String toString() {
