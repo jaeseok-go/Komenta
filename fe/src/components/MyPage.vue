@@ -20,13 +20,14 @@
 </template>
 
 <script>
-import store from '@/stores/modules/user'
 import { updateMyInfo } from '@/api/user';
-import jwtDecode from 'jwt-decode'
+import { mapState } from 'vuex';
+
 
 export default {
   data() {
     return {
+      uId:'',
       userId:'',
       userPassword:'',
       userNickName:'',
@@ -37,15 +38,18 @@ export default {
   created() {
     this.getUserInfo();
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo
+    })
+  },
   methods: {
     getUserInfo() {
-      const response = jwtDecode(store.state.token);
-      console.log("store userinfo : ",response);
-      // const response = await this.$store.dispatch('LOGIN', {});
-      this.userId = response.u_email;
-      this.userPassword = response.u_pw;
-      this.userNickName = response.u_nickname;
-      this.userPhoneNumber = response.u_phone_number;
+      this.uId = this.userInfo.u_id;
+      this.userId = this.userInfo.u_email;
+      this.userPassword = this.userInfo.u_pw;
+      this.userNickName = this.userInfo.u_nickname;
+      this.userPhoneNumber = this.userInfo.u_phone_number;
     },
     modifyUser() {
       this.modiForm = 'block';
@@ -53,12 +57,14 @@ export default {
     async modifyUserInfo(){
       try {
         const userData = {
+          u_id:this.uId,
           u_email:this.userId,
           u_pw: this.userPassword,
           u_nickname : this.userNickName,
           u_phone_number : this.userPhoneNumber
         };
-        console.log(userData)
+        console.log('유저데이터잘들어왔니',userData)
+        console.log(this.userInfo)
         const response = await updateMyInfo(userData);
         console.log("수정 modify",response);
       }catch(err) {

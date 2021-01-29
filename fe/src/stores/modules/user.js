@@ -27,8 +27,8 @@ const mutations = {
         state.isLogin = true
         state.isLoginError = false
         // state.userInfo = userData
-        // console.log(state.userInfo)
         state.userInfo = jwtDecode(token)
+        console.log('여긴 store',state.userInfo)
     },
     // fetchInfo(state,userData) {
     //     state.userInfo = userData
