@@ -216,8 +216,8 @@ export default {
     },
   },
   methods: {
-    checkCertification(e) {
-      this.userPhoneNumber = e;
+    checkCertification() {
+      this.userPhoneNumber = this.$store.state.userInfo.u_phone_number;
       this.showCertiForm = false;
 
     },
