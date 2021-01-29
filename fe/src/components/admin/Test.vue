@@ -4,10 +4,16 @@
         <video ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate"  autoplay>
             <source src="https://drive.google.com/uc?export=download&id=0B4BsAbG4atWHQzVfLUU3UnhhZTA" id="player" type='video/webm' />
         </video>
-        <b-button @click="a(5)" v-show="showcomment">5초로 이동하는 댓글</b-button>
-        
+        <b-button @click="a(5)" v-show="showcomment" class="testbtn">5초로 이동하는 댓글</b-button>
+
     </div>
 </template>
+<style>
+.testbtn{
+  color : black;
+  background-color: gray;
+}
+</style>
 <script>
 
 export default {
