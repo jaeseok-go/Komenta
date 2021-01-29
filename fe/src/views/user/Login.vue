@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div>
+        <div class="temp-bc-title">
             <h1 class="title-logo">Komenta</h1>
             <hr>
         </div>
-        <button @click="signOut">Logout</button>
+        <!-- <button @click="signOut">Logout</button> -->
         <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
       
         <Modal v-if="showModal" @click="$emit('close')">
@@ -105,6 +105,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .temp-bc-title {
+    background-color: #F9F9F9;
+  }
 </style>
