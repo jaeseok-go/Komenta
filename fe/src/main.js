@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/routes/index';
 import store from '@/stores/index';
+import Vuetify from 'vuetify'
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -16,6 +17,8 @@ import '@/css/index.css'
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+Vue.use(Vuetify);
+
 
 library.add(fasCheckC, faCheck, faTimes) //fas lib
 library.add(faEye, faEyeSlash, faEnvelope, farCheckC) //far lib
@@ -26,6 +29,7 @@ window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
 
 new Vue({
   router,
-	store,
+  store,
+  vuetify : new Vuetify(),
   render: h => h(App),
 }).$mount('#app')
