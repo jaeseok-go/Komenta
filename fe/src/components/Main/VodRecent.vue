@@ -13,12 +13,12 @@ export default {
             recentVODs:[]
         }
     },
-    methods:{
-        //getRecentVOD api만들어야함
-        fetchRecentVOD() {
-            this.recentVODs = getRecentVOD()
-        }
-    },
+    // methods:{
+    //     //getRecentVOD api만들어야함
+    //     fetchRecentVOD() {
+    //         this.recentVODs = getRecentVOD()
+    //     }
+    // },
     created(){
         //최신순 vod get
         this.fetchRecentVOD()

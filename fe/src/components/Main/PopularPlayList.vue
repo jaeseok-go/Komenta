@@ -14,12 +14,12 @@ export default {
       popularPlaylist:[]
     }
   },
-  methods: {
-    fetchPopularPlayList() {
-      //좋아요가 많은 순서대로 받아올수있을지?
-      this.popularPlaylist = getPopularPlayList()
-    }
-  },
+  // methods: {
+  //   fetchPopularPlayList() {
+  //     //좋아요가 많은 순서대로 받아올수있을지?
+  //     this.popularPlaylist = getPopularPlayList()
+  //   }
+  // },
   created() {
     this.fetchPopularPlayList()
   },

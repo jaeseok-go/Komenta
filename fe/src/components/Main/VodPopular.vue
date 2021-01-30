@@ -13,12 +13,12 @@ export default {
             popularVODs:[]
         }
     },
-    methods:{
-        //getPopularVOD api만들어야함
-        fetchPopularVOD() {
-            this.popularVODs = getPopularVOD()
-        }
-    },
+    // methods:{
+    //     //getPopularVOD api만들어야함
+    //     fetchPopularVOD() {
+    //         this.popularVODs = getPopularVOD()
+    //     }
+    // },
     created(){
         //인기순 vod get
         this.fetchPopularVOD()

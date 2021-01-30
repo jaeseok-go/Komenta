@@ -13,12 +13,12 @@ export default {
             commentVODs:[]
         }
     },
-    methods:{
-        //getcommentVOD api만들어야함
-        fetchCommentVOD() {
-            this.commentVODs = getcommentVOD()
-        }
-    },
+    // methods:{
+    //     //getcommentVOD api만들어야함
+    //     fetchCommentVOD() {
+    //         this.commentVODs = getcommentVOD()
+    //     }
+    // },
     created(){
         //댓글순 vod get
         this.fetchCommentVOD()

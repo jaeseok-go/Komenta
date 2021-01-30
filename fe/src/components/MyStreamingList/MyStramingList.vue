@@ -35,9 +35,10 @@ export default {
         }
     },
     computed: {
-    ...mapState({
-      userInfo: state => state.user.userInfo
-    }),
+        ...mapState({
+            userInfo: state => state.user.userInfo
+                }),
+    },
     methods: {
         fetchRecentPlaylist() {
             const u_id = userInfo.u_id

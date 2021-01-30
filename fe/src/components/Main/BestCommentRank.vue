@@ -15,12 +15,12 @@ export default {
 
     }
   },
-  methods: {
-    fetchBestComment() {
-      //getBestComment api만들어야함
-      this.bestComment = getBestComment()
-    }
-  },
+  // methods: {
+  //   fetchBestComment() {
+  //     //getBestComment api만들어야함
+  //     this.bestComment = getBestComment()
+  //   }
+  // },
   created() {
     this.fetchBestComment()
   },
