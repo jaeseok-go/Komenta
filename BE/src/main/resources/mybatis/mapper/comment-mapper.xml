@@ -1,0 +1,24 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.CommentMapper">
+
+    <insert id = "insertComment" parameterType="com.komenta.be.model.comment.CommentInfoDTO">
+        insert into comment(c_contents, c_playtime, c_upload_time, u_id, ve_id)
+        values (#{c_contents}, #{c_playtime}, #{c_upload_time}, #{u_id}, #{ve_id});
+    </insert>
+
+    <select id = "getVodEpisodeComment" parameterType="integer" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
+        select c_id, c_contents, c_playtime, c_upload_time, u_id, u_nickname, comment_good_count
+        from ((select c_id, c_contents, c_playtime, c_upload_time;
+        from comment_info
+	    where ve_id = #{ve_id}) A
+	    left outer join member B
+        on A.u_id = B.u_id) C
+        left outer join
+        (select c_id, count(*) as comment_good_count
+        from comment_good
+        group by c_id) D
+        on C.c_id = D.c_id;
+    </select>
+</mapper>
