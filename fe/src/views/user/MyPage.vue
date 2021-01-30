@@ -1,55 +1,12 @@
 <template>
   <b-container>
-    <UserInfo></UserInfo>
-    <b-col>
-      <h4>내가 단 댓글</h4>
-      1. 컨텐츠 명(제목+회차)<br>
-      2. 댓글 내용(a태그 -> 해당 회차 페이지로 이동)<br>
-      3. 좋아요 수<br>
-      4. 대댓글 수<br>
-      5. 댓글 쓴 날짜<br>
-      6. 편집 버튼 클릭 시, 댓글 수정, 삭제 가능<br>
-    </b-col>
-    <b-col>
-      <h4>시청 VOD 관리</h4>
-      1. 이미지(포스터...?)<br>
-      2. VOD 명 + 회차 정보<br>
-      3. 최근 시청 날짜<br>
-      4. 편집 버튼 클릭 시, 시청 기록 삭제 가능<br>
-    </b-col>
-    <b-col>
-      <h4>관심 리스트 관리(레이아웃 배치 생각 중)</h4>
-      1. 리스트 명<br>
-      2. 리스트 만든 유저 닉네임<br>
-      3. 편집 버튼 클릭 시, 리스트 삭제 기능<br>
-    </b-col>
-    <b-col>
-      <h4>팔로우 관리</h4>
-      1. 나를 팔로우<br>
-        1-0. 검색창<br>
-        1-1. 팔로우 유저의 프로필<br>
-        1-2. 팔로우 유저의 닉네임<br>
-        1-3. 팔로우 버튼, 차단 버튼<br>
-      2. 내가 팔로우<br>
-        2-0. 검색창<br>
-        2-1. 팔로우 유저의 프로필<br>
-        2-2. 팔로우 유저의 닉네임<br>
-        2-3. 삭제, 차단 버튼<br>
-    </b-col>
-    <b-col>
-      <h4>언팔로우 관리(차단)</h4>
-      0. 검색창 <br>
-      1. 언팔로우 유저의 프로필<br>
-      2. 언팔로우 유저의 닉네임<br>
-      3. 팔로우, 삭제 버튼<br>
-    </b-col>
-    <b-col>
-      <h4>멤버십 관리</h4>
-      1. 멤버십 명 <br>
-      2. 사용기간<br>
-      3. 결제 예정일<br>
-      4. 상태(해지하기, 해지취소) 버튼<br>
-    </b-col>
+    <user-info></user-info>
+    <my-comment></my-comment>
+    <watched-vod></watched-vod>
+    <interest-play-list></interest-play-list>
+    <follow></follow>
+    <un-follow></un-follow>
+    <membership-setting></membership-setting>
     <!-- {{userNickName}}님의 정보<br>
     ID :{{userId}} <br> 
     Password : {{userPassword}} <br>
@@ -71,12 +28,23 @@
 
 <script>
 import UserInfo from '@/components/user/myPage/UserInfo'
+import MyComment from '@/components/user/myPage/MyComment';
+import WatchedVod from '@/components/user/myPage/WatchedVOD'
+import InterestPlayList from '../../components/user/myPage/InterestPlayList.vue';
+import UnFollow from '../../components/user/myPage/UnFollow.vue';
+import MembershipSetting from '../../components/user/myPage/MembershipSetting.vue';
+
 import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
 
 export default {
   components:{
-    UserInfo
+    UserInfo,
+    MyComment,
+    WatchedVod,
+    InterestPlayList,
+    UnFollow,
+    MembershipSetting
   },
   data() {
     return {
