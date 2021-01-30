@@ -83,9 +83,14 @@ export default new Router({
       component: () => import('@/views/vod/Category.vue'),
     },
     {
+      path: '/Myplaylist',
+      name: 'Myplaylist',
+      component: () => import('@/components/feed/MyPlayList.vue'),
+    },
+    {
       path: '*',
       name: 'NotFound',
-      component: import('@/views/NotFoundPage.vue'),
+      component: () => import('@/views/NotFoundPage.vue'),
     },
   ],
 });
