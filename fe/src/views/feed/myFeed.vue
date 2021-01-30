@@ -51,7 +51,8 @@
 
 <script>
 import Header from '@/components/common/Header';
-import Asidebar from '@/components/common/Asidebar;
+import Asidebar from '@/components/common/Asidebar';
+
 export default {
     name: 'myFeed',
     components:{
