@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Asidebar from '@/components/common/Asidebar'
+import AsideBar from '@/components/common/Asidebar'
 import Header from '@/components/common/Header'
 import BestCommentRank from '@/components/Main/BestCommentRank'
 import NowPlaying from '@/components/Main/NowPlaying'
@@ -21,7 +21,7 @@ import VODSections from '@/components/Main/VODSections'
 export default {
     components: {
         Header,
-        Asidebar,
+        AsideBar,
         VODSections,
         BestCommentRank,
         NowPlaying,
