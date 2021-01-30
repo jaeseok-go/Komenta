@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { loadView,loadComponent } from '@/utils/loadPage'
+// import { loadView,loadComponent } from '@/utils/loadPage'
 
 Vue.use(Router);
 
@@ -12,7 +12,8 @@ export default new Router({
     {
       path: '/',
       name: 'Main',
-      component: loadComponent('Main','Main'),
+      // component: loadComponent('Main','Main'),
+      component: () => import('@/components/Main/Main.vue')
     },
     {
       path: '/member/login',
@@ -65,6 +66,26 @@ export default new Router({
       path: '/member/myPage',
       name: 'MyPage',
       component: () => import('@/components/MyPage.vue'),
+    },
+    {
+      path: '/MyFeed',
+      name: 'MyFeed',
+      component: () => import('@/views/feed/MyFeed.vue'),
+    },
+    {
+      path: '/VodDetail',
+      name: 'VodDetail',
+      component: () => import('@/views/vod/VodDetail.vue'),
+    },
+    {
+      path: '/Category',
+      name: 'Category',
+      component: () => import('@/views/vod/Category.vue'),
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: import('@/views/NotFoundPage.vue'),
     },
   ],
 });
