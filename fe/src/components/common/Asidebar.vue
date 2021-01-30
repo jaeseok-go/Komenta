@@ -14,11 +14,10 @@
         7) 로그아웃 <br> -->
 
     <div id="#app">
-
         <v-app id="inspire">
             <v-card
-            class="mx-auto"
             width="256"
+            height="70rem"
             tile
         >
             <v-navigation-drawer permanent>
