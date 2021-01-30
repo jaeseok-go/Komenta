@@ -120,6 +120,7 @@ export default {
       this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
+      console.log(this.userInfo,'바꼈니?')
     },
     modifyUser() {
       this.modiForm = 'block';
@@ -137,6 +138,7 @@ export default {
         console.log(this.userInfo)
         const response = await updateMyInfo(userData);
         console.log("수정 modify",response);
+        this.getUserInfo();
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
