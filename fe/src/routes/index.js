@@ -65,7 +65,7 @@ export default new Router({
     {
       path: '/member/myPage',
       name: 'MyPage',
-      component: () => import('@/views/MyPage.vue'),
+      component: () => import('@/views/user/MyPage.vue'),
     },
     {
       path: '/MyFeed',
