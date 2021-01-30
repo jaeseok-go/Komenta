@@ -50,7 +50,7 @@ export default new Router({
     {
       path: '/member/membership',
       name: "Membership",
-      component: () => import('@/components/Membership.vue'),
+      component: () => import('@/components/user/Membership.vue'),
     },
     {
       path: '/admin/admintest',
@@ -65,7 +65,7 @@ export default new Router({
     {
       path: '/member/myPage',
       name: 'MyPage',
-      component: () => import('@/components/MyPage.vue'),
+      component: () => import('@/views/MyPage.vue'),
     },
     {
       path: '/MyFeed',
