@@ -1,6 +1,42 @@
 <template>
   <b-container>
-    <user-info></user-info>
+    <user-info v-on:showModalForm="showModalForm"></user-info>
+    <Modal v-if="showModal" @click="$emit('close')">
+        <div slot="header">
+          <h3 class="findIdPw__title">내 정보 수정</h3>
+          <span id="closeModalBtn">
+            <i class="fa fa-times" aria-hidden="true" @click="showModal = false"></i>
+          </span>
+          <hr>                                                                                                      
+        </div>
+        <div slot="body">
+          <form @submit.prevent="modifyUserInfo">
+            <div>
+
+            </div>
+            <hr>
+            <div class="modi-form form-text">
+              아이디 : <br>
+              비밀번호 : <br>
+              비밀번호 확인 : <br>
+              닉네임 : <br>
+              휴대폰 번호 : <br>
+            </div>
+            <div class="modi-form">
+              <input type="text" v-model="userId" disabled><br>
+              <input type="text" v-model="userPassword"><br>
+              <input type="text" v-model="confirmPW"><br>
+              <input type="text" v-model="userNickName"><br>
+              <input type="text" v-model="userPhoneNumber" disabled>
+              <button>변경하기</button><br>
+            </div>
+            <div>
+              <a href="#">회원탈퇴</a>
+              <button>수정완료</button>
+            </div>
+          </form>
+        </div>
+    </Modal>
     <my-comment></my-comment>
     <watched-vod></watched-vod>
     <interest-play-list></interest-play-list>
@@ -34,6 +70,7 @@ import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
+import Modal from '@/components/common/Modal'
 
 import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
@@ -46,16 +83,19 @@ export default {
     InterestPlayList,
     Follow,
     UnFollow,
-    MembershipSetting
+    MembershipSetting,
+    Modal
   },
   data() {
     return {
       uId:'',
       userId:'',
       userPassword:'',
+      confirmPW:'',
       userNickName:'',
       userPhoneNumber:'',
-      modiForm:'none'
+      modiForm:'none',
+      showModal:false,
     }
   },
   created() {
@@ -67,6 +107,13 @@ export default {
     })
   },
   methods: {
+    closeModal() {
+      this.showModal = false
+      console.log('들어와라,,')
+    },
+    showModalForm() {
+      this.showModal = true
+    },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
       this.userId = this.userInfo.u_email;
@@ -105,5 +152,14 @@ export default {
   h4 {
     font-weight: 700;
     margin-top: 2rem;
+  }
+  .modal-header {
+    border-bottom: none;
+  }
+  .modi-form {
+    display: inline-block;
+  }
+  .form-text {
+    text-align: right;
   }
 </style>
