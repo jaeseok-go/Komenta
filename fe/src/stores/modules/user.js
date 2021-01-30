@@ -55,6 +55,11 @@ const mutations = {
     enteredAccount(state) {
         state.isPasswordConfirmed = false
     },
+    setModifyUserInfo(state, userData) {
+        state.userInfo.u_nickname = userData.u_nickname
+        state.userInfo.u_phone_number = userData.u_phone_number
+        state.userInfo.u_profile_pic = userData.u_profile_pic
+    }
 }
 
 const actions = {

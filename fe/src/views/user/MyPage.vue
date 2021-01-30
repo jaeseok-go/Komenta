@@ -12,7 +12,7 @@
         <div slot="body">
           <form @submit.prevent="modifyUserInfo">
             <div>
-
+              <!-- <img src="@/imgs/{{userProfilePic}}"> -->
             </div>
             <hr>
             <div class="modi-form form-text">
@@ -24,11 +24,36 @@
             </div>
             <div class="modi-form">
               <input type="text" v-model="userId" disabled><br>
+              <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
               <input type="text" v-model="userPassword"><br>
+              <!-- 비밀번호 일치 여부 확인 -->
               <input type="text" v-model="confirmPW"><br>
-              <input type="text" v-model="userNickName"><br>
-              <input type="text" v-model="userPhoneNumber" disabled>
-              <button>변경하기</button><br>
+              <p class="warning-form warning-signup">
+                <span class="warning-text" v-if="!isPasswordValid">
+                  password를 8자 이상 입력하세요.
+                </span>
+              </p>
+              <!-- 닉네임 중복 여부 확인 -->
+              <input type="text" v-model="userNickName">
+              <p class="warning-form warning-signup">
+                <span class="warning-text" v-if="!isPasswordConfirmValid">
+                  password가 일치하지 않습니다.
+                </span>
+              </p>
+              <!-- 중복 닉네임이 아닐 때 표출 -->
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
+                <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
+              </p>
+              <!-- 중복 닉네임일 때 표출 -->
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
+                <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
+              </p>
+              <br>
+
+              <!-- 변경하기 클릭 시,  -->
+              <input type="text" v-model="userPhoneNumber" v-if="phoneNumForm" disabled>
+              <button @click="changePhoneNumber" v-if="phoneNumForm">변경하기</button><br v-if="phoneNumForm">
+              <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
             </div>
             <div>
               <a href="#">회원탈퇴</a>
@@ -70,7 +95,8 @@ import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
-import Modal from '@/components/common/Modal'
+import Modal from '@/components/common/Modal';
+import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
@@ -84,7 +110,8 @@ export default {
     Follow,
     UnFollow,
     MembershipSetting,
-    Modal
+    Modal,
+    PhoneCertification
   },
   data() {
     return {
@@ -94,8 +121,11 @@ export default {
       confirmPW:'',
       userNickName:'',
       userPhoneNumber:'',
+      userProfilePic:'3.png',
       modiForm:'none',
       showModal:false,
+      phoneNumForm:true,
+      authPhoneNumForm: false
     }
   },
   created() {
@@ -104,7 +134,23 @@ export default {
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo
-    })
+    }),
+    isUserNickNameEmpty() {
+      if(!this.userNickName || (this.userNickName == this.userInfo.u_nickname)) {
+        return true;
+      }
+      return false;
+    },
+    isNickNameDuplicaionCheck() { //async
+      // const result = await userNickNameChk(this.username)
+      const result = 'true';
+      console.log(result)
+      if(result === 'true') {
+        // console.log('DUPLICATED')
+        return true;
+      }
+      return false;
+    },
   },
   methods: {
     closeModal() {
@@ -120,10 +166,15 @@ export default {
       this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
+      // this.userProfilePic = this.userInfo.u_profile_pic;
       console.log(this.userInfo,'바꼈니?')
     },
     modifyUser() {
       this.modiForm = 'block';
+    },
+    changePhoneNumber() {
+      this.phoneNumForm =false;
+      this.authPhoneNumForm = true;
     },
     async modifyUserInfo(){
       try {
