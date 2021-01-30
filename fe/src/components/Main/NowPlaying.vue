@@ -19,9 +19,10 @@ export default {
   },
   methods: {
     // 마지막으로 봤던 vod 정보(vod poster, vod title, vod epic num)
-    // fatchNowPlaying() {
-    //   this.nowEpiInfo = getNowVOD()
-    // },
+    //getNowVod api만들어야함
+    fatchNowPlaying() {
+      this.nowEpiInfo = getNowVOD()
+    },
   },
   created() {
     this.fetchNowPlaying()

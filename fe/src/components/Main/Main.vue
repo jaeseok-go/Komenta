@@ -2,10 +2,10 @@
     <div>
         <Header></Header>
         <AsideBar></AsideBar>
+        <VODSections></VODSections>
         <BestCommentRank></BestCommentRank>
         <NowPlaying></NowPlaying>
         <PopularPlayList></PopularPlayList>
-        <VODSections></VODSections>
     </div>
   
 </template>
