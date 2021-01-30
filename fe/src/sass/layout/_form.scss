@@ -43,6 +43,10 @@
   left: 1.3rem;
 }
 
+.form-inline-block {
+  display: inline-block;
+}
+
 .warning-form {
   margin-bottom: 1rem;
   display: flex;
@@ -122,5 +126,15 @@
     margin-right: auto;
     margin-left: auto;
     padding: 0.4rem 5.3rem;
+  }
+}
+
+.modify-authentic {
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+
+  & .phone-label {
+    display: none;
   }
 }

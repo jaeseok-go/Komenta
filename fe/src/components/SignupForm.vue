@@ -5,7 +5,6 @@
       <b-row>
         <b-col class="col-setting">
           <h2 class="title-text">회원가입하기</h2>
- 
             <div>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -23,12 +22,12 @@
                 />
               </div>
               <!-- 중복 아이디가 아닐 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="isUserIdValid && !isDuplicaion">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && !isIdDuplicaionCheck">
               <!-- 체크표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 아이디일 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="isUserIdValid && !isDuplicaion">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && isIdDuplicaionCheck">
               <!-- 엑스표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
@@ -78,10 +77,20 @@
             <div>
               <input
                 v-model="username"
-                class="form-control form-control-lg"
+                class="form-control form-control-lg form-inline-block"
                 placeholder="이름을 입력하세요."
                 type="text"
               />
+              <!-- 중복 닉네임이 아닐 때 표출(구현예정) -->
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
+              <!-- 체크표시 아이콘 -->
+                <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
+              </p>
+              <!-- 중복 닉네임일 때 표출(구현예정) -->
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
+              <!-- 엑스표시 아이콘 -->
+                <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
+              </p>
             </div>
             <phone-certification class="join-authentic" @checkCertification="checkCertification"></phone-certification>
 
@@ -127,7 +136,7 @@
 
 <script>
 import PhoneCertification from './user/PhoneCertification.vue';
-import { registerUser } from '@/api/user';
+import { registerUser } from '@/api/user'; //, userIdChk, userNickNameChk
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
 import store from '@/stores/modules/user'
@@ -162,6 +171,18 @@ export default {
     };
   },
   computed: {
+    isUserIdEmpty() {
+      if(!this.userId) {
+        return true;
+      }
+      return false;
+    },
+    isUserNickNameEmpty() {
+      if(!this.username) {
+        return true;
+      }
+      return false;
+    },
     isUsernameValid() {
       if (!this.username) {
         return false;
@@ -215,6 +236,26 @@ export default {
       }
       return false;
     },
+    isIdDuplicaionCheck() { //async
+      // const result = await userIdChk(this.username)
+      const result = 'true';
+      console.log(result)
+      if(result === 'true') {
+        // console.log('DUPLICATED')
+        return true;
+      }
+      return false;
+    },
+    isNickNameDuplicaionCheck() { //async
+      // const result = await userNickNameChk(this.username)
+      const result = 'true';
+      console.log(result)
+      if(result === 'true') {
+        // console.log('DUPLICATED')
+        return true;
+      }
+      return false;
+    },
   },
   methods: {
     checkCertification() {
@@ -234,9 +275,6 @@ export default {
       }else {
         this.fwName = "eye"
       }
-    },
-    isDuplicaion() {
-      console.log('DUPLICATED')
     },
     allTermcheck(){
       console.log(this.allTerm)

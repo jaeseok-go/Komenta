@@ -36,10 +36,16 @@ function emailAuth(userId) {
     return instance.get(`check/sendEmail/`, userId)
 }
 
-//비밀번호 찾기 - 아이디 확인
+//아이디 중복 확인
 function userIdChk(userId) {
-    return instance.get(`member/find_pw/`, {
+    return instance.get(`member/dup_id_chk/`, {
         params: { u_email: userId }
+    })
+}
+
+function userNickNameChk(userNickName) {
+    return instance.get(`member/chk_nickname/`, {
+        params: { u_nickname: userNickName }
     })
 }
 
@@ -74,5 +80,6 @@ export {
     emailAuth,
     phoneAuth,
     userIdChk,
+    userNickNameChk,
     changePw
 }
