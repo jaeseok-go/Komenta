@@ -30,9 +30,10 @@
 import UserInfo from '@/components/user/myPage/UserInfo'
 import MyComment from '@/components/user/myPage/MyComment';
 import WatchedVod from '@/components/user/myPage/WatchedVOD'
-import InterestPlayList from '../../components/user/myPage/InterestPlayList.vue';
-import UnFollow from '../../components/user/myPage/UnFollow.vue';
-import MembershipSetting from '../../components/user/myPage/MembershipSetting.vue';
+import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
+import Follow from '@/components/user/myPage/Follow.vue';
+import UnFollow from '@/components/user/myPage/UnFollow.vue';
+import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
 
 import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
@@ -43,6 +44,7 @@ export default {
     MyComment,
     WatchedVod,
     InterestPlayList,
+    Follow,
     UnFollow,
     MembershipSetting
   },
