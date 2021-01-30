@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService{
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("alg", "HS256");
-        System.out.println(member);
+//        System.out.println(member);
         Map<String, Object> payloads = new HashMap<>();
         Long expiredTime = 1000 * 60 * expireMin;
         Date now = new Date();
@@ -41,7 +41,7 @@ public class JwtServiceImpl implements JwtService{
         payloads.put("u_profile_pic", member.getU_profile_pic());
 
         String jwt = Jwts.builder().setHeader(headers).setClaims(payloads).signWith(SignatureAlgorithm.HS256, signature.getBytes()).compact();
-        System.out.println(jwt);
+//        System.out.println(jwt);
         return jwt;
 //        JwtBuilder jwtBuilder = Jwts.builder();
 ////		JWT Token = Header + Payload + Signature
@@ -72,6 +72,7 @@ public class JwtServiceImpl implements JwtService{
 
     //	전달 받은 토큰이 제대로 생성된것이니 확인 하고 문제가 있다면 RuntimeException을 발생.
     public void checkValid(String jwt) {
+        System.out.println("check valid : "+jwt);
 //		예외가 발생하지 않으면 OK
         Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
     }
