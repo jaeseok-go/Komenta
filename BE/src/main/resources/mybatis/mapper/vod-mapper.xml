@@ -1,0 +1,26 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.VodMapper">
+
+    <select id="selectHistoryById" resultType="com.komenta.be.model.vod.VodHistoryDTO" parameterType="int">
+        select vh_id, vh_watching_time, ve_id
+        from vod_history
+        where u_id = #{u_id}
+    </select>
+    <select id="selectEpisodeById" resultType="com.komenta.be.model.vod.VodEpisodeAllDTO" parameterType="int">
+        select C.ve_id, C.ve_episode_num, C.ve_contents, C.ve_admin, C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, C.gd_id, D.g_name, D.gd_name
+        from
+            (select A.ve_id, A.ve_episode_num, A.ve_contents, A.ve_admin, A.ve_upload_date, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
+             from vod_episode A left outer join vod B
+                                                on A.v_id = B.v_id) C
+                left outer join
+            (select A.gd_id, A.gd_name, A.g_id, B.g_name
+             from genre_detail A left outer join genre B
+                                                 on A.g_id = B.g_id) D
+            on C.gd_id = D.gd_id;
+        where C.ve_id = #{ve_id}
+    </select>
+
+
+</mapper>

@@ -9,11 +9,21 @@ public class VodHistoryDTO {
     private int u_id;
     private int ve_id;
 
+    public VodHistoryDTO() {
+    }
+
     public VodHistoryDTO(String vh_watching_time, String vh_comment, int vh_score, boolean vh_good, int u_id, int ve_id) {
         this.vh_watching_time = vh_watching_time;
         this.vh_comment = vh_comment;
         this.vh_score = vh_score;
         this.vh_good = vh_good;
+        this.u_id = u_id;
+        this.ve_id = ve_id;
+    }
+
+    public VodHistoryDTO(int vh_id, String vh_watching_time, int u_id, int ve_id) {
+        this.vh_id = vh_id;
+        this.vh_watching_time = vh_watching_time;
         this.u_id = u_id;
         this.ve_id = ve_id;
     }
