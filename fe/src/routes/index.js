@@ -70,7 +70,7 @@ export default new Router({
     {
       path: '/MyFeed',
       name: 'MyFeed',
-      component: () => import('@/views/feed/MyFeed.vue'),
+      component: () => import('@/views/feed/myFeed.vue'),
     },
     {
       path: '/VodDetail',
