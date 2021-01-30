@@ -29,7 +29,7 @@
         내가 시청한 플레이리스트에서 추가버튼 드래그앤 드랍으로 끌어와서 추가
         POST(u_id,v_id,pl_id) 보냄 -> 해당 플레이리스트에 vod저장
         res(업데이트된 플레이리스트 정보,플레이리스트 이름(pl_name), 각 플레이리스트에 속한 컨텐츠 사진, 제목)
-    <!--https://vuejsexamples.com/simple-kanban-board-where-the-items-can-be-dragged-and-dropped-from-the-list/ -->
+
         3. 플레이리스트에 컨텐츠 클릭
         GET(u_id,pl_id)보냄 -> res(해당 컨텐츠 상세 정보,포스터(v_poster),컨텐츠이름(v_title),회차(ve_episode_num),컨텐츠리뷰정보(디비없음))
         모달로 표시하면서 플레이리스트 평을 적는 칸이 나온다
