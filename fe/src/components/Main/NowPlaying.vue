@@ -2,30 +2,30 @@
   <div>
       <h1>Now playing</h1>
       <!-- u_id -> GET -> 썸네일, 타이틀, 회차정보 --> <!-- 비디오 에피소드 아이디, 비디오 아이디, 비디오 에피소드 회차, 비디오 포스터  -->
-      <!-- ve_id, v_id, ve_episode_num, v_poster -->
+      <!-- [{vh_id : 0,vh_name:"string",vh_watching_time : "string",vh_score : int,vh_comment : "string",vh_good : int,u_id : int,ve_id : int,}] -->
       
-      <div>포스터</div>
-      <div>this.nowEpiInfo.v_poster</div>
-      <div>this.nowEpiInfo.v_id</div>
+      <div>{{fetchedPlaylist.v_poster}}</div>
+      <div>{{fetchedPlaylist.ve_episode_num}}</div>
+      <div>{{fetchedPlaylist.vh_name}}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import store from '@/stores/modules/user'
+
 export default {
   data() {
     return {
       nowEpiInfo:{},
     }
   },
-  // methods: {
-  //   // 마지막으로 봤던 vod 정보(vod poster, vod title, vod epic num)
-  //   //getNowVod api만들어야함
-  //   fatchNowPlaying() {
-  //     this.nowEpiInfo = getNowVOD()
-  //   },
-  // },
+  computed: {
+    ...mapGetters(['fetchedPlaylist']) 
+  },
   created() {
-    this.fetchNowPlaying()
+    const userId = store.state.userInfo.u_id
+    this.$store.dispatch('FETCH_RECENTPLAYLIST',userId)
   },
 
 }

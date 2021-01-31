@@ -92,5 +92,29 @@ export default new Router({
       name: 'NotFound',
       component: () => import('@/views/NotFoundPage.vue'),
     },
+    //path 정해지면 추가예정
+    // {
+    //   path: '',
+    //   name: 'VODSections',
+    //   component: () => import('@/components/Main/VODSections.vue'),
+    //   children: [
+    //     {
+    //       path: 'popular',
+    //       name: 'VodPopular',
+    //       component: () => import('@/components/Main/VodPopular'),
+    //     },
+    //     {
+    //       path: 'recent',
+    //       name: "VodRecent",
+    //       component: () => import('@/components/Main/VodRecent'),
+    //     }, 
+    //     {
+    //       path: 'comment',
+    //       name: "VodComment",
+    //       component: () => import('@/components/Main/VodComment'),
+    //     },
+
+    //   ]
+    // },
   ],
 });
