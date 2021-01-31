@@ -1,10 +1,12 @@
 <template>
   <b-container>
-    <user-info v-on:showModalForm="showModalForm"></user-info>
-    <Modal v-if="showModal">
+
+    <!-- 회원 정보 관리 -->
+    <user-info v-on:showUserInfoForm="showUserInfoForm"></user-info>
+    <Modal v-if="showUserInfoModal">
         <div slot="header">
           <h3 class="findIdPw__title">내 정보 수정</h3>
-          <span id="closeModalBtn" @click="closeModal">
+          <span id="closeModalBtn" @click="closeUserInfoModal">
             <i class="fa fa-times" aria-hidden="true"></i>
           </span>
           <hr>                                                                                                      
@@ -62,28 +64,35 @@
           </form>
         </div>
     </Modal>
-    <my-comment></my-comment>
-    <watched-vod></watched-vod>
-    <interest-play-list></interest-play-list>
-    <follow></follow>
-    <un-follow></un-follow>
-    <membership-setting></membership-setting>
-    <!-- {{userNickName}}님의 정보<br>
-    ID :{{userId}} <br> 
-    Password : {{userPassword}} <br>
-    Phone Number : {{userPhoneNumber}} <br> -->
 
-    <!-- <button @click="modifyUser">정보 수정하기</button>
-    <div :style="{display: modiForm}">
-      <hr>
-      <form @submit.prevent="modifyUserInfo">
-        ID : <input type="text" v-model="userId"><br>
-        PW : <input type="text" v-model="userPassword"><br>
-        NickName : <input type="text" v-model="userNickName"><br>
-        Phone Num : <input type="text" v-model="userPhoneNumber"><br>
-        <button>수정하기</button>
-      </form>
-    </div> -->
+    <!-- 내가 단 댓글 관리 -->
+    <my-comment></my-comment>
+
+    <!-- 시청 VOD 관리 -->
+    <watched-vod v-on:showVODForm="showVODForm"></watched-vod>
+    <Modal v-if="showVODModal">
+      <div slot="header">
+          <h3 class="findIdPw__title">시청 VOD 관리</h3>
+          <span id="closeModalBtn" @click="closeVODModal">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
+          <hr>                                                                                                      
+        </div>
+        <div slot="body">
+        </div>
+    </Modal>
+
+    <!-- 관심 리스트 관리 -->
+    <interest-play-list></interest-play-list>
+
+    <!-- 팔로우 관리 -->
+    <follow></follow>
+
+    <!-- 언팔로우 관리 -->
+    <un-follow></un-follow>
+
+    <!-- 멤버십 관리 -->
+    <membership-setting></membership-setting>
   </b-container>
 </template>
 
@@ -112,7 +121,7 @@ export default {
     UnFollow,
     MembershipSetting,
     Modal,
-    PhoneCertification
+    PhoneCertification,
   },
   data() {
     return {
@@ -124,7 +133,8 @@ export default {
       userPhoneNumber:'',
       userProfilePic:'3.png',
       modiForm:'none',
-      showModal:false,
+      showUserInfoModal:false,
+      showVODModal:false,
       phoneNumForm:true,
       authPhoneNumForm: false
     }
@@ -168,12 +178,19 @@ export default {
     },
   },
   methods: {
-    closeModal() {
-      this.showModal = false;
+    closeUserInfoModal() {
+      this.showUserInfoModal = false;
       console.log('들어와라,,')
     },
-    showModalForm() {
-      this.showModal = true;
+    closeVODModal() {
+      this.showVODModal = false;
+      console.log('들어와라,,')
+    },
+    showUserInfoForm() {
+      this.showUserInfoModal = true;
+    },
+    showVODForm() {
+      this.showVODModal = true;
     },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
