@@ -1,11 +1,11 @@
 <template>
   <b-container>
     <user-info v-on:showModalForm="showModalForm"></user-info>
-    <Modal v-if="showModal" @click="$emit('close')">
+    <Modal v-if="showModal">
         <div slot="header">
           <h3 class="findIdPw__title">내 정보 수정</h3>
-          <span id="closeModalBtn">
-            <i class="fa fa-times" aria-hidden="true" @click="showModal = false"></i>
+          <span id="closeModalBtn" @click="closeModal">
+            <i class="fa fa-times" aria-hidden="true"></i>
           </span>
           <hr>                                                                                                      
         </div>
@@ -25,21 +25,21 @@
             <div class="modi-form">
               <input type="text" v-model="userId" disabled><br>
               <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
-              <input type="text" v-model="userPassword"><br>
-              <!-- 비밀번호 일치 여부 확인 -->
-              <input type="text" v-model="confirmPW"><br>
+              <input type="password" v-model="userPassword"><br>
               <p class="warning-form warning-signup">
                 <span class="warning-text" v-if="!isPasswordValid">
                   password를 8자 이상 입력하세요.
                 </span>
               </p>
-              <!-- 닉네임 중복 여부 확인 -->
-              <input type="text" v-model="userNickName">
+              <!-- 비밀번호 일치 여부 확인 -->
+              <input type="password" v-model="confirmPW"><br>
               <p class="warning-form warning-signup">
                 <span class="warning-text" v-if="!isPasswordConfirmValid">
                   password가 일치하지 않습니다.
                 </span>
               </p>
+              <!-- 닉네임 중복 여부 확인 -->
+              <input type="text" v-model="userNickName">
               <!-- 중복 닉네임이 아닐 때 표출 -->
               <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
@@ -98,6 +98,7 @@ import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
 import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
+import { validatePassword } from '@/utils/validations';
 import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
 
@@ -151,19 +152,33 @@ export default {
       }
       return false;
     },
+    isPasswordValid() {
+      if (!this.userPassword) {
+        return true;
+      }
+      return validatePassword(this.userPassword);
+    },
+    isPasswordConfirmValid() {
+      if (!this.confirmPW) {
+        return true;
+      } else if (this.userPassword != this.confirmPW) {
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
     closeModal() {
-      this.showModal = false
+      this.showModal = false;
       console.log('들어와라,,')
     },
     showModalForm() {
-      this.showModal = true
+      this.showModal = true;
     },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
       this.userId = this.userInfo.u_email;
-      this.userPassword = this.userInfo.u_pw;
+      // this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
       // this.userProfilePic = this.userInfo.u_profile_pic;
@@ -177,6 +192,22 @@ export default {
       this.authPhoneNumForm = true;
     },
     async modifyUserInfo(){
+      if(!this.userPassword) {
+        alert("비밀번호를 입력하세요.")
+        return;
+      }
+      if(!this.confirmPW) {
+        alert("비밀번호를 확인하세요.")
+        return;
+      }
+      if(!this.userNickName) {
+        alert("닉네임을 설정해주세요.")
+        return;
+      }
+      if(!this.userPhoneNumber) {
+        alert("휴대폰 번호를 입력하세요")
+        return;
+      }
       try {
         const userData = {
           u_id:this.uId,
@@ -189,7 +220,8 @@ export default {
         console.log(this.userInfo)
         const response = await updateMyInfo(userData);
         console.log("수정 modify",response);
-        this.getUserInfo();
+        this.closeModal();
+        // this.getUserInfo();
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
@@ -205,6 +237,9 @@ export default {
   h4 {
     font-weight: 700;
     margin-top: 2rem;
+  }
+  input {
+    border:1px solid black;
   }
   .modal-header {
     border-bottom: none;
