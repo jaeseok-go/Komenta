@@ -1,27 +1,29 @@
 <template>
     <div>
         <h1>댓글순</h1>
-        <div>this.commentVODs 뿌려주기</div>
+        <div>{{this.commentVODs }}}}</div>
     </div>
   
 </template>
 
 <script>
+import { fetchCommentVOD } from '@/api/vod'
 export default {
     data(){
         return {
             commentVODs:[]
         }
     },
-    // methods:{
-    //     //getcommentVOD api만들어야함
-    //     fetchCommentVOD() {
-    //         this.commentVODs = getcommentVOD()
-    //     }
-    // },
+    methods:{
+        //fetchCommentVOD api만들어야함
+        getcommentVOD() {
+            this.commentVODs = fetchCommentVOD()
+        }
+        
+    },
     created(){
         //댓글순 vod get
-        this.fetchCommentVOD()
+        this.getcommentVOD()
     },
 
 }

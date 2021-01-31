@@ -68,6 +68,17 @@ function fetchAllUsers() {
     return instance.get('admin/member_list/')
 }
 
+// 유저가 최근 본 시청기록 목록
+function fetchRecentPlaylist(userId) {
+    return instance.get('',userId)
+}
+
+// 유저가 좋아요 누른 플레이 리스트
+function fetchLikePlaylist(userId) {
+    return instance.get('',userId)
+}
+
+
 
 
 export {
@@ -81,5 +92,8 @@ export {
     phoneAuth,
     userIdChk,
     userNickNameChk,
-    changePw
+    changePw,
+    fetchRecentPlaylist,
+    fetchLikePlaylist,
+    
 }

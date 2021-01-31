@@ -1,27 +1,27 @@
 <template>
     <div>
         <h1>인기순</h1>
-        <div>this.popularVODs 뿌려주기</div>
+        <div>{{ this.popularVODs }}}}</div>
     </div>
   
 </template>
 
 <script>
+import { fetchPopularVOD } from '@/api/vod'
 export default {
     data(){
         return {
             popularVODs:[]
         }
     },
-    // methods:{
-    //     //getPopularVOD api만들어야함
-    //     fetchPopularVOD() {
-    //         this.popularVODs = getPopularVOD()
-    //     }
-    // },
+    methods:{
+        getPopularVOD() {
+            this.popularVODs = fetchPopularVOD()
+        }
+    },
     created(){
         //인기순 vod get
-        this.fetchPopularVOD()
+        this.getPopularVOD()
     },
 
 }

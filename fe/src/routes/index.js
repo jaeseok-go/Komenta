@@ -88,9 +88,44 @@ export default new Router({
       component: () => import('@/components/feed/MyPlayList.vue'),
     },
     {
+      path: '/Google',
+      name: 'GoogleLogin',
+      component: () => import('@/components/user/snsLogin/GoogleLogin.vue'),
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: () => import('@/views/NotFoundPage.vue'),
     },
+    {
+      path:'/playlist/:id',
+      name:'PlaylistDetail',
+      component: () => import('@/components/MyStreamingList/StreamingListDetail'),
+
+    },
+    //path 정해지면 추가예정
+    // {
+    //   path: '',
+    //   name: 'VODSections',
+    //   component: () => import('@/components/Main/VODSections.vue'),
+    //   children: [
+    //     {
+    //       path: 'popular',
+    //       name: 'VodPopular',
+    //       component: () => import('@/components/Main/VodPopular'),
+    //     },
+    //     {
+    //       path: 'recent',
+    //       name: "VodRecent",
+    //       component: () => import('@/components/Main/VodRecent'),
+    //     }, 
+    //     {
+    //       path: 'comment',
+    //       name: "VodComment",
+    //       component: () => import('@/components/Main/VodComment'),
+    //     },
+
+    //   ]
+    // },
   ],
 });

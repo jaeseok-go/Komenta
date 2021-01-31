@@ -9,7 +9,7 @@
       </div>
     </div>
     <b-container class="container-setting">
-      <google/>
+      <GoogleLogin/>
       <kakao/>
       <hr class="inContent or" />
       <b-col class="bcol-login">
@@ -75,13 +75,13 @@
 
 <script>
 import { validateEmail } from '@/utils/validations';
-import Google from "@/components/user/snsLogin/Google";
+import GoogleLogin from "@/components/user/snsLogin/GoogleLogin";
 import Kakao from "@/components/user/snsLogin/Kakao";
 
 
 export default {
   components: { 
-    Google,
+    GoogleLogin,
     Kakao,
     },
   data() {
@@ -147,31 +147,7 @@ export default {
     loginError() {
       this.display = 'block';
     },
-    // 이건 firebase사용버전 나중에 우리 api로 바꾸면됨
-    signIn(){
-      console.log('로그인하니?',this.userId,this.password)
-      this.$firebase.auth().signInWithEmailAndPassword(this.userId, this.password)
-      .then((user) => {
-        alert(`${user.user.displayName}님 환영합니다`)
-        console.log('로그인했당',user)
-        const userInfo = {
-          u_nickname : user.user.displayName,
-          u_email : user.user.email,
-          u_phone_number: user.user.phoneNumber,
-          u_pw : user.user.refreshToken,
-          u_id : user.user.uid  
-        }
-        // Signed in
-        console.log('로그인한유저정보',userInfo)
-        // ...
-      })
-        
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert('에러야???',errorCode,errorMessage)
-      });
-    }
+
   }
 };
 </script>
