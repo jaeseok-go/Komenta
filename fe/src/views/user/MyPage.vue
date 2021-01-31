@@ -66,8 +66,6 @@
     </Modal>
 
     <div v-if="userIsAdmin == 1">
-      <!-- <user-management></user-management>
-      <vod-management></vod-management> -->
       <admin-page></admin-page>
     </div>
     <div v-else>
@@ -111,8 +109,6 @@ import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
-// import UserManagement from '@/components/admin/UserManagement.vue';
-// import VodManagement from '@/components/admin/VodManagement.vue';
 import AdminPage from '@/components/user/myPage/adminPage.vue';
 import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
@@ -130,8 +126,6 @@ export default {
     Follow,
     UnFollow,
     MembershipSetting,
-    // UserManagement,
-    // VodManagement,
     AdminPage,
     Modal,
     PhoneCertification,
