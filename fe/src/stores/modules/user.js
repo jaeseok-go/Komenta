@@ -66,13 +66,7 @@ const actions = {
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야",commit,userData)
         const response = await loginUser(userData);
-        // console.log("response: ", response)
-        // console.log("auth-token: ", response.headers['auth-token']);
-        // var myHeaders = new Headers();
-        // console.log(myHeaders.get('auth-token'));
-        // console.log("response 이후",)
-        // if (response.data.token) {
-        // commit('setToken', response.data.token)
+
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
             // commit('fetchInfo', response.data.data)
