@@ -135,9 +135,11 @@ export default {
         this.$router.push('/member/myPage');
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
-        // if(error.status === 500) {
-        //   alert('등록되지 않은 계정입니다.')
-        // }
+        if(error.status === 500) {
+          alert('등록되지 않은 계정입니다.')
+        this.$router.push('/member/join');
+
+        }
       }
     },
     initForm() {

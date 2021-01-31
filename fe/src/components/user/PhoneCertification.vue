@@ -37,14 +37,14 @@ export default {
             idDisplay: 'none',
             resetBtnDisplay: 'none',
             authenNum: '',
-            confirmNum: '0000',
-            snsFlag:false,
+            confirmNum: '',
         };
     },
     computed: {
     ...mapState({
       userInfo: state => state.user.userInfo
     }),
+    // 인증번호가 4자리아니고 3자리인것도 있다
     putAuthenBtn() {
       return validatePhoneNum(this.userPhoneNum);
     },
@@ -62,41 +62,36 @@ export default {
     },
   },
   methods: {
-    async checkSnsLogin(){
-      if (this.userInfo !== null) {
-        this.snsFlag = true;
-      }
-      if (this.snsFlag) {
-        this.$store.commit('setPhonenum',this.userPhoneNum);
-        console.log(this.userInfo,'데이터들어왔니카카오구글')
-        const res = await registerUser(this.userInfo);
-        console.log(res,'회원가입했니?')
-      }
-    },
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
-      // this.confirmNum = response;
-      this.userId = response.data;
+      this.confirmNum = `${response.data.auth_number}`;
+      // response.data.u_email
+      this.userId = response.data.u_email;
       console.log(response)
       window.alert('인증 번호를 발송했습니다.');
       this.start();
       this.authenDisplay = 'block';
     },
     async checkCertification() {
+      console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        await this.checkSnsLogin()
-        if (this.snsFlag === false) {
-          store.commit('setEmail', this.userId);
-          store.commit('setPhonenum',this.userPhoneNum);
-          this.$emit('checkCertification')
-        } else {
-          this.snsFlag = false;
-          this.$router.push('/')
-        }
+        if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
+        console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
+        this.$store.commit('setPhonenum',this.userPhoneNum);
+        console.log(this.userInfo,'데이터들어왔니카카오구글')
+        const res = await registerUser(this.userInfo);
+        console.log(res,'sns회원가입')
+      } else {
+        store.commit('setEmail', this.userId);
+        store.commit('setPhonenum',this.userPhoneNum);
+        this.$emit('checkCertification')
+      }
+        // this.$router.push('/')
+        
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }
