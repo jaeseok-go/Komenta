@@ -1,9 +1,7 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodHistoryDTO;
-import com.komenta.be.service.AdminService;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.VodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,13 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/vod")
 public class VodController {
-@Autowired
+
+    @Autowired
     JwtService jwtService;
+
     @Autowired
     VodService vodService;
+
     @GetMapping("/vodnum/{ve_id}")
     public ResponseEntity<Map<String, Object>> selectOneEpisode(@PathVariable int ve_id, int u_id){
         // 회원 정보를 받는다.
@@ -35,12 +36,12 @@ public class VodController {
         HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            List<VodHistoryDTO> history = (List<VodHistoryDTO>) vodService.selectHistoryById(u_id);
+            List<VodHistoryDTO> history = vodService.selectHistoryById(u_id);
             for(VodHistoryDTO dt : history){
                 if(dt.getVe_id() == ve_id){
                     VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
                     resultMap.put("vh_id", dt.getVh_id());
-                    resultMap.put("vh_wathching_time", dt.getVh_watching_time());
+                    resultMap.put("vh_watching_time", dt.getVh_watching_time());
                     resultMap.put("episodeInfo", episode);
                     // episode에 대한 정보를 모두 받아옴
                     break;
