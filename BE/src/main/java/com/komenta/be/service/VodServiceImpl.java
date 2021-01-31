@@ -7,12 +7,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VodServiceImpl implements VodService{
     @Autowired
     SqlSession sqlSession;
     @Override
-    public VodHistoryDTO selectHistoryById(int u_id) {
+    public List<VodHistoryDTO> selectHistoryById(int u_id) {
+
         return sqlSession.getMapper(VodMapper.class).selectHistoryById(u_id);
     }
 
