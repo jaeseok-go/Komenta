@@ -246,7 +246,7 @@ export default {
         console.log(this.userInfo)
         const response = await updateMyInfo(userData);
         console.log("수정 modify",response);
-        this.closeModal();
+        this.closeUserInfoModal();
         // this.getUserInfo();
       }catch(err) {
         console.log("수정 에러")
