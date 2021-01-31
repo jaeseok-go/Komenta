@@ -1,9 +1,5 @@
 <template>
   <b-container>
-    <div class="modify-btn">
-      <!-- 상태 변경하기 -->
-      <button>상태 변경</button>
-    </div>
     <h4>전체 회원</h4>
     <table>
       <tr>
@@ -22,9 +18,11 @@
         <td>{{user.u_id}}</td>
         <td>{{user.u_email}}</td>
         <td>{{user.u_nickname}}</td>
-        <td>
           <!-- 라벨버튼 모양으로 만들기 -->
-          <div>{{user.u_state}}</div>
+        <td>
+          <div @click="changeState(index)">
+            {{user.u_state}}
+          </div>
         </td>
       </tr>
     </table>
@@ -50,6 +48,7 @@
         <td>{{user.u_nickname}}</td>
         <td>
           <!-- 라벨버튼 모양으로 만들기 -->
+          <!-- 수정 오류남 왜.... -->
           <div>{{user.u_state}}</div>
         </td>
       </tr>
@@ -84,7 +83,7 @@
 </template>
 
 <script>
-import { fetchAllUsers } from '@/api/user';
+import { fetchAllUsers, updateUserInfo } from '@/api/user';
 export default { 
   data() {
     return {
@@ -126,6 +125,44 @@ export default {
         }
       }
     },
+    async changeState(index){
+      // console.log(this.userList[index]);
+      try{
+        if(this.userList[index].u_state === '일반회원') {
+          this.userList[index].u_state = '제한회원';
+          const userdata = {
+            u_email:this.userList[index].u_email,
+            u_expire_member:this.userList[index].u_expire_member,
+            u_id:this.userList[index].u_id,
+            u_is_admin:false,
+            u_is_blocked:1,
+            u_nickname:this.userList[index].u_nickname,
+            u_phone_number:this.userList[index].u_phone_number,
+            u_profile_pic:this.userList[index].u_profile_pic,
+            u_pw:this.userList[index].u_pw,
+          };
+          const response = await updateUserInfo(userdata);
+          console.log("일반->제한: ",response);
+        }else if(this.userList[index].u_state === '제한회원'){
+          this.userList[index].u_state = '일반회원';
+          const userdata = {
+            u_email:this.userList[index].u_email,
+            u_expire_member:this.userList[index].u_expire_member,
+            u_id:this.userList[index].u_id,
+            u_is_admin:false,
+            u_is_blocked:0,
+            u_nickname:this.userList[index].u_nickname,
+            u_phone_number:this.userList[index].u_phone_number,
+            u_profile_pic:this.userList[index].u_profile_pic,
+            u_pw:this.userList[index].u_pw,
+          };
+          const response = await updateUserInfo(userdata);
+          console.log("제한->일반: ",response);
+        }
+      }catch(err) {
+        console.log("상태수정 에러 : ",err);
+      }
+    }
   },
 }
 </script>

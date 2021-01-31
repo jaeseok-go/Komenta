@@ -68,6 +68,11 @@ function fetchAllUsers() {
     return instance.get('admin/member_list/')
 }
 
+// 유저 정보 수정(관리자용)
+function updateUserInfo(userData) {
+    return instance.put('admin/member_update/', userData)
+}
+
 // 유저가 최근 본 시청기록 목록
 function fetchRecentPlaylist(userId) {
     return instance.get('',userId)
@@ -95,6 +100,7 @@ export {
     updateMyInfo,
     deleteMyInfo,
     fetchAllUsers,
+    updateUserInfo,
     emailAuth,
     phoneAuth,
     userIdChk,
