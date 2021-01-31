@@ -66,6 +66,19 @@ export default new Router({
       path: '/member/myPage',
       name: 'MyPage',
       component: () => import('@/views/user/MyPage.vue'),
+      redirect: '/member/myPage/userManage',
+      children: [
+        {
+          path: 'userManage',
+          name: 'UserManage',
+          component: () => import('@/components/admin/UserManagement.vue'),
+        },
+        {
+          path: 'vodManage',
+          name: "VodManage",
+          component: () => import('@/components/admin/VodManagement.vue')
+        },
+      ]
     },
     {
       path: '/MyFeed',

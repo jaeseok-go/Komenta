@@ -4,9 +4,11 @@ import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodHistoryDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface VodMapper {
-    VodHistoryDTO selectHistoryById(int u_id);
+    List<VodHistoryDTO> selectHistoryById(int u_id);
 
     VodEpisodeAllDTO selectEpisodeById(int ve_id);
 }

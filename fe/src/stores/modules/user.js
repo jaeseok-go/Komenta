@@ -117,11 +117,11 @@ const actions = {
     },
     async ADD_PLAYLIST({ commit }, data) {
         const response = await addPlaylist(data)
-        console.log(response, commit)
+        console.log(response,commit)
     },
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)
-        commit('myfollowingList', followingList)
+        commit('myfollowingList', followingList )
     }
 
 };

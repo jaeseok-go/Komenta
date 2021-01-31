@@ -65,34 +65,39 @@
         </div>
     </Modal>
 
-    <!-- 내가 단 댓글 관리 -->
-    <my-comment></my-comment>
+    <div v-if="userIsAdmin == 1">
+      <admin-page></admin-page>
+    </div>
+    <div v-else>
+      <!-- 내가 단 댓글 관리 -->
+      <my-comment></my-comment>
 
-    <!-- 시청 VOD 관리 -->
-    <watched-vod v-on:showVODForm="showVODForm"></watched-vod>
-    <Modal v-if="showVODModal">
-      <div slot="header">
-          <h3 class="findIdPw__title">시청 VOD 관리</h3>
-          <span id="closeModalBtn" @click="closeVODModal">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </span>
-          <hr>                                                                                                      
-        </div>
-        <div slot="body">
-        </div>
-    </Modal>
+      <!-- 시청 VOD 관리 -->
+      <watched-vod v-on:showVODForm="showVODForm"></watched-vod>
+      <Modal v-if="showVODModal">
+        <div slot="header">
+            <h3 class="findIdPw__title">시청 VOD 관리</h3>
+            <span id="closeModalBtn" @click="closeVODModal">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
+            <hr>                                                                                                      
+          </div>
+          <div slot="body">
+          </div>
+      </Modal>
 
-    <!-- 관심 리스트 관리 -->
-    <interest-play-list></interest-play-list>
+      <!-- 관심 리스트 관리 -->
+      <interest-play-list></interest-play-list>
 
-    <!-- 팔로우 관리 -->
-    <follow></follow>
+      <!-- 팔로우 관리 -->
+      <follow></follow>
 
-    <!-- 언팔로우 관리 -->
-    <un-follow></un-follow>
+      <!-- 언팔로우 관리 -->
+      <un-follow></un-follow>
 
-    <!-- 멤버십 관리 -->
-    <membership-setting></membership-setting>
+      <!-- 멤버십 관리 -->
+      <membership-setting></membership-setting>
+    </div>
   </b-container>
 </template>
 
@@ -104,6 +109,7 @@ import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
+import AdminPage from '@/components/user/myPage/adminPage.vue';
 import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
@@ -120,6 +126,7 @@ export default {
     Follow,
     UnFollow,
     MembershipSetting,
+    AdminPage,
     Modal,
     PhoneCertification,
   },
@@ -131,7 +138,8 @@ export default {
       confirmPW:'',
       userNickName:'',
       userPhoneNumber:'',
-      userProfilePic:'3.png',
+      userProfilePic:'',
+      userIsAdmin:0,
       modiForm:'none',
       showUserInfoModal:false,
       showVODModal:false,
@@ -199,6 +207,7 @@ export default {
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
       // this.userProfilePic = this.userInfo.u_profile_pic;
+      this.userIsAdmin = this.userInfo.is_admin;
       console.log(this.userInfo,'바꼈니?')
     },
     modifyUser() {

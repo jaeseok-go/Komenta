@@ -49,8 +49,10 @@ export default {
     changeState(){
       if(this.membership.m_state == '해지하기') {
         this.membership.m_state = '해지취소';
+        //멤버십 해지하는 기능
       }else {
         this.membership.m_state = '해지하기';
+        //멤버십 해지 취소하는 기능
       }
     }
   },
