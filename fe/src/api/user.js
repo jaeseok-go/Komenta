@@ -43,6 +43,7 @@ function userIdChk(userId) {
     })
 }
 
+//닉네임 중복 확인
 function userNickNameChk(userNickName) {
     return instance.get(`member/chk_nickname/`, {
         params: { u_nickname: userNickName }
@@ -71,6 +72,11 @@ function fetchAllUsers() {
 // 유저 정보 수정(관리자용)
 function updateUserInfo(userData) {
     return instance.put('admin/member_update/', userData)
+}
+
+//VOD 목록 조회(관리자용)
+function fetchAllVOD() {
+    return instance.get('admin/vod_list')
 }
 
 // 유저가 최근 본 시청기록 목록
@@ -107,6 +113,7 @@ export {
     deleteMyInfo,
     fetchAllUsers,
     updateUserInfo,
+    fetchAllVOD,
     emailAuth,
     phoneAuth,
     userIdChk,
