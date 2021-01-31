@@ -12,16 +12,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import store from '@/stores/modules/user'
+// import store from '@/stores/modules/user'
 
 export default {
   computed: {
     ...mapGetters(['fetchedPlaylist']) 
   },
-  created() {
-    const userId = store.state.userInfo.u_id
-    this.$store.dispatch('FETCH_RECENTPLAYLIST',userId)
-  },
+
 
 }
 </script>

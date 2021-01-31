@@ -87,7 +87,13 @@ function fetchfollowinglist(userId) {
     return instance.get('',userId)
 }
 
+function fetchMyPlaylist(userId){
+    return instance.get(`/${userId}`)
+}
 
+function fetchUserFeed(userId){
+    return instance.get(`뭐뭐/머머/${userId}`)
+}
 export {
     registerUser,
     loginUser,
@@ -103,6 +109,8 @@ export {
     fetchRecentPlaylist,
     fetchLikePlaylist,
     addPlaylist,
-    fetchfollowinglist
+    fetchfollowinglist,
+    fetchMyPlaylist,
+    fetchUserFeed
     
 }
