@@ -41,6 +41,8 @@ const mutations = {
     },
     setPhonenum(state,phone){
         state.userInfo.u_phone_number = phone
+        console.log(state.userInfo, '제대로 들어갔냐')
+
     },
     logout(state) {
         state.token = ''

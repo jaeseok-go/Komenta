@@ -37,7 +37,7 @@ export default {
             resetBtnDisplay: 'none',
             authenNum: '',
             confirmNum: '0000',
-            googleFlag:false,
+            snsFlag:false,
         };
     },
     computed: {
@@ -63,10 +63,10 @@ export default {
   watch :{
     userPhoneNum : function(val) {
       if (this.userInfo !== null) {
-        this.googleFlag = true;
+        this.snsFlag = true;
       }
-      if (this.googleFlag && this.resetBtnDisplay === 'none') {
-        this.$store.commit('fetchInfo',val);
+      if (this.snsFlag && this.resetBtnDisplay === 'none') {
+        this.$store.commit('setPhonenum',val);
         console.log(this.userInfo)
       }
     },
@@ -87,11 +87,12 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        if (this.googleFlag === false) {
+        if (this.snsFlag === false) {
           store.commit('setEmail', this.userId);
           store.commit('setPhonenum',this.userPhoneNum);
           this.$emit('checkCertification')
         } else {
+          this.snsFlag = false;
           this.$router.push('/')
         }
       } else {
