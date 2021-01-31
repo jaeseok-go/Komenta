@@ -1,4 +1,4 @@
-import { loginUser, fetchRecentPlaylist, fetchLikePlaylist } from '@/api/user.js'
+import { loginUser, fetchRecentPlaylist, fetchLikePlaylist, addPlaylist } from '@/api/user.js'
 import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
@@ -113,7 +113,7 @@ const actions = {
     },
     async ADD_PLAYLIST({ commit }, data) {
         const response = await addPlaylist(data)
-        console.log(response)
+        console.log(response,commit)
     }
 
 };
