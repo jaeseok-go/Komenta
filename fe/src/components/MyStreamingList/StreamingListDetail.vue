@@ -15,31 +15,26 @@
 </template>
 
 <script>
+import { fetchStreamingListDetail } from '@/api/vod'
+import store from '@/stores/modules/user'
+
 export default {
     data() {
         return {
             streamingListDetail:{},
         }
     },
-    computed: {
-    ...mapState({
-        userInfo: state => state.user.userInfo
-            }),
+    methods: {
+        getStreamingListDetail() {
+            const u_id = store.state.userInfo.u_id
+            const pl_id = this.$route.params.id;
+            const data = {u_id, pl_id}
+            this.streamingListDetail = fetchStreamingListDetail(data)
+        }
     },
-    // methods: {
-    //     fetchStreamingListDetail() {
-    //         const u_id = userInfo.u_id
-    //         //플레이리스트 아이디 이건 어디 있는걸로 해야하지??
-    //         //유저가 좋아하는 플레이리스트는 store에서 관리하는게 좋을것같다
-    //         // const pl_id = userlikeplaylist 어쩌고.pl_id
-    //         const data = {u_id, pl_id}
-    //         this.streamingListDetail = getStreamingListDetail(data)
-    //     }
-    // },
-    // created() {
-    //     this.fetchStreamingListDetail()
-
-    // },
+    created() {
+        this.getStreamingListDetail()
+    },
 
 }
 </script>

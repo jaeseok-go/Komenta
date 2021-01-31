@@ -92,6 +92,12 @@ export default new Router({
       name: 'NotFound',
       component: () => import('@/views/NotFoundPage.vue'),
     },
+    {
+      path:'/playlist/:id',
+      name:'PlaylistDetail',
+      component: () => import('@/components/MyStreamingList/StreamingListDetail'),
+
+    },
     //path 정해지면 추가예정
     // {
     //   path: '',

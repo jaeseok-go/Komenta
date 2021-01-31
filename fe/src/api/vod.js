@@ -22,9 +22,19 @@ function fetchRecentVOD() {
     return instance.get('')
 }
 
+function fetchStreamingListDetail(data) {
+    return instance.get(``,{
+        params: { u_id: data.u_id, pl_id: data.pl_id }
+    })
+}
+
+
+
 export {
     fetchPopularPlayList,
     fetchCommentVOD,
     fetchPopularVOD,
-    fetchRecentVOD
+    fetchRecentVOD,
+    fetchStreamingListDetail
+
 }
