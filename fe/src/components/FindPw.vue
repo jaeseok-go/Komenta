@@ -109,26 +109,6 @@ export default {
           // 로그인 버튼 누르고 라우터로 가게 하기
           
         },
-        // 메일로 비밀번호 찾기
-    //     changePw() {
-    //     // const user = this.$firebase.auth().currentUser;
-    //     // const newPassword = getASecureRandomPassword();
-    //     // user.updatePassword(newPassword).then(() {
-    //     // // Update successful.
-    //     // }).catch(function(error) {
-    //     // // An error happened.
-    //     // });
-    //     const auth = this.$firebase.auth();
-    //     const emailAddress = this.userId;
-
-    //     auth.sendPasswordResetEmail(emailAddress).then(() => {
-    //         console.log('email보내졌니?')
-    //     // Email sent.
-    //     }).catch((error)=>{
-    //     // An error happened.
-    //         console.log(error)
-    //     });
-    // }
     },
     
 }

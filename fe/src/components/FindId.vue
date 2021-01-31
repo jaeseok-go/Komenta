@@ -34,7 +34,12 @@ export default {
     checkCertification() {
       this.idDisplay = 'block';
       this.showCertiForm = false;
-      this.userId = store.state.userInfo.u_email;
+      if (store.state.userInfo.u_email) {
+        this.userId = store.state.userInfo.u_email;
+      } else {
+        alert('회원가입이 필요합니다!')
+        this.$router.push('/member/join')
+      }
     },
     closeModal(e) {
       console.log(e)

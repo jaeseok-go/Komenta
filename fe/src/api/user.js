@@ -38,7 +38,7 @@ function emailAuth(userId) {
 
 //아이디 중복 확인
 function userIdChk(userId) {
-    return instance.get(`member/dup_id_chk/`, {
+    return instance.get(`member/chk_id/`, {
         params: { u_email: userId }
     })
 }
