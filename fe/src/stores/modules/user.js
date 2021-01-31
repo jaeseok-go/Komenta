@@ -108,6 +108,10 @@ const actions = {
         //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
         const likePlaylist = await fetchLikePlaylist(userId)
         commit('saveLikePlaylist', likePlaylist)
+    },
+    async ADD_PLAYLIST({ commit }, data) {
+        const response = await addPlaylist(data)
+        console.log(response)
     }
 
 };
