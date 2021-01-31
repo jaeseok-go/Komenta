@@ -18,9 +18,9 @@
 
 <script>
 import { validatePhoneNum } from '@/utils/validations';
-import { phoneAuth } from '@/api/user'
-import store from '@/stores/index'
-
+import { phoneAuth } from '@/api/user';
+import store from '@/stores/index';
+import { mapState } from 'vuex';
 
 export default {
     name: 'PhoneCertification',
@@ -37,9 +37,13 @@ export default {
             resetBtnDisplay: 'none',
             authenNum: '',
             confirmNum: '0000',
+            googleFlag:false,
         };
     },
     computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo
+    }),
     putAuthenBtn() {
       return validatePhoneNum(this.userPhoneNum);
     },
@@ -54,6 +58,17 @@ export default {
         return true;
       }
       return false;
+    },
+  },
+  watch :{
+    userPhoneNum : function(val) {
+      if (this.userInfo !== null) {
+        this.googleFlag = true;
+      }
+      if (this.googleFlag && this.resetBtnDisplay === 'none') {
+        this.$store.commit('fetchInfo',val);
+        console.log(this.userInfo)
+      }
     },
   },
   methods: {
@@ -72,9 +87,13 @@ export default {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
-        store.commit('setEmail', this.userId);
-        store.commit('setPhonenum',this.userPhoneNum);
-        this.$emit('checkCertification')
+        if (this.googleFlag === false) {
+          store.commit('setEmail', this.userId);
+          store.commit('setPhonenum',this.userPhoneNum);
+          this.$emit('checkCertification')
+        } else {
+          this.$router.push('/')
+        }
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }

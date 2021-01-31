@@ -32,10 +32,10 @@ const mutations = {
         state.userInfo = jwtDecode(token)
         console.log('여긴 store',state.userInfo)
     },
-    // fetchInfo(state,userData) {
-    //     state.userInfo = userData
-    //     console.log(state.userInfo,'제대로 들어갔냐')
-    // },
+    fetchInfo(state,userData) {
+        state.userInfo = userData
+        // console.log(state.userInfo,'제대로 들어갔냐')
+    },
     setEmail(state,email){
         state.userInfo.u_email = email
     },
