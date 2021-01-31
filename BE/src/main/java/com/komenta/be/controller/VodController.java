@@ -32,6 +32,7 @@ public class VodController {
         // 2. 실패시 그냥 u_id를 파라미터로 받아오는 방법
         // 회원이 봤던거 인지 아닌지
         // 봤으면 시청 시간을 같이 response해주어야함.
+        HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
         try {
             List<VodHistoryDTO> history = (List<VodHistoryDTO>) vodService.selectHistoryById(u_id);
@@ -45,12 +46,13 @@ public class VodController {
                     break;
                 }
             }
+            status = HttpStatus.OK
         }
         catch(RuntimeException e){
             resultMap.put("message", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(resultMap,status);
     }
 
     @GetMapping("/myvod")
