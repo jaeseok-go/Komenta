@@ -15,11 +15,6 @@ import { mapGetters } from 'vuex';
 import store from '@/stores/modules/user'
 
 export default {
-  data() {
-    return {
-      nowEpiInfo:{},
-    }
-  },
   computed: {
     ...mapGetters(['fetchedPlaylist']) 
   },
