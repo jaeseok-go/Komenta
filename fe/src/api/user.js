@@ -78,6 +78,10 @@ function fetchLikePlaylist(userId) {
     return instance.get('',userId)
 }
 
+// 유저가 피드에서 플레이 리스트 생성
+function addPlaylist(data) {
+    return instance.post('',data)
+}
 
 
 
@@ -95,5 +99,6 @@ export {
     changePw,
     fetchRecentPlaylist,
     fetchLikePlaylist,
+    addPlaylist
     
 }
