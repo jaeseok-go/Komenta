@@ -95,7 +95,7 @@ export default {
       editInlineDisplay:'none',
       editBtnText:'편집',
       chkIcon:'far',
-      allCheck:false,
+      allChk:false,
     }
   },
   methods: {
@@ -112,7 +112,7 @@ export default {
     }
   },
   allCheck(){
-    if(this.allCheck) {
+    if(this.allChk) {
       this.chkIcon='fas'
     }else {
       this.chkIcon='far'
