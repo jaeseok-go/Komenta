@@ -91,12 +91,13 @@ export default {
             u_email:googleUser.Fs.lt,
             u_pw: googleUser.uc.id_token,
             u_phone_number : null,
-            // googleUser.Fs.sd 가 이름 근데 중복된값 피하기 위해 유니크한값..
-            u_nickname : googleUser.Fs.KR,
+            // googleUser.Fs.KR 가 이름 근데 중복된값 피하기 위해 유니크한값..
+            u_nickname : googleUser.Fs.sd,
             // u_expire_member :null,
             // u_is_admin:false,
             // u_is_blocked:false,
             // u_profile_pic:null,
+   
         };
         this.$store.commit('fetchInfo',userData);
         console.log("getId", googleUser.getId());

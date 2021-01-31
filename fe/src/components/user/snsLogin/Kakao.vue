@@ -35,6 +35,11 @@
 <script>
 import { getKakaoToken, getKakaoUserInfo } from "@/api/snslogin";
 export default {
+    data(){
+        return {
+            token : "",
+        }
+    },
     created() {
         if (this.$route.query.code) {
             this.setKakaoToken();
@@ -51,34 +56,28 @@ export default {
         console.log('카카오 인증 코드', this.$route.query.code);
         const { data } = await getKakaoToken(this.$route.query.code);
         console.log('데이터잘있니',{data})
+        this.token = data.access_token;
         if (data.error) {
             alert('카카오톡 로그인 오류입니다.');
-            this.$router.replace('/login');
+            this.$router.replace('/member/login');
             return;
         }
         window.Kakao.Auth.setAccessToken(data.access_token);
-        // this.$cookies.set('access-token', data.access_token, '1d');
-        // this.$cookies.set('refresh-token', data.refresh_token, '1d');
-        await this.setUserInfo();
-        this.$router.replace('/signup');
-    },
-    async setUserInfo () {
         const res = await getKakaoUserInfo();
         const userInfo = {
             u_nickname: res.kakao_account.profile.nickname,
-            platform: 'kakao',
-            age_range: res.kakao_account.age_range,
-            birthday: res.kakao_account.birthday,
-            u_email:res.kakao_account.email
-        };
-        this.$store.commit('setUser', userInfo);
+            u_email:res.kakao_account.email,
+            u_pw:this.token,
+            u_phone_number : null,
+        }
+        this.$store.commit('fetchInfo',userInfo);
         console.log('카카오유저',userInfo)
+        if (userInfo.u_phone_number === null) {
+            this.$router.push('/member/certification');
+        }
+  
     },
   },
-   mounted() {
- 
-  },
-
             
 }
 </script>
