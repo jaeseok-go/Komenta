@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     showModalForm() {
-      this.$emit('showModalForm')
+      this.$emit('showUserInfoForm')
     },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
