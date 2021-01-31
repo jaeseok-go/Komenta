@@ -31,10 +31,10 @@
             </svg>
 
         </button>
-        <!-- <button @click="handleClickLogin">get authCode</button> <br> -->
+        <button @click="handleClickLogin">get authCode</button> <br>
+        <button @click="handleClickDisconnect">disconnect</button><br>
         <!-- <button @click="handleClickSignIn">sign in</button><br> -->
         <!-- <button @click="handleClickSignOut">sign out</button><br>
-        <button @click="handleClickDisconnect">disconnect</button><br>
         <p>isInit: {{isInit}}</p>
       <p>isSignIn: {{isSignIn}}</p>
       <button  @click="handleClickUpdateScope">update scope</button> -->
@@ -75,6 +75,7 @@ export default {
         })
         .catch((error) => {
             console.log(error)
+            this.handleClickSignIn();
           //on fail do something
         });
     },

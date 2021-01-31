@@ -1,5 +1,7 @@
 package com.komenta.be.service;
 
+import com.komenta.be.mapper.CommentMapper;
+import com.komenta.be.mapper.GenreMapper;
 import com.komenta.be.model.comment.CommentInfoDTO;
 import com.komenta.be.model.comment.VodEpisodeCommentDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -15,11 +17,11 @@ public class CommentServiceImpl implements CommentService{
     SqlSession sqlSession;
     @Override
     public int insertComment(CommentInfoDTO comment_info) {
-        return 0;
+        return sqlSession.getMapper(CommentMapper.class).insertComment(comment_info);
     }
 
     @Override
     public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id) {
-        return null;
+        return sqlSession.getMapper(CommentMapper.class).getVodEpisodeComment(ve_id);
     }
 }
