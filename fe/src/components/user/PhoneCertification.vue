@@ -21,6 +21,7 @@ import { validatePhoneNum } from '@/utils/validations';
 import { phoneAuth } from '@/api/user';
 import store from '@/stores/index';
 import { mapState } from 'vuex';
+import { registerUser } from '@/api/user'; //, userIdChk, userNickNameChk
 
 export default {
     name: 'PhoneCertification',
@@ -60,18 +61,18 @@ export default {
       return false;
     },
   },
-  watch :{
-    userPhoneNum : function(val) {
+  methods: {
+    async checkSnsLogin(){
       if (this.userInfo !== null) {
         this.snsFlag = true;
       }
-      if (this.snsFlag && this.resetBtnDisplay === 'none') {
-        this.$store.commit('setPhonenum',val);
-        console.log(this.userInfo)
+      if (this.snsFlag) {
+        this.$store.commit('setPhonenum',this.userPhoneNum);
+        console.log(this.userInfo,'데이터들어왔니카카오구글')
+        const res = await registerUser(this.userInfo);
+        console.log(res,'회원가입했니?')
       }
     },
-  },
-  methods: {
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
@@ -82,11 +83,12 @@ export default {
       this.start();
       this.authenDisplay = 'block';
     },
-    checkCertification() {
+    async checkCertification() {
       if (this.confirmNum === this.authenNum) {
         window.alert('인증에 성공했습니다.');
         this.timeStop();
         this.resetBtnDisplay = 'none';
+        await this.checkSnsLogin()
         if (this.snsFlag === false) {
           store.commit('setEmail', this.userId);
           store.commit('setPhonenum',this.userPhoneNum);
