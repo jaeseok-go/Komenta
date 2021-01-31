@@ -81,10 +81,6 @@ const actions = {
             commit('setToken', response.data['auth-token'])
             //t commit('fetchInfo', response.data.daa)
             console.log(response.data.data,'유저정보들어왔니')
-            
-            //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
-            const likePlaylist = await fetchLikePlaylist(response.data.data.u_id)
-            commit('saveLikePlaylist',likePlaylist)
 
         } else {
             commit('loginError')
@@ -107,13 +103,21 @@ const actions = {
         const recentPlaylist = await fetchRecentPlaylist(userId)
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
         commit('saveRecentPlaylist', recentPlaylist)
+    },
+    async FETCH_LIKEPLAYLIST({ commit }, userId) {
+        //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
+        const likePlaylist = await fetchLikePlaylist(userId)
+        commit('saveLikePlaylist', likePlaylist)
     }
 
 };
 
 const getters = {
-    fetchedPlaylist(state) {
+    fetchedRecentPlaylist(state) {
         return state.recentPlaylist
+    },
+    fetchedLikePlaylist(state) {
+        return state.likePlaylist
     }
 }
 
