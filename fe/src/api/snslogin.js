@@ -1,4 +1,6 @@
-import axios from '@/api/config/axios';
+// import { setInterceptors } from './config/interceptors'
+import axios from './config/axios'
+// const instance = setInterceptors()
 
 const kakaoHeader = {
     'Authorization': process.env.VUE_APP_KAKAO_ADMIN_KEY,
@@ -17,6 +19,7 @@ const getKakaoToken = async (code) => {
         const queryString = Object.keys(data)
             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
             .join('&');
+        console.log(axios,'kakao인스턴스')
         const result = await axios.post('https://kauth.kakao.com/oauth/token', queryString, { headers: kakaoHeader });
         console.log('카카오 토큰', queryString,result);
         return result;
@@ -39,19 +42,25 @@ const getKakaoUserInfo = async () => {
     return data;
 }
 
-const getGoogleToken = (googleUser) => {
-    console.log('구글test');
-    const profile = googleUser.getBasicProfile();
-    console.log('ID Token: ', googleUser.getAuthResponse().id_token);
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-};
+// 사용자 정보 저장하기
+const updateProfileObject = async (userData) => {
+    await window.Kakao.API.request({
+        url: '/v1/user/update_profile',
+        data: {
+            properties: userData,
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        fail: function (error) {
+            console.log(error);
+        }
+    });
+}
 
 
 export {
     getKakaoToken,
     getKakaoUserInfo,
-    getGoogleToken,
+    updateProfileObject,
 };

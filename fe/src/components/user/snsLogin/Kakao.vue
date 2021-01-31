@@ -1,6 +1,6 @@
 <template>
     <div id="kakao-login" class="sns-login-logo">
-
+        <button @click="logoutWithKakao">KakaoLogout</button>
         <button @click="loginWithKakao">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,10 +46,33 @@ export default {
         }
     },
     methods: {
+        logoutWithKakao(){
+            if (!window.Kakao.Auth.getAccessToken()) {
+            console.log('Not logged in.');
+            return;
+            }
+            window.Kakao.Auth.logout(function() {
+            console.log(window.Kakao.Auth.getAccessToken());
+            });
+        },
+        login(){
+            window.Kakao.Auth.login({
+            // scope: 'phone_number_needs_agreement',
+            success: function(authObj) {
+        alert(JSON.stringify(authObj))
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err))
+      },
+        })
+        },
         loginWithKakao() {
         const params = {
             redirectUri: "http://localhost:8080/auth",
+            // scope: 'phone_number_needs_agreement'
+            // scope:'phone_number'
         };
+        
         window.Kakao.Auth.authorize(params);
         },
         async setKakaoToken () {
