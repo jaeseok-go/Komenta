@@ -1,4 +1,4 @@
-import { loginUser, fetchRecentPlaylist, fetchLikePlaylist, addPlaylist, fetchfollowinglist } from '@/api/user.js'
+import { loginUser, fetchRecentPlaylist, fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed } from '@/api/user.js'
 import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
@@ -20,7 +20,9 @@ const state = {
     isPasswordConfirmed: false,
     recentPlaylist:[],
     likePlaylist:[],
-    myFollowingList:[]
+    myFollowingList:[],
+    myPlayList:[],
+    userFeed:[],
 };
 
 const mutations = {
@@ -66,14 +68,20 @@ const mutations = {
         state.userInfo.u_profile_pic = userData.u_profile_pic
     },
     //1-3.최근 목록 플레이 리스트 저장
-    saveRecentPlaylist(state, recentPlaylist) {
+    setRecentPlaylist(state, recentPlaylist) {
         state.recentPlaylist = recentPlaylist
     },
-    saveLikePlaylist(state, likePlaylist) {
+    setLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
     },
-    myfollowingList(state, followingList){
+    setMyfollowingList(state, followingList){
         state.myFollowingList = followingList
+    },
+    setMyPlayList(state, myPlayList){
+        state.myPlayList = myPlayList
+    },
+    setUserFeed(state, userFeed){
+        state.userFeed = userFeed
     }
 }
 
@@ -81,6 +89,10 @@ const actions = {
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야",commit,userData)
         const response = await loginUser(userData);
+        //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
+        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
+        //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
+        commit('setRecentPlaylist', recentPlaylist)
         
         
         if (response.data['auth-token']) {
@@ -104,16 +116,16 @@ const actions = {
         }
         return response
     },
-    async FETCH_RECENTPLAYLIST({ commit }, userId) {
-        //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
-        const recentPlaylist = await fetchRecentPlaylist(userId)
-        //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        commit('saveRecentPlaylist', recentPlaylist)
-    },
+    // async FETCH_RECENTPLAYLIST({ commit }, userId) {
+    //     //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
+    //     const recentPlaylist = await fetchRecentPlaylist(userId)
+    //     //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
+    //     commit('setRecentPlaylist', recentPlaylist)
+    // },
     async FETCH_LIKEPLAYLIST({ commit }, userId) {
         //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
         const likePlaylist = await fetchLikePlaylist(userId)
-        commit('saveLikePlaylist', likePlaylist)
+        commit('setLikePlaylist', likePlaylist)
     },
     async ADD_PLAYLIST({ commit }, data) {
         const response = await addPlaylist(data)
@@ -121,12 +133,24 @@ const actions = {
     },
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)
-        commit('myfollowingList', followingList )
+        commit('setMyfollowingList', followingList )
+    },
+    async FETCH_MYPLAYLIST({ commit }, userId){
+        const myPlayList = await fetchMyPlaylist(userId)
+        commit('setMyPlayList',myPlayList)
+    },
+    //유저 피드 정보
+    async FETCH_FEED({ commit },userId){
+        const userFeed = await fetchUserFeed(userId)
+        commit('setUserFeed',userFeed)
     }
 
 };
 
 const getters = {
+    fetchedUserInfo(state) {
+        return state.userInfo
+    },
     fetchedRecentPlaylist(state) {
         return state.recentPlaylist
     },
@@ -135,6 +159,12 @@ const getters = {
     },
     fetchedFollowingList(state) {
         return state.myFollowingList
+    },
+    fetcedMyPlaylist(state) {
+        return state.myPlayList
+    },
+    fetchedUserFeedInfo(state) {
+        return state.userFeed
     }
 }
 
