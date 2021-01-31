@@ -180,8 +180,34 @@ public class MemberController{
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/update")
-    public int updateMember(@RequestBody MemberDTO member){
-        return mservice.updateMember(member);
+    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
+        HttpStatus status = null;
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            int result = mservice.updateMember(member);
+            if(result == 1) {
+                String token = jwtService.create(member);
+
+                response.setHeader("auth-token", token);
+                resultMap.put("status", true);
+                resultMap.put("data", result);
+                resultMap.put("auth-token", token);
+                status = HttpStatus.ACCEPTED;
+                System.out.println(response.getHeader("auth-token"));
+            }
+            else{
+                resultMap.put("status", false);
+                resultMap.put("data", 0);
+                resultMap.put("auth-token", null);
+
+                System.out.println("업데이트 실패");
+            }
+        }
+        catch(RuntimeException e){
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 
