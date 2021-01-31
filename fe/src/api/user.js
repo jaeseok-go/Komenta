@@ -83,6 +83,9 @@ function addPlaylist(data) {
     return instance.post('',data)
 }
 
+function fetchfollowinglist(userId) {
+    return instance.get('',userId)
+}
 
 
 export {
@@ -99,6 +102,7 @@ export {
     changePw,
     fetchRecentPlaylist,
     fetchLikePlaylist,
-    addPlaylist
+    addPlaylist,
+    fetchfollowinglist
     
 }
