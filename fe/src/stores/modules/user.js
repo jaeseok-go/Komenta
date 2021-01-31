@@ -20,6 +20,7 @@ const state = {
     isPasswordConfirmed: false,
     recentPlaylist:[],
     likePlaylist:[],
+    myFollowingList:[]
 };
 
 const mutations = {
@@ -70,6 +71,9 @@ const mutations = {
     },
     saveLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
+    },
+    myfollowingList(state, followingList){
+        state.myFollowingList = followingList
     }
 }
 
@@ -114,6 +118,10 @@ const actions = {
     async ADD_PLAYLIST({ commit }, data) {
         const response = await addPlaylist(data)
         console.log(response)
+    },
+    async FETCH_FOLLOWING({ commit }, userId) {
+        const followingList = await fetchfollowinglist(userId)
+        commit('myfollowingList', followingList )
     }
 
 };
@@ -124,6 +132,9 @@ const getters = {
     },
     fetchedLikePlaylist(state) {
         return state.likePlaylist
+    },
+    fetchedFollowingList(state) {
+        return state.myFollowingList
     }
 }
 
