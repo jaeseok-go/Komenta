@@ -8,7 +8,7 @@
         values (#{c_contents}, #{c_playtime}, #{c_upload_time}, #{u_id}, #{ve_id});
     </insert>
 
-    <select id = "getVodEpisodeComment" parameterType="integer" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
+    <select id = "getVodEpisodeComment" parameterType="int" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
         select C.c_id, C.c_contents, C.c_playtime, C.c_upload_time, C.u_id, C.u_nickname, D.comment_good_count
         from ((select c_id, c_contents, c_playtime, c_upload_time;
         from comment_info
