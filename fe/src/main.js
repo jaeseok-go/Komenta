@@ -10,10 +10,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC } from "@fortawesome/free-regular-svg-icons";
 import { faCheckCircle as fasCheckC, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-// google 로그인
-import '@/plugins/firebase';
-
 import '@/css/index.css'
+// google 로그인
+import GAuth from 'vue-google-oauth2'
+
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -26,6 +26,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kakao로그인
 window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
+
+Vue.use(GAuth, {
+  clientId: '239626612902-chshh1qud8hhvt0k0bc3hcgmq871jgai.apps.googleusercontent.com', scope: 'email', prompt: 'consent', fetch_basic_profile: true
+})
 
 new Vue({
   router,

@@ -339,35 +339,7 @@ export default {
       this.password = '';
       this.nickname = '';
     },
-    // firebase email로 회원가입 추가
-    async signin() {
-      this.$firebase.auth().createUserWithEmailAndPassword(this.userId, this.password)
-      .then(() => {
-        // Signed in
-        const user = this.$firebase.auth().currentUser;
-        console.log('폰번',this.userPhoneNumber,user.phoneNumber)
-        user.updateProfile({
-          displayName : this.username,
-          phoneNumber : this.userPhoneNumber
-        })
-        .then(()=>{
-          console.log('유저있니',user.user)
-          this.$firebase.auth().signInWithEmailAndPassword(this.userId, this.password)
-          console.log(`${this.username}님이 로그인!!!`)
-          console.log('비번은이걸로',user.refreshToken)
-          this.$router.push({name:'Login'})
-
-        })
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorCode,errorMessage)
-        // console.log(errorCode)
-        // console.log(errorCode)
-      });
-    },
+ 
   },
   watch: {
     'isTerm.term1': function() {

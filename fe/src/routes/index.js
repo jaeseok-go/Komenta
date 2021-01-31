@@ -88,6 +88,11 @@ export default new Router({
       component: () => import('@/components/feed/MyPlayList.vue'),
     },
     {
+      path: '/Google',
+      name: 'GoogleLogin',
+      component: () => import('@/components/user/snsLogin/GoogleLogin.vue'),
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: () => import('@/views/NotFoundPage.vue'),
