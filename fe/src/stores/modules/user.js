@@ -7,20 +7,20 @@ const state = {
     isLogin: sessionStorage.getItem('auth-token') === null ? false : true,
     isLoginError: false,
     userInfo: sessionStorage.getItem('auth-token') === null ? {
-        u_id:null,
+        u_id: null,
         u_email: null,
         // u_pw: null,
         u_phone_number: null,
         u_nickname: null,
-        u_expire_member :null,
-        u_is_admin:false,
-        u_is_blocked:false,
-        u_profile_pic:null,
+        u_expire_member: null,
+        u_is_admin: false,
+        u_is_blocked: false,
+        u_profile_pic: null,
     } : jwtDecode(sessionStorage.getItem('auth-token')),
     isPasswordConfirmed: false,
-    recentPlaylist:[],
-    likePlaylist:[],
-    myFollowingList:[]
+    recentPlaylist: [],
+    likePlaylist: [],
+    myFollowingList: []
 };
 
 const mutations = {
@@ -31,16 +31,16 @@ const mutations = {
         state.isLoginError = false
         // state.userInfo = userData
         state.userInfo = jwtDecode(token)
-        console.log('여긴 store',state.userInfo)
+        console.log('여긴 store', state.userInfo)
     },
-    fetchInfo(state,userData) {
+    fetchInfo(state, userData) {
         state.userInfo = userData
         // console.log(state.userInfo,'제대로 들어갔냐')
     },
-    setEmail(state,email){
+    setEmail(state, email) {
         state.userInfo.u_email = email
     },
-    setPhonenum(state,phone){
+    setPhonenum(state, phone) {
         state.userInfo.u_phone_number = phone
         console.log(state.userInfo, '제대로 들어갔냐')
 
@@ -72,21 +72,21 @@ const mutations = {
     saveLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
     },
-    myfollowingList(state, followingList){
+    myfollowingList(state, followingList) {
         state.myFollowingList = followingList
     }
 }
 
 const actions = {
     async LOGIN({ commit }, userData) {
-        console.log("야야야야야ㅑ야",commit,userData)
+        console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
-        
-        
+
+
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
             //t commit('fetchInfo', response.data.daa)
-            console.log(response.data.data,'유저정보들어왔니')
+            console.log(response.data.data, '유저정보들어왔니')
 
         } else {
             commit('loginError')
