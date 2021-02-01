@@ -19,23 +19,29 @@
     <section>
         <h1>커스튬 콘텐츠 목록</h1>
 
-        <button @click="showButton">+</button>
-        <Modal v-if="showModal" @close="showModal=false">
+        <!--플레이리스트 추가하는 모달폼-->
+        <button @click="showAddFormModal">+</button>
+        <Modal v-if="showModal">
             <h3 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
-            <i class="closeModalBtn fa fa-times"
-            aria-hidden="true"
-            @click="showModal = false">
-            </i>
+            <div @click="closeAddFormModal">
+                <i class="closeModalBtn fa fa-times"
+                aria-hidden="true"
+                >
+                </i>
+            </div>
             </h3>
             <p slot="body">
                 <input type="text" v-model="pl_name">
+                <!-- 제출을 누르면 유저 플레이리스트에 디비 추가/아래에 폼 추가 -->
                 <button @click="addPlaylist">제출</button>
             </p>
-
         </Modal>
+
         <div>
-            <li></li>
+            <!-- <li v-for="플레이리스트 인 플레이리스트s">
+                
+            </li> -->
         </div>
     </section>
 
@@ -59,32 +65,39 @@ export default {
             showFollow:false,
             showRecent:false,
             pl_name:'',
+            //플레이리스트 : []
         }
     },
     methods: {        
-        showModalForm() {
+        //팔로우하는 로직 추가 구현
+        followUser() {
+
+        },
+        showAddFormModal() {
             this.showModal=true
         },
+        closeAddFormModal() {
+            this.showModal=false
+        },
         showButton() {
-            this.showModal=true
-            // if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
-            //     this.showFollow=true
-            // }
+            if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
+                this.showFollow=true
+            }
         },
         showMyRecent() {
             if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
                 this.showRecent=true
             }
         },
-        //팔로우하는 로직 추가 구현
-        followUser() {
-
-        },
         addPlaylist() {
             const userId = this.fetchedUserInfo.u_id
             const pl_name = this.pl_name
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
+        },
+        getMyPlayList() {
+            //이거 나중에 하기
+            //플레이리스트 = fetchmyPlayList()
         }
     },
 
@@ -98,7 +111,7 @@ export default {
     created() {
         const userId = this.$route.params.id;
         this.$store.dispatch('FETCH_FEED',userId)
-
+        //this.getMyPlayList()
     },
 
 
