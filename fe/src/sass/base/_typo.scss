@@ -1,0 +1,71 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000;
+}
+.h1,
+h1 {
+  font-size: 1.75rem;
+}
+.h2,
+h2 {
+  font-size: 1.53125rem;
+}
+.h3,
+h3 {
+  font-size: 1.3125rem;
+}
+.h4,
+h4 {
+  font-size: 1.09375rem;
+}
+.h5,
+.h6,
+h5,
+h6 {
+  font-size: 0.875rem;
+}
+
+//hr 공통 설정
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+//hr 그라데이션
+.hrDesign.gradation {
+  background: $hr-color;
+  background-image: -webkit-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -moz-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -ms-linear-gradient(to left, #eee, #777, #eee);
+  background-image: -o-linear-gradient(to left, #eee, #777, #eee);
+  background-image: linear-gradient(to left, #eee, #777, #eee);
+}

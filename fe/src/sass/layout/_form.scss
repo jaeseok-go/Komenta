@@ -1,0 +1,140 @@
+//공통 form design
+.form-control {
+  display: block;
+  width: 70%;
+  height: calc(1.8125rem + 2px);
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-color;
+  background-color: $bg-color;
+  background-clip: padding-box;
+  border: 1px solid $form-border-color;
+  border-radius: 0.2rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc;
+  overflow: visible;
+  margin: 0;
+  font-family: inherit;
+}
+
+.form-control-plaintext.form-control-lg,
+.form-control-plaintext.form-control-sm {
+  padding-right: 0;
+  padding-left: 0;
+}
+.form-control-sm {
+  height: calc(1.425rem + 2px);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.1rem;
+}
+.form-control-lg {
+  height: calc(2.0875rem + 2px);
+  padding: 0.35rem 1rem;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+.form-sort.id-chk {
+  position: relative;
+  left: 1.3rem;
+}
+
+.form-inline-block {
+  display: inline-block;
+}
+
+.warning-form {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+
+  &.warning-signup {
+    width: 70%;
+  }
+
+  & .warning-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #f01c35;
+    margin-top: 0.25rem;
+  }
+}
+
+.newPW-form {
+  margin-top: 2rem;
+
+  & .form-sort {
+    display: inline-block;
+    margin-left: 1rem;
+
+    & .form-sort-text {
+      margin-bottom: 1rem;
+    }
+  }
+
+  & .newPW-form-move {
+    position: relative;
+    right: 3.5rem;
+  }
+}
+
+.phoneNum-form {
+  & .phone-label {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+
+  & .form-sort {
+    display: inline-block;
+    margin-left: 1rem;
+
+    & .form-sort-text {
+      margin-bottom: 1rem;
+    }
+  }
+
+  & .phoneNum-form-move {
+    position: relative;
+    right: 3.5rem;
+  }
+}
+
+.join-authentic {
+  width: 70%;
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+
+  & .phone-label {
+    display: none;
+  }
+
+  & input {
+    width: 104.5%;
+    margin-top: 1rem;
+  }
+
+  & .btn-authentic {
+    display: block;
+    font-size: 1.075rem;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0.4rem 5.3rem;
+  }
+}
+
+.modify-authentic {
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+
+  & .phone-label {
+    display: none;
+  }
+}

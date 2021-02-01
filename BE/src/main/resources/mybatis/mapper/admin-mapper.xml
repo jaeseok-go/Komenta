@@ -1,0 +1,133 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.AdminMapper">
+
+    <select id="selectAllMember" resultType="com.komenta.be.model.member.MemberDTO">
+        SELECT u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_is_blocked, u_profile_pic
+        FROM member
+    </select>
+
+    <update id="updateMember" parameterType="com.komenta.be.model.member.MemberDTO">
+        update member
+        set u_pw = #{u_pw},
+            u_phone_number = #{u_phone_number},
+            u_nickname = #{u_nickname},
+            u_profile_pic = #{u_profile_pic}
+        where u_id = #{u_id}
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+        delete
+        from member
+        where u_email = #{u_email}
+    </delete>
+
+    <insert id="registVod" parameterType="com.komenta.be.model.vod.VodDTO" useGeneratedKeys="true"
+            keyProperty="v_id">
+        insert into vod(v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
+        values (#{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
+
+    </insert>
+
+    <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">
+        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
+        from vod;
+    </select>
+
+    <select id="selectVodByGd" parameterType="Integer" resultType="com.komenta.be.model.vod.VodDTO">
+        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
+        from vod
+        where gd_id = #{gd_id};
+    </select>
+    <update id="updateVod" parameterType="com.komenta.be.model.vod.VodDTO">
+        update vod
+        set v_title = #{v_title},
+            v_summary = #{v_summary},
+            v_director = #{v_actors},
+            v_actors = #{v_actors},
+            v_age_grade = #{v_age_grade},
+            v_poster = #{v_poster},
+            gd_id = #{gd_id}
+        where v_id = #{v_id}
+    </update>
+
+    <delete id="deleteVod" parameterType="int">
+        delete
+        from vod
+        where v_id = #{v_id}
+    </delete>
+
+    <insert id="uploadEpisode" parameterType="com.komenta.be.model.vod.VodEpisodeDTO">
+        insert into vod_episode(ve_id, v_id, ve_episode_num, ve_contents, ve_admin, ve_upload_date)
+        values(#{ve_id},#{v_id},#{ve_episode_num},#{ve_contents}, #{ve_admin}, #{ve_upload_date})
+    </insert>
+
+    <select id="selectEpisode" parameterType="int" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
+        select ve_id, v_id, ve_episode_num, ve_contents
+        from vod_episode
+    </select>
+    <select id="selectAllEpisode" resultType="com.komenta.be.model.vod.VodEpisodeAllDTO">
+        select C.ve_id, C.ve_episode_num, C.ve_contents, C.ve_admin, C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, C.gd_id, D.g_name, D.gd_name
+        from
+            (select A.ve_id, A.ve_episode_num, A.ve_contents, A.ve_admin, A.ve_upload_date, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
+            from vod_episode A left outer join vod B
+            on A.v_id = B.v_id) C
+            left outer join
+            (select A.gd_id, A.gd_name, A.g_id, B.g_name
+            from genre_detail A left outer join genre B
+            on A.g_id = B.g_id) D
+        on C.gd_id = D.gd_id;
+    </select>
+
+    <update id="updateEpisode" parameterType="com.komenta.be.model.vod.VodEpisodeDTO">
+        update vod_episode
+        set ve_episode_num = #{ve_episode_num},
+            ve_contents = #{ve_contents}
+        where ve_id = #{ve_id}
+    </update>
+
+    <delete id="deleteEpisode" parameterType="int">
+        delete
+        from vod_episode
+        where ve_id = #{ve_id}
+    </delete>
+
+    <select id="selectBlockedMember" resultType="com.komenta.be.model.member.MemberDTO">
+        select u_id, u_email, u_pw, u_phone_number, u_nickname, u_expire_member, u_is_admin, u_is_blocked, u_profile_pic
+        from member
+        where u_is_blocked = true;
+    </select>
+
+    <update id="updateCommentPermission" parameterType="int">
+        update member
+        set u_is_blocked =
+            case when u_is_blocked = false then true
+                else false
+            end
+        where u_id = #{u_id}
+    </update>
+
+    <select id="selectReportedCommentAndReComment" resultType="com.komenta.be.model.admin.ReportListDTO">
+        select R.r_id, R.r_type, R.r_contents, R.cu_id, R.u_id, M.u_email, M.u_pw, M.u_phone_number, M.u_nickname, M.u_expire_member, M.u_is_admin, M.u_is_blocked, M.u_profile_pic
+        from
+            (
+                ( select A.r_id, A.r_type, A.r_contents, A.u_id as cu_id, A.c_id, A.rc_id, B.u_id
+                  from
+                      (select *
+                       from report
+                       where rc_id is null) A
+                          inner join comment_info B
+                          on A.c_id = B.c_id)
+                union
+                ( select A.r_id, A.r_type, A.r_contents, A.u_id as cu_id, A.c_id, A.rc_id, B.u_id
+                  from
+                      (select *
+                       from report
+                       where rc_id is not null) A
+                          inner join re_comment B
+                          on A.rc_id = B.rc_id)
+            ) R left outer join member M
+                on R.u_id = M.u_id
+    </select>
+</mapper>

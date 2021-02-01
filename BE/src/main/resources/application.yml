@@ -1,0 +1,27 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: komenta201@gmail.com
+    password: ssafy@201
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/komenta
+    username: root
+    password: b201root
+
+mybatis:
+  type-aliases-package: com.komenta.be.mapper
+  mapper-locations: mybatis/mapper/**/*.xml
