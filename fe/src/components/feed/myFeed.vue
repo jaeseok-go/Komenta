@@ -19,29 +19,23 @@
     <section>
         <h1>커스튬 콘텐츠 목록</h1>
 
-        <!--플레이리스트 추가하는 모달폼-->
-        <button @click="showAddFormModal">+</button>
-        <Modal v-if="showModal">
+        <button @click="showButton">+</button>
+        <Modal v-if="showModal" @close="showModal=false">
             <h3 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
-            <div @click="closeAddFormModal">
-                <i class="closeModalBtn fa fa-times"
-                aria-hidden="true"
-                >
-                </i>
-            </div>
+            <i class="closeModalBtn fa fa-times"
+            aria-hidden="true"
+            @click="showModal = false">
+            </i>
             </h3>
             <p slot="body">
                 <input type="text" v-model="pl_name">
-                <!-- 제출을 누르면 유저 플레이리스트에 디비 추가/아래에 폼 추가 -->
                 <button @click="addPlaylist">제출</button>
             </p>
-        </Modal>
 
+        </Modal>
         <div>
-            <!-- <li v-for="플레이리스트 인 플레이리스트s">
-                
-            </li> -->
+            <!-- <li v-for="myPlaylists in myPlaylists" :key="myPlaylist.id"></li> -->
         </div>
     </section>
 
@@ -53,6 +47,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { fetchMyPlaylist } from '@/api/user'
 
 import Modal from '@/components/common/Modal';
 export default {
@@ -66,28 +61,28 @@ export default {
             showRecent:false,
             pl_name:'',
             //플레이리스트 : []
+            myPlaylists:[]
+
         }
     },
     methods: {        
-        //팔로우하는 로직 추가 구현
-        followUser() {
-
-        },
-        showAddFormModal() {
+        showModalForm() {
             this.showModal=true
         },
-        closeAddFormModal() {
-            this.showModal=false
-        },
         showButton() {
-            if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
-                this.showFollow=true
-            }
+            this.showModal=true
+            // if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
+            //     this.showFollow=true
+            // }
         },
         showMyRecent() {
             if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
                 this.showRecent=true
             }
+        },
+        //팔로우하는 로직 추가 구현
+        followUser() {
+
         },
         addPlaylist() {
             const userId = this.fetchedUserInfo.u_id
@@ -95,10 +90,10 @@ export default {
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
         },
-        getMyPlayList() {
-            //이거 나중에 하기
-            //플레이리스트 = fetchmyPlayList()
-        }
+        getMyALLPlayList() {
+        const userId = this.$route.params.id;
+        this.myPlaylists = fetchMyPlaylist(userId)
+
     },
 
     computed: {
@@ -109,9 +104,12 @@ export default {
         ...mapGetters(['fetchedPlaylist']) 
   },
     created() {
-        const userId = this.$route.params.id;
-        this.$store.dispatch('FETCH_FEED',userId)
-        //this.getMyPlayList()
+        this.getMyALLPlayList()
+        // const userId = this.$route.params.id;
+        // this.$store.dispatch('FETCH_FEED',userId)
+        // //this.getMyPlayList()
+
+
     },
 
 
