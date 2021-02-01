@@ -4,7 +4,7 @@
       <!-- f_id로 정보 받아서 처리 -->
     <section>
     <h1>유저 프로필 영역</h1>
-        <div>{{ fetchedUserFeedInfo.u_profile_pic }}</div>
+        <div>{{ fetchedUserFeedInfo }}</div>
         <div>{{ fetchedUserFeedInfo.u_nickname }}</div>
         <div v-if="showButton">
             <button @click="followUser">FOLLOW</button>
@@ -13,7 +13,7 @@
 
     <section v-if="showMyRecent">
         <h1>내가 시청한 콘텐츠 목록</h1>
-        <!-- <div>{{ fetchedPlaylist.v_id }}</div> -->
+        <div>{{ fetchedPlaylist }}</div>
         <div>
              <li v-for="(myPlaylist,index) in myPlaylists" :key="index">
              </li>
@@ -75,7 +75,7 @@
         >
             {{ item.title }}
         </div>
-
+    {{test}}
     </section>
 
     
@@ -86,22 +86,31 @@
 
 <script>
 import { mapGetters } from 'vuex';
-// import { fetchMyPlaylist } from '@/api/user'
+import { fetchRecentPlaylist } from '@/api/user'
 
 import Modal from '@/components/common/Modal';
 export default {
+    data(){
+        return {
+            test:''
+        }
+    },
     components: {
         Modal
     },
-    data() {
-        return {
-            showModal:false,
-            showFollow:false,
-            showRecent:false,
-            pl_name:'',
-            myPlaylists:[]
-        }
+    created(){
+        this.test = fetchRecentPlaylist(1)
+        console.log(this.test)
     },
+    // data() {
+    //     return {
+    //         showModal:false,
+    //         showFollow:false,
+    //         showRecent:false,
+    //         pl_name:'',
+    //         myPlaylists:[]
+    //     }
+    // },
     methods: {        
         showModalForm() {
             this.showModal=true
@@ -130,6 +139,17 @@ export default {
         getMyALLPlayList() {
         const userId = this.$route.params.id;
         this.myPlaylists = this.$store.commit('FETCH_RECENTPLAYLIST',userId)
+        },
+        // drag and drop 메소드
+        startDrag: (evt, item) => {
+        evt.dataTransfer.dropEffect = 'move'
+        evt.dataTransfer.effectAllowed = 'move'
+        evt.dataTransfer.setData('itemID', item.id)
+        },
+        onDrop (evt, list) {
+        const itemID = evt.dataTransfer.getData('itemID')
+        const item = this.items.find(item => item.id == itemID)
+        item.list = list
         }
 
     },
@@ -142,14 +162,14 @@ export default {
         ...mapGetters(['fetchedPlaylist']) ,
 
   },
-    created() {
-        this.getMyALLPlayList()
-        // const userId = this.$route.params.id;
-        // this.$store.dispatch('FETCH_FEED',userId)
-        // //this.getMyPlayList()
+    // created() {
+    //     this.getMyALLPlayList()
+    //     // const userId = this.$route.params.id;
+    //     // this.$store.dispatch('FETCH_FEED',userId)
+    //     // //this.getMyPlayList()
 
 
-    },
+    // },
 
 
 }
