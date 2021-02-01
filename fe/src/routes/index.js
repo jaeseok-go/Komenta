@@ -12,8 +12,31 @@ export default new Router({
     {
       path: '/',
       name: 'Main',
-      // component: loadComponent('Main','Main'),
       component: () => import('@/components/Main/Main.vue')
+    },
+    {
+      path:'/vodSection',
+      name:'VodSection',
+      component: () => import('@/components/Main/VODSections.vue'),
+      redirect: '/vodSection/vodPopular',
+      children: [
+        {
+          path: 'vodPopular',
+          name: 'VodPopular',
+          component: () => import('@/components/Main/VodPopular.vue'),
+        },
+        {
+          path: 'vodRecent',
+          name: "VodRecent",
+          component: () => import('@/components/Main/VodRecent.vue')
+        },
+        {
+          path: 'vodComment',
+          name: "VodComment",
+          component: () => import('@/components/Main/VodComment.vue')
+        },
+
+      ]
     },
     {
       path: '/member/login',
