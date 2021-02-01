@@ -23,7 +23,7 @@
       <tbody v-for="(vod, index) in vodList" :key="index" v-else>
         <td>{{vod.v_id}}</td>
         <td><img :src="getPicPath(index)" width="50%"></td>
-        <td>{{vod.v_title}}</td>
+        <td><router-link to="">{{vod.v_title}}</router-link></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
       </tbody>
     </table>
