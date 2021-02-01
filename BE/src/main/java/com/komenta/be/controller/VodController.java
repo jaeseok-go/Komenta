@@ -45,14 +45,21 @@
             Map<String, Object> resultMap = new HashMap<>();
             try {
                 List<VodHistoryDTO> history = vodService.selectHistoryById(u_id);
-                for(VodHistoryDTO dt : history){
-                    if(dt.getVe_id() == ve_id){
-                        VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
-                        resultMap.put("vh_id", dt.getVh_id());
-                        resultMap.put("vh_watching_time", dt.getVh_watching_time());
-                        resultMap.put("episodeInfo", episode);
-                        // episode에 대한 정보를 모두 받아옴
-                        break;
+                if(history.isEmpty()){
+                    VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
+                    resultMap.put("episodeInfo", episode);
+                }
+                else{
+                    for(VodHistoryDTO dt : history){
+                        if(dt.getVe_id() == ve_id){
+                            VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
+                            resultMap.put("vh_id", dt.getVh_id());
+                            resultMap.put("vh_watching_time", dt.getVh_watching_time());
+                            resultMap.put("episodeInfo", episode);
+                            System.out.println(episode);
+                            // episode에 대한 정보를 모두 받아옴
+                            break;
+                        }
                     }
                 }
                 status = HttpStatus.OK;
