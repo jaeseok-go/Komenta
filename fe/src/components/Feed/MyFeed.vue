@@ -3,7 +3,7 @@
       <!-- asidebar에서 내피드를 클릭했을때 feed/f_id로 오게 함 -->
       <!-- f_id로 정보 받아서 처리 -->
     <section>
-        <h1>유저 프로필 영역</h1>
+    <h1>유저 프로필 영역</h1>
         <div>{{ fetchedUserFeedInfo.u_profile_pic }}</div>
         <div>{{ fetchedUserFeedInfo.u_nickname }}</div>
         <div v-if="showButton">
@@ -14,6 +14,30 @@
     <section v-if="showMyRecent">
         <h1>내가 시청한 콘텐츠 목록</h1>
         <!-- <div>{{ fetchedPlaylist.v_id }}</div> -->
+        <div>
+             <li v-for="(myPlaylist,index) in myPlaylists" :key="index">
+             </li>
+        </div>
+        <div>
+        <!-- 최근 본 VOD div -->
+            <div class='drop-zone'
+            @drop='onDrop($event, 1)'
+            @dragover.prevent
+            @dragenter.prevent
+            >
+        <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
+            <div 
+            v-for='item in listOne' 
+            :key='item.title' 
+            class='drag-el'
+            draggable
+            @dragstart='startDrag($event, item)'
+            >
+                {{ item.title }}
+            </div>
+            </div>
+        </div>
+        
     </section>
 
     <section>
@@ -34,10 +58,24 @@
             </p>
 
         </Modal>
-        <div>
-             <li v-for="(myPlaylist,index) in myPlaylists" :key="index">
-             </li>
+        <!-- 플레이리스트 수만큼 drop-zon v-for -->
+        <div class='drop-zone'
+        @drop='onDrop($event, 2)'
+        @dragover.prevent
+        @dragenter.prevent
+        >
         </div>
+        <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
+        <div 
+            v-for='item in listTwo' 
+            :key='item.title' 
+            class='drag-el'
+            draggable
+            @dragstart='startDrag($event, item)'
+        >
+            {{ item.title }}
+        </div>
+
     </section>
 
     
@@ -48,7 +86,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { fetchMyPlaylist } from '@/api/user'
+// import { fetchMyPlaylist } from '@/api/user'
 
 import Modal from '@/components/common/Modal';
 export default {
@@ -91,7 +129,7 @@ export default {
         },
         getMyALLPlayList() {
         const userId = this.$route.params.id;
-        this.myPlaylists = fetchMyPlaylist(userId)
+        this.myPlaylists = this.$store.commit('FETCH_RECENTPLAYLIST',userId)
         }
 
     },
@@ -101,7 +139,8 @@ export default {
         //u_profile_pic,v_poster, g_name ,gd_name,v_title ,ve_episode_num,vh_comment
         ...mapGetters(['fetchedUserFeedInfo']),
         ...mapGetters(['fetchedUserInfo']),
-        ...mapGetters(['fetchedPlaylist']) 
+        ...mapGetters(['fetchedPlaylist']) ,
+
   },
     created() {
         this.getMyALLPlayList()
