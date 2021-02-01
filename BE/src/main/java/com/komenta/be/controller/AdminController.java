@@ -55,7 +55,7 @@ public class AdminController {
             @ApiImplicitParam(name = "u_pw", value = "회원 비밀번호", dataType = "String", required = true)
     })
     @PutMapping("/member_update")
-    public int updateMember(MemberDTO member){
+    public int updateMember(@RequestBody MemberDTO member){
         return adminService.updateMember(member);
     }
 
