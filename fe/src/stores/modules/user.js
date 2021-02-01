@@ -1,4 +1,6 @@
-import { loginUser, fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed,fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
+import { loginUser, 
+    updateMyInfo,
+    fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed,fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
@@ -86,6 +88,11 @@ const mutations = {
 }
 
 const actions = {
+    async MODIFY({commit},userData) {
+        const response = await updateMyInfo(userData);
+        console.log(response.data['auth-token'])
+        commit('setToken',response.data['auth-token'])
+    },
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
