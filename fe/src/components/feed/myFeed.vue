@@ -35,7 +35,7 @@
 
         </Modal>
         <div>
-            <li></li>
+             <!-- <li v-for="myPlaylists in myPlaylists" :key="myPlaylist.id"></li> -->
         </div>
     </section>
 
@@ -47,6 +47,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { fetchMyPlaylist } from '@/api/user'
 
 import Modal from '@/components/common/Modal';
 export default {
@@ -59,6 +60,7 @@ export default {
             showFollow:false,
             showRecent:false,
             pl_name:'',
+            myPlaylists:[]
         }
     },
     methods: {        
@@ -85,7 +87,12 @@ export default {
             const pl_name = this.pl_name
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
+        },
+        getMyALLPlayList() {
+        const userId = this.$route.params.id;
+        this.myPlaylists = fetchMyPlaylist(userId)
         }
+
     },
 
     computed: {
@@ -96,8 +103,11 @@ export default {
         ...mapGetters(['fetchedPlaylist']) 
   },
     created() {
-        const userId = this.$route.params.id;
-        this.$store.dispatch('FETCH_FEED',userId)
+        this.getMyALLPlayList()
+        // const userId = this.$route.params.id;
+        // this.$store.dispatch('FETCH_FEED',userId)
+        // //this.getMyPlayList()
+
 
     },
 
