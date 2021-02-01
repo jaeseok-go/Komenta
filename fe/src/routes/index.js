@@ -83,7 +83,7 @@ export default new Router({
     {
       path: '/MyFeed',
       name: 'MyFeed',
-      component: () => import('@/components/Feed/myFeed'),
+      component: () => import('@/components/feed/myFeed'),
     },
     {
       path: '/VodDetail',
@@ -98,7 +98,7 @@ export default new Router({
     {
       path: '/Myplaylist',
       name: 'Myplaylist',
-      component: () => import('@/components/Feed/MyPlayList.vue'),
+      component: () => import('@/components/feed/MyPlayList.vue'),
     },
     {
       path: '/Google',

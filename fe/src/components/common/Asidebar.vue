@@ -21,7 +21,7 @@
             tile
         >
             <v-navigation-drawer permanent>
-                <v-system-bar></v-system-bar>
+                <h1>Komenta</h1>
                 <v-list>
                     <v-list-item>
                         <v-list-item-avatar>
