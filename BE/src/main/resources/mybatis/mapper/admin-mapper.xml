@@ -28,16 +28,27 @@
 
     </insert>
 
+
     <select id="selectAllVod" resultType="com.komenta.be.model.vod.VodDTO">
-        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
-        from vod;
+        SELECT C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
+        from vod C LEFT OUTER JOIN (SELECT A.gd_id, B.g_id, B.g_name, A.gd_name
+                                    FROM genre_detail A INNER JOIN genre B
+                                                                   ON A.g_id = B.g_id) D
+                                   ON C.gd_id = D.gd_id
     </select>
 
+
     <select id="selectVodByGd" parameterType="Integer" resultType="com.komenta.be.model.vod.VodDTO">
-        select v_id, v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id
-        from vod
-        where gd_id = #{gd_id};
+        SELECT C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
+        from vod C LEFT OUTER JOIN (SELECT A.gd_id, B.g_id, B.g_name, A.gd_name
+                                    FROM genre_detail A INNER JOIN genre B
+                                                                   ON A.g_id = B.g_id) D
+                                   ON C.gd_id = D.gd_id
+        where gd_id = #{gd_id}
     </select>
+
+
+
     <update id="updateVod" parameterType="com.komenta.be.model.vod.VodDTO">
         update vod
         set v_title = #{v_title},
@@ -63,8 +74,14 @@
 
 
     <select id="selectEpisode" parameterType="int" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
-        select ve_id, v_id, ve_episode_num, ve_contents
-        from vod_episode
+        SELECT E.ve_id, E.ve_episode_num, E.ve_upload_date, E.ve_contents, E.ve_admin, F.v_id, F.v_title, F.gd_id, F.g_name, F.gd_name
+        FROM vod_episode E LEFT OUTER JOIN (SELECT C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
+                                            from vod C LEFT OUTER JOIN (SELECT A.gd_id, B.g_id, B.g_name, A.gd_name
+                                                                        FROM genre_detail A INNER JOIN genre B
+                                                                                                       ON A.g_id = B.g_id) D
+                                                                       ON C.gd_id = D.gd_id) F
+                                           ON E.v_id = F.v_id
+        WHERE E.v_id = #{v_id}
     </select>
 
 
