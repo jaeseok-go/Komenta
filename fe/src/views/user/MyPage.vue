@@ -2,7 +2,7 @@
   <b-container>
 
     <!-- 회원 정보 관리 -->
-    <user-info v-on:showUserInfoForm="showUserInfoForm"></user-info>
+    <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
         <div slot="header">
           <h3 class="findIdPw__title">내 정보 수정</h3>
@@ -73,7 +73,7 @@
       <my-comment></my-comment>
 
       <!-- 시청 VOD 관리 -->
-      <watched-vod v-on:showVODForm="showVODForm"></watched-vod>
+      <watched-vod @showVODForm="showVODForm" :getUserId="this.uId"></watched-vod>
       <Modal v-if="showVODModal">
         <div slot="header">
             <h3 class="findIdPw__title">시청 VOD 관리</h3>

@@ -9,8 +9,22 @@
 </template>
 
 <script>
+import {fetchLikePlaylist} from '@/api/user';
 export default {
-
+  data() {
+    return {
+      playList:[],
+    }
+  },
+  created() {
+    this.getPlayList();
+  },
+  methods: {
+    async getPlayList() {
+      const response = await fetchLikePlaylist();
+      console.log("playList: ",response)
+    }
+  },
 }
 </script>
 
