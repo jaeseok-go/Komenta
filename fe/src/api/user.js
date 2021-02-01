@@ -44,16 +44,23 @@ function emailAuth(userId) {
     return instance.get(`check/sendEmail/`, userId)
 }
 
-//아이디 중복 확인
+//아이디 가입 여부 확인
 function userIdChk(userId) {
     return instance.get(`member/chk_id/`, {
         params: { u_email: userId }
     })
 }
 
+//아이디 중복 확인
+function dupIdChk(userId) {
+    return instance.get(`member/dup_id_chk`, {
+        params: { u_email: userId }
+    })
+}
+
 //닉네임 중복 확인
-function userNickNameChk(userNickName) {
-    return instance.get(`member/chk_nickname/`, {
+function dupNickNameChk(userNickName) {
+    return instance.get(`member/dup_nickname_chk/`, {
         params: { u_nickname: userNickName }
     })
 }
@@ -127,7 +134,8 @@ export {
     emailAuth,
     phoneAuth,
     userIdChk,
-    userNickNameChk,
+    dupIdChk,
+    dupNickNameChk,
     changePw,
     fetchRecentPlaylist,
     fetchLikePlaylist,
