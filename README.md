@@ -66,7 +66,6 @@ gantt
     User CRUD 구현 		   :01-22, 3d
     User SNS Login API          :01-25, 2d
     User Session(JWT 인증)       :01-26, 1-27
-    User PW, 이메일 인증        :01,28, 2d
 
     section Admin
     Video Upload Test       :01-26, 2d
