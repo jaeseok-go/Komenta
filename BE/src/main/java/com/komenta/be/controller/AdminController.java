@@ -147,7 +147,7 @@ public class AdminController {
 
 
 
-    @ApiOperation(value = "장르별 VDO 리스트 조회", notes = "디테일 장르 id를 url 파라미터로 입력받아 장르별 VOD 리스트를 반환")
+    @ApiOperation(value = "장르별 VOD 리스트 조회", notes = "디테일 장르 id를 url 파라미터로 입력받아 장르별 VOD 리스트를 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "gd_id", value = "디테일 장르 아이디", dataType = "int", required = true)
     })

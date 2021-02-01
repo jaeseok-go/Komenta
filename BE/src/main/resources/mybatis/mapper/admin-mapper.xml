@@ -44,7 +44,7 @@
                                     FROM genre_detail A INNER JOIN genre B
                                                                    ON A.g_id = B.g_id) D
                                    ON C.gd_id = D.gd_id
-        where gd_id = #{gd_id}
+        where C.gd_id = #{gd_id}
     </select>
 
 
