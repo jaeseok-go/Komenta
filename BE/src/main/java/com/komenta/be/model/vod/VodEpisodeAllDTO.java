@@ -21,6 +21,22 @@ public class VodEpisodeAllDTO {
     public VodEpisodeAllDTO() {
     }
 
+    public VodEpisodeAllDTO(int ve_id, int ve_episode_num, String ve_contents, String ve_upload_date, int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade, String v_poster, String g_name, String gd_name) {
+        this.ve_id = ve_id;
+        this.ve_episode_num = ve_episode_num;
+        this.ve_contents = ve_contents;
+        this.ve_upload_date = ve_upload_date;
+        this.v_id = v_id;
+        this.v_title = v_title;
+        this.v_summary = v_summary;
+        this.v_director = v_director;
+        this.v_actors = v_actors;
+        this.v_age_grade = v_age_grade;
+        this.v_poster = v_poster;
+        this.g_name = g_name;
+        this.gd_name = gd_name;
+    }
+
     public VodEpisodeAllDTO(int ve_id, int ve_episode_num, String ve_contents, String ve_admin, String ve_upload_date,
                             int v_id, String v_title, String v_summary, String v_director, String v_actors, int v_age_grade,
                             String v_poster, int gd_id, String g_name, String gd_name) {
