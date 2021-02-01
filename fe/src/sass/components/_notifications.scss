@@ -1,0 +1,52 @@
+.alert-danger {
+  color: $bg-color !important;
+  background-color: #8b1221 !important;
+  border-color: #81101d !important;
+}
+
+.alert {
+  border-radius: 0;
+}
+
+.alert-message {
+  text-align: center;
+}
+
+.alert-dismissible .close {
+  top: -3px;
+  color: $bg-color;
+}
+
+.authentic {
+  display: inline !important;
+  width: 10rem !important;
+}
+
+.authentic-form-join {
+  position: relative;
+  left: 3.5rem;
+
+  & hr {
+    position: relative;
+    right: 8.5rem;
+    width: 80%;
+  }
+}
+
+.authentic-text {
+  font-size: 13px;
+
+  & b:hover {
+    color: $komenta-color;
+    cursor: pointer;
+  }
+}
+
+.close {
+  opacity: 1;
+  cursor: pointer;
+  &:focus,
+  &:hover {
+    color: #ffffff;
+  }
+}

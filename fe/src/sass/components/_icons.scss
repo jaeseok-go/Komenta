@@ -1,0 +1,65 @@
+.ftw-icon {
+  margin-left: 0.7rem;
+
+  &.check-icon {
+    color: #00da41;
+    font-size: 24px;
+  }
+  &.times-icon {
+    color: #d30c0c;
+    font-size: 27px;
+  }
+}
+
+.container-setting {
+  text-align: center;
+}
+
+.col-setting {
+  text-align: initial !important;
+  margin: auto;
+
+  & > .center {
+    text-align: center;
+  }
+
+  &.col-center {
+    text-align: center !important;
+  }
+}
+
+.find {
+  display: inline;
+  width: 15rem;
+  margin-bottom: 0.5rem;
+}
+
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+
+  &.fwCheck {
+    color: #02cf40;
+  }
+
+  &.fwTimes {
+    color: rgb(211, 12, 12);
+  }
+}
+
+.fw-checkbox {
+  & input {
+    display: none;
+  }
+  & .chk-label {
+    font-size: 1.5rem;
+    color: #495057;
+    margin-right: 0.33rem;
+    position: relative;
+    top: 0.1rem;
+  }
+}
+
+.icon-inline-block {
+  display: inline-block;
+}

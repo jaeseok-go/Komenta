@@ -1,0 +1,906 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Thin-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-Thin-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-ThinItalic-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-ThinItalic-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-ExtraLight-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-ExtraLight-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-ExtraLightItalic-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-ExtraLightItalic-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Light-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-Light-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-LightItalic-BETA.woff2) format("woff2"), url(/assets/fonts/Inter-LightItalic-BETA.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Regular.woff2) format("woff2"), url(/assets/fonts/Inter-Regular.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Italic.woff2) format("woff2"), url(/assets/fonts/Inter-Italic.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Medium.woff2) format("woff2"), url(/assets/fonts/Inter-Medium.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-MediumItalic.woff2) format("woff2"), url(/assets/fonts/Inter-MediumItalic.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-SemiBold.woff2) format("woff2"), url(/assets/fonts/Inter-SemiBold.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-SemiBoldItalic.woff2) format("woff2"), url(/assets/fonts/Inter-SemiBoldItalic.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Bold.woff2) format("woff2"), url(/assets/fonts/Inter-Bold.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-BoldItalic.woff2) format("woff2"), url(/assets/fonts/Inter-BoldItalic.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-ExtraBold.woff2) format("woff2"), url(/assets/fonts/Inter-ExtraBold.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-ExtraBoldItalic.woff2) format("woff2"), url(/assets/fonts/Inter-ExtraBoldItalic.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-Black.woff2) format("woff2"), url(/assets/fonts/Inter-Black.woff) format("woff");
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url(/assets/fonts/Inter-BlackItalic.woff2) format("woff2"), url(/assets/fonts/Inter-BlackItalic.woff) format("woff");
+}
+
+*,
+::after,
+::before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #000;
+}
+
+.h1,
+h1 {
+  font-size: 1.75rem;
+}
+
+.h2,
+h2 {
+  font-size: 1.53125rem;
+}
+
+.h3,
+h3 {
+  font-size: 1.3125rem;
+}
+
+.h4,
+h4 {
+  font-size: 1.09375rem;
+}
+
+.h5,
+.h6,
+h5,
+h6 {
+  font-size: 0.875rem;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+.hrDesign.gradation {
+  background: #a3a3a3;
+  background-image: -webkit-gradient(linear, right top, left top, from(#eee), color-stop(#777), to(#eee));
+  background-image: linear-gradient(to left, #eee, #777, #eee);
+}
+
+.right-sort {
+  text-align: right;
+}
+
+.block {
+  display: block !important;
+}
+
+.form-control {
+  display: block;
+  width: 70%;
+  height: calc(1.8125rem + 2px);
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #FFFFFF;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.2rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-outc;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-outc;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-outc, -webkit-box-shadow 0.15s ease-in-outc;
+  overflow: visible;
+  margin: 0;
+  font-family: inherit;
+}
+
+.form-control-plaintext.form-control-lg,
+.form-control-plaintext.form-control-sm {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.form-control-sm {
+  height: calc(1.425rem + 2px);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  border-radius: 0.1rem;
+}
+
+.form-control-lg {
+  height: calc(2.0875rem + 2px);
+  padding: 0.35rem 1rem;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+.form-sort.id-chk {
+  position: relative;
+  left: 1.3rem;
+}
+
+.form-inline-block {
+  display: inline-block;
+}
+
+.warning-form {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.warning-form.warning-signup {
+  width: 70%;
+}
+
+.warning-form .warning-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f01c35;
+  margin-top: 0.25rem;
+}
+
+.newPW-form {
+  margin-top: 2rem;
+}
+
+.newPW-form .form-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.newPW-form .form-sort .form-sort-text {
+  margin-bottom: 1rem;
+}
+
+.newPW-form .newPW-form-move {
+  position: relative;
+  right: 3.5rem;
+}
+
+.phoneNum-form .phone-label {
+  display: inline-block;
+  margin-right: 0.2rem;
+}
+
+.phoneNum-form .form-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.phoneNum-form .form-sort .form-sort-text {
+  margin-bottom: 1rem;
+}
+
+.phoneNum-form .phoneNum-form-move {
+  position: relative;
+  right: 3.5rem;
+}
+
+.join-authentic {
+  width: 70%;
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+}
+
+.join-authentic .phone-label {
+  display: none;
+}
+
+.join-authentic input {
+  width: 104.5%;
+  margin-top: 1rem;
+}
+
+.join-authentic .btn-authentic {
+  display: block;
+  font-size: 1.075rem;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0.4rem 5.3rem;
+}
+
+.modify-authentic {
+  margin: 0 !important;
+  text-align: left !important;
+  padding-left: 0;
+}
+
+.modify-authentic .phone-label {
+  display: none;
+}
+
+input[type='checkbox'], input[type='radio'] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+}
+
+input[type='date'], input[type='datetime-local'], input[type='month'], input[type='time'] {
+  -webkit-appearance: listbox;
+}
+
+.input-group {
+  width: 70%;
+  border: 1px solid #ced4da;
+  border-radius: 0.2rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.input-group:focus-within {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: 0;
+}
+
+.input-group-append,
+.input-group-prepend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.input-group-append .btn,
+.input-group-prepend .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.input-group-append .btn:focus,
+.input-group-prepend .btn:focus {
+  z-index: 3;
+}
+
+.input-group-append .btn + .btn,
+.input-group-append .btn + .input-group-text,
+.input-group-append .input-group-text + .btn,
+.input-group-append .input-group-text + .input-group-text,
+.input-group-prepend .btn + .btn,
+.input-group-prepend .btn + .input-group-text,
+.input-group-prepend .input-group-text + .btn,
+.input-group-prepend .input-group-text + .input-group-text {
+  margin-left: -1px;
+}
+
+.input-group-prepend {
+  margin-right: -1px;
+}
+
+.input-group-append {
+  margin-left: -1px;
+}
+
+.input-group-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.25rem 0.7rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #fff;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+.input-group-button {
+  cursor: pointer;
+}
+
+.input-group > input {
+  border: none;
+  width: 62.54%;
+}
+
+.input-group > input:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.inContent.or {
+  margin-top: 2em;
+  margin-bottom: 3em;
+  width: 30%;
+}
+
+.inContent.or:after {
+  content: '또는';
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  top: -12px;
+  padding: 0 10px;
+  background-color: #FFFFFF;
+  color: #a3a3a3;
+  font-size: 18px;
+}
+
+button {
+  border-radius: 0;
+}
+
+button, button[type='button'], button[type='reset'], button[type='submit'] {
+  -webkit-appearance: button;
+}
+
+button:not(:disabled), button[type='button']:not(:disabled), button[type='reset']:not(:disabled), button[type='submit']:not(:disabled) {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner, button[type='button']::-moz-focus-inner, button[type='reset']::-moz-focus-inner, button[type='submit']::-moz-focus-inner {
+  padding: 0;
+  borter-style: none;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+  background: transparent;
+  border: 1px solid transparent;
+  margin: 1rem 0.25rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.btn:hover {
+  color: #495057;
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(59, 125, 221, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(59, 125, 221, 0.25);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+.btn-normal {
+  background-color: #FA233B;
+  border-color: #FA233B;
+  padding: 0.35rem;
+}
+
+.btn-normal:focus, .btn-normal:hover {
+  color: #fff;
+  background-color: #cc1c30;
+  border-color: #cc283b;
+}
+
+.btn-normal:hover {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(202, 62, 76, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(202, 62, 76, 0.5);
+}
+
+.btn-normal:disabled {
+  color: #fff;
+  background-color: #88888C;
+  border-color: #88888C;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: default;
+}
+
+.btn-normal:not(:disabled):active {
+  color: #fff;
+  background-color: #cc283b;
+  border-color: #cf2337;
+}
+
+.btn-normal:not(:disabled):active:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 123, 136, 0.671);
+          box-shadow: 0 0 0 0.2rem rgba(248, 123, 136, 0.671);
+}
+
+.btn-authentic {
+  position: relative;
+  bottom: 2px;
+}
+
+.btn-large {
+  padding: 0.55rem 8.7rem;
+  font-size: 1.075rem;
+}
+
+.btn-middle {
+  padding: 0.5rem 4.5rem;
+  font-size: 0.925rem;
+}
+
+.btn-middle.newPWBtn-move {
+  position: relative;
+  left: 0.65rem;
+}
+
+.btn-small {
+  padding: 0.45rem 3.2rem;
+  font-size: 0.875rem;
+}
+
+.ftw-icon {
+  margin-left: 0.7rem;
+}
+
+.ftw-icon.check-icon {
+  color: #00da41;
+  font-size: 24px;
+}
+
+.ftw-icon.times-icon {
+  color: #d30c0c;
+  font-size: 27px;
+}
+
+.container-setting {
+  text-align: center;
+}
+
+.col-setting {
+  text-align: initial !important;
+  margin: auto;
+}
+
+.col-setting > .center {
+  text-align: center;
+}
+
+.col-setting.col-center {
+  text-align: center !important;
+}
+
+.find {
+  display: inline;
+  width: 15rem;
+  margin-bottom: 0.5rem;
+}
+
+.fw-icon {
+  font-size: 1.65rem;
+  margin-left: 0.56rem;
+}
+
+.fw-icon.fwCheck {
+  color: #02cf40;
+}
+
+.fw-icon.fwTimes {
+  color: #d30c0c;
+}
+
+.fw-checkbox input {
+  display: none;
+}
+
+.fw-checkbox .chk-label {
+  font-size: 1.5rem;
+  color: #495057;
+  margin-right: 0.33rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.icon-inline-block {
+  display: inline-block;
+}
+
+.alert-danger {
+  color: #FFFFFF !important;
+  background-color: #8b1221 !important;
+  border-color: #81101d !important;
+}
+
+.alert {
+  border-radius: 0;
+}
+
+.alert-message {
+  text-align: center;
+}
+
+.alert-dismissible .close {
+  top: -3px;
+  color: #FFFFFF;
+}
+
+.authentic {
+  display: inline !important;
+  width: 10rem !important;
+}
+
+.authentic-form-join {
+  position: relative;
+  left: 3.5rem;
+}
+
+.authentic-form-join hr {
+  position: relative;
+  right: 8.5rem;
+  width: 80%;
+}
+
+.authentic-text {
+  font-size: 13px;
+}
+
+.authentic-text b:hover {
+  color: #FA233B;
+  cursor: pointer;
+}
+
+.close {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.close:focus, .close:hover {
+  color: #ffffff;
+}
+
+.title-logo {
+  padding: 1rem 1rem 0.5rem 0.1rem;
+  /* margin: 1rem 1rem 0.5rem 1rem; */
+  font-weight: 640;
+  font-size: 3rem;
+}
+
+.title-text {
+  margin-left: 0.3rem;
+  margin-bottom: 2.85rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.sns-login-logo {
+  display: inline-block;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+}
+
+.sns-login-logo button {
+  border: none;
+  background-color: #fff;
+}
+
+.sign-setting {
+  height: 8rem;
+  margin: 2rem;
+}
+
+.sign-setting-findIdPw {
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+  padding: 1px 2px;
+  color: black;
+}
+
+.sign-setting h6 a {
+  border-radius: 4px;
+  background-color: #FA233B;
+  color: #FFFFFF !important;
+  padding: 1px 2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.termView {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 0.23rem;
+  cursor: pointer;
+}
+
+.bcol-login {
+  max-width: 50% !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  text-align: center !important;
+}
+
+.bcol-login .input-group {
+  width: 64% !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.idView {
+  font-weight: 700;
+  color: #FA233B;
+}
+
+.modal-header {
+  position: relative;
+  display: block;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1rem 1rem 0 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-header .findIdPw__title {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.modal-header #closeModalBtn {
+  cursor: pointer;
+  position: absolute;
+  color: black;
+  top: 0.3rem;
+  right: 0;
+}
+
+.modal-header a {
+  color: black;
+}
+
+.modal-header .findIdPw__contents {
+  font-size: 1.1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+.modal-header .findIdPw__contents div {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.modal-header .findIdPw__contents div:focus-within {
+  border-bottom: 7px solid #FA233B;
+  font-weight: 700;
+}
+
+.modal-header .findIdPw__contents a {
+  text-decoration: none;
+}
+
+.showID {
+  padding: 3rem;
+}
