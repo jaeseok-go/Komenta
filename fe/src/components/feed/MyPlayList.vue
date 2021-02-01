@@ -1,10 +1,12 @@
 <template>
   <div>
+    <!-- 최근 본 VOD div -->
     <div class='drop-zone'
     @drop='onDrop($event, 1)'
     @dragover.prevent
     @dragenter.prevent
     >
+    <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
       <div 
       v-for='item in listOne' 
       :key='item.title' 
@@ -12,15 +14,16 @@
       draggable
       @dragstart='startDrag($event, item)'
       >
-      
         {{ item.title }}
       </div>
     </div>
+    <!-- 플레이리스트 수만큼 drop-zon v-for -->
     <div class='drop-zone'
     @drop='onDrop($event, 2)'
     @dragover.prevent
     @dragenter.prevent
     >
+    <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
       <div 
         v-for='item in listTwo' 
         :key='item.title' 
