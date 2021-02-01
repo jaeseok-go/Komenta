@@ -140,7 +140,6 @@ public class MemberController{
     @ApiOperation(value = "로그인", notes = "성공 시 jwt 토큰을 헤더에 넣어서 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "member", value = "u_email(이메일), u_pw(비밀번호)", dataType = "MemberDTO", required = true)
-
     })
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginMember(@RequestBody MemberDTO member, HttpServletResponse response){

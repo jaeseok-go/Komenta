@@ -28,6 +28,11 @@ function fetchStreamingListDetail(data) {
     })
 }
 
+// vod_epi로 세부내용조회
+function fetchVodEpiDetail({veId}) {
+    return instance.get(`/vod/vodnum/${veId}`)
+}
+
 
 
 export {
@@ -35,6 +40,6 @@ export {
     fetchCommentVOD,
     fetchPopularVOD,
     fetchRecentVOD,
-    fetchStreamingListDetail
-
+    fetchStreamingListDetail,
+    fetchVodEpiDetail
 }
