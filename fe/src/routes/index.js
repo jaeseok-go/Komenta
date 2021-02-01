@@ -83,7 +83,7 @@ export default new Router({
     {
       path: '/MyFeed',
       name: 'MyFeed',
-      component: () => import('@/components/Feed/myFeed'),
+      component: () => import('@/components/Feed/MyFeed'),
     },
     {
       path: '/VodDetail',
