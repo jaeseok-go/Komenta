@@ -14,5 +14,6 @@ public interface MemberMapper {
     int updatePassword(MemberDTO member);
     int updateMember(MemberDTO member);
     int deleteMember(int u_id);
-
+    String chkDupByID(String u_email);
+    String chkDupByNickname(String u_nickname);
 }

@@ -49,4 +49,14 @@ public class MemberServiceImpl implements MemberService {
     public int deleteMember(int u_id) {
         return sqlsession.getMapper(MemberMapper.class).deleteMember(u_id);
     }
+
+    @Override
+    public String chkDupByID(String u_email) {
+        return  sqlsession.getMapper(MemberMapper.class).chkDupByID(u_email);
+    }
+
+    @Override
+    public String chkDupByNickname(String u_nickname) {
+        return  sqlsession.getMapper(MemberMapper.class).chkDupByNickname(u_nickname);
+    }
 }

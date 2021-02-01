@@ -51,4 +51,18 @@
         from member
         where u_id = #{u_id}
     </delete>
+
+
+    <select id="chkDupByID" parameterType="String" resultType="String">
+        select u_email
+        from member
+        where u_email = #{u_email}
+    </select>
+
+
+    <select id="chkDupByNickname" parameterType="String" resultType="String">
+        select u_nickname
+        from member
+        where u_nickname = #{u_nickname}
+    </select>
 </mapper>
