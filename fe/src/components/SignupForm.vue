@@ -136,7 +136,7 @@
 
 <script>
 import PhoneCertification from './user/PhoneCertification.vue';
-import { registerUser } from '@/api/user'; //, userIdChk, userNickNameChk
+import { registerUser, dupIdChk, dupNickNameChk } from '@/api/user'; //, userIdChk, userNickNameChk
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
 import store from '@/stores/modules/user'
@@ -236,28 +236,57 @@ export default {
       }
       return false;
     },
-    isIdDuplicaionCheck() { //async
-      // const result = await userIdChk(this.username)
-      const result = 'true';
-      console.log(result)
-      if(result === 'true') {
-        // console.log('DUPLICATED')
-        return true;
-      }
-      return false;
+    isIdDuplicaionCheck(){
+      const response = this.isDupIdCheck();
+      console.log("뭐가 들어오는데",response);
+      return response;
     },
-    isNickNameDuplicaionCheck() { //async
-      // const result = await userNickNameChk(this.username)
-      const result = 'true';
-      console.log(result)
-      if(result === 'true') {
-        // console.log('DUPLICATED')
-        return true;
+    isNickNameDuplicationCheck() {
+      return this.isDupNickNameCheck();
+    }
+  },
+  watch: {
+    'isTerm.term1': function() {
+      if(this.isTerm.term1) {
+        this.isTerm.icon1 = 'fas'
+      }else {
+        this.isTerm.icon1 = 'far'
       }
-      return false;
+    },
+    'isTerm.term2': function() {
+      if(this.isTerm.term2) {
+        this.isTerm.icon2 = 'fas'
+      }else {
+        this.isTerm.icon2 = 'far'
+      }
+    },
+    'isTerm.term3': function() {
+      if(this.isTerm.term3) {
+        this.isTerm.icon3 = 'fas'
+      }else {
+        this.isTerm.icon3 = 'far'
+      }
     },
   },
   methods: {
+    async isDupIdCheck() { //async
+      // const result = await userIdChk(this.username)
+      console.log("userId: ",this.userId)
+      const result = await dupIdChk(this.userId);
+      console.log("아이디 중복 체크 : ",result.data)
+      return result.data;
+    },
+    async isDupNickNameCheck() { //async
+      // const result = await userNickNameChk(this.username)
+      const result = await dupNickNameChk(this.username);
+      console.log("닉네임 중복 체크 : ",result)
+      if(result.data === true) {
+        console.log('NICNAME DUPLICATED')
+        return true;
+      }
+      console.log('NICKNAME NOT DUPLICATED')
+      return false;
+    },
     checkCertification() {
       console.log(store.state.userInfo,'들어왓니 유저정보야')
       this.userPhoneNumber = store.state.userInfo.u_phone_number;
@@ -340,30 +369,6 @@ export default {
       this.nickname = '';
     },
  
-  },
-  watch: {
-    'isTerm.term1': function() {
-      if(this.isTerm.term1) {
-        this.isTerm.icon1 = 'fas'
-      }else {
-        this.isTerm.icon1 = 'far'
-      }
-    },
-    'isTerm.term2': function() {
-      if(this.isTerm.term2) {
-        this.isTerm.icon2 = 'fas'
-      }else {
-        this.isTerm.icon2 = 'far'
-      }
-    },
-    'isTerm.term3': function() {
-      if(this.isTerm.term3) {
-        this.isTerm.icon3 = 'fas'
-      }else {
-        this.isTerm.icon3 = 'far'
-      }
-    },
-    
   },
 };
 </script>
