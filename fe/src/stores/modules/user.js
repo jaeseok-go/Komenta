@@ -126,6 +126,7 @@ const actions = {
     async FETCH_RECENTPLAYLIST({ commit }, userId) {
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist(userId)
+        console.log(recentPlaylist,'최근 플레이리스트..')
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
         commit('setRecentPlaylist', recentPlaylist)
     },
