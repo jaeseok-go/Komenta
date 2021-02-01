@@ -6,7 +6,7 @@
       <div class="btn-right">
         <!-- 전체 리스트 선택하는 기능 -->
         <div class="inline-block" :style="{display:editInlineDisplay}">
-          <input type="checkbox" id="allChk" value="allChk" v-model="allChk" @click="allCheck">
+          <input type="checkbox" id="allChk" value="allChk" v-model="allChk">
           <!-- <label for="allChk"><font-awesome-icon class="chk-label" :icon="[chkIcon, 'check-circle']" /></label> -->
           <label for="allChk">전체 선택</label>
         </div>
@@ -34,9 +34,11 @@
           <td>{{comm.c_liek_num}}개</td>
           <td>{{comm.c_reply_num}}개</td>
           <td>{{comm.c_register_data}}</td>
-          <td :style="{display:editDisplay}"><input type="checkbox" id=index></td>
+          <td :style="{display:editDisplay}"><input type="checkbox" :id="index" :vlaue="index" :v-model="deleteList"></td>
         </tr>
       </table>
+
+      {{deleteList}}
     </div>
     <!-- 
       1. 컨텐츠 명(제목+회차)<br>
@@ -91,6 +93,7 @@ export default {
           c_register_data: '2019-05-24'
         }
       ],
+      deleteList:[],
       editDisplay:'none',
       editInlineDisplay:'none',
       editBtnText:'편집',
