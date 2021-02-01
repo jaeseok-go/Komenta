@@ -32,12 +32,13 @@
 <script>
 // import {VueperSlides, VueperSlide } from 'vueperslides'
 // import 'vueperslides/dist/vueperslides.css'
-
+import {fetchRecentPlaylist} from '@/api/user';
 export default {
   // components:{
   //   VueperSlides,
   //   VueperSlide
   // },
+  props:['getUserId'],
   data() {
     return {
       watchedVODList: [
@@ -71,13 +72,27 @@ export default {
           v_ep_num:'21',
           watched_date:'2021-01-20'
         }
-      ]
+      ],
+      recentlyPlayList:[]
     }
+  },
+  created() {
+    this.getVODList();
   },
   methods: {
     showModalForm() {
       this.$emit('showVODForm')
     },
+    async getVODList(){
+      // console.log(this.getUserId);
+      const response = await fetchRecentPlaylist(this.getUserId);
+      console.log(response);
+      //최근 시청 VOD 5개만 표출
+      // for (let index = 0; index < response.data.length; index++) {
+      //   if(response.data[index].vh_watching_time)
+        
+      // }
+    }
   },
 }
 </script>
