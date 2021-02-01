@@ -108,9 +108,9 @@ const actions = {
     },
     async PASSWORDCONFIRM({ commit }, userData) {
         const response = await loginUser(userData)
-        if (response.data['access-token']) {
+        if (response.data['auth-token']) {
             commit('confirmComplete')
-            commit('setToken', response.data['access-token'])
+            commit('setToken', response.data['auth-token'])
         } else {
             commit('loginError')
         }
