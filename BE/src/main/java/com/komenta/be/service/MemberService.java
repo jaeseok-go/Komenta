@@ -27,4 +27,10 @@ public interface MemberService{
 
     //회원 정보 삭제
     public int deleteMember(int u_id);
+
+    //회원 이메일 중복 확인
+    public String chkDupByID(String u_email);
+
+    //회원 닉네임 중복 확인
+    public String chkDupByNickname(String u_nickname);
 }

@@ -13,7 +13,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +41,12 @@ public class MemberController{
     public int createMember(@RequestBody MemberDTO member){
         return mservice.joinMember(member);
     }
+
+
+
+
+
+
 
     @ApiOperation(value = "회원정보", notes = "회원 일련 번호 정보를 받아서 보여주기")
     @ApiImplicitParams({
@@ -223,4 +228,34 @@ public class MemberController{
     }
 
 
+
+    @ApiOperation(value = "이메일 중복 여부 확인", notes = "입력받은 이메일이 DB에 존재하는지 확인하고 true/false 반환(true면 중복, false면 중복아님)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_email", value = "회원 이메일", dataType = "String",required = true)
+    })
+    @GetMapping("/dup_id_chk")
+    public boolean chkDupByID(String u_email){
+        boolean result = false;
+        String chkedID = mservice.chkDupByID(u_email);
+        if(chkedID != null && chkedID.equals(u_email)) {
+            result = true;
+        }
+        return result;
+    }
+
+
+
+    @ApiOperation(value = "닉네임 중복 여부 확인", notes = "입력받은 닉네임이 DB에 존재하는지 확인하고 true/false 반환(true면 중복, false면 중복아님)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_nickname", value = "회원 닉네임", dataType = "String",required = true)
+    })
+    @GetMapping("/dup_nickname_chk")
+    public boolean chkDupByNickname(String u_nickname){
+        boolean result = false;
+        String chkedNickName = mservice.chkDupByNickname(u_nickname);
+        if(chkedNickName != null && chkedNickName.equals(u_nickname)) {
+            result = true;
+        }
+        return result;
+    }
 }
