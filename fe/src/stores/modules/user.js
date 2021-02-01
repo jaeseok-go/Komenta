@@ -1,4 +1,4 @@
-import { loginUser, fetchRecentPlaylist, fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed } from '@/api/user.js'
+import { loginUser, fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
@@ -90,9 +90,9 @@ const actions = {
         console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
-        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
+        // const recentPlaylist = await fetchRecentPlaylist(userData.userId)
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        commit('setRecentPlaylist', recentPlaylist)
+        // commit('setRecentPlaylist', recentPlaylist)
         
         
         if (response.data['auth-token']) {
