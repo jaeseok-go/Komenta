@@ -1,13 +1,14 @@
 <template>
     <div>
         <h1>최신순</h1>
-        <div>{{ this.recentVODs}}</div>
+        <div>{{ this.recentVODs }}</div>
     </div>
   
 </template>
 
 <script>
 import { fetchRecentVOD } from '@/api/vod'
+
 export default {
 
     data(){
