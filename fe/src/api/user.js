@@ -1,7 +1,15 @@
 import { setInterceptors } from './config/interceptors'
 // import axios from 'axios';
+// import store from '@/stores/index.js';
+
 
 const instance = setInterceptors()
+// const instance = axios.create({
+//     baseURL: process.env.VUE_APP_URL,
+//     headers: {
+//         Authorization: store.state.user.token, // header의 속성
+//     },
+// });
 
 //회원가입 API
 function registerUser(userData) {

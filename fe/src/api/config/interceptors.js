@@ -2,15 +2,18 @@ import axios from 'axios';
 import store from '@/stores/index.js';
 
 export function setInterceptors() {
+  // let ddddd = store.state.user.token;
   let instance = axios.create({
     baseURL: process.env.VUE_APP_URL,
     // CORS 방지코드
     // headers: {
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Content-Type': 'application/json; charset = utf-8'
+    //   Authorization: store.state.user.token
+      // 'Access-Control-Allow-Origin': '*',
+      // 'Content-Type': 'application/json; charset = utf-8'
     // }
   });
   instance.interceptors.request.use(
+    // console.log(instance.interceptors.request)
     (config) => {
       let token = store.state.user.token;
       // if (token) {
@@ -19,6 +22,8 @@ export function setInterceptors() {
       if (token) {
         config.headers['auth-token'] = token;
         console.log(config.headers,'토큰????????')
+        console.log(config)
+
       }
       return config;
     },

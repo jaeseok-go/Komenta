@@ -25,7 +25,14 @@ import store from '@/stores/modules/user'
 import AsideBar from '@/components/common/Asidebar'
 import Header from '@/components/common/Header'
 
+
+
 export default {
+    data(){
+        return {
+            test:''
+        }
+    },
     components: {
         AsideBar,
         Header
@@ -38,6 +45,7 @@ export default {
         const userId = store.state.userInfo.u_id
         this.$store.dispatch('FETCH_RECENTPLAYLIST',userId)
         this.$store.dispatch('FETCH_LIKEPLAYLIST',userId)
+
     },
 
 }
