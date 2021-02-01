@@ -114,8 +114,9 @@ import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
-import { updateMyInfo } from '@/api/user';
+// import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
+// import store from '@/stores/modules/user'
 
 export default {
   components:{
@@ -243,9 +244,8 @@ export default {
           u_phone_number : this.userPhoneNumber
         };
         console.log('유저데이터잘들어왔니',userData)
-        console.log(this.userInfo)
-        const response = await updateMyInfo(userData);
-        console.log("수정 modify",response);
+        const response = await this.$store.dispatch('MODIFY',userData)
+        console.log(response,'수정성공!!')
         this.getUserInfo();
         this.closeUserInfoModal();
       }catch(err) {
