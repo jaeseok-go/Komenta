@@ -37,6 +37,7 @@ export default {
 
 
 aside {
+  border-radius: 4%;
   position: fixed;
   min-width: 170px;
   min-height: 100%;
@@ -51,6 +52,7 @@ section {
 
 #page-view {
   min-height: 100%;
+  margin: 2rem;
 }
 
 

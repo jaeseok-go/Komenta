@@ -1,22 +1,18 @@
 <template>
   <div>
-
-        <router-link :to="{name:'VodPopular'}">조회순</router-link> | <router-link :to="{name:'VodComment'}">댓글순</router-link> | <router-link :to="{name:'VodRecent'}">최신순</router-link>
-        <!-- 조회순 가장 많은 순서대로 ve_id, v_poster 요청
-        댓글순 가장 많은 순서대로 ve_id, v_poster 요청
-        조회순 가장 많은 순서대로 ve_id, v_poster 요청 -->
-
-        <router-view></router-view>
+      <div>
+        <ion-chip outline color="primary">
+          <ion-label><router-link :to="{name:'VodPopular'}" class="text-color">인기순</router-link></ion-label>
+        </ion-chip>
+        <ion-chip outline color="success">
+          <ion-label><router-link :to="{name:'VodComment'}" class="text-color">댓글순</router-link></ion-label>
+        </ion-chip>
+        <ion-chip outline color="danger">
+          <ion-label><router-link :to="{name:'VodRecent'}" class="text-color">최신순</router-link></ion-label>
+        </ion-chip>
+      </div>
+    
+          <router-view></router-view>
   </div>
 </template>
 
-<script>
-export default {
-
-    
-}
-</script>
-
-<style>
-
-</style>
