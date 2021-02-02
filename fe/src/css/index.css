@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.whole-border {
+  border: 35px solid black;
+  border-radius: 25px;
+}
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -229,6 +234,113 @@ hr {
 
 .block {
   display: block !important;
+}
+
+.sidebar {
+  width: 270px;
+  background-color: #e5e5e5;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-logo {
+  color: #FA233B;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-left: 1rem;
+}
+
+.sidebar-profile {
+  text-align: center;
+}
+
+.sidebar-profile-pic {
+  font-size: 5rem;
+}
+
+.sidebar-profile-nickname {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.sidebar-profile-id {
+  text-align: center;
+}
+
+.sidebar-ul {
+  margin-left: 20px;
+  line-height: 3.5rem;
+  font-size: 1.3rem;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.sidebar-ul .sidebar-child {
+  height: 3rem;
+  margin-top: 2rem;
+  display: inline;
+}
+
+.sidebar-ul .sidebar-child .sidebar-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebar-ul .sidebar-child .sidebar-title-icon {
+  font-size: 22px;
+  margin-right: 15px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.sidebar-ul .sidebar-child .sidebar-title-text {
+  color: black;
+  font-weight: 600;
+}
+
+.icon-bg1 {
+  background-color: #007aff;
+}
+
+.icon-bg2 {
+  background-color: #8e8e93;
+}
+
+.icon-bg3 {
+  background-color: #5ac8fa;
+}
+
+.icon-bg4 {
+  background-color: #ff3b30;
+}
+
+.icon-bg5 {
+  background-color: #34c759;
+}
+
+.icon-bg6 {
+  background-color: #ff9500;
+}
+
+.icon-bg7 {
+  background-color: #5856d6;
 }
 
 .form-control {
@@ -904,3 +1016,4 @@ select {
 .showID {
   padding: 3rem;
 }
+/*# sourceMappingURL=index.css.map */
