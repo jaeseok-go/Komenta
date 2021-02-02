@@ -25,7 +25,9 @@
             keyProperty="v_id">
         insert into vod(v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
         values (#{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
-
+        <selectKey keyProperty="v_id" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 
