@@ -44,23 +44,32 @@ function fetchAllGenre() {
 }
 
 //장르 소분류 선택 조회(VOD 추가)
-function fetchGenreDetail(gId, gdName) {
+function fetchGenreDetail(gId, gdId) {
     return instance.get(`genre/list_genre_detail`, {
         params: {
             g_id: gId,
-            gd_name: gdName
+            gd_id: gdId
         }
     })
 }
 
 //VOD 소분류에 의한 vod list 가져오기
 function fetchVodListByGenreDetailId(gdId) {
-    return instance.get(`admin/vod_list_by_gdid/${gdId}`)
+    return instance.get(`admin/vod_list_by_gdid/${gdId}`, {
+        params: {
+            gd_id: gdId,
+        }
+    })
 }
 
 // vod_epi로 세부내용조회
 function fetchVodEpiDetail({veId}) {
-    return instance.get(`/vod/vodnum/${veId}`)
+    return instance.get(`/vod/vodnum/${veId}`,
+        {
+            params: {
+                ve_id: veId,
+            }
+        })
 }
 
 
