@@ -168,8 +168,8 @@ export default new Router({
     },
     {
       path: '/vodtest',
-      name: 'VodTest',
-      component: () => import('@/components/vod/VodTest')
+      name: 'Video',
+      component: () => import('@/components/vod/Video')
     },
 
   ],
