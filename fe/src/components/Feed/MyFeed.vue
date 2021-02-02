@@ -4,8 +4,7 @@
       <!-- f_id로 정보 받아서 처리 -->
     <section>
     <h1>유저 프로필 영역</h1>
-        <div>{{ fetchedUserFeedInfo }}</div>
-        <div>{{ fetchedUserFeedInfo.u_nickname }}</div>
+
         <div v-if="showButton">
             <button @click="followUser">FOLLOW</button>
         </div>
@@ -13,30 +12,27 @@
 
     <!-- <section v-if="showMyRecent"> -->
         <!-- <h1>내가 시청한 콘텐츠 목록</h1>
-        <div>{{ fetchedPlaylist }}</div>
+        <div>{{ fetchedPlaylist }}</div>  -->
+        
         <div>
-             <li v-for="(myPlaylist,index) in myPlaylists" :key="index">
-             </li>
-        </div> -->
-        <div>
+       
         <!-- 최근 본 VOD div -->
-        <h1>나의 최근 시청목록보기</h1>
-            <div class='drop-zone'
-            @drop='onDrop($event, myrecentlists.historyList[0].vh_id,0)'
-            @dragover.prevent
-            @dragenter.prevent
-            >
-        <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
-            <div 
-            v-for='vod in myrecentlists[0].episodeList' 
-            :key='vod.ve_id' 
-            class='drag-el'
-            draggable
-            @dragstart='startDrag($event, vod)'
-            >
-                {{ vod.v_title }}
-            </div>
-            </div>
+            <h1>나의 최근 시청목록보기</h1>
+                <div class='drop-zone'
+                @dragover.prevent
+                @dragenter.prevent
+                >
+            <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
+                    <div 
+                    v-for='vod in myrecentlists.episodeList' 
+                    :key='vod.ve_id' 
+                    class='drag-el'
+                    draggable
+                    @dragstart='startDrag($event, vod)'
+                    >
+                        {{ vod.v_title }}
+                    </div>
+                </div>
         </div>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
         <h1>플레이리스트 목록</h1>
@@ -112,40 +108,56 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+// import { mapGetters, mapState } from 'vuex';
+// import store from '@/stores/modules/user'
 import { fetchRecentPlaylist } from '@/api/user'
 
 // import Modal from '@/components/common/Modal';
 export default {
     data(){
         return {
-           myrecentlists : [{
-                "historyList": [
-                    {
-                        vh_id: 1,
-                    }
-                ],
-                "episodeList": [
-                    {
-                        ve_id: 1,
-                        v_title: "test1",
-                        
+            myrecentlists:[],
+            recentlistLen:0,
+        //    myrecentlists : {
+    //         "historyList": [
+    //             {
+    //                 vh_id: 1,
+    //             },
+    //             {
+    //                 vh_id: 2,
+    //             },
+    //             {
+    //                 vh_id: 3,
+    //             },
+    //             {
+    //                 vh_id: 4,
+    //             },
+    //             {
+    //                 vh_id: 5,
+    //             },
+                
+    //         ],
+    //         "episodeList": [
+    //             {
+    //                 ve_id: 1,
+    //                 v_title: "test1",
+                    
 
-                    },
-                    {
-                        ve_id: 2,
-                        v_title: "test2",
+    //             },
+    //             {
+    //                 ve_id: 2,
+    //                 v_title: "test2",
 
-                    },
-                    {
-                        ve_id: 3,
-                        v_title: "test3",
+    //             },
+    //             {
+    //                 ve_id: 3,
+    //                 v_title: "test3",
 
-                    },
-                ]
-            }
+    //             },
+    //         
+        //     }
 
-            ],
+        //     ],
             playlists : [ [
                 {
                     pl_id : 0,
@@ -200,8 +212,7 @@ export default {
         // Modal
     },
     created(){
-        this.test = fetchRecentPlaylist(1)
-        console.log(this.test)
+       this.getMyALLPlayList();
     },
     methods: {        
         // drag and drop 메소드
@@ -214,12 +225,12 @@ export default {
         // vod를 끌어다가 놓는 플레이리스트
         onDrop (evt, plId,index) {
         const vodID = evt.dataTransfer.getData('vodID')
-        const vod = this.myrecentlists[0].episodeList.find(vod => vod.ve_id == vodID)
-        this.dragIndex = this.myrecentlists[0].episodeList.indexOf(vod,0)
+        const vod = this.myrecentlists.episodeList.find(vod => vod.ve_id == vodID)
+        this.dragIndex = this.myrecentlists.episodeList.indexOf(vod,0)
         console.log(this.dragIndex)
         console.log(plId,vod,'플레이리스트ID')
         // 해당 vod를 플레이리스트에 추가
-        this.myrecentlists[0].episodeList.pop(this.dragIndex)
+        this.myrecentlists.episodeList.pop(this.dragIndex)
         // 플레이리스트추가api(vod.ve_id,plId)
         // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
         // this.playlists[index][1].splice(0,0,vod)
@@ -236,9 +247,9 @@ export default {
             // }
         },
         showMyRecent() {
-            if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
-                this.showRecent=true
-            }
+            // if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
+            //     this.showRecent=true
+            // }
         },
         //팔로우하는 로직 추가 구현
         followUser() {
@@ -250,9 +261,16 @@ export default {
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
         },
-        getMyALLPlayList() {
+        async getMyALLPlayList() {
         const userId = this.$route.params.id;
-        this.myPlaylists = this.$store.commit('FETCH_RECENTPLAYLIST',userId)
+        try {
+            const res = await fetchRecentPlaylist(userId)
+            this.myrecentlists = res.data
+            this.recentlistLen = res.data.episodeList.length
+            console.log(this.myrecentlists,this.recentlistLen)
+        } catch {
+            console.log('에러')
+        }
         },
 
     },
@@ -260,19 +278,8 @@ export default {
     computed: {
         //fetchedUserFeedInfo에 있어야 하는 정보는 pl_id,pl_name,pl_comment,u_nickname
         //u_profile_pic,v_poster, g_name ,gd_name,v_title ,ve_episode_num,vh_comment
-        ...mapGetters(['fetchedUserFeedInfo']),
-        ...mapGetters(['fetchedUserInfo']),
-        ...mapGetters(['fetchedPlaylist']) ,
 
   },
-    // created() {
-    //     this.getMyALLPlayList()
-    //     // const userId = this.$route.params.id;
-    //     // this.$store.dispatch('FETCH_FEED',userId)
-    //     // //this.getMyPlayList()
-
-
-    // },
 
 
 }
