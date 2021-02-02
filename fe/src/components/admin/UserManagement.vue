@@ -48,7 +48,6 @@
         <td>{{user.u_nickname}}</td>
         <td>
           <!-- 라벨버튼 모양으로 만들기 -->
-          <!-- 수정 오류남 왜.... -->
           <div>{{user.u_state}}</div>
         </td>
       </tr>
@@ -101,7 +100,6 @@ export default {
       console.log("회원 목록 : ",response);
 
       for (let user = 0; user < response.data.length; user++) {
-        // console.log("user[",user,"] : ",response.data[user]);
         if(response.data[user].u_is_admin) {
           response.data[user].u_state = '관리자';
         }else {
