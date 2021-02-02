@@ -30,12 +30,12 @@ export function setInterceptors() {
     (error) => Promise.reject(error.response)
   );
   instance.interceptors.response.use(
-    // (config) => {
-    //   console.log("status: ", config.data.status);
-    //   console.log("token: ", config.data['auth-token']);
-    //   return config;
-    // },
-    config => config,
+    (config) => {
+      console.log("status: ", config.data.status);
+      console.log("token: ", config.data['auth-token']);
+      return config;
+    },
+    // config => config,
     (error) => Promise.reject(error.response)
   );
   return instance;
