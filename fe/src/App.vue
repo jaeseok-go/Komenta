@@ -1,21 +1,57 @@
 <template>
+    <div id="app">
+      <aside>
+        <Asidebar></Asidebar>
+      </aside>
+      <section>
+        <Header id="header-section"></Header>
+        <router-view id="page-view"></router-view>
+      </section>
 
-    <router-view></router-view>
+    </div>
 
 </template>
 
 <script>
 // import "@/css/index.css"
+import Asidebar from '@/components/common/Asidebar'
+import Header from '@/components/common/Header'
 // import Main from '@/components/Main/Main'
 
 export default {
-  // components: {
-  //   Main
-  // },
+  components: {
+    Asidebar,
+    Header
+  },
   name: 'App',
 }
 </script>
 
-<style>
+<style scoped>
+
+#app {
+  border: 19px solid black;
+  border-radius: 20px;
+  display: flex;
+}
+
+
+aside {
+  position: fixed;
+  min-width: 170px;
+  min-height: 100%;
+}
+
+
+section {
+  height: 96vh;
+  padding-left: 16.9rem;
+  width: 100%;
+}
+
+#page-view {
+  min-height: 100%;
+}
+
 
 </style>

@@ -1,9 +1,4 @@
 @charset "UTF-8";
-.whole-border {
-  border: 35px solid black;
-  border-radius: 25px;
-}
-
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -236,13 +231,14 @@ hr {
   display: block !important;
 }
 
+.header {
+  background-color: #8e8e93;
+}
+
 .sidebar {
   width: 270px;
   background-color: #e5e5e5;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
+  height: 96vh;
 }
 
 .sidebar-logo {
