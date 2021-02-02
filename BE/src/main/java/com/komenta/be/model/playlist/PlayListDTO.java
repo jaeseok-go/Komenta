@@ -3,17 +3,40 @@ package com.komenta.be.model.playlist;
 public class PlayListDTO {
     private int pl_id;
     private String pl_name;
+    private String pl_comment;
     private int u_id;
 
-    public PlayListDTO(String pl_name, int u_id) {
+    public PlayListDTO() {
+    }
+
+    public PlayListDTO(String pl_name, String pl_comment) {
         this.pl_name = pl_name;
+        this.pl_comment = pl_comment;
+    }
+
+    public PlayListDTO(int pl_id, String pl_name, String pl_comment) {
+        this.pl_id = pl_id;
+        this.pl_name = pl_name;
+        this.pl_comment = pl_comment;
+    }
+
+    public PlayListDTO(int pl_id, String pl_name, String pl_comment, int u_id) {
+        this.pl_id = pl_id;
+        this.pl_name = pl_name;
+        this.pl_comment = pl_comment;
         this.u_id = u_id;
     }
 
-    public PlayListDTO(int pl_id, String pl_name, int u_id) {
+    public void setPl_id(int pl_id) {
         this.pl_id = pl_id;
-        this.pl_name = pl_name;
-        this.u_id = u_id;
+    }
+
+    public void setPl_comment(String pl_comment) {
+        this.pl_comment = pl_comment;
+    }
+
+    public String getPl_comment() {
+        return pl_comment;
     }
 
     public int getPl_id() {

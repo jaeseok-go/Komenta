@@ -1,0 +1,9 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.PlayListMapper">
+    <insert id="createPlayList" parameterType="com.komenta.be.model.playlist.PlayListDTO">
+        insert into play_list(pl_name, pl_comment, u_id)
+        values (#{pl_name}, #{pl_comment}, #{u_id})
+    </insert>
+</mapper>
