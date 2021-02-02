@@ -76,10 +76,10 @@
                 @ApiImplicitParam(name = "uId", value = "u_id(유번 번호)", dataType = "int", required = true)
         })
         @GetMapping("/myvod")
-        public ResponseEntity<Map<String, Object>> selectMyVod(int u_id, HttpServletRequest request) {
+        public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
             // jwt 토큰의 uid 를 받는다는 가정하에
-//            String token = request.getHeader("auth-token");
-//            int u_id = (int) jwtService.get(token).get("u_id");
+            String token = request.getHeader("auth-token");
+            int u_id = (int) jwtService.get(token).get("u_id");
             HttpStatus status = null;
             Map<String, Object> resultMap = new HashMap<>();
             List<VodEpisodeAllDTO> list = new LinkedList<>();
