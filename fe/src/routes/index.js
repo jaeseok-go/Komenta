@@ -113,6 +113,7 @@ export default new Router({
       path: '/vodDetail/:id',
       name: 'VodDetail',
       component: () => import('@/views/vod/VodDetail.vue'),
+      props: true
     },
     {
       path: '/category',
