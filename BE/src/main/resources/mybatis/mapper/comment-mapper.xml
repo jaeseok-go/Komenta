@@ -5,7 +5,7 @@
 
     <insert id = "insertComment" parameterType="com.komenta.be.model.comment.CommentInfoDTO">
         insert into comment_info(c_contents, c_playtime, u_id, ve_id)
-        values (#{c_contents}, #{c_playtime}, #{u_id}, #{ve_id});
+        values (#{c_contents}, #{c_playtime}, #{u_id}, #{ve_id})
     </insert>
 
     <select id = "getVodEpisodeComment" parameterType="int" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
@@ -20,6 +20,21 @@
              (select c_id, count(*) as comment_good_count
               from comment_good
               group by c_id) D
-             on C.c_id = D.c_id;
+             on C.c_id = D.c_id
+    </select>
+
+    <select id = "getCommentRankList" resultType="com.komenta.be.model.comment.CommentRankDTO">
+        SELECT E.rank, F.v_id, F.v_title, E.ve_id, F.ve_episode_num, E.c_id, E.c_good_count, E.c_contents, E.c_playtime, E.u_id, E.u_email, E.u_nickname, E.u_profile_pic
+        FROM (SELECT C.rank, C.c_id, C.c_good_count, C.c_contents, C.c_playtime, C.u_id, C.ve_id, D.u_email, D.u_nickname, D.u_profile_pic
+              FROM (SELECT A.rank, A.c_id, A.c_good_count, B.c_contents, B.c_playtime, B.u_id, B.ve_id
+                    FROM (SELECT @rownum := @rownum + 1 as rank, c_id, COUNT(*) AS c_good_count
+                          FROM comment_good, (SELECT @rownum := 0) rownum
+                          GROUP BY c_id
+                          ORDER BY c_good_count DESC) A LEFT OUTER JOIN comment_info B
+                    ON A.c_id = B.c_id) C LEFT OUTER JOIN member D
+              ON C.u_id = D.u_id) E LEFT OUTER JOIN (SELECT Y.v_id, X.ve_id, Y.v_title, X.ve_episode_num
+                                                     FROM vod_episode X LEFT OUTER JOIN vod Y
+                                                     ON X.v_id = Y.v_id) F
+        ON E.ve_id = F.ve_id
     </select>
 </mapper>

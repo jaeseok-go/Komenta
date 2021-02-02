@@ -1,6 +1,7 @@
 package com.komenta.be.controller;
 
 import com.komenta.be.model.comment.CommentInfoDTO;
+import com.komenta.be.model.comment.CommentRankDTO;
 import com.komenta.be.model.comment.VodEpisodeCommentDTO;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
@@ -56,6 +57,14 @@ public class CommentController {
     @GetMapping("/ve_c_list/{ve_id}")
     public List<VodEpisodeCommentDTO> getVodEpisodeComment(@PathVariable("ve_id") int ve_id){
         return cservice.getVodEpisodeComment(ve_id);
+    }
+
+
+
+    @ApiOperation(value = "실시간 베스트 댓글 유저 랭킹", notes = "현재 가장 많은 좋아요를 받은 댓글 랭킹 10위")
+    @GetMapping("/comment_rank")
+    public List<CommentRankDTO> getCommentRankList(){
+        return cservice.getCommentRankList();
     }
 
 }
