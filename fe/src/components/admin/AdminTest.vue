@@ -24,14 +24,14 @@
             </option>
           </select>
           <br>
-          번호<b-input type="text" id="v_id" v-model="vod.v_id"></b-input>
-          제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
-          요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
-          감독<b-input type="text" id="v_director" v-model="vod.v_director"></b-input>
-          출연진<b-input type="text" id="v_actors" v-model="vod.v_actors"></b-input>
-          연령<b-input type="text" id="v_age_grade" v-model="vod.v_age_grade"></b-input>
+          번호<b-input type="text" id="v_id" :v-model="vod.v_id"></b-input>
+          제목<b-input type="text" id="v_title" :v-model="vod.v_title"></b-input>
+          요약<b-input type="text" id="v_summary" :v-model="vod.v_summary"></b-input>
+          감독<b-input type="text" id="v_director" :v-model="vod.v_director"></b-input>
+          출연진<b-input type="text" id="v_actors" :v-model="vod.v_actors"></b-input>
+          연령<b-input type="text" id="v_age_grade" :v-model="vod.v_age_grade"></b-input>
           <!-- <b-input type="file" id="v_poster"> -->
-          포스터<b-input type="text" id="v_poster" v-model="vod.v_poster"></b-input>
+          포스터<b-input type="text" id="v_poster" :v-model="vod.v_poster"></b-input>
           
           
           몇화<b-input type="text" id="ve_episode_num" v-model="vod_episode.ve_episode_num"></b-input>
@@ -109,7 +109,7 @@ export default {
     fetchVodList()
     .then((response) => {
       this.vod_list = response.data;
-      console.log(this.vod_list);
+      console.log("VOD 리스트 가져오기 : ",this.vod_list);
     })
     .catch((ex) => {
       console.log(ex);
@@ -118,11 +118,11 @@ export default {
     fetchAllEpi()
     .then((response)=>{
       this.all_episode = response.data;
-      console.log(this.all_episode);
+      console.log("모든 episode 가져오기 : ",this.all_episode);
     });
     fetchAllGenre()
     .then((response) =>{
-      console.log(response.data)
+      console.log("모든 장르 가져오기 : ",response.data)
       this.genre_list = response.data;
     })
     .catch(()=>{
@@ -130,7 +130,7 @@ export default {
     });
   },
   methods: {
-   detailGenre(){
+   detailGenre(){ //VOD 종류 불러오기
      fetchGenreDetail(this.genre_id)
      .then((response) => {
        this.genre_detail_list = response.data;
@@ -140,12 +140,12 @@ export default {
        alert('genre detail error');
      })
    },
-    showVodList(){
+    showVodList(){ //선택한 장르 기준으로 등록된 VOD list 불러오기
      fetchVodListByGenreDetailId(this.genre_detail_id)
      .then((response) => {
        this.vod_list_by_gd= response.data;
        this.vod.v_id = response.data.v_id;
-       console.log("vod  확인",this.vod);
+       console.log("vod 확인",this.vod);
        console.log("gd에 해당하는 vod 여깄다", response.data);
      })
      .catch(()=>{
@@ -153,18 +153,21 @@ export default {
      })
    },
    autoWriteVodInfo(){
+     console.log("vod id : ",this.vod.v_id)
      if(this.vod.v_id > 0){
        this.vod_id = this.vod.v_id; 
        this.vod_episode.v_id = this.vod_id;
-       this.is_exist_vod = true;}
+       this.is_exist_vod = true;
+     }else if(this.vod.v_id == undefined) {
+       console.log("직접입력")
+     }
    },
    send(){
+     console.log("vod episode : ",this.vod_episode);
      if(this.is_exist_vod == true){
-       console.log(this.vod_episode);
       axios
      .post('http://i4b201.p.ssafy.io:8080/admin/episode_upload', this.vod_episode)
      .then((response)=>{
-
        console.log(response.data);
      })
      .catch(()=>{
