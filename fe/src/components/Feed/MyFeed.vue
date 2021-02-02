@@ -34,7 +34,7 @@
             draggable
             @dragstart='startDrag($event, vod)'
             >
-                {{ vod.v_poster }}
+                {{ vod.v_title }}
             </div>
             </div>
         </div>
@@ -128,18 +128,18 @@ export default {
                 "episodeList": [
                     {
                         ve_id: 1,
-                        v_poster: "test1",
+                        v_title: "test1",
                         
 
                     },
                     {
                         ve_id: 2,
-                        v_poster: "test2",
+                        v_title: "test2",
 
                     },
                     {
                         ve_id: 3,
-                        v_poster: "test3",
+                        v_title: "test3",
 
                     },
                 ]
