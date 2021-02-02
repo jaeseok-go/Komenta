@@ -26,6 +26,7 @@ public class JwtServiceImpl implements JwtService{
     private Long expireMin = 5L;
 
     //	로그인 성공시 사용자 정보를 기반으로 JWTToken을 생성하여 반환.
+    @Override
     public String create(MemberDTO member) {
 //        Map<String, Object> headers = new HashMap<>();
 //        headers.put("typ", "JWT");
@@ -60,7 +61,7 @@ public class JwtServiceImpl implements JwtService{
 //		Payload 설정
         jwtBuilder
                 .setSubject("로그인토큰") // 토큰의 제목 설정
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)) // 유효기간 설정
+                .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * expireMin)) // 유효기간 설정
                 .claim("u_id", member.getU_id())
 .        claim("u_email", member.getU_email())
  .       claim("u_phone_number", member.getU_phone_number())
@@ -85,6 +86,7 @@ public class JwtServiceImpl implements JwtService{
     }
 
     //	전달 받은 토큰이 제대로 생성된것이니 확인 하고 문제가 있다면 RuntimeException을 발생.
+    @Override
     public void checkValid(String jwt) {
         System.out.println("check valid : "+jwt);
 //		예외가 발생하지 않으면 OK
@@ -98,8 +100,10 @@ public class JwtServiceImpl implements JwtService{
     }
 
     //	JWT Token을 분석해서 필요한 정보를 반환.
+    @Override
     public Map<String, Object> get(String jwt) {
         Jws<Claims> claims = null;
+        System.out.println("여기야 여기"+Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt).getBody());
         try {
             claims = Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
         } catch (final Exception e) {
@@ -111,8 +115,11 @@ public class JwtServiceImpl implements JwtService{
         return claims.getBody();
     }
 
+    @Override
     public int getUidFromJwt(String jwt){
-        int uid = (int) get(jwt).get("U_id");
+        System.out.println(jwt);
+        System.out.println(get(jwt).get("u_email"));
+        int uid = (int) get(jwt).get("u_id");
         return uid;
     }
 }

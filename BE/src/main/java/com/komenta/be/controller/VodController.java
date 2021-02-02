@@ -77,7 +77,8 @@
         public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
             // jwt 토큰의 uid 를 받는다는 가정하에
             String token = request.getHeader("auth-token");
-            int u_id = (int) jwtService.get(token).get("u_id");
+            System.out.println("여기는 토큰 : "+token);
+            int u_id = (int) jwtService.getUidFromJwt(token);
             HttpStatus status = null;
             Map<String, Object> resultMap = new HashMap<>();
             List<VodEpisodeAllDTO> list = new LinkedList<>();
