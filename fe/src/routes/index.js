@@ -12,13 +12,8 @@ export default new Router({
     {
       path: '/',
       name: 'Main',
-      component: () => import('@/components/Main/Main.vue')
-    },
-    {
-      path:'/vodsection',
-      name:'VodSection',
-      component: () => import('@/components/Main/VODSections.vue'),
-      redirect: '/vodSection/vodPopular',
+      component: () => import('@/components/Main/Main.vue'),
+      redirect: '/vodpopular',
       children: [
         {
           path: 'vodpopular',

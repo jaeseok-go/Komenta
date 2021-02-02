@@ -1013,8 +1013,34 @@ select {
   padding: 3rem;
 }
 
-ion-searchbar {
-  --placeholder-color: $komenta-color;
-  --icon-color: $komenta-color;
+.searchbar-container {
+  position: relative;
+  width: 100%;
+  background-color: #e5e5e5;
+  border-radius: 99px;
+  margin-bottom: 10px;
+}
+
+.searchbar-container .searchbar input {
+  width: 100%;
+  background-color: transparent;
+  border-style: none;
+  height: 50px;
+  padding-left: 50px;
+  color: black;
+}
+
+ion-content ion-segment {
+  margin: 5px 0;
+}
+
+ion-chip {
+  padding: 0.5rem;
+  margin: 0.3rem;
+}
+
+.text-color {
+  color: #495057;
+  text-decoration: none;
 }
 /*# sourceMappingURL=index.css.map */
