@@ -3,7 +3,6 @@
     <b-container>
       <!-- VOD 등록하는 부분 입니다. -->
       <b-col>
-    
         <h2>Vod 등록</h2>
         <b-form>
           <select v-model="genre_id" @change="detailGenre()">
@@ -24,6 +23,7 @@
               {{ item.v_title }}
             </option>
           </select>
+          <br>
           번호<b-input type="text" id="v_id" v-model="vod.v_id"></b-input>
           제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
           요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
@@ -81,6 +81,7 @@
 </style>
 
 <script>
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod';
 import axios from 'axios';
 
 export default {
@@ -105,49 +106,46 @@ export default {
     };
   },
   created(){
-    axios
-    .get(
-        'http://localhost:8080/admin/vod_list'
-      )
-      .then((response) => {
-        this.vod_list = response.data;
-        console.log(this.vod_list);
-      })
-      .catch((ex) => {
-        console.log(ex);
-      });
-    axios.get('http://localhost:8080/admin/episode_all')
+    fetchVodList()
+    .then((response) => {
+      this.vod_list = response.data;
+      console.log(this.vod_list);
+    })
+    .catch((ex) => {
+      console.log(ex);
+    });
+
+    fetchAllEpi()
     .then((response)=>{
       this.all_episode = response.data;
       console.log(this.all_episode);
-    })
-    axios
-    .get( 'http://localhost:8080/genre/list_genre')
+    });
+    fetchAllGenre()
     .then((response) =>{
       console.log(response.data)
       this.genre_list = response.data;
-    } )
+    })
     .catch(()=>{
       alert('genre error');
     });
   },
   methods: {
    detailGenre(){
-     axios.get( 'http://localhost:8080/genre/list_genre_detail',{params:{g_id: this.genre_id}})
+     fetchGenreDetail(this.genre_id)
      .then((response) => {
        this.genre_detail_list = response.data;
-       console.log("genre detila 여깄다"+ response.data);
+       console.log("genre detail 여깄다"+ response);
      })
      .catch(()=>{
        alert('genre detail error');
      })
    },
     showVodList(){
-     axios.get( 'http://localhost:8080/admin/vod_list_by_gdid/'+this.genre_detail_id)
+     fetchVodListByGenreDetailId(this.genre_detail_id)
      .then((response) => {
        this.vod_list_by_gd= response.data;
        this.vod.v_id = response.data.v_id;
-       console.log(this.vod);
+       console.log("vod  확인",this.vod);
        console.log("gd에 해당하는 vod 여깄다", response.data);
      })
      .catch(()=>{
@@ -164,7 +162,7 @@ export default {
      if(this.is_exist_vod == true){
        console.log(this.vod_episode);
       axios
-     .post('http://localhost:8080/admin/episode_upload', this.vod_episode)
+     .post('http://i4b201.p.ssafy.io:8080/admin/episode_upload', this.vod_episode)
      .then((response)=>{
 
        console.log(response.data);
@@ -175,7 +173,7 @@ export default {
      }
      else{
        axios
-     .post('http://localhost:8080/admin/vod_regist', this.vod)
+     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist', this.vod)
      .then((response)=>{
        alert(response);
      })

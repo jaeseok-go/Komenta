@@ -28,6 +28,36 @@ function fetchStreamingListDetail(data) {
     })
 }
 
+//vod 리스트 가져오기(VOD 추가)
+function fetchVodList() {
+    return instance.get(`admin/vod_list/`)
+}
+
+//등록된 episode 가져오기(VOD 추가)
+function fetchAllEpi() {
+    return instance.get(`admin/episode_all/`)
+}
+
+//등록된 장르 가져오기(VOD 추가)
+function fetchAllGenre() {
+    return instance.get(`genre/list_genre/`)
+}
+
+//장르 소분류 선택 조회(VOD 추가)
+function fetchGenreDetail(gId, gdName) {
+    return instance.get(`genre/list_genre_detail`, {
+        params: {
+            g_id: gId,
+            gd_name: gdName
+        }
+    })
+}
+
+//VOD 소분류에 의한 vod list 가져오기
+function fetchVodListByGenreDetailId(gdId) {
+    return instance.get(`admin/vod_list_by_gdid/${gdId}`)
+}
+
 // vod_epi로 세부내용조회
 function fetchVodEpiDetail({veId}) {
     return instance.get(`/vod/vodnum/${veId}`)
@@ -41,5 +71,10 @@ export {
     fetchPopularVOD,
     fetchRecentVOD,
     fetchStreamingListDetail,
-    fetchVodEpiDetail
+    fetchVodEpiDetail,
+    fetchVodList,
+    fetchAllEpi,
+    fetchAllGenre,
+    fetchGenreDetail,
+    fetchVodListByGenreDetailId
 }

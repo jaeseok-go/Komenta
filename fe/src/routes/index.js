@@ -98,7 +98,14 @@ export default new Router({
         {
           path: 'vodmanage',
           name: "VodManage",
-          component: () => import('@/components/admin/VodManagement.vue')
+          component: () => import('@/components/admin/VodManagement.vue'),
+          childeren: [
+            {
+              path: 'vodInsert',
+              name: 'VodInsert',
+              component: () => import('@/components/admin/VodInsert.vue')
+            }
+          ]
         },
       ]
     },

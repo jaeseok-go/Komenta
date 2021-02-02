@@ -1,6 +1,9 @@
 <template>
   <b-container>
     <h4>전체 VOD</h4>
+    <div class="btn-right">
+      <router-link :to="{name:'AdminTest'}">VOD 추가</router-link>
+    </div>
     <table style="text-align:center;">
       <colgroup>
         <col width="10%" />
@@ -57,5 +60,7 @@ export default {
 </script>
 
 <style>
-
+  .btn-right {
+    text-align: right;
+  }
 </style>
