@@ -72,6 +72,7 @@ const mutations = {
     //1-3.최근 목록 플레이 리스트 저장
     setRecentPlaylist(state, recentPlaylist) {
         state.recentPlaylist = recentPlaylist
+        console.log(state.recentPlaylist,'최근목록리스트 state')
     },
     setLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
@@ -97,9 +98,9 @@ const actions = {
         console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
-        // const recentPlaylist = await fetchRecentPlaylist(userData.userId)
+        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        // commit('setRecentPlaylist', recentPlaylist)
+        commit('setRecentPlaylist', recentPlaylist)
         
         
         if (response.data['auth-token']) {
@@ -126,9 +127,9 @@ const actions = {
     async FETCH_RECENTPLAYLIST({ commit }, userId) {
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist(userId)
-        console.log(recentPlaylist,'최근 플레이리스트..')
+        console.log(recentPlaylist.data,'최근 플레이리스트..')
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        commit('setRecentPlaylist', recentPlaylist)
+        commit('setRecentPlaylist', recentPlaylist.data)
     },
     async FETCH_LIKEPLAYLIST({ commit }, userId) {
         //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
