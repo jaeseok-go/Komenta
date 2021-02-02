@@ -110,7 +110,7 @@ export default new Router({
       ]
     },
     {
-      path: '/vodDetail',
+      path: '/vodDetail/:id',
       name: 'VodDetail',
       component: () => import('@/views/vod/VodDetail.vue'),
     },

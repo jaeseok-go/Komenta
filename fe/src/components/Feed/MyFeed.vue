@@ -63,13 +63,30 @@
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면  -->
             <div
-                v-for='vod in playlist[1]' 
+                v-for='(vod,index) in playlist[1]' 
                 :key='vod.ve_id' 
                 class='drag-el'
                 draggable
                 @dragstart='startDrag($event, vod)'
+                 @click="showVodEpiModal(index)"
             >
-                {{ vod.v_title }}
+                <span >{{vod.v_poster}}</span>
+                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
+                    <h3 slot="header">
+                    <span
+                       @click="goEpiDetail(vod.ve_id)"
+                       >{{ vod.v_title }}</span> 
+                    <i class="closeModalBtn fa fa-times"
+                    aria-hidden="true"
+                    @click="vodEpiModal = false">
+                    </i>
+                    </h3>
+                    <p slot="body">
+                        <input type="text" v-model="epiComment">
+                        <button @click="addComment">리뷰작성</button>
+                    </p>
+
+                </Modal>
             </div>
             </div>
     </div>
@@ -78,7 +95,39 @@
 
     <section v-else>
         <h3>타유저 플레이리스트</h3>
+        <div 
+        v-for='playlist in playlists' 
+        :key='playlist[0].pl_id'
+        height="300"
+        >
+        {{playlist[0].pl_name}}
+            <div class='drop-zone'>
+            <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
+            <!-- startDrag -1이면  -->
+            <div
+                v-for='(vod,index) in playlist[1]' 
+                :key='vod.ve_id' 
+                class='drag-el'
+                @click="showVodEpiModal(index)"
+               >
+               <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
+                    <h3 slot="header">
+                    {{ vod.v_title }}
+                    <i class="closeModalBtn fa fa-times"
+                    aria-hidden="true"
+                    @click="vodEpiModal = false">
+                    </i>
+                    </h3>
+                    <p slot="body">
+                        {{vod.pl_comment}}
+                        <button  @click="goEpiDetail(vod.ve_id)">지금시청하기</button>
+                    </p>
 
+                </Modal>
+                
+            </div>
+            </div>
+            </div>
     </section>
 
     
@@ -91,9 +140,14 @@
 import { mapGetters } from 'vuex';
 // import store from '@/stores/modules/user'
 import { fetchRecentPlaylist, fetchMyPlaylist } from '@/api/user'
+import { fetchVodEpiDetail } from '@/api/vod'
+import Modal from '@/components/common/Modal';
 
-// import Modal from '@/components/common/Modal';
 export default {
+    
+    components: {
+        Modal,
+    },
     data(){
         return {
             myrecentlists:[],
@@ -107,12 +161,14 @@ export default {
                 {   
                     ve_id : 4,
                     v_title : "런닝맨",
+                    v_poster:'poster1',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
                 {   
                     ve_id : 5,
                     v_title : "최고다",
+                    v_poster:'poster2',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
@@ -128,12 +184,14 @@ export default {
                 {   
                     ve_id : 7,
                     v_title : "우리 모두 힘내서",
+                    v_poster:'poster4',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
                 {   
                     ve_id : 8,
                     v_title : "성공해용",
+                    v_poster:'poster5',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
@@ -141,14 +199,14 @@ export default {
             ],  
             ],
             showModal:false,
+            vodEpiModal:false,
             showFollow:false,
             showRecent:false,
             dragVod:{}, 
-            plName:'',          
+            plName:'',     
+            epiComment:'',     
+            selectedId:0,
         }
-    },
-    components: {
-        // Modal
     },
     created(){
        this.getRecentPlayList();
@@ -201,11 +259,30 @@ export default {
         followUser() {
 
         },
+        showVodEpiModal(index){
+            this.selectedId = index;
+            console.log(this.selectedId)
+            this.vodEpiModal=true
+        },
+        addComment(plId){
+            const userId = this.fetchedUserInfo.u_id
+            const commentInfo = {
+                pl_id : plId,
+                u_id : userId,
+                pl_comment : this.epiComment
+            }
+            console.log(commentInfo,'플레이리스트 comment생성')
+        },
         addPlaylist() {
             const userId = this.fetchedUserInfo.u_id
             const pl_name = this.pl_name
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
+        },
+        async goEpiDetail(veId){
+            await fetchVodEpiDetail(veId)
+            .then(this.$router.push(`/vodDetail/${veId}`))
+            .catch(err => console.log(err))
         },
         async getRecentPlayList() {
         const userId = this.$route.params.id;
