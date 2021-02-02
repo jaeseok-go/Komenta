@@ -126,6 +126,7 @@
       <button
         class="btn btn-normal btn-middle"
         :disabled="isSignupDisabled"
+        type="submit"
         @click="signupComplete"
       >
         가입하기
@@ -330,6 +331,7 @@ export default {
     },
     // 우리서버이용
     async submitSignup() {
+      this.clickSignupBtn = true
       if (!this.clickSignupBtn) {
         return
       }
