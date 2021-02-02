@@ -66,33 +66,36 @@ public class AdminController {
     })
     @PostMapping("/vod_regist")
     public int registVod(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
-
+        int vodsuc = 0;
         if(vdto.getV_id() == 0){
-            int a = adminService.registVod(vdto);
-            System.out.println("registVOD" + a);
+            vodsuc = adminService.registVod(vdto);
+            System.out.println("vod regist test "+vodsuc);
         }
-        int b = adminService.uploadEpisode(vedto);
+        else{ vodsuc = 1;}
+        int vodeip = adminService.uploadEpisode(vedto);
+        System.out.println("vod episode regist test"+vodeip);
         /*
          * 파일 업로드
          */
+        if(vodeip == 1) {
+            // 100톰과제리50.mp4
+            String file_name = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
+            file_name.replace(" ", "_");
 
-        // 100톰과제리50.mp4
-        String file_name = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
-        file_name.replace(" " , "_");
+            File targetFile = new File(file_name);
+            System.out.println(targetFile);
 
-        File targetFile = new File(file_name);
-        System.out.println(targetFile);
-
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);
-            e.printStackTrace();
+            try {
+                InputStream fileStream = multipartFile.getInputStream();
+                FileUtils.copyInputStreamToFile(fileStream, targetFile);
+                System.out.println("파일 업로드 성공");
+            } catch (IOException e) {
+                FileUtils.deleteQuietly(targetFile);
+                e.printStackTrace();
+            }
         }
 
-        return b;
+        return vodsuc + vodeip -1;
     }
 
 
