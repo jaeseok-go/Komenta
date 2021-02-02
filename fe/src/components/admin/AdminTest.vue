@@ -24,14 +24,14 @@
             </option>
           </select>
           <br>
-          번호<b-input type="text" id="v_id" :v-model="vod.v_id"></b-input>
-          제목<b-input type="text" id="v_title" :v-model="vod.v_title"></b-input>
-          요약<b-input type="text" id="v_summary" :v-model="vod.v_summary"></b-input>
-          감독<b-input type="text" id="v_director" :v-model="vod.v_director"></b-input>
-          출연진<b-input type="text" id="v_actors" :v-model="vod.v_actors"></b-input>
-          연령<b-input type="text" id="v_age_grade" :v-model="vod.v_age_grade"></b-input>
+          번호<b-input type="text" id="v_id" v-model="vod.v_id"></b-input>
+          제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
+          요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
+          감독<b-input type="text" id="v_director" v-model="vod.v_director"></b-input>
+          출연진<b-input type="text" id="v_actors" v-model="vod.v_actors"></b-input>
+          연령<b-input type="text" id="v_age_grade" v-model="vod.v_age_grade"></b-input>
           <!-- <b-input type="file" id="v_poster"> -->
-          포스터<b-input type="text" id="v_poster" :v-model="vod.v_poster"></b-input>
+          포스터<b-input type="text" id="v_poster" v-model="vod.v_poster"></b-input>
           
           
           몇화<b-input type="text" id="ve_episode_num" v-model="vod_episode.ve_episode_num"></b-input>
@@ -44,6 +44,8 @@
         </b-form>
       </b-col>
 
+      {{vod}} <br>
+      {{vod_episode}}
 
       <b-col>
         <table>
@@ -94,9 +96,7 @@ export default {
       vod_id :0,
       vod:{},
       is_exist_vod:false,
-      vod_episode :{
-        ve_id:0, v_id:0, ve_episode_num:0, ve_contents:'', ve_admin:'', ve_upload_date:''
-      },
+      vod_episode :{},
       genre_list:[],
       vod_list_by_gd:[],
       vod_list:[],
@@ -160,6 +160,7 @@ export default {
        this.is_exist_vod = true;
      }else if(this.vod.v_id == undefined) {
        console.log("직접입력")
+       this.vod = {}
      }
    },
    send(){
@@ -175,8 +176,9 @@ export default {
      })
      }
      else{
+       console.log(this.vod)
        axios
-     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist', this.vod)
+     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist_first', this.vod)
      .then((response)=>{
        alert(response);
      })
