@@ -10,12 +10,9 @@
         </div>
     </section>
 
-    <!-- <section v-if="showMyRecent"> -->
-        <!-- <h1>내가 시청한 콘텐츠 목록</h1>
-        <div>{{ fetchedPlaylist }}</div>  -->
-        
+    <section v-if="showMyRecent">
+
         <div>
-       
         <!-- 최근 본 VOD div -->
             <h1>나의 최근 시청목록보기</h1>
                 <div class='drop-zone'
@@ -34,6 +31,22 @@
                     </div>
                 </div>
         </div>
+
+         <button @click="showButton">+</button>
+        <Modal v-if="showModal" @close="showModal=false">
+            <h3 slot="header">
+            나만의 스트리밍 리스트를 만들어보세요
+            <i class="closeModalBtn fa fa-times"
+            aria-hidden="true"
+            @click="showModal = false">
+            </i>
+            </h3>
+            <p slot="body">
+                <input type="text" v-model="plName">
+                <button @click="addPlaylist">제출</button>
+            </p>
+
+        </Modal>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
         <h1>플레이리스트 목록</h1>
         <div 
@@ -61,43 +74,10 @@
             </div>
     </div>
         
-    <!-- </section> -->
+    </section>
 
-    <section>
-        <h1>커스튬 콘텐츠 목록</h1>
-<!-- 
-        <button @click="showButton">+</button>
-        <Modal v-if="showModal" @close="showModal=false">
-            <h3 slot="header">
-            나만의 스트리밍 리스트를 만들어보세요
-            <i class="closeModalBtn fa fa-times"
-            aria-hidden="true"
-            @click="showModal = false">
-            </i>
-            </h3>
-            <p slot="body">
-                <input type="text" v-model="pl_name">
-                <button @click="addPlaylist">제출</button>
-            </p>
-
-        </Modal> -->
-        <!-- 플레이리스트 수만큼 drop-zon v-for -->
-        <!-- <div class='drop-zone'
-        @drop='onDrop($event, 2)'
-        @dragover.prevent
-        @dragenter.prevent
-        >
-        </div> -->
-        <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
-        <!-- <div 
-            v-for='item in listTwo' 
-            :key='item.title' 
-            class='drag-el'
-            draggable
-            @dragstart='startDrag($event, item)'
-        >
-            {{ item.title }}
-        </div> -->
+    <section v-else>
+        <h3>타유저 플레이리스트</h3>
 
     </section>
 
@@ -108,56 +88,15 @@
 </template>
 
 <script>
-// import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist } from '@/api/user'
+import { fetchRecentPlaylist, fetchMyPlaylist } from '@/api/user'
 
 // import Modal from '@/components/common/Modal';
 export default {
     data(){
         return {
             myrecentlists:[],
-            recentlistLen:0,
-        //    myrecentlists : {
-    //         "historyList": [
-    //             {
-    //                 vh_id: 1,
-    //             },
-    //             {
-    //                 vh_id: 2,
-    //             },
-    //             {
-    //                 vh_id: 3,
-    //             },
-    //             {
-    //                 vh_id: 4,
-    //             },
-    //             {
-    //                 vh_id: 5,
-    //             },
-                
-    //         ],
-    //         "episodeList": [
-    //             {
-    //                 ve_id: 1,
-    //                 v_title: "test1",
-                    
-
-    //             },
-    //             {
-    //                 ve_id: 2,
-    //                 v_title: "test2",
-
-    //             },
-    //             {
-    //                 ve_id: 3,
-    //                 v_title: "test3",
-
-    //             },
-    //         
-        //     }
-
-        //     ],
             playlists : [ [
                 {
                     pl_id : 0,
@@ -205,14 +144,15 @@ export default {
             showFollow:false,
             showRecent:false,
             dragVod:{}, 
-            dragIndex:0,          
+            plName:'',          
         }
     },
     components: {
         // Modal
     },
     created(){
-       this.getMyALLPlayList();
+       this.getRecentPlayList();
+       this.getUserPlayList();
     },
     methods: {        
         // drag and drop 메소드
@@ -236,20 +176,26 @@ export default {
         // this.playlists[index][1].splice(0,0,vod)
         this.playlists[index][1].push(vod)
         console.log('플레이리스트 추가',this.playlists[index])
+        const epiInfo = {
+            u_id:this.fetchedUserInfo.u_id ,
+            ve_id:vod.ve_id,
+            pl_id:plId
+            }
+        console.log(epiInfo,'플레이리스트에 추가할 epi')
         },
         showModalForm() {
             this.showModal=true
         },
         showButton() {
             this.showModal=true
-            // if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
-            //     this.showFollow=true
-            // }
+            if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
+                this.showFollow=true
+            }
         },
         showMyRecent() {
-            // if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
-            //     this.showRecent=true
-            // }
+            if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
+                this.showRecent=true
+            }
         },
         //팔로우하는 로직 추가 구현
         followUser() {
@@ -261,24 +207,35 @@ export default {
             const data = {userId, pl_name}
             this.$store.dispatch('ADD_PLAYLIST',data)
         },
-        async getMyALLPlayList() {
+        async getRecentPlayList() {
         const userId = this.$route.params.id;
         try {
             const res = await fetchRecentPlaylist(userId)
             this.myrecentlists = res.data
-            this.recentlistLen = res.data.episodeList.length
-            console.log(this.myrecentlists,this.recentlistLen)
+            console.log(this.myrecentlists)
         } catch {
             console.log('에러')
         }
         },
+        async getUserPlayList() {
+        const userId = this.$route.params.id;
+        try {
+            const res = await fetchMyPlaylist(userId)
+            this.playlists = res.data
+            console.log(this.playlists,this.recentlistLen)
+        } catch {
+            console.log('에러')
+        }
+        },
+
 
     },
 
     computed: {
         //fetchedUserFeedInfo에 있어야 하는 정보는 pl_id,pl_name,pl_comment,u_nickname
         //u_profile_pic,v_poster, g_name ,gd_name,v_title ,ve_episode_num,vh_comment
-
+    ...mapGetters('fetchedUserInfo'),
+    ...mapGetters('fetchedUserFeedInfo')
   },
 
 
