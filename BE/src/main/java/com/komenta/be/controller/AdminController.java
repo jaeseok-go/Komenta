@@ -7,6 +7,7 @@ import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import com.komenta.be.service.AdminService;
 import com.komenta.be.service.GenreService;
+import com.komenta.be.service.JwtService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +35,8 @@ public class AdminController {
     @Autowired
     GenreService genreService;
 
+    @Autowired
+    JwtService jwtService;
 
 
     @ApiOperation(value = "회원목록 조회", notes = "모든 회원 정보를 리스트로 반환")
@@ -58,17 +62,48 @@ public class AdminController {
 
     @ApiOperation(value = " VOD 업로드", notes = "VOD 정보와 VOD Episode 정보를 입력받고 VOD가 있으면 VOD EPISODE만 등록")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true),
-            @ApiImplicitParam(name = "vod_episode", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
+            @ApiImplicitParam(name = "vdto", value = "VDO 정보", dataType = "VodDTO", required = true),
+            @ApiImplicitParam(name = "vedto", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
     })
     @PostMapping("/vod_regist")
-    public int registVod(@RequestBody VodDTO vdto, @RequestBody VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
+    public int registVod(@RequestBody VodDTO vdto, @RequestBody VodEpisodeDTO vedto, @RequestParam("file") MultipartFile videofile, @RequestParam("v_poster") MultipartFile posterfile, HttpServletRequest request){
+        System.out.println(vdto);
+        System.out.println(vedto);
+        System.out.println(videofile);
+        System.out.println(posterfile);
+        System.out.println(request.getHeader("auth-token"));
         int vodsuc = 0;
         if(vdto.getV_id() == 0){
+            vdto.setV_poster(vdto.getV_title() + ".jpg");
+
             vodsuc = adminService.registVod(vdto);
+            System.out.println("vodsuc : "+ vodsuc);
+            vedto.setV_id(vodsuc);
             System.out.println("vod regist test "+vodsuc);
+
+            String poster = "C:/Users/multicampus/Desktop/Komenta/" + vdto.getV_title() + ".jpg";
+//            String poster = "/home/ubuntu/Picture/Poster/" + vdto.getV_title() + ".jpg";
+            poster.replace(" ", "_");
+
+            File targetFile = new File(poster);
+            System.out.println(targetFile);
+
+            try {
+                InputStream fileStream = posterfile.getInputStream();
+                FileUtils.copyInputStreamToFile(fileStream, targetFile);
+                System.out.println("이미지 업로드 성공");
+            } catch (IOException e) {
+                FileUtils.deleteQuietly(targetFile);
+                e.printStackTrace();
+            }
         }
-        else{ vodsuc = 1;}
+        else{
+            vedto.setV_id(vdto.getV_id());
+            vodsuc = 1;
+        }
+        String token = request.getHeader("auth-token");
+        String nickname = (String) jwtService.get(token).get("u_nickname");
+        vedto.setVe_admin(nickname);
         int vodeip = adminService.uploadEpisode(vedto);
         System.out.println("vod episode regist test"+vodeip);
         /*
@@ -76,14 +111,17 @@ public class AdminController {
          */
         if(vodeip == 1) {
             // 100톰과제리50.mp4
-            String file_name = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
-            file_name.replace(" ", "_");
+            String video = "C:/Users/multicampus/Desktop/Komenta/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
+//            String video = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
 
-            File targetFile = new File(file_name);
+
+            video.replace(" ", "_");
+
+            File targetFile = new File(video);
             System.out.println(targetFile);
 
             try {
-                InputStream fileStream = multipartFile.getInputStream();
+                InputStream fileStream = videofile.getInputStream();
                 FileUtils.copyInputStreamToFile(fileStream, targetFile);
                 System.out.println("파일 업로드 성공");
             } catch (IOException e) {

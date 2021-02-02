@@ -5,41 +5,42 @@
       <b-col>
         <h2>Vod 등록</h2>
         <b-form>
-          <select v-model="genre_id" @change="detailGenre()">
+          <b-select v-model="genre_id" @change="detailGenre()">
             <option selected disabled>종류</option>
             <option v-for="(item, index) in genre_list" :value="item.g_id" :key="index">
               {{ item.g_name }}
             </option>
-          </select>
-          <select v-model="genre_detail_id" @change="showVodList()">
+          </b-select>
+          <b-select v-model="genre_detail_id" @change="showVodList()">
             <option selected disabled>장르</option>
             <option v-for="(item, index) in genre_detail_list" :value="item.gd_id" :key="index">
               {{ item.gd_name }}
             </option>
-          </select>
-          <select v-model="vod" @change="autoWriteVodInfo()">
+          </b-select>
+          <b-select v-model="vod" @change="autoWriteVodInfo()">
             <option selected>직접 입력</option>
             <option v-for="(item, index) in vod_list_by_gd" :value="item" :key="index">
               {{ item.v_title }}
             </option>
-          </select>
+          </b-select>
           <br>
-          번호<b-input type="text" id="v_id" v-model="vod.v_id"></b-input>
+          <input type="hidden" id="v_id" v-model="vod.v_id">
           제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
           요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
           감독<b-input type="text" id="v_director" v-model="vod.v_director"></b-input>
           출연진<b-input type="text" id="v_actors" v-model="vod.v_actors"></b-input>
           연령<b-input type="text" id="v_age_grade" v-model="vod.v_age_grade"></b-input>
           <!-- <b-input type="file" id="v_poster"> -->
-          포스터<b-input type="text" id="v_poster" v-model="vod.v_poster"></b-input>
+          <!-- 포스터<b-input type="file" id="v_poster" v-model="vod.v_poster"></b-input> -->
           
           
           몇화<b-input type="text" id="ve_episode_num" v-model="vod_episode.ve_episode_num"></b-input>
           해당 화 내용<b-input type="text" id="ve_contents" v-model="vod_episode.ve_contents"></b-input>
-          작성자<b-input type="text" id="ve_admin" v-model="vod_episode.ve_admin" value="admin"></b-input>
-          작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input>
+          <!-- 작성자<b-input type="text" id="ve_admin" v-model="vod_episode.ve_admin" value="admin"></b-input> -->
+          <!-- 작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input> -->
           
-          VOD<input type="file" id="file" required>
+          VOD<input type="file" id="file" ref="file" v-on:change="handleFileUpload()" required>
+          poster<input type="file" id="v_poster" ref="file1" v-on:change="handleFileUpload1()" required>
           <b-button @click="send" class="testbtn">추가</b-button>
         </b-form>
       </b-col>
@@ -85,7 +86,6 @@
 <script>
 import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod';
 import axios from 'axios';
-
 export default {
   components: { 
     },
@@ -103,6 +103,8 @@ export default {
       vod_episode_list:[],
       genre_detail_list:[],
       all_episode:[],
+      file: '',
+      file1: '',
     };
   },
   created(){
@@ -130,6 +132,12 @@ export default {
     });
   },
   methods: {
+    handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+    },
+    handleFileUpload1(){
+      this.file1 = this.$refs.file1.files[0];
+    },
    detailGenre(){ //VOD 종류 불러오기
      fetchGenreDetail(this.genre_id)
      .then((response) => {
@@ -164,33 +172,32 @@ export default {
      }
    },
    send(){
+      console.log("vod :",this.vod);
      console.log("vod episode : ",this.vod_episode);
-     if(this.is_exist_vod == true){
+     console.log("video : ", this.file);
+     console.log("poster : ", this.file1);
+     let formData = new FormData();
+      formData.append('vdto', this.vod);
+      formData.append('vedto', this.vod_episode);
+      formData.append("file", this.file);
+      formData.append("v_poster", this.file1);
+      console.log("폼데이터",formData.get("file"));
       axios
-     .post('http://i4b201.p.ssafy.io:8080/admin/episode_upload', this.vod_episode)
-     .then((response)=>{
-       console.log(response.data);
+     .post('http://localhost:8080/admin/vod_regist',formData, { headers: {
+          'Content-Type': 'multipart/form-data'
+      }
      })
-     .catch(()=>{
-       console.log("업로드에러");
-     })
-     }
-     else{
-       console.log(this.vod)
-       axios
-     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist_first', this.vod)
      .then((response)=>{
        alert(response);
      })
      .catch(()=>{
        console.log("업로드에러");
      })
-     }
      
    },
    toVideo(){
      location.href="test";
-   }
+  }
   }
 };
 </script>
