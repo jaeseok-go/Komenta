@@ -237,12 +237,14 @@ export default {
       return false;
     },
     isIdDuplicaionCheck(){
-      const response = this.isDupIdCheck();
+      const response = this.isDupIdCheck()
       console.log("뭐가 들어오는데",response);
       return response;
     },
     isNickNameDuplicationCheck() {
-      return this.isDupNickNameCheck();
+      const response = this.isDupNickNameCheck()
+      console.log("왜 오류 나는데... ",response);
+      return response;
     }
   },
   watch: {
@@ -269,17 +271,19 @@ export default {
     },
   },
   methods: {
-    async isDupIdCheck() { //async
-      // const result = await userIdChk(this.username)
+    //아이디 중복 체크 데이터 넘어가는 순서 꼬임...
+    async isDupIdCheck() {
       console.log("userId: ",this.userId)
-      const result = await dupIdChk(this.userId);
-      console.log("아이디 중복 체크 : ",result.data)
-      return result.data;
+      await dupIdChk(this.userId)
+      .then(function(response) {
+        console.log("야이...좋은 말로 할 때, 잘 들어와라 : ",response.data)
+        return response.data;
+      });
     },
-    async isDupNickNameCheck() { //async
-      // const result = await userNickNameChk(this.username)
+    //비밀번호 중복 체크 데이터 넘어가는 것도...
+    async isDupNickNameCheck() {
       const result = await dupNickNameChk(this.username);
-      console.log("닉네임 중복 체크 : ",result)
+      console.log("닉네임 중복 체크 : ",result.data)
       if(result.data === true) {
         console.log('NICNAME DUPLICATED')
         return true;
@@ -291,7 +295,6 @@ export default {
       console.log(store.state.userInfo,'들어왓니 유저정보야')
       this.userPhoneNumber = store.state.userInfo.u_phone_number;
       this.showCertiForm = false;
-
     },
     clickphonebtn() {
       this.phonebtn = !this.phonebtn
