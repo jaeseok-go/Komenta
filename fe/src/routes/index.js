@@ -88,12 +88,33 @@ export default new Router({
       path: '/member/mypage',
       name: 'MyPage',
       component: () => import('@/views/user/MyPage.vue'),
-      redirect: '/member/myPage/userManage',
+      // redirect: '/member/myPage/userManage',
       children: [
         {
           path: 'usermanage',
           name: 'UserManage',
-          component: () => import('@/components/admin/UserManagement.vue'),
+          component: () => import('@/components/admin/UserManagement/UserManagement.vue'),
+          // redirect: 'usermanage/allUser',
+          children: [
+            {
+              path: 'allUser',
+              name: 'AllUser',
+              component: () => import('@/components/admin/UserManagement/AllUser.vue'),
+              props: true
+            },
+            {
+              path: 'blockedUser',
+              name: 'BlockedUser',
+              component: () => import('@/components/admin/UserManagement/BlockedUser.vue'),
+              props: true
+            },
+            {
+              path: 'adminUser',
+              name: 'AdminUser',
+              component: () => import('@/components/admin/UserManagement/AdminUser.vue'),
+              props: true
+            },
+          ]
         },
         {
           path: 'vodmanage',

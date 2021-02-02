@@ -52,8 +52,13 @@ export default {
       this.vodList = response.data;
     },
     getPicPath(index){
-      const picPath = require(`@/assets/images/${this.vodList[index].v_poster}.png`);
-      return picPath;
+      if(this.vodList[index].v_poster != '') {
+        const picPath = require(`@/assets/images/${this.vodList[index].v_poster}.png`);
+        return picPath;
+      } else {
+        console.log('이미지 없음')
+        return '#'
+      }
     }
   },
 }
