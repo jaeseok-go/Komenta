@@ -145,5 +145,11 @@ export default new Router({
       name:'PlayListDetail',
       component: () => import('@/components/MyPlayList/PlayListDetail')
     },
+    {
+      path: '/vodtest',
+      name: 'VodTest',
+      component: () => import('@/components/vod/VodTest')
+    },
+
   ],
 });
