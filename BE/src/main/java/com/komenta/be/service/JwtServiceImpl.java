@@ -111,4 +111,8 @@ public class JwtServiceImpl implements JwtService{
         return claims.getBody();
     }
 
+    public int getUidFromJwt(String jwt){
+        int uid = (int) get(jwt).get("U_id");
+        return uid;
+    }
 }

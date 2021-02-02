@@ -13,6 +13,7 @@
     import org.springframework.web.bind.annotation.*;
 
     import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
     import java.util.HashMap;
     import java.util.LinkedList;
     import java.util.List;
@@ -32,13 +33,13 @@
         @ApiOperation(value = "해당 회차 VOD 보기", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
         @ApiImplicitParams({
                 @ApiImplicitParam(name = "vodEpisodeId", value = "ve_id(ve 번호)", dataType = "int", required = true),
-                @ApiImplicitParam(name = "uId", value = "u_id(유번 번호)", dataType = "int", required = true)
         })
         @GetMapping("/vodnum/{ve_id}")
-        public ResponseEntity<Map<String, Object>> selectOneEpisode(@PathVariable int ve_id, int u_id){
+        public ResponseEntity<Map<String, Object>> selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
             // 회원 정보를 받는다.
             // 1. jwt에서 u_id값을 받아오는 방법
-            // 2. 실패시 그냥 u_id를 파라미터로 받아오는 방법
+            String token = request.getHeader("auth-token");
+            int u_id = jwtService.getUidFromJwt(token);
             // 회원이 봤던거 인지 아닌지
             // 봤으면 시청 시간을 같이 response해주어야함.
             HttpStatus status = null;
@@ -72,9 +73,6 @@
         }
 
         @ApiOperation(value = "나의 시청기록들 보기", notes = "u_id 입력 받고 내가 시청했던 기록들 보기")
-        @ApiImplicitParams({
-                @ApiImplicitParam(name = "uId", value = "u_id(유번 번호)", dataType = "int", required = true)
-        })
         @GetMapping("/myvod")
         public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
             // jwt 토큰의 uid 를 받는다는 가정하에
