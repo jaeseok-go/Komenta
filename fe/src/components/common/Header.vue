@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="header">
     헤더<br>
     1. 검색창<br>
       1-1. 돋보기 아이콘 1번 클릭 : 검색창 표출<br>
@@ -14,11 +14,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  #app {
-    background-color: yellow;
-    display: inline-block;
-    width: 100%;
-    position: fixed;
-  }
+<style>
+
 </style>
