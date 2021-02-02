@@ -12,14 +12,13 @@
           가입한 회원이 없습니다.
         </td>
       </tr>
-      <!-- 페이징 처리...어케해... -->
       <tr v-for="(user,index) in paginatedData" :key="index" v-else>
         <td>{{user.u_id}}</td>
         <td>{{user.u_email}}</td>
         <td>{{user.u_nickname}}</td>
           <!-- 라벨버튼 모양으로 만들기 -->
         <td>
-          <div @click="changeState(index)">
+          <div :class="`btn-label ${user.u_state}`" @click="changeState(index)">
             {{user.u_state}}
           </div>
         </td>
@@ -62,35 +61,36 @@ export default {
       this.pageNum -= 1;
     },
     async changeState(index){
+      const idx = (index + ((this.pageNum*this.pageSize)));
       try{
-        if(this.allUserList[index].u_state === '일반회원') {
-          this.allUserList[index].u_state = '제한회원';
+        if(this.allUserList[idx].u_state === '일반회원') {
+          this.allUserList[idx].u_state = '제한회원';
           const userdata = {
-            u_email:this.allUserList[index].u_email,
-            u_expire_member:this.allUserList[index].u_expire_member,
-            u_id:this.allUserList[index].u_id,
+            u_email:this.allUserList[idx].u_email,
+            u_expire_member:this.allUserList[idx].u_expire_member,
+            u_id:this.allUserList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:1,
-            u_nickname:this.allUserList[index].u_nickname,
-            u_phone_number:this.allUserList[index].u_phone_number,
-            u_profile_pic:this.allUserList[index].u_profile_pic,
-            u_pw:this.allUserList[index].u_pw,
+            u_nickname:this.allUserList[idx].u_nickname,
+            u_phone_number:this.allUserList[idx].u_phone_number,
+            u_profile_pic:this.allUserList[idx].u_profile_pic,
+            u_pw:this.allUserList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("일반->제한: ",response);
           window.location.reload();
-        }else if(this.allUserList[index].u_state === '제한회원'){
-          this.allUserList[index].u_state = '일반회원';
+        }else if(this.allUserList[idx].u_state === '제한회원'){
+          this.allUserList[idx].u_state = '일반회원';
           const userdata = {
-            u_email:this.allUserList[index].u_email,
-            u_expire_member:this.allUserList[index].u_expire_member,
-            u_id:this.allUserList[index].u_id,
+            u_email:this.allUserList[idx].u_email,
+            u_expire_member:this.allUserList[idx].u_expire_member,
+            u_id:this.allUserList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:0,
-            u_nickname:this.allUserList[index].u_nickname,
-            u_phone_number:this.allUserList[index].u_phone_number,
-            u_profile_pic:this.allUserList[index].u_profile_pic,
-            u_pw:this.allUserList[index].u_pw,
+            u_nickname:this.allUserList[idx].u_nickname,
+            u_phone_number:this.allUserList[idx].u_phone_number,
+            u_profile_pic:this.allUserList[idx].u_profile_pic,
+            u_pw:this.allUserList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("제한->일반: ",response);
@@ -138,8 +138,8 @@ table tr:first-of-type {
   border-top: 2px solid #404040;
 }
 table tr td {
-  padding: 1rem 0;
-  font-size: 1.1rem;
+  padding: 0.7rem 0;
+  font-size: 1rem;
 }
 
 .btn-cover {
@@ -153,5 +153,26 @@ table tr td {
 }
 .btn-cover .page-count {
   padding: 0 1rem;
+}
+
+.btn-label {
+  border-radius: 20px;
+  color: white;
+  font-size:14px;
+}
+
+.btn-label.관리자 {
+  background-color: rgb(88, 88, 88);
+  cursor: default;
+}
+
+.btn-label.일반회원 {
+  background-color: rgb(22, 185, 22);
+  cursor: pointer;
+}
+
+.btn-label.제한회원 {
+  background-color: rgb(204, 33, 33);
+  cursor: pointer;
 }
 </style>

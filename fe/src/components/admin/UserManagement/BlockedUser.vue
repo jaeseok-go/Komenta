@@ -12,14 +12,12 @@
           제한 회원이 없습니다.
         </td>
       </tr>
-      <!-- 페이징 처리...어케해... -->
       <tr v-for="(user,index) in paginatedData" :key="index" v-else>
         <td>{{user.u_id}}</td>
         <td>{{user.u_email}}</td>
         <td>{{user.u_nickname}}</td>
-          <!-- 라벨버튼 모양으로 만들기 -->
         <td>
-          <div @click="changeState(index)">
+          <div :class="`btn-label ${user.u_state}`" @click="changeState(index)">
             {{user.u_state}}
           </div>
         </td>
@@ -60,35 +58,36 @@ export default {
       this.pageNum -= 1;
     },
     async changeState(index){
+      const idx = (index + ((this.pageNum*this.pageSize)));
       try{
-        if(this.blockedList[index].u_state === '일반회원') {
-          this.blockedList[index].u_state = '제한회원';
+        if(this.blockedList[idx].u_state === '일반회원') {
+          this.blockedList[idx].u_state = '제한회원';
           const userdata = {
-            u_email:this.blockedList[index].u_email,
-            u_expire_member:this.blockedList[index].u_expire_member,
-            u_id:this.blockedList[index].u_id,
+            u_email:this.blockedList[idx].u_email,
+            u_expire_member:this.blockedList[idx].u_expire_member,
+            u_id:this.blockedList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:1,
-            u_nickname:this.blockedList[index].u_nickname,
-            u_phone_number:this.blockedList[index].u_phone_number,
-            u_profile_pic:this.blockedList[index].u_profile_pic,
-            u_pw:this.blockedList[index].u_pw,
+            u_nickname:this.blockedList[idx].u_nickname,
+            u_phone_number:this.blockedList[idx].u_phone_number,
+            u_profile_pic:this.blockedList[idx].u_profile_pic,
+            u_pw:this.blockedList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("일반->제한: ",response);
           window.location.reload();
-        }else if(this.blockedList[index].u_state === '제한회원'){
-          this.blockedList[index].u_state = '일반회원';
+        }else if(this.blockedList[idx].u_state === '제한회원'){
+          this.blockedList[idx].u_state = '일반회원';
           const userdata = {
-            u_email:this.blockedList[index].u_email,
-            u_expire_member:this.blockedList[index].u_expire_member,
-            u_id:this.blockedList[index].u_id,
+            u_email:this.blockedList[idx].u_email,
+            u_expire_member:this.blockedList[idx].u_expire_member,
+            u_id:this.blockedList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:0,
-            u_nickname:this.blockedList[index].u_nickname,
-            u_phone_number:this.blockedList[index].u_phone_number,
-            u_profile_pic:this.blockedList[index].u_profile_pic,
-            u_pw:this.blockedList[index].u_pw,
+            u_nickname:this.blockedList[idx].u_nickname,
+            u_phone_number:this.blockedList[idx].u_phone_number,
+            u_profile_pic:this.blockedList[idx].u_profile_pic,
+            u_pw:this.blockedList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("제한->일반: ",response);
