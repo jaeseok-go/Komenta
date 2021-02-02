@@ -18,7 +18,7 @@
         <td>{{user.u_nickname}}</td>
           <!-- 라벨버튼 모양으로 만들기 -->
         <td>
-          <div @click="changeState(index)">
+          <div :class="`btn-label ${user.u_state}`" @click="changeState(index)">
             {{user.u_state}}
           </div>
         </td>
@@ -59,35 +59,36 @@ export default {
       this.pageNum -= 1;
     },
     async changeState(index){
+      const idx = (index + ((this.pageNum*this.pageSize)));
       try{
-        if(this.adminList[index].u_state === '일반회원') {
-          this.adminList[index].u_state = '제한회원';
+        if(this.adminList[idx].u_state === '일반회원') {
+          this.adminList[idx].u_state = '제한회원';
           const userdata = {
-            u_email:this.adminList[index].u_email,
-            u_expire_member:this.adminList[index].u_expire_member,
-            u_id:this.adminList[index].u_id,
+            u_email:this.adminList[idx].u_email,
+            u_expire_member:this.adminList[idx].u_expire_member,
+            u_id:this.adminList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:1,
-            u_nickname:this.adminList[index].u_nickname,
-            u_phone_number:this.adminList[index].u_phone_number,
-            u_profile_pic:this.adminList[index].u_profile_pic,
-            u_pw:this.adminList[index].u_pw,
+            u_nickname:this.adminList[idx].u_nickname,
+            u_phone_number:this.adminList[idx].u_phone_number,
+            u_profile_pic:this.adminList[idx].u_profile_pic,
+            u_pw:this.adminList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("일반->제한: ",response);
           window.location.reload();
-        }else if(this.adminList[index].u_state === '제한회원'){
-          this.adminList[index].u_state = '일반회원';
+        }else if(this.adminList[idx].u_state === '제한회원'){
+          this.adminList[idx].u_state = '일반회원';
           const userdata = {
-            u_email:this.adminList[index].u_email,
-            u_expire_member:this.adminList[index].u_expire_member,
-            u_id:this.adminList[index].u_id,
+            u_email:this.adminList[idx].u_email,
+            u_expire_member:this.adminList[idx].u_expire_member,
+            u_id:this.adminList[idx].u_id,
             u_is_admin:false,
             u_is_blocked:0,
-            u_nickname:this.adminList[index].u_nickname,
-            u_phone_number:this.adminList[index].u_phone_number,
-            u_profile_pic:this.adminList[index].u_profile_pic,
-            u_pw:this.adminList[index].u_pw,
+            u_nickname:this.adminList[idx].u_nickname,
+            u_phone_number:this.adminList[idx].u_phone_number,
+            u_profile_pic:this.adminList[idx].u_profile_pic,
+            u_pw:this.adminList[idx].u_pw,
           };
           const response = await updateUserInfo(userdata);
           console.log("제한->일반: ",response);

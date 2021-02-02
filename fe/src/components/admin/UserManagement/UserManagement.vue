@@ -6,35 +6,6 @@
       <router-link :to="{name:'AdminUser', params: {adminList:adminList}}">관리자 회원</router-link>
     </div>
     <router-view></router-view>
-    <v-app id="list-sample">
-      <v-flex sm6 offset-sm3>
-        <v-list two-line v-for="(listItem, index) in calData" :key="index">
-          <v-list-tile>
-            <v-list-tile-content>
-              <v-list-tile-title class="text--primary">
-                {{ listItem.u_nickname }}
-              </v-list-tile-title>
-              <v-list-tile-sub-title>
-                {{ listItem.u_email }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon ripple>
-                edit
-              </v-icon>
-              <v-icon ripple>
-                delete
-              </v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-          <v-divider></v-divider>
-        </v-list>
-        <br/>
-        <v-pagination v-model="curPageNum" :length="numOfPages">
-        </v-pagination>
-      </v-flex>
-    </v-app>
   </b-container>
 </template>
 <script>
