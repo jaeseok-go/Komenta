@@ -15,4 +15,6 @@ public interface JwtService {
     //	JWT Token을 분석해서 필요한 정보를 반환.
     public Map<String, Object> get(String jwt);
 
+    public int getUidFromJwt(String jwt);
+
 }

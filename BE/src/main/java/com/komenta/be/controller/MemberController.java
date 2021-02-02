@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
@@ -184,9 +185,13 @@ public class MemberController{
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/update")
-    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
+    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletRequest request, HttpServletResponse response){
         HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
+
+        String token1 = request.getHeader("auth-token");
+        int idid = (int) jwtService.get(token1).get("u_id");
+        System.out.println("id 는 무엇이냐 : "+idid);
         try{
             int result = mservice.updateMember(member);
             if(result == 1) {

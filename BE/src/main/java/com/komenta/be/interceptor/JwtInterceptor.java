@@ -33,10 +33,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         // request의 parameter에서 auth_token으로 넘어온 녀석을 찾아본다.
         // String token = request.getParameter("auth_token");
         String token = request.getHeader("auth-token");
-        String test = request.getHeader("Content-Type");
-
-        System.out.println("test "+ test);
-
 //        String test = response.getHeader("auth-token");
 //        System.out.println("test : "+test);
         System.out.println("preHandle : "+token);
