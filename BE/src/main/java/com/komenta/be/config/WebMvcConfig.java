@@ -14,16 +14,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        /*
-
         registry.addInterceptor(new JwtInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/member/login/**", "/member/join/**", "/check/**", "/auth/**",
                         "/static/", "/swagger-ui.html", "/webjars/**", "/v2/api-docs", "/configuration/security",
                         "/configuration/ui", "/swagger-resources/**");
         registry.addInterceptor(new AdminInterceptor())
-                .addPathPatterns("/admin");
+                .addPathPatterns("/admin/**");
 
-         */
     }
 }
