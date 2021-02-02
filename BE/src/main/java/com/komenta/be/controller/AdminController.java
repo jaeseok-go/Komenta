@@ -64,15 +64,25 @@ public class AdminController {
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true),
             @ApiImplicitParam(name = "vod", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
     })
-    @PostMapping("/vod_regist_first")
-    public int registVodFirst(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
-        int a = adminService.registVod(vdto);
+    @PostMapping("/vod_regist")
+    public int registVod(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
+
+        if(vdto.getV_id() == 0){
+            int a = adminService.registVod(vdto);
+            System.out.println("registVOD" + a);
+        }
         int b = adminService.uploadEpisode(vedto);
         /*
          * 파일 업로드
          */
-        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
+
+        // 100톰과제리50.mp4
+        String file_name = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
+        file_name.replace(" " , "_");
+
+        File targetFile = new File(file_name);
         System.out.println(targetFile);
+
         try {
             InputStream fileStream = multipartFile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
@@ -82,55 +92,7 @@ public class AdminController {
             e.printStackTrace();
         }
 
-        return -1+a+b;
-    }
-
-
-
-
-    @ApiOperation(value = "VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
-    })
-    @PostMapping("/vod_regist")
-    public int registVod(@RequestBody VodDTO vdto, @RequestParam("file") MultipartFile multipartFile){
-        int result = adminService.registVod(vdto);
-        System.out.println("result :"+result);
-        /*
-         * VOD 파일 업로드
-         */
-        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
-        System.out.println(targetFile);
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
-
-
-
-    @PostMapping("/vod_uploadtest")
-    public int uploadVodtest(@RequestParam("v_title") String v_title, @RequestParam("v_summary") String v_summary,@RequestParam("v_director") String v_director,@RequestParam("v_actors") String v_actors,@RequestParam("v_age_grade") String v_age_grade,@RequestParam("v_poster") String v_poster,@RequestParam("gd_id") String gd_id, @RequestParam("file") MultipartFile multipartFile){
-        System.out.println(v_title);
-        File targetFile = new File("C:/Users/multicampus/Desktop/Komenta/s04p12b201/BE/src/main/resources/vod/" + multipartFile.getOriginalFilename());
-        System.out.println(targetFile);
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);
-            e.printStackTrace();
-        }
-        VodDTO vod = new VodDTO(v_title, v_summary, v_director, v_actors, Integer.parseInt(v_age_grade),v_poster,  Integer.parseInt(gd_id));
-        return adminService.registVod(vod);
+        return b;
     }
 
 
@@ -143,6 +105,8 @@ public class AdminController {
     public ResponseEntity<List<VodDTO>> selectAllVod(){
         return new ResponseEntity<List<VodDTO>>(adminService.selectAllVod(), HttpStatus.OK);
     }
+
+
 
 
 
@@ -253,7 +217,7 @@ public class AdminController {
 
 
 
-    @ApiOperation(value = "댓글 기능 차단 당한 회원 리스트 조회", notes = "모든 차단당한 회원 리스트 반환")
+    @ApiOperation(value = "댓글 기능 차단당한 회원 리스트 조회", notes = "모든 댓글 기능 차단당한 회원 리스트 반환")
     @GetMapping("/blocked_member_list")
     public List<MemberDTO> selectBlockedMember(){
         return adminService.selectBlockedMember();
