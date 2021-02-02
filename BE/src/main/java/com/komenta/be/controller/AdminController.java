@@ -56,16 +56,13 @@ public class AdminController {
     }
 
 
-
-
-
-    @ApiOperation(value = "정보가 없던 VOD 업로드", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
+    @ApiOperation(value = " VOD 업로드", notes = "VOD 정보와 VOD Episode 정보를 입력받고 VOD가 있으면 VOD EPISODE만 등록")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true),
-            @ApiImplicitParam(name = "vod", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
+            @ApiImplicitParam(name = "vod_episode", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
     })
     @PostMapping("/vod_regist")
-    public int registVod(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
+    public int registVod(@RequestBody VodDTO vdto, @RequestBody VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
         int vodsuc = 0;
         if(vdto.getV_id() == 0){
             vodsuc = adminService.registVod(vdto);
