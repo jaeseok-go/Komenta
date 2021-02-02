@@ -1012,4 +1012,9 @@ select {
 .showID {
   padding: 3rem;
 }
+
+ion-searchbar {
+  --placeholder-color: $komenta-color;
+  --icon-color: $komenta-color;
+}
 /*# sourceMappingURL=index.css.map */
