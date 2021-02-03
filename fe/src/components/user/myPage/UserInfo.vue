@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { updateMyInfo } from '@/api/user';
+// import { updateMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
 
 export default {
@@ -79,14 +79,12 @@ export default {
         };
         console.log('유저데이터잘들어왔니',userData)
         console.log(this.userInfo)
-        const response = await updateMyInfo(userData);
-        console.log("수정 modify",response);
+        await this.$store.dispatch('MODIFY',userData)
+        // console.log("수정 modify",response);
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
       }
-        
-
     }
   }
 }
