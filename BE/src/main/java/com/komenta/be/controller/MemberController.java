@@ -192,6 +192,7 @@ public class MemberController{
         String token1 = request.getHeader("auth-token");
         int idid = (int) jwtService.get(token1).get("u_id");
         System.out.println("id 는 무엇이냐 : "+idid);
+        System.out.println("수정 할 정보 :  "+member);
         try{
             int result = mservice.updateMember(member);
             if(result == 1) {
