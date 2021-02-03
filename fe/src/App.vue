@@ -7,6 +7,9 @@
         <Header id="header-section"></Header>
         <router-view id="page-view"></router-view>
       </section>
+      <nav class="bottomNav">
+        바닥 고정 네비게이션
+      </nav>
 
     </div>
 
@@ -32,7 +35,7 @@ export default {
 #app {
   border: 19px solid black;
   border-radius: 20px;
-  display: flex;
+  /* display: flex; */
 }
 
 
@@ -55,5 +58,12 @@ section {
   margin: 2rem;
 }
 
+.bottomNav {
+  bottom: 0; 
+  background:#111; 
+  transition:bottom .2s;}
+.bottomNav.show {
+  bottom: 0; 
+  background:#111;}
 
 </style>
