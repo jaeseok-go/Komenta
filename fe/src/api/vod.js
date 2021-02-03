@@ -30,17 +30,17 @@ function fetchStreamingListDetail(data) {
 
 //vod 리스트 가져오기(VOD 추가)
 function fetchVodList() {
-    return instance.get(`admin/vod_list/`)
+    return instance.get(`admin/vod_list`)
 }
 
 //등록된 episode 가져오기(VOD 추가)
 function fetchAllEpi() {
-    return instance.get(`admin/episode_all/`)
+    return instance.get(`admin/episode_all`)
 }
 
 //등록된 장르 가져오기(VOD 추가)
 function fetchAllGenre() {
-    return instance.get(`genre/list_genre/`)
+    return instance.get(`genre/list_genre`)
 }
 
 //장르 소분류 선택 조회(VOD 추가)
