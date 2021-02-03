@@ -1,6 +1,7 @@
     package com.komenta.be.controller;
 
     import com.komenta.be.model.vod.VodEpisodeAllDTO;
+    import com.komenta.be.model.vod.VodEpisodeDTO;
     import com.komenta.be.model.vod.VodHistoryDTO;
     import com.komenta.be.service.JwtService;
     import com.komenta.be.service.VodService;
@@ -29,6 +30,9 @@
 
         @Autowired
         VodService vodService;
+
+
+
 
         @ApiOperation(value = "해당 회차 VOD 보기", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
         @ApiImplicitParams({
@@ -72,6 +76,10 @@
             return new ResponseEntity<Map<String, Object>>(resultMap,status);
         }
 
+
+
+
+
         @ApiOperation(value = "나의 시청기록들 보기", notes = "u_id 입력 받고 내가 시청했던 기록들 보기")
         @GetMapping("/myvod")
         public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
@@ -98,4 +106,27 @@
             }
             return new ResponseEntity<Map<String, Object>>(resultMap, status);
         }
+
+
+        @ApiOperation(value = "최신순 VOD 회차 조회", notes = "업로드 된 순으로 VOD 회차 조회")
+        @GetMapping("/list_recent")
+        public List<VodEpisodeDTO> getVodListRecent(){
+                return vodService.getVodListRecent();
+        }
+
+
+        @ApiOperation(value = "댓글순 VOD 회차 조회", notes = "댓글 수가 많은 순으로 VOD 회차 조회")
+        @GetMapping("/list_comment")
+        public List<VodEpisodeDTO> getVodListComment(){
+            return vodService.getVodListComment();
+        }
+
+
+        @ApiOperation(value = "조회순 VOD 회차 조회", notes = "조회 수가 많은 순으로 VOD 회차 조회")
+        @GetMapping("/list_watching")
+        public List<VodEpisodeDTO> getVodListWatching(){
+            return vodService.getVodListWatching();
+        }
+
+
     }
