@@ -9,7 +9,7 @@
            <h3>회차별 댓글</h3> 
             <div v-for="comment in comments"  :key="comment.c_id">
                 <!-- c_playtime?? c_uploadtime?? -->
-                <p v-show="showComment" class="testbtn">
+                <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                   <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
                 </p>
             </div>
@@ -23,6 +23,8 @@
 export default {
     data () {
         return {
+            // showComment:false,
+            selectedId:0,
             videoCurrentTime: 0,
             comments : [
                 {
@@ -44,6 +46,16 @@ export default {
                     "comment_good_count" : 30000,
                     "u_id" : 2,
                     "u_nickname" : "롱롱롱"
+                },
+                {
+                    "c_id" : 3,
+                    "c_contents":"아 깜짝이야....진심 무섭겠다ㅠㅠㅠㅠㅠㅠㅠ",
+                    "c_playtime" : "23",
+                    // "c_playtime" : "00:00:20",
+                    "c_upload_time" : "2020.12.23 09:43:20",
+                    "comment_good_count" : 99999,
+                    "u_id" : 3,
+                    "u_nickname" : "우리조는 1등"
                 },
             ],
             video: {
@@ -80,7 +92,8 @@ export default {
             return path
         },
         // 댓글 보이기 -> 이러면 둘다 보이나,,?ㅎ
-        showComment(){
+        showComment(index){
+            this.selectedId = index;
             // console.log(cId)
             return true
         },
@@ -98,22 +111,16 @@ export default {
             // console.log(this.videoCurrentTime,vod.currentTime);
         }
     },
-    watch: {
-        // Whenever the movie prop changes, fetch new data
-        // watch사용,,법,,이거 문제가 currentTime이 string이라,,,ㅠ
-        currentTime : {
-            // Will fire as soon as the component is created
-            // immediate: true,
-            handler(){
-                this.comments.forEach(function(comment){
-                    if (comment.c_playtime == this.currentTime) {
-                        this.showComment(comment.c_id)
-                    }
-                })
-            }
-        },
-
-      }
+    watch : {
+    // videoCurrentTime : function(newValue, oldValue) {
+    //     if (newValue == 1) {
+    //     // 1보다 커지는 경우 실행
+    //     }
+    //     else if (newValue > 5) {
+    //     // 5보다 커지는 경우에만 실행
+    //     }
+    // }
+    }
 
 }
 </script>
