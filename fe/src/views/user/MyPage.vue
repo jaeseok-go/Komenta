@@ -13,8 +13,21 @@
         </div>
         <div slot="body">
           <form @submit.prevent="modifyUserInfo">
-            <div>
-              <!-- <img src="@/imgs/{{userProfilePic}}"> -->
+            <div class="profile-form">
+              <div class="img">
+                <v-img v-if="userProfilePic" :src="require(`@/assets/images/${userProfilePic}`)" width="90px"/>
+                <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
+                <!-- {{userProfilePic}} -->
+              </div>
+              <div class="file-input">
+                <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
+                <!-- <button>프로필 사진 변경</button> -->
+                <input ref="imageInput" type="file" hidden @change="onChangeImages" accept="image/gif,image/jpeg,image/png">
+                <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
+                {{userProfilePic}}
+              </div>
+              
+              <!-- <img :src="require(`../../assets/images/${userProfilePic}`)"> -->
             </div>
             <hr>
             <div class="modi-form form-text">
@@ -58,7 +71,7 @@
               <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
             </div>
             <div>
-              <a href="#">회원탈퇴</a>
+              <p @click="unSubscribe">회원탈퇴</p>
               <button>수정완료</button>
             </div>
           </form>
@@ -114,6 +127,7 @@ import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
+import { deleteMyInfo } from '@/api/user';
 import { mapState } from 'vuex';
 
 
@@ -206,7 +220,7 @@ export default {
       // this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
-      // this.userProfilePic = this.userInfo.u_profile_pic;
+      this.userProfilePic = this.userInfo.u_profile_pic;
       this.userIsAdmin = this.userInfo.is_admin;
       console.log(this.userInfo,'바꼈니?')
     },
@@ -216,6 +230,14 @@ export default {
     changePhoneNumber() {
       this.phoneNumForm =false;
       this.authPhoneNumForm = true;
+    },
+    onClickImageUpload() {
+      this.$refs.imageInput.click();
+    },
+    onChangeImages(e) {
+      console.log("e target files : ",e.target.files[0])
+      const file = e.target.files[0].name; // Get first index in files
+      this.userProfilePic = file; // Create File URL
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
@@ -240,7 +262,9 @@ export default {
           u_email:this.userId,
           u_pw: this.userPassword,
           u_nickname : this.userNickName,
-          u_phone_number : this.userPhoneNumber
+          u_phone_number : this.userPhoneNumber,
+          // userInfoModify api에 u_profile_pic 업로드하는 쿼리 추가 요청
+          u_profile_pic : this.userProfilePic
         };
         console.log('유저데이터잘들어왔니',userData)
         await this.$store.dispatch('MODIFY',userData)
@@ -256,8 +280,22 @@ export default {
         console.log("수정 에러")
         console.log(err);
       }
-        
+    },
+    async unSubscribe(){
+      const userConfirm = confirm("회원 탈퇴 시, 모든 데이터는 복구가 불가능합니다.\n 탈퇴를 계속 진행하시겠습니까?");
+      console.log(userConfirm);
 
+      try{
+        if(userConfirm) {
+          console.log('회원탈퇴 진행',this.uId);
+          const response = await deleteMyInfo(this.uId);
+          console.log("회원탈퇴...",response);
+        }
+        alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
+        this.$route.push({name:'Login'});
+      }catch(err){
+        console.log(err)
+      }
     }
   },
 }
@@ -280,4 +318,33 @@ export default {
   .form-text {
     text-align: right;
   }
+
+  .profile-form .img {
+    /* background-color: blueviolet; */
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-form div {
+    display: inline-block;
+    text-align: center;
+  }
+
+  .profile-form input[type="file"] {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .profile-form .file-input{
+    position: relative;
+    bottom: 40px;
+    margin-left: 1rem;
+  }
+
+  .profile-form .v-btn {
+    border: 1px solid black;
+    padding: 0.1rem 5.7em;
+  }
+
 </style>

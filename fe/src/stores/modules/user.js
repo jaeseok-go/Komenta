@@ -17,7 +17,7 @@ const state = {
         u_expire_member: null,
         u_is_admin: false,
         u_is_blocked: false,
-        u_profile_pic: null,
+        u_profile_pic: 'default_profile.png',
     } : jwtDecode(sessionStorage.getItem('auth-token')),
     isPasswordConfirmed: false,
     recentPlaylist:[],
@@ -90,13 +90,6 @@ const mutations = {
 }
 
 const actions = {
-    async MODIFY({ commit }, userData) {
-        console.log("수정할 정보 : ",userData);
-        const response = await updateMyInfo(userData);
-        console.log("회원 정보 수정 response : ",response)
-        console.log('token jwt decode',jwtDecode(response.data['auth-token']))
-        commit('setToken',response.data['auth-token'])
-    },
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
@@ -116,6 +109,13 @@ const actions = {
         }
         console.log(state.userInfo)
         return response
+    },
+    async MODIFY({ commit }, userData) {
+        console.log("수정할 정보 : ",userData);
+        const response = await updateMyInfo(userData);
+        console.log("회원 정보 수정 response : ",response)
+        console.log('token jwt decode',jwtDecode(response.data['auth-token']))
+        commit('setToken',response.data['auth-token'])
     },
     async PASSWORDCONFIRM({ commit }, userData) {
         const response = await loginUser(userData)

@@ -35,7 +35,7 @@ function updateMyInfo(userData) {
 
 // 회원탈퇴
 function deleteMyInfo(userId) {
-    return instance.delete(`member/delete`, userId)
+    return instance.delete(`member/delete`,userId)
 }
 
 // 이메일 인증
