@@ -3,6 +3,7 @@
     import com.komenta.be.model.vod.VodEpisodeAllDTO;
     import com.komenta.be.model.vod.VodEpisodeDTO;
     import com.komenta.be.model.vod.VodHistoryDTO;
+    import com.komenta.be.model.vod.VodInfoForUserDTO;
     import com.komenta.be.service.JwtService;
     import com.komenta.be.service.VodService;
     import io.swagger.annotations.ApiImplicitParam;
@@ -128,5 +129,10 @@
             return vodService.getVodListWatching();
         }
 
+        @ApiOperation(value = "VOD 세부 내용 조회", notes = "입력받은 v_id로 해당 VOD의 세부내용 반환")
+        @GetMapping("/vod_info/{v_id}")
+        public List<VodInfoForUserDTO> getVodInfoForUser(@PathVariable("v_id") int v_id){
+            return vodService.getVodInfoForUser(v_id);
+        }
 
     }
