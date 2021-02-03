@@ -21,6 +21,16 @@
 <script>
 
 export default {
+    props: { 
+    // 변수 : 변수타입 
+    // 기록을 해주는 이유는 데이터 타입을 알기 쉽게 위해서.
+    // comments: Array, 
+    veId : Number,
+    // 반드시 필요하다는 의미
+    // required: true,
+    // 값을 전달하지 않을 경우 디폴트값 설정 가능 
+   
+    },
     data () {
         return {
             // showComment:false,
@@ -29,7 +39,7 @@ export default {
             comments : [
                 {
                     "c_id" : 1,
-                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 웃곀ㅋㅋㅋㅋㅋㅋ",
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
                     "c_playtime" : "5",
                     "c_upload_time" : "2020.02.03 09:03:20",
