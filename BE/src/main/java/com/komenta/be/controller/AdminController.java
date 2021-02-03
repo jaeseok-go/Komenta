@@ -181,9 +181,9 @@ public class AdminController {
     @PostMapping("/poster_upload")
     public int registPoster(@RequestParam("v_poster") MultipartFile posterfile, HttpServletRequest request) {
 
-        String poster = "C:/Users/multicampus/Desktop/Komenta/" + posterfile.getOriginalFilename();
+//        String poster = "C:/Users/multicampus/Desktop/Komenta/" + posterfile.getOriginalFilename();
 //        String poster = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getV_title() + ".jpg";
-//            String video = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
+        String poster = "/home/ubuntu/Video/" + posterfile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(poster);
@@ -207,9 +207,9 @@ public class AdminController {
     @PostMapping("/video_upload")
     public int registVideo(@RequestParam("file") MultipartFile videofile, HttpServletRequest request) {
         System.out.println(request.getHeader("auth-token"));
-        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
-//            String video = "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
+            String video = "/home/ubuntu/Video/" + videofile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);
