@@ -83,4 +83,17 @@
         ORDER BY ve_episode_num desc
     </select>
 
+    <select id ="getVodListGenre" parameterType="int" resultType="com.komenta.be.model.vod.VodInfoByGenreDTO">
+        SELECT A.v_id, A.v_poster, A.v_title
+        FROM vod A LEFT OUTER JOIN genre_detail B
+        ON A.gd_id = B.gd_id
+        WHERE B.g_id = #{g_id}
+    </select>
+
+
+    <select id="getVodListGenreDetail" parameterType="int" resultType="com.komenta.be.model.vod.VodInfoByGenreDTO">
+        SELECT v_id, v_poster, v_title
+        FROM vod
+        WHERE gd_id = #{gd_id}
+    </select>
 </mapper>

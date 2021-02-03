@@ -1,9 +1,6 @@
 package com.komenta.be.mapper;
 
-import com.komenta.be.model.vod.VodEpisodeAllDTO;
-import com.komenta.be.model.vod.VodEpisodeDTO;
-import com.komenta.be.model.vod.VodHistoryDTO;
-import com.komenta.be.model.vod.VodInfoForUserDTO;
+import com.komenta.be.model.vod.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,4 +18,8 @@ public interface VodMapper {
     List<VodEpisodeDTO> getVodListWatching();
 
     List<VodInfoForUserDTO> getVodInfoForUser(int v_id);
+
+    List<VodInfoByGenreDTO> getVodListGenre(int g_id);
+
+    List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id);
 }

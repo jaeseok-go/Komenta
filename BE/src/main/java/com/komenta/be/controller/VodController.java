@@ -1,9 +1,6 @@
     package com.komenta.be.controller;
 
-    import com.komenta.be.model.vod.VodEpisodeAllDTO;
-    import com.komenta.be.model.vod.VodEpisodeDTO;
-    import com.komenta.be.model.vod.VodHistoryDTO;
-    import com.komenta.be.model.vod.VodInfoForUserDTO;
+    import com.komenta.be.model.vod.*;
     import com.komenta.be.service.JwtService;
     import com.komenta.be.service.VodService;
     import io.swagger.annotations.ApiImplicitParam;
@@ -123,16 +120,31 @@
         }
 
 
+
         @ApiOperation(value = "조회순 VOD 회차 조회", notes = "조회 수가 많은 순으로 VOD 회차 조회")
         @GetMapping("/list_watching")
         public List<VodEpisodeDTO> getVodListWatching(){
             return vodService.getVodListWatching();
         }
 
+
+
         @ApiOperation(value = "VOD 세부 내용 조회", notes = "입력받은 v_id로 해당 VOD의 세부내용 반환")
         @GetMapping("/vod_info/{v_id}")
         public List<VodInfoForUserDTO> getVodInfoForUser(@PathVariable("v_id") int v_id){
             return vodService.getVodInfoForUser(v_id);
+        }
+
+        @ApiOperation(value = "장르 대분류별 VOD 선택 조회", notes = "입력받은 g_id로 VOD의 목록 반환")
+        @GetMapping("/list_genre")
+        public List<VodInfoByGenreDTO> getVodListGenre(int g_id){
+            return vodService.getVodListGenre(g_id);
+        }
+
+        @ApiOperation(value = "장르 소분류별 VOD 선택 조회", notes = "입력받은 gd_id로 VOD의 목록 반환")
+        @GetMapping("/list_genre_detail")
+        public List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id){
+            return vodService.getVodListGenreDetail(gd_id);
         }
 
     }

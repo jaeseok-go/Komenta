@@ -1,9 +1,6 @@
 package com.komenta.be.service;
 
-import com.komenta.be.model.vod.VodEpisodeAllDTO;
-import com.komenta.be.model.vod.VodEpisodeDTO;
-import com.komenta.be.model.vod.VodHistoryDTO;
-import com.komenta.be.model.vod.VodInfoForUserDTO;
+import com.komenta.be.model.vod.*;
 
 import java.util.List;
 
@@ -19,4 +16,10 @@ public interface VodService {
     List<VodEpisodeDTO> getVodListWatching();
 
     List<VodInfoForUserDTO> getVodInfoForUser(int v_id);
+
+    List<VodInfoByGenreDTO> getVodListGenre(int g_id);
+
+    List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id);
+
+
 }

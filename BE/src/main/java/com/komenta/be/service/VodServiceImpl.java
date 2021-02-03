@@ -1,10 +1,7 @@
 package com.komenta.be.service;
 
 import com.komenta.be.mapper.VodMapper;
-import com.komenta.be.model.vod.VodEpisodeAllDTO;
-import com.komenta.be.model.vod.VodEpisodeDTO;
-import com.komenta.be.model.vod.VodHistoryDTO;
-import com.komenta.be.model.vod.VodInfoForUserDTO;
+import com.komenta.be.model.vod.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,12 +36,18 @@ public class VodServiceImpl implements VodService{
     }
 
     @Override
-    public List<VodEpisodeDTO> getVodListWatching() {
-        return sqlSession.getMapper(VodMapper.class).getVodListWatching();
+    public List<VodEpisodeDTO> getVodListWatching() { return sqlSession.getMapper(VodMapper.class).getVodListWatching(); }
+
+    @Override
+    public List<VodInfoForUserDTO> getVodInfoForUser(int v_id) { return sqlSession.getMapper(VodMapper.class).getVodInfoForUser(v_id); }
+
+    @Override
+    public List<VodInfoByGenreDTO> getVodListGenre(int g_id) {
+        return sqlSession.getMapper(VodMapper.class).getVodListGenre(g_id);
     }
 
     @Override
-    public List<VodInfoForUserDTO> getVodInfoForUser(int v_id) {
-        return sqlSession.getMapper(VodMapper.class).getVodInfoForUser(v_id);
+    public List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id) {
+        return sqlSession.getMapper(VodMapper.class).getVodListGenreDetail(gd_id);
     }
 }
