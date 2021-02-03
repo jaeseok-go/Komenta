@@ -7,6 +7,7 @@
             </video>
 
            <h3>회차별 댓글</h3> 
+           <input type="text" v-model="userComment">
             <div v-for="comment in comments"  :key="comment.c_id">
                 <!-- c_playtime?? c_uploadtime?? -->
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import { commentInsert } from '@/api/comment'
 
 export default {
     props: { 
@@ -79,7 +81,9 @@ export default {
                     volume: 0.6,
                     poster: 'http://covteam.u.qiniudn.com/poster.png'
                 }
-            }
+            },
+                userComment:'',
+                now: "00:00:00"
         }
     },
     created() {
@@ -89,6 +93,11 @@ export default {
         // this.getVideo(veId)
     },
     methods:{   
+          nowTime(){
+            const date = new Date();
+            this.nowTime = date.getHours() + ":" + date.getMinutes()
+            + ':' + date.getSeconds()
+            },
         getCurTime() { 
             const vod = document.getElementById("videotag");
             alert(vod.currentTime,'현재시간?');
@@ -119,7 +128,25 @@ export default {
             this.videoCurrentTime = vod.currentTime;
             // this.videoCurrentTime = this.$refs.video.currentTime;
             // console.log(this.videoCurrentTime,vod.currentTime);
+        },
+        async createComment() {
+        try {
+        // c_contents(댓글 내용), u_playtime(등록 시간), u_id(회원 아이디), ve_id(vod 회차 아이디)
+        const commentInfo = {
+            c_contents : this.userComment,
+            u_playtime : this.nowTime,
+            // 댓글 등록 시간?? 비디오시간?
+            c_playtime : this.videoCurrentTime,
+            // c_upload_time : "string",
+            u_id : this.$store.state.userInfo.u_id,
+            ve_id : this.veId
         }
+        const res = await commentInsert(commentInfo)
+        console.log(res)
+        } catch {
+        console.log('댓글썼는데 실패함')
+        }
+  }
     },
     watch : {
     // videoCurrentTime : function(newValue, oldValue) {

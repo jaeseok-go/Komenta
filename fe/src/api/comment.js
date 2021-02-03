@@ -8,8 +8,8 @@ function fetchBestComment() {
 }
 
 //댓글입력
-function commentInsert(){
-    return instance.post('/comment/insert');
+function commentInsert(commentInfo){
+    return instance.post('/comment/insert', commentInfo);
 }
 
 //회차별 댓글 정보
