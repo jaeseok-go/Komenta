@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -55,8 +58,31 @@ public class AdminController {
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/member_update")
-    public int updateMember(@RequestBody MemberDTO member){
-        return adminService.updateMember(member);
+    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
+        HttpStatus status = null;
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            int result = adminService.updateMember(member);
+            if(result !=0) {
+                String token = jwtService.create(member);
+                response.setHeader("auth-token", token);
+                resultMap.put("status", true);
+                resultMap.put("auth-token", token);
+                status = HttpStatus.ACCEPTED;
+                System.out.println(response.getHeader("auth-token"));
+            }
+            else{
+                System.out.println("업데이트 실패");
+            }
+
+        }
+        catch(RuntimeException e){
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+
     }
 
 
