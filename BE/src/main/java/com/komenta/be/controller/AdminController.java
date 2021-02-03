@@ -183,7 +183,7 @@ public class AdminController {
 
 //        String poster = "C:/Users/multicampus/Desktop/Komenta/" + posterfile.getOriginalFilename();
 //        String poster = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getV_title() + ".jpg";
-        String poster = "/home/ubuntu/Video/" + posterfile.getOriginalFilename();
+        String poster = "/home/ubuntu/Picture/Poster/" + posterfile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(poster);
