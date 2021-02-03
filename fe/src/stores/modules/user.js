@@ -29,6 +29,7 @@ const state = {
 
 const mutations = {
     setToken(state, token) {
+        console.log("수정 후 처음 들어오는 토큰 : ",token);
         state.token = token
         sessionStorage.setItem('auth-token', token)
         state.isLogin = true
@@ -89,9 +90,11 @@ const mutations = {
 }
 
 const actions = {
-    async MODIFY({commit},userData) {
+    async MODIFY({ commit }, userData) {
+        console.log("수정할 정보 : ",userData);
         const response = await updateMyInfo(userData);
-        console.log(response.data['auth-token'])
+        console.log("회원 정보 수정 response : ",response)
+        console.log('token jwt decode',jwtDecode(response.data['auth-token']))
         commit('setToken',response.data['auth-token'])
     },
     async LOGIN({ commit }, userData) {

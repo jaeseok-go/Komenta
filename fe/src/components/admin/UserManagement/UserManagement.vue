@@ -22,7 +22,6 @@ export default {
   },
   created() {
     this.getUserList();
-    console.log("뭐가 먼저 들어오나...",this.userList);
     this.pushLink();
   },
   computed:{
@@ -43,7 +42,7 @@ export default {
     pushLink(){
       setTimeout(()=>{
         this.$router.push({name:'AllUser', params: {allUserList:this.userList}});
-      },50);
+      },100);
     },
     async getUserList() {
       const response = await fetchAllUsers();

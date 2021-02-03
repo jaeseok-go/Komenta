@@ -251,6 +251,7 @@ export default {
         
         // this.getUserInfo();
         this.closeUserInfoModal();
+        // window.location.reload();
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
