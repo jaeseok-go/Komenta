@@ -24,18 +24,18 @@
             </option>
           </b-select>
           <br>
-          <input type="hidden" id="v_id" v-model="vod.v_id">
-          제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
-          요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
-          감독<b-input type="text" id="v_director" v-model="vod.v_director"></b-input>
-          출연진<b-input type="text" id="v_actors" v-model="vod.v_actors"></b-input>
-          연령<b-input type="text" id="v_age_grade" v-model="vod.v_age_grade"></b-input>
+          <input type="hidden" id="v_id" v-model="vod_all.v_id">
+          제목<b-input type="text" id="v_title" v-model="vod_all.v_title"></b-input>
+          요약<b-input type="text" id="v_summary" v-model="vod_all.v_summary"></b-input>
+          감독<b-input type="text" id="v_director" v-model="vod_all.v_director"></b-input>
+          출연진<b-input type="text" id="v_actors" v-model="vod_all.v_actors"></b-input>
+          연령<b-input type="text" id="v_age_grade" v-model="vod_all.v_age_grade"></b-input>
           <!-- <b-input type="file" id="v_poster"> -->
           <!-- 포스터<b-input type="file" id="v_poster" v-model="vod.v_poster"></b-input> -->
           
           
-          몇화<b-input type="text" id="ve_episode_num" v-model="vod_episode.ve_episode_num"></b-input>
-          해당 화 내용<b-input type="text" id="ve_contents" v-model="vod_episode.ve_contents"></b-input>
+          몇화<b-input type="text" id="ve_episode_num" v-model="vod_all.ve_episode_num"></b-input>
+          해당 화 내용<b-input type="text" id="ve_contents" v-model="vod_all.ve_contents"></b-input>
           <!-- 작성자<b-input type="text" id="ve_admin" v-model="vod_episode.ve_admin" value="admin"></b-input> -->
           <!-- 작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input> -->
           
@@ -45,8 +45,8 @@
         </b-form>
       </b-col>
 
-      {{vod}} <br>
-      {{vod_episode}}
+      <!-- {{vod}} <br> -->
+      {{vod_all}}
 
       <b-col>
         <table>
@@ -86,15 +86,19 @@
 <script>
 import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod';
 import axios from 'axios';
+import store from '@/stores/index.js';
+// import 'url-search-params-polyfill';
 export default {
   components: { 
-    },
+  },
+  
   data() {
     return {  
       genre_id:0,
       genre_detail_id:0,
       vod_id :0,
       vod:{},
+      vod_all:{},
       is_exist_vod:false,
       vod_episode :{},
       genre_list:[],
@@ -152,9 +156,6 @@ export default {
      fetchVodListByGenreDetailId(this.genre_detail_id)
      .then((response) => {
        this.vod_list_by_gd= response.data;
-       this.vod.v_id = response.data.v_id;
-       console.log("vod 확인",this.vod);
-       console.log("gd에 해당하는 vod 여깄다", response.data);
      })
      .catch(()=>{
        alert('show vod list error');
@@ -163,35 +164,66 @@ export default {
    autoWriteVodInfo(){
      console.log("vod id : ",this.vod.v_id)
      if(this.vod.v_id > 0){
-       this.vod_id = this.vod.v_id; 
-       this.vod_episode.v_id = this.vod_id;
-       this.is_exist_vod = true;
-     }else if(this.vod.v_id == undefined) {
-       console.log("직접입력")
-       this.vod = {}
+      for (var step = 0; step < this.vod_list_by_gd.length; step++) {
+          if(this.vod_list_by_gd[step].v_id== this.vod.v_id){
+            
+            // console.log(this.vod_all);
+            this.vod_all = this.vod_list_by_gd[step];
+            
+          }
+      }
      }
    },
    send(){
-      console.log("vod :",this.vod);
-     console.log("vod episode : ",this.vod_episode);
-     console.log("video : ", this.file);
-     console.log("poster : ", this.file1);
-     let formData = new FormData();
-      formData.append('vdto', this.vod);
-      formData.append('vedto', this.vod_episode);
-      formData.append("file", this.file);
-      formData.append("v_poster", this.file1);
-      console.log("폼데이터",formData.get("file"));
-      axios
-     .post('http://localhost:8080/admin/vod_regist',formData, { headers: {
-          'Content-Type': 'multipart/form-data'
+     
+    let token = store.state.user.token;
+     this.vod_all.gd_id = this.genre_detail_id;
+     this.vod_all.v_poster = this.file1.name;
+    console.log("들어가기전 최종",this.vod_all);
+    let formData1 = new FormData();
+    formData1.append("file", this.file);
+    formData1.append("vod_all", this.vod_all);
+    let formData2 = new FormData();
+    formData2.append("v_poster", this.file1);
+    formData2.append("vod_all", this.vod_all);
+
+    axios
+     .post('http://localhost:8080/admin/vod_regist',this.vod_all,{
+       headers:{
+         'auth-token': token
+       }
+     })
+     .then((response)=>{
+       console.log("vod regist 잘들어감",  response.data);
+     })
+     .catch(()=>{
+       console.log("vod, vod epi 업로드에러");
+     });
+     axios
+     .post('http://localhost:8080/admin/video_upload',formData1, { 
+       headers: {
+          'Content-Type': 'multipart/form-data',
+          'auth-token': token
       }
      })
      .then((response)=>{
-       alert(response);
+       console.log("video data 잘들어감", response.data);
      })
      .catch(()=>{
-       console.log("업로드에러");
+       console.log("video 업로드에러");
+     });
+     axios
+     .post('http://localhost:8080/admin/poster_upload',formData2, { 
+       headers: {
+          'Content-Type': 'multipart/form-data',
+          'auth-token': token
+      }
+     })
+     .then((response)=>{
+       console.log("poster 사진 잘 들어감", response.data);
+     })
+     .catch(()=>{
+       console.log("poster 업로드에러");
      })
      
    },
