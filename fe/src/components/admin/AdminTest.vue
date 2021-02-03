@@ -188,7 +188,7 @@ export default {
     formData2.append("vod_all", this.vod_all);
 
     axios
-     .post('http://localhost:8080/admin/vod_regist',this.vod_all,{
+     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist',this.vod_all,{
        headers:{
          'auth-token': token
        }
@@ -200,7 +200,7 @@ export default {
        console.log("vod, vod epi 업로드에러");
      });
      axios
-     .post('http://localhost:8080/admin/video_upload',formData1, { 
+     .post('http://i4b201.p.ssafy.io:8080/admin/video_upload',formData1, { 
        headers: {
           'Content-Type': 'multipart/form-data',
           'auth-token': token
@@ -213,7 +213,7 @@ export default {
        console.log("video 업로드에러");
      });
      axios
-     .post('http://localhost:8080/admin/poster_upload',formData2, { 
+     .post('http://i4b201.p.ssafy.io:8080/admin/poster_upload',formData2, { 
        headers: {
           'Content-Type': 'multipart/form-data',
           'auth-token': token
