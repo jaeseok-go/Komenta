@@ -94,6 +94,12 @@ function fetchAllVOD() {
     return instance.get('admin/vod_list')
 }
 
+function fetchMyComment(uId) {
+    return instance.get(`myinfo/comment_list`, {
+        params:{u_id:uId}
+    })
+}
+
 // 유저가 최근 본 시청기록 목록
 function fetchRecentPlaylist(userId) {
     return instance.get('vod/myvod', {
@@ -137,6 +143,7 @@ export {
     dupIdChk,
     dupNickNameChk,
     changePw,
+    fetchMyComment,
     fetchRecentPlaylist,
     fetchLikePlaylist,
     addPlaylist,
