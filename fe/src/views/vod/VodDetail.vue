@@ -5,18 +5,8 @@
     <Header></Header>
     <!-- vod -->
     <div id="appBody">
-        1-1. 해당회차 VOD보여주기 <br>
-        GET(ve_id) -> res(비디오 불러오기)<br>
-        <!-- 현재 vod시간을 알 방법이 있을까?  -->
         <div>VOD</div>
-        <!-- 댓글컴포넌트 -->
-        <div>
-          <!-- v-for -->
-          <!-- 현재 vod runtime 이후의 것을 v-for -->
-          <div>
-            <!-- 댓글정보를 props로 줌 :commentInfo="해당 runtime 댓글 한개 정보 아니면 댓글 id를 줌" -->
-            <Comments ></Comments>
-          </div>
+        <Video :comments="comments" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
 
         </div>
         1-2. 해당회차 세부내용<br>
@@ -38,14 +28,17 @@
 <script>
 import Header from '@/components/common/Header';
 import Asidebar from '@/components/common/Asidebar';
-import Comments from '@/views/vod/Comments';
+// import Comments from '@/views/vod/Comments';
 import { fetchVodEpiDetail } from '@/api/vod'
+import { fetchEpiComment } from '@/api/comment'
+import Video from '@/components/vod/Video'
 
 export default {
 components: { 
   Header,
   Asidebar, 
-  Comments,
+  // Comments,
+  Video
 },
 name: 'VodDetail',
 data(){
@@ -71,14 +64,16 @@ data(){
   },
   "vh_id": 1,
   "vh_watching_time": "00:00:00"
-},
+  },
     // vod 세부정보
-    vodInfo : {}
+    vodInfo : {},
+    comments : []
   }
 },
 
 created(){
   this.getVodEpi();
+  this.getEpiComment();
   // 해당 회차 VOD 세부 내용 조회 GET
   // this.vodEpiInfo = getVodEpi(ve_id)
   // this.vodInfo = getVod(v_id);
@@ -97,6 +92,17 @@ methods : {
       const res = await fetchVodEpiDetail(epiId)
       console.log(res.data,'DETAIL???')
       this.vodEpiInfo = res.data
+    } catch {
+      console.log('에러!!')
+    }
+  },
+   async getEpiComment() {
+    const epiId = this.$route.params.id;
+    console.log(epiId)  
+    try {
+      const res = await fetchEpiComment(epiId)
+      console.log(res.data,'Comment??')
+      // this.comments = res.data
     } catch {
       console.log('에러!!')
     }
