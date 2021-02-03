@@ -8,7 +8,7 @@
         <div>VOD</div>
         <Video :comments="comments" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
 
-        </div>
+        <!-- </div> -->
         1-2. 해당회차 세부내용<br>
         GET(ve_id) -> res(v_id,회차,날짜,vod회차세부내용,)<br>
         {{vodEpiInfo.episodeInfo}}
