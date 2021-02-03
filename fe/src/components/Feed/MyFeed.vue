@@ -70,7 +70,7 @@
                 @dragstart='startDrag($event, vod)'
                  @click="showVodEpiModal(index)"
             >
-                <span >{{vod.v_poster}}</span>
+                <span >{{vod.v_title}}</span>
                 <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
                     <span
@@ -108,7 +108,7 @@
                 v-for='(vod,index) in playlist[1]' 
                 :key='vod.ve_id' 
                 class='drag-el'
-                @click="showVodEpiModal(index)"
+                
                >
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
@@ -150,7 +150,31 @@ export default {
     },
     data(){
         return {
-            myrecentlists:[],
+            myrecentlists : {
+                "historyList": [
+                    {
+                        vh_id: 1,
+                    }
+                ],
+                "episodeList": [
+                    {
+                        ve_id: 1,
+                        v_title: "test1",
+                        
+
+                    },
+                    {
+                        ve_id: 2,
+                        v_title: "test2",
+
+                    },
+                    {
+                        ve_id: 3,
+                        v_title: "test3",
+
+                    },
+                ]
+            },
             playlists : [ [
                 {
                     pl_id : 0,
@@ -288,8 +312,8 @@ export default {
         const userId = this.$route.params.id;
         try {
             const res = await fetchRecentPlaylist(userId)
-            this.myrecentlists = res.data
-            console.log(this.myrecentlists)
+            // this.myrecentlists = res.data
+            console.log(this.myrecentlists,res,'???????????')
         } catch {
             console.log('에러')
         }
