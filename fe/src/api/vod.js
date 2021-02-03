@@ -9,17 +9,17 @@ function fetchPopularPlayList() {
 
 //댓글순 vod 조회
 function fetchCommentVOD() {
-    return instance.get('');
+    return instance.get('vod/list_comment');
 }
 
-//인기순 vod 조회
+//조회순 vod 조회
 function fetchPopularVOD() {
-    return instance.get('')
+    return instance.get('vod/list_watching')
 }
 
 //최신순 vod조회
 function fetchRecentVOD() {
-    return instance.get('')
+    return instance.get('vod/list_recent')
 }
 
 function fetchStreamingListDetail(data) {
@@ -62,6 +62,16 @@ function fetchVodListByGenreDetailId(gdId) {
     })
 }
 
+//vod 세부내용조회
+function fetchVodDetail({ vId }) {
+    return instance.get(`/vod/vod_info/${vId}`,
+        {
+            params: {
+                v_id: vId,
+            }
+        })
+}
+
 // vod_epi로 세부내용조회
 function fetchVodEpiDetail({veId}) {
     return instance.get(`/vod/vodnum/${veId}`,
@@ -85,5 +95,6 @@ export {
     fetchAllEpi,
     fetchAllGenre,
     fetchGenreDetail,
-    fetchVodListByGenreDetailId
+    fetchVodListByGenreDetailId,
+    fetchVodDetail
 }
