@@ -1,0 +1,33 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.FollowMapper">
+
+    <select id = "getFollowingList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">
+        SELECT A.f_id, B.u_nickname, B.u_profile_pic
+        FROM (SELECT f_id, u_id
+              FROM follow
+              WHERE u_id = #{u_id}) A LEFT OUTER JOIN member B
+        ON A.f_id = B.u_id
+    </select>
+
+    <select id = "getUnFollowingList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">
+        SELECT A.uf_id, B.u_nickname, B.u_profile_pic
+        FROM (SELECT uf_id, u_id
+              FROM un_follow
+              WHERE u_id = #{u_id}) A LEFT OUTER JOIN member B
+        ON A.uf_id = B.u_id
+    </select>
+
+    <select id="getFollowerList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">
+        SELECT A.f_id, B.u_nickname, B.u_profile_pic
+        FROM (SELECT f_id, u_id
+              FROM follow
+              WHERE f_id = #{u_id}) A LEFT OUTER JOIN member B
+        ON A.u_id = B.u_id
+    </select>
+
+    <update id = "followAddSub"></update>
+
+    <update id = "unFollowAddSub"></update>
+</mapper>
