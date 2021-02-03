@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {fetchLikePlaylist} from '@/api/user';
+// import {fetchLikePlaylist} from '@/api/user';
 export default {
   data() {
     return {
@@ -17,13 +17,13 @@ export default {
     }
   },
   created() {
-    this.getPlayList();
+    // this.getPlayList();
   },
   methods: {
-    async getPlayList() {
-      const response = await fetchLikePlaylist();
-      console.log("playList: ",response)
-    }
+    // async getPlayList() {
+      // const response = await fetchLikePlaylist();
+      // console.log("playList: ",response)
+    // }
   },
 }
 </script>

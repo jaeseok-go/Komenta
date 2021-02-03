@@ -10,7 +10,7 @@
       <div class="watchedVOD" v-for="(vod, index) in watchedVODList" :key="index">
         <!-- 원형으로 포스터 표시 -->
         <div class="watchedVODImg">
-          <img :src=vod.v_img>
+          <img :src="require(`@/assets/images/${vod.v_poster}.png`)" width="153px">
         </div>
         <div class="watchedVODText">
           {{vod.v_name}} {{vod.v_ep_num}}화<br>
@@ -32,7 +32,7 @@
 <script>
 // import {VueperSlides, VueperSlide } from 'vueperslides'
 // import 'vueperslides/dist/vueperslides.css'
-import {fetchRecentPlaylist} from '@/api/user';
+// import {fetchRecentPlaylist} from '@/api/user';
 export default {
   // components:{
   //   VueperSlides,
@@ -43,33 +43,33 @@ export default {
     return {
       watchedVODList: [
         {
-          v_img:'#',
-          v_name:'경이로운 소문',
+          v_name:'사랑의 불시착',
           v_ep_num:'21',
+          v_poster:'test',
           watched_date:'2021-01-20'
         },
         {
-          v_img:'#',
-          v_name:'경이로운 소문',
+          v_name:'사랑의 불시착',
           v_ep_num:'21',
+          v_poster:'test',
           watched_date:'2021-01-20'
         },
         {
-          v_img:'#',
-          v_name:'경이로운 소문',
+          v_name:'사랑의 불시착',
           v_ep_num:'21',
+          v_poster:'test',
           watched_date:'2021-01-20'
         },
         {
-          v_img:'#',
-          v_name:'경이로운 소문',
+          v_name:'사랑의 불시착',
           v_ep_num:'21',
+          v_poster:'test',
           watched_date:'2021-01-20'
         },
         {
-          v_img:'#',
-          v_name:'경이로운 소문',
+          v_name:'사랑의 불시착',
           v_ep_num:'21',
+          v_poster:'test',
           watched_date:'2021-01-20'
         }
       ],
@@ -77,20 +77,19 @@ export default {
     }
   },
   created() {
-    this.getVODList();
+    // this.getVODList();
   },
   methods: {
     showModalForm() {
       this.$emit('showVODForm')
     },
-    async getVODList(){
+    getVODList(){
       // console.log(this.getUserId);
-      const response = await fetchRecentPlaylist(this.getUserId);
-      console.log(response);
+      // this.watchedVODList = this.$store.state.recentPlaylist;
+      // this.watchedVODList = response.data;
       //최근 시청 VOD 5개만 표출
-      // for (let index = 0; index < response.data.length; index++) {
-      //   if(response.data[index].vh_watching_time)
-        
+      // for (let index = 0; index < this.watchedVODList; index++) {
+      //   this.recentlyPlayList.concat(this.watchedVODList[index]);
       // }
     }
   },
@@ -114,7 +113,7 @@ export default {
 
   .watchedVODImg {
     height: 200px;
-    background-color: orange;
+    /* background-color: orange; */
   }
 
   .watchedVODText {

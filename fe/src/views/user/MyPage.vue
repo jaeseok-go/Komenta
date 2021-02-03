@@ -96,6 +96,30 @@
             <hr>                                                                                                      
           </div>
           <div slot="body">
+            <table>
+              <tr>
+                <td>POSTER</td>
+                <td>VOD명</td>
+                <td>회차</td>
+                <td>본 날짜</td>
+              </tr>
+              <tr v-if="VODList.length == 0">
+                <td colspan="4">
+                  가입한 회원이 없습니다.
+                </td>
+              </tr>
+              <tr v-for="(vod,index) in paginatedData" :key="index" v-else>
+                <td>{{vod.v_poster}}</td>
+                <td>{{vod.v_title}}</td>
+                <td>{{vod.v_episode_num}}</td>
+                <td>{{vod.vh_watching_time}}</td>
+              </tr>
+            </table>
+            <div class="btn-cover">
+              <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
+              <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
+              <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
+            </div>
           </div>
       </Modal>
 
@@ -158,15 +182,26 @@ export default {
       showUserInfoModal:false,
       showVODModal:false,
       phoneNumForm:true,
-      authPhoneNumForm: false
+      authPhoneNumForm: false,
+      pageNum:0,
+      VODList:[]
+    }
+  },
+  props:{
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 5
     }
   },
   created() {
     this.getUserInfo();
+    this.fetchVODList();
   },
   computed: {
     ...mapState({
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
+      watchedVODList: state => state.watchedVODList
     }),
     isUserNickNameEmpty() {
       if(!this.userNickName || (this.userNickName == this.userInfo.u_nickname)) {
@@ -198,6 +233,21 @@ export default {
       }
       return true;
     },
+    pageCount() {
+      let listLeng = this.VODList.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+
+      if(listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    paginatedData() {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+
+      return this.VODList.slice(start, end);
+    }
   },
   methods: {
     closeUserInfoModal() {
@@ -296,7 +346,16 @@ export default {
       }catch(err){
         console.log(err)
       }
-    }
+    },
+    nextPage() {
+      this.pageNum += 1;
+    },
+    prevPage() {
+      this.pageNum -= 1;
+    },
+    fetchVODList(){
+      this.VODList = this.watchedVODList;
+    },
   },
 }
 </script>
@@ -345,6 +404,39 @@ export default {
   .profile-form .v-btn {
     border: 1px solid black;
     padding: 0.1rem 5.7em;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table th {
+    font-size: 1.2rem;
+  }
+  table tr {
+    height: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #505050;
+  }
+  table tr:first-of-type {
+    border-top: 2px solid #404040;
+  }
+  table tr td {
+    padding: 0.7rem 0;
+    font-size: 1rem;
+  }
+
+  .btn-cover {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  .btn-cover .page-btn {
+    width: 5rem;
+    height: 2rem;
+    letter-spacing: 0.5px;
+  }
+  .btn-cover .page-count {
+    padding: 0 1rem;
   }
 
 </style>
