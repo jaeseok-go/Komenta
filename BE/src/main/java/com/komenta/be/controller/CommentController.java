@@ -2,6 +2,7 @@ package com.komenta.be.controller;
 
 import com.komenta.be.model.comment.CommentInfoDTO;
 import com.komenta.be.model.comment.CommentRankDTO;
+import com.komenta.be.model.comment.MyCommentDTO;
 import com.komenta.be.model.comment.VodEpisodeCommentDTO;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +38,9 @@ public class CommentController {
 
     @Autowired
     CommentService cservice;
+
+    @Autowired
+    JwtService jwtService;
 
 
     @ApiOperation(value = "댓글 입력", notes = "댓글을 입력하면 해당 댓글을 DB에 저장하고 이를 반환")
@@ -65,6 +70,15 @@ public class CommentController {
     @GetMapping("/comment_rank")
     public List<CommentRankDTO> getCommentRankList(){
         return cservice.getCommentRankList();
+    }
+
+
+    @ApiOperation(value = "내가 단 댓글 조회", notes = "내가 달았던 모든 댓글 조회")
+    @GetMapping("/comment_list")
+    public List<MyCommentDTO> getMyComment(HttpServletRequest request){
+        String token = request.getHeader("auth-token");
+        int u_id = (int) jwtService.get(token).get("u_id");
+        return cservice.getMyComment(u_id);
     }
 
 }
