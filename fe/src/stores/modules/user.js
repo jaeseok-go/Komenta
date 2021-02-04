@@ -22,7 +22,8 @@ const state = {
     isPasswordConfirmed: false,
     recentPlaylist:[],
     likePlaylist:[],
-    myFollowingList:[],
+    myFollowingList: [],
+    myUnFollowingList:[],
     myPlayList:[],
     userFeed:[],
 };
@@ -80,6 +81,9 @@ const mutations = {
     },
     setMyfollowingList(state, followingList){
         state.myFollowingList = followingList
+    },
+    setMyUnfollowingList(state, unfollowingList){
+        state.myUnFollowingList = unfollowingList
     },
     setMyPlayList(state, myPlayList){
         state.myPlayList = myPlayList

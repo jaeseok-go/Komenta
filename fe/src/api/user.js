@@ -35,7 +35,9 @@ function updateMyInfo(userData) {
 
 // 회원탈퇴
 function deleteMyInfo(userId) {
-    return instance.delete(`member/delete`,userId)
+    return instance.delete(`member/delete`, {
+        params: { u_id: userId }
+    })
 }
 
 // 이메일 인증
@@ -117,9 +119,7 @@ function addPlaylist(data) {
     return instance.post('playlist/plcreate',data)
 }
 
-function fetchfollowinglist(userId) {
-    return instance.get('',userId)
-}
+
 
 function fetchMyPlaylist(userId){
     return instance.get(`/${userId}`)
@@ -128,6 +128,40 @@ function fetchMyPlaylist(userId){
 function fetchUserFeed(userId){
     return instance.get(`뭐뭐/머머/${userId}`)
 }
+
+// 팔로잉 조회 
+function fetchfollowinglist(userId) {
+    return instance.get('follow/follow_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 팔로워 조회 
+function fetchfollowerlist(userId) {
+    return instance.get('follow/follower_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 팔로우 추가/ 취소
+function modifyfollow(followInfo) {
+    return instance.post('follow/add_sub',followInfo)
+}
+
+
+// 언팔로잉 조회
+function fetchunfollowinglist(userId) {
+    return instance.get('follow/unfollowing_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 언팔로우 추가 / 취소
+function modifyunfollow(unfollowInfo) {
+    return instance.post('follow/un_add_sub',unfollowInfo)
+}
+
+
 export {
     registerUser,
     loginUser,
@@ -149,6 +183,10 @@ export {
     addPlaylist,
     fetchfollowinglist,
     fetchMyPlaylist,
-    fetchUserFeed
+    fetchUserFeed,
+    fetchfollowerlist,
+    modifyfollow,
+    fetchunfollowinglist,
+    modifyunfollow
     
 }

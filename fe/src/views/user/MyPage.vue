@@ -105,7 +105,7 @@
               </tr>
               <tr v-if="VODList.length == 0">
                 <td colspan="4">
-                  가입한 회원이 없습니다.
+                  최근 시청한 VOD가 없습니다.
                 </td>
               </tr>
               <tr v-for="(vod,index) in paginatedData" :key="index" v-else>

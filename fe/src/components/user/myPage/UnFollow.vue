@@ -74,6 +74,11 @@ export default {
       ],
     }
   },
+  methods: {
+    fetchUnFollowingList(){
+      this.unfollowings = this.$store.state.myUnFollowingList;
+    }
+  },
 }
 </script>
 
