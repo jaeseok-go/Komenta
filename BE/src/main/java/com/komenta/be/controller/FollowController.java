@@ -68,8 +68,12 @@ public class FollowController {
     })
     @PostMapping("/add_sub")
     public int followAddSub(@RequestBody FollowDTO follow_info){
-        return followService.followAddSub(follow_info);
+        if(followService.isFollower(follow_info).size() > 0) {
+            return followService.followSub(follow_info);
+        }
+        return followService.followAdd(follow_info);
     }
+
 
 
 
@@ -79,7 +83,12 @@ public class FollowController {
             @ApiImplicitParam(name = "unfollow_info", value = "u_id(언팔로우의 주체), uf_id(언팔로우의 대상)", dataType = "UnFollowDTO", required = true)
     })
     @PostMapping("/un_add_sub")
-    public int unFollowAddSub(@RequestBody UnFollowDTO unfollow_info){ return followService.unFollowAddSub(unfollow_info); }
+    public int unFollowAddSub(@RequestBody UnFollowDTO unfollow_info){
+        if(followService.isUnFollower(unfollow_info).size() > 0) {
+            return followService.unFollowSub(unfollow_info);
+        }
+        return followService.unFollowAdd(unfollow_info);
+    }
 
 
 

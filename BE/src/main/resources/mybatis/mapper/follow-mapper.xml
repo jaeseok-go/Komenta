@@ -27,7 +27,43 @@
         ON A.u_id = B.u_id
     </select>
 
-    <update id = "followAddSub"></update>
 
-    <update id = "unFollowAddSub"></update>
+    <select id="isFollower" parameterType="com.komenta.be.model.follow.FollowDTO" resultType="com.komenta.be.model.follow.FollowDTO">
+        SELECT f_id, u_id
+        FROM follow
+        WHERE u_id = #{u_id}
+        AND f_id = #{f_id}
+    </select>
+
+    <update id = "followAdd" parameterType="com.komenta.be.model.follow.FollowDTO">
+        INSERT INTO follow (f_id, u_id)
+        VALUES (#{f_id}, #{u_id})
+    </update>
+
+    <update id = "followSub" parameterType="com.komenta.be.model.follow.FollowDTO">
+        DELETE
+        FROM follow
+        WHERE u_id = #{u_id}
+        AND f_id = #{f_id}
+    </update>
+
+
+    <select id="isUnFollower" parameterType="com.komenta.be.model.follow.UnFollowDTO" resultType="com.komenta.be.model.follow.UnFollowDTO">
+        SELECT uf_id, u_id
+        FROM un_follow
+        WHERE u_id = #{u_id}
+        AND uf_id = #{uf_id}
+    </select>
+
+    <update id = "unFollowAdd" parameterType="com.komenta.be.model.follow.UnFollowDTO">
+        INSERT INTO un_follow (uf_id, u_id)
+        VALUES (#{uf_id}, #{u_id})
+    </update>
+
+    <update id = "unFollowSub" parameterType="com.komenta.be.model.follow.UnFollowDTO">
+        DELETE
+        FROM un_follow
+        WHERE u_id = #{u_id}
+        AND uf_id = #{uf_id}
+    </update>
 </mapper>

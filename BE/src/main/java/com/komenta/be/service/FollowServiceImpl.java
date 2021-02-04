@@ -33,12 +33,33 @@ public class FollowServiceImpl implements FollowService{
     }
 
     @Override
-    public int followAddSub(FollowDTO follow_info) {
-        return sqlSession.getMapper(FollowMapper.class).followAddSub(follow_info);
+    public List<FollowDTO> isFollower(FollowDTO follow_info) {
+        return sqlSession.getMapper(FollowMapper.class).isFollower(follow_info);
     }
 
     @Override
-    public int unFollowAddSub(UnFollowDTO unfollow_info) {
-        return sqlSession.getMapper(FollowMapper.class).unFollowAddSub(unfollow_info);
+    public int followAdd(FollowDTO follow_info) {
+        return sqlSession.getMapper(FollowMapper.class).followAdd(follow_info);
     }
+
+    @Override
+    public int followSub(FollowDTO follow_info) {
+        return sqlSession.getMapper(FollowMapper.class).followSub(follow_info);
+    }
+
+    @Override
+    public List<UnFollowDTO> isUnFollower(UnFollowDTO unfollow_info) {
+        return sqlSession.getMapper(FollowMapper.class).isUnFollower(unfollow_info);
+    }
+
+    @Override
+    public int unFollowAdd(UnFollowDTO unfollow_info) {
+        return sqlSession.getMapper(FollowMapper.class).unFollowAdd(unfollow_info);
+    }
+
+    @Override
+    public int unFollowSub(UnFollowDTO unfollow_info) {
+        return sqlSession.getMapper(FollowMapper.class).unFollowSub(unfollow_info);
+    }
+
 }

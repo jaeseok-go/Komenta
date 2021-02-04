@@ -14,7 +14,19 @@ public interface FollowMapper {
 
     public List<FollowSelectDTO> getFollowerList(int u_id);
 
-    public int followAddSub(FollowDTO follow_info);
 
-    public int unFollowAddSub(UnFollowDTO unfollow_info);
+
+    public List<FollowDTO> isFollower(FollowDTO follow_info);
+
+    public int followAdd(FollowDTO follow_info);
+
+    public int followSub(FollowDTO follow_info);
+
+
+
+    public List<UnFollowDTO> isUnFollower(UnFollowDTO unfollow_info);
+
+    public int unFollowAdd(UnFollowDTO unfollow_info);
+
+    public int unFollowSub(UnFollowDTO unfollow_info);
 }
