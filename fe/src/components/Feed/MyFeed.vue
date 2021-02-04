@@ -41,8 +41,9 @@
             </i>
             </h3>
             <p slot="body">
-                <input type="text" v-model="plName">
-                <button @click="addPlaylist">제출</button>
+                <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요.">
+                <input type="text" v-model="plComment">
+                <button @click="createPlaylist">제출</button>
             </p>
 
         </Modal>
@@ -138,7 +139,7 @@
 <script>
 import { mapGetters } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist, fetchMyPlaylist } from '@/api/user'
+import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
 
@@ -226,7 +227,9 @@ export default {
             showFollow:false,
             showRecent:false,
             dragVod:{}, 
-            plName:'',     
+            plName:'',
+            plComment:'',
+            // plComment:`${this.fetchedUserInfo.u_nickname}님의 플레이리스트`,
             epiComment:'',     
             selectedId:0,
         }
@@ -269,14 +272,14 @@ export default {
         },
         showButton() {
             this.showModal=true
-            if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
-                this.showFollow=true
-            }
+            // if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
+            //     this.showFollow=true
+            // }
         },
         showMyRecent() {
-            if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
-                this.showRecent=true
-            }
+            // if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
+            //     this.showRecent=true
+            // }
         },
         //팔로우하는 로직 추가 구현
         followUser() {
@@ -294,25 +297,32 @@ export default {
                 u_id : userId,
                 pl_comment : this.epiComment
             }
-            console.log(commentInfo,'플레이리스트 comment생성')
+            console.log(commentInfo,'플레이리스트 comment생성 실패')
         },
-        addPlaylist() {
-            const userId = this.fetchedUserInfo.u_id
-            const pl_name = this.pl_name
-            const data = {userId, pl_name}
-            this.$store.dispatch('ADD_PLAYLIST',data)
+        async createPlaylist() {
+            const playlistinfo = {
+                pl_name:this.plName,
+                pl_comment:this.plComment,
+            }
+            try {
+                await addPlaylist(playlistinfo)
+            } catch {
+                console.log('플레이리스트 생성 실패')
+            }
+
         },
         async goEpiDetail(veId){
             await fetchVodEpiDetail(veId)
-            .then(this.$router.push(`/vodDetail/${veId}`))
+            .then(this.$router.push(`/voddetail/${veId}`))
             .catch(err => console.log(err))
         },
         async getRecentPlayList() {
         const userId = this.$route.params.id;
         try {
-            const res = await fetchRecentPlaylist(userId)
+            // userId를 같이 안보내주고 토큰으로??
+            const res = await fetchRecentPlaylist()
             // this.myrecentlists = res.data
-            console.log(this.myrecentlists,res,'???????????')
+            console.log(this.myrecentlists,userId,res,'???????????')
         } catch {
             console.log('에러')
         }
