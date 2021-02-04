@@ -13,7 +13,7 @@ const getKakaoToken = async (code) => {
         const data = {
             grant_type: 'authorization_code',
             client_id: process.env.VUE_APP_KAKAO_REST_API_KEY,
-            redirect_uri: process.env.VUE_APP_URL,
+            redirect_uri: `process.env.VUE_APP_URL/Auth`,
             code: code,
         };
         const queryString = Object.keys(data)
