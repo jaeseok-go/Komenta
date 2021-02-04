@@ -6,4 +6,9 @@
         insert into play_list(pl_name, pl_comment, u_id)
         values (#{pl_name}, #{pl_comment}, #{u_id})
     </insert>
+
+    <select id="getPlayListById" resultType="com.komenta.be.model.playlist.PlayListDTO">
+        select
+
+    </select>
 </mapper>
