@@ -4,7 +4,6 @@
       <!-- f_id로 정보 받아서 처리 -->
     <section>
     <h1>유저 프로필 영역</h1>
-
         <div v-if="showButton">
             <button @click="followUser">FOLLOW</button>
         </div>
