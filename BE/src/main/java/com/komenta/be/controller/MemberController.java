@@ -229,7 +229,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_id", value = "회원 번호", dataType = "int", required = true)
     })
     @DeleteMapping("/delete")
-    public int deleteMember(@RequestBody int u_id){
+    public int deleteMember(@RequestParam int u_id){
         return mservice.deleteMember(u_id);
     }
 
