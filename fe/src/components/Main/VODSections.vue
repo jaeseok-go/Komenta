@@ -21,3 +21,15 @@
     </div>
 </template>
 
+<style>
+  ion-chip {
+    margin: 0.2rem;
+    padding: 0.5rem;
+  }
+
+  ion-label {
+    color: black;
+  }
+
+</style>
+
