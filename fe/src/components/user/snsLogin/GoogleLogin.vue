@@ -43,7 +43,7 @@
 
 <script>
 import { dupIdChk }  from '@/api/user'
-import store from '@/stores/modules/user'
+// import store from '@/stores/modules/user'
 
 export default {
     name: 'GoogleLogin',
@@ -85,6 +85,17 @@ export default {
     async handleClickSignIn() {
       try {
         const googleUser = await this.$gAuth.signIn();
+          // 로그인한 아이디였으면!
+          const response  = await dupIdChk(googleUser.Fs.lt)
+          if (response) {
+            console.log('로그인하러가자,,')
+            this.$store.dispatch('LOGIN',{
+            u_email:googleUser.Fs.lt,
+            u_pw:googleUser.uc.login_hint
+          })
+          this.$router.push({ name: 'MyPage'});
+          return
+          }
         if (!googleUser) {
           return null;
         }
@@ -95,15 +106,6 @@ export default {
             u_phone_number : null,
             u_nickname : googleUser.Fs.sd,
         };
-        // 로그인한 아이디였으면!
-        if (dupIdChk(googleUser.Fs.lt)) {
-          store.dispatch('Login',{
-          u_email:googleUser.Fs.lt,
-          u_pw:googleUser.uc.login_hint
-        })
-        this.$route.push('/')
-        return
-        }
         this.$store.commit('fetchInfo',userData);
         console.log("getId", googleUser.getId());
         console.log("getBasicProfile", googleUser.getBasicProfile());
