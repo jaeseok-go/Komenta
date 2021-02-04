@@ -1,4 +1,6 @@
 import { setInterceptors } from './config/interceptors'
+import axios from 'axios'
+import store from '@/stores/modules/user'
 
 const instance = setInterceptors()
 
@@ -82,15 +84,30 @@ function fetchVodEpiDetail({veId}) {
         })
 }
 
-//직접 입력하는 VOD 추가
-function sendVodFirstRegist(vodInfo) {
-    return instance.post(`/admin/vod_regist_first`,vodInfo)
+//vod 정보 추가
+function sendVODInfo(vodInfo) {
+    return instance.post(`admin/vod_regist`,vodInfo)
 }
 
-//이미 존재하는 VOD의 회차 추가
-function sendVodEpisodeRegist(episodeInfo) {
-    return instance.post(`admin/episode_upload`,episodeInfo)
+//vod 영상 저장
+function insertVOD(vodForm) {
+    return axios.post('http://localhost:8080/admin/video_upload',vodForm, { 
+      headers: {
+         'Content-Type': 'multipart/form-data',
+         'auth-token': store.state.token
+     }
+    })
 }
+
+function insertVodPoster(vodForm) {
+    return axios.post('http://localhost:8080/admin/poster_upload',vodForm, { 
+      headers: {
+         'Content-Type': 'multipart/form-data',
+         'auth-token': store.state.token
+     }
+    })
+}
+
 
 
 export {
@@ -106,6 +123,7 @@ export {
     fetchGenreDetail,
     fetchVodListByGenreDetailId,
     fetchVodDetail,
-    sendVodFirstRegist,
-    sendVodEpisodeRegist
+    sendVODInfo,
+    insertVOD,
+    insertVodPoster
 }
