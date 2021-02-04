@@ -39,7 +39,6 @@ export default {
             // showComment:false,
             selectedId:0,
             videoCurrentTime: 0,
-            sortcomments:[],
             comments : [
                 {
                     "c_id" : 1,
@@ -76,7 +75,7 @@ export default {
                     "c_id" : 4,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "5",
+                    "c_playtime" : "7",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 3,
@@ -86,7 +85,7 @@ export default {
                     "c_id" : 5,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ웹툰보다별로,,ㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "5.5",
+                    "c_playtime" : "15.5",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 4,
@@ -140,12 +139,10 @@ export default {
         // this.getVideo(veId)
     },
     methods:{   
-        // addDiv(){
-        //     const div = document.createElement('div');
-        //     comments.foreach(comment => )
-        //     div.innerText= this.commennts;
-        //     document.getElementById('comment_div').appendChild(div);
-        // },
+        autoScroll(){
+            const scrollDiv = document.getElementById('comment_div');
+            scrollDiv.scrollTop = scrollDiv.scrollHeight;
+        },
           nowTime(){
             const date = new Date();
             this.nowTime = date.getHours() + ":" + date.getMinutes()
@@ -202,16 +199,12 @@ export default {
   }
     },
     watch : {
-    // videoCurrentTime : function(newValue, oldValue) {
-    //     if (newValue == 1) {
-    //     // 1보다 커지는 경우 실행
-    //     }
-    //     else if (newValue > 5) {
-    //     // 5보다 커지는 경우에만 실행
-    //     }
-    // }
-    }
+        videoCurrentTime :function (){
+            const scrollDiv = document.getElementById('comment_div');
+            scrollDiv.scrollTop = scrollDiv.scrollHeight;
+        },
 
+    }
 }
 </script>
 
