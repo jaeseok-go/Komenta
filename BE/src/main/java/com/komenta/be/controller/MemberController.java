@@ -9,14 +9,19 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -139,7 +144,30 @@ public class MemberController{
     }
 
 
+    @ApiOperation(value = " 프로필 사진 File 업로드", notes = "picture 등록 이름:u_id나 nickname?")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "profile", value = "profile picture file", dataType = "file", required = true),
+    })
+    @PostMapping("/profile_upload")
+    public int registVideo(@RequestParam("profile") MultipartFile profile) {
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
+        String video = "/home/ubuntu/Picture/Profile/" + profile.getOriginalFilename();
+//        video.replace(" ", "_");
 
+        File targetFile = new File(video);
+        System.out.println(targetFile);
+
+        try {
+            InputStream fileStream = profile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            System.out.println("파일 업로드 성공");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            e.printStackTrace();
+        }
+        return 1;
+    }
 
 
 
