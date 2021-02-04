@@ -41,7 +41,7 @@ const mutations = {
     },
     fetchInfo(state, userData) {
         state.userInfo = userData
-        // console.log(state.userInfo,'제대로 들어갔냐')
+        console.log(state.userInfo,'제대로 들어갔냐')
     },
     setEmail(state, email) {
         state.userInfo.u_email = email
@@ -105,7 +105,7 @@ const actions = {
         
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
-            //t commit('fetchInfo', response.data.daa)
+            commit('fetchInfo', response.data.data)
             console.log(response.data.data, '유저정보들어왔니')
 
         } else {
