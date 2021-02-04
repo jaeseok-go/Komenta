@@ -129,6 +129,7 @@ export default {
         }
     },
     created() {
+        // comments 시간순으로 정렬, parseFloat(문자열 실수로 크기비교)
         this.comments.sort(function (a,b) {
             return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
         })
@@ -139,11 +140,7 @@ export default {
         // this.getVideo(veId)
     },
     methods:{   
-        autoScroll(){
-            const scrollDiv = document.getElementById('comment_div');
-            scrollDiv.scrollTop = scrollDiv.scrollHeight;
-        },
-          nowTime(){
+        nowTime(){
             const date = new Date();
             this.nowTime = date.getHours() + ":" + date.getMinutes()
             + ':' + date.getSeconds()
@@ -163,6 +160,8 @@ export default {
         // 댓글 보이기 -> 이러면 둘다 보이나,,?ㅎ
         showComment(index){
             this.selectedId = index;
+            const scrollDiv = document.getElementById('comment_div');
+            scrollDiv.scrollTop = scrollDiv.scrollHeight;
             // console.log(cId)
             return true
         },
@@ -199,6 +198,7 @@ export default {
   }
     },
     watch : {
+        // 비디오 시간을 보며 스크롤 자동으로 내리기
         videoCurrentTime :function (){
             const scrollDiv = document.getElementById('comment_div');
             scrollDiv.scrollTop = scrollDiv.scrollHeight;
