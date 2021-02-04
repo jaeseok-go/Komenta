@@ -143,6 +143,7 @@ const actions = {
         const likePlaylist = await fetchLikePlaylist(userId)
         commit('setLikePlaylist', likePlaylist)
     },
+    //팔로잉 조회
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)
         commit('setMyfollowingList', followingList )

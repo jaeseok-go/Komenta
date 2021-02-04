@@ -3,9 +3,12 @@
       <!-- asidebar에서 내피드를 클릭했을때 feed/f_id로 오게 함 -->
       <!-- f_id로 정보 받아서 처리 -->
     <section>
-    <h1>유저 프로필 영역</h1>
-        <div v-if="showButton">
-            <button @click="followUser">FOLLOW</button>
+        <div class="userprofile">
+            <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
+            <div class="userprofile__name">1등이다</div>
+            <div v-if="showButton">
+                <button class="userprofile__button" @click="followUser">FOLLOW</button>
+            </div>
         </div>
     </section>
 
@@ -283,6 +286,11 @@ export default {
         },
         //팔로우하는 로직 추가 구현
         followUser() {
+            const my_id = this.fetchedUserInfo.u_id
+            const your_id = this.fetchedUserFeedInfo.u_id
+            const bothId = { u_id : my_id, f_id :your_id }
+            response = modifyfollow(bothId)
+            console.log(response)
 
         },
         showVodEpiModal(index){
@@ -352,17 +360,18 @@ export default {
 }
 </script>
 
-<style scoped>
-  .drop-zone {
-    background-color: #eee;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
 
-  .drag-el {
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 5px;
-  }
-  
+<style>
+.drop-zone {
+  background-color: #eee;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.drag-el {
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
 </style>
