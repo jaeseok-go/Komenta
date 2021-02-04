@@ -7,20 +7,20 @@
         values (#{pl_name}, #{pl_comment}, #{u_id})
     </insert>
 
-    <update id="playlist_info_modify">
+    <update id="playlist_info_modify" parameterType = "com.komenta.be.model.playlist.PlayListDTO">
         UPDATE play_list
         SET pl_name = #{pl_name},
             pl_comment = #{pl_comment}
         WHERE pl_id = #{pl_id}
     </update>
 
-    <delete id="playlist_delete">
+    <delete id="playlist_delete" parameterType =  "int">
         DELETE
         FROM play_list
         WHERE pl_id = #{pl_id}
     </delete>
 
-    <select id="playlist_info">
+    <select id="playlist_info" parameterType = "int" resultType="com.komenta.be.model.playlist.PlayListGetAllDTO">
         SELECT M.pl_id, M.pl_name, M.pl_comment, (case when M.pl_good_count IS NULL then 0 ELSE M.pl_good_count end) AS pl_good_count, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id,
                N.v_id, N.v_title, N.v_director, N.v_actors, N.g_name, N.gd_name, N.ve_episode_num
         FROM(SELECT C.pl_id, C.pl_name, C.pl_comment, C.u_id, C.pl_good_count, F.plc_id, F.vh_id, F.vh_comment, F.vh_score, F.ve_id
@@ -42,13 +42,13 @@
         ON M.ve_id = N.ve_id
     </select>
 
-    <select id="select_favorite_pl_id">
+    <select id="select_favorite_pl_id" parameterType="int" resultType="int">
         SELECT pl_id
         FROM play_list_good
         WHERE u_id = #{u_id}
     </select>
 
-    <select id="select_regist_pl_id">
+    <select id="select_regist_pl_id" parameterType="int" resultType="int">
         SELECT pl_id
         FROM play_list
         WHERE u_id = #{u_id}
