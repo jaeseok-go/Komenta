@@ -65,4 +65,13 @@
         from member
         where u_nickname = #{u_nickname}
     </select>
+
+    <select id="updateMembership" parameterType="int">
+        UPDATE member
+        SET u_expire_member = case
+        when (now() > u_expire_member) then date_add(now(), interval +1 MONTH)
+        ELSE NOW()
+        end
+        WHERE u_id = #{u_id}
+    </select>
 </mapper>
