@@ -34,7 +34,7 @@
 
         @ApiOperation(value = "해당 회차 VOD 보기", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
         @ApiImplicitParams({
-                @ApiImplicitParam(name = "vodEpisodeId", value = "ve_id(ve 번호)", dataType = "int", required = true),
+                @ApiImplicitParam(name = "ve_id", value = "ve 번호", dataType = "int", required = true),
         })
         @GetMapping("/vodnum/{ve_id}")
         public ResponseEntity<Map<String, Object>> selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
@@ -99,7 +99,6 @@
                 status = HttpStatus.OK;
 
             } catch (RuntimeException e) {
-                resultMap.put("message", e.getMessage());
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
             return new ResponseEntity<Map<String, Object>>(resultMap, status);
