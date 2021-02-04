@@ -73,7 +73,7 @@ export default {
         .getAuthCode()
         .then((authCode) => {
           //on success
-          console.log("????authCode", authCode);
+          console.log("authCode", authCode);
         })
         .catch((error) => {
             console.log(error)
@@ -87,8 +87,8 @@ export default {
         const googleUser = await this.$gAuth.signIn();
           // 로그인한 아이디였으면!
           const response  = await dupIdChk(googleUser.Fs.lt)
-          console.log(response,'뭐가오니?')
-          if (response) {
+          console.log(response.data,'구글 아이디 있나여? 뭐가오니?')
+          if (response.data) {
             console.log('로그인하러가자,,')
             this.$store.dispatch('LOGIN',{
             u_email:googleUser.Fs.lt,

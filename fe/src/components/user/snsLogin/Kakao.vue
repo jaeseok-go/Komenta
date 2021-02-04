@@ -91,7 +91,7 @@ export default {
         const res = await getKakaoUserInfo();
         const response  = await dupIdChk(res.kakao_account.email)
         console.log(res,response)
-        if (response) {
+        if (response.data) {
             console.log('로그인하러가자,,')
             this.$store.dispatch('LOGIN',{
             u_email:res.kakao_account.email,
