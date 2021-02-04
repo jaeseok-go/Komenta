@@ -1029,4 +1029,30 @@ select {
   padding-left: 50px;
   color: black;
 }
+
+.userprofile {
+  background-color: antiquewhite;
+  height: 10rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.userprofile__pic {
+  font-size: 5rem;
+}
+
+.userprofile__name {
+  font-size: 1rem;
+}
+
+.userprofile__button {
+  background: -webkit-gradient(linear, left top, left bottom, from(#e66465), to(#9198e5));
+  background: linear-gradient(#e66465, #9198e5);
+  display: inline-block;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 50px;
+  position: relative;
+}
 /*# sourceMappingURL=index.css.map */

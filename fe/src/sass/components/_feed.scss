@@ -1,0 +1,35 @@
+.userprofile {
+    background-color: antiquewhite;
+    height: 10rem;
+    text-align: center;
+    vertical-align:middle;
+
+
+
+  &__pic {
+    font-size: 5rem;
+
+  }
+
+  &__name {
+    font-size: 1rem;
+
+  }
+
+  &__button {
+    background: linear-gradient(#e66465, #9198e5);
+    // background: linear-gradient(to right, #ff9966, #ff5e62);
+    // background: linear-gradient(45deg, #3D41DA 0%, #0088F7 100%);
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    // text-shadow: 0 1px 1px rgb(30 31 68 / 50%);
+    padding: 10px 30px;
+    border-radius: 50px;
+    position: relative;
+  }
+  
+
+
+}
+

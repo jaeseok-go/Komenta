@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC } from "@fortawesome/free-regular-svg-icons";
 import { faCheckCircle as fasCheckC, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import '@/css/index.css'
+import '@/sass/index.css'
 import '@/assets/ionic.css'
 // google 로그인
 import GAuth from 'vue-google-oauth2'
