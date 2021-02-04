@@ -2,6 +2,7 @@ package com.komenta.be.controller;
 
 import com.komenta.be.model.comment.CommentInfoDTO;
 import com.komenta.be.model.comment.CommentRankDTO;
+import com.komenta.be.model.comment.MyCommentDTO;
 import com.komenta.be.model.comment.VodEpisodeCommentDTO;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +67,13 @@ public class CommentController {
     @GetMapping("/comment_rank")
     public List<CommentRankDTO> getCommentRankList(){
         return cservice.getCommentRankList();
+    }
+
+
+    @ApiOperation(value = "회원이 단 모든 댓글 조회", notes = "입력받은 u_id가 달았던 모든 댓글 조회")
+    @GetMapping("/comment_list")
+    public List<MyCommentDTO> getMyComment(int u_id, HttpServletRequest request){
+        return cservice.getMyComment(u_id);
     }
 
 }
