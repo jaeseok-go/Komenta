@@ -58,31 +58,14 @@ public class AdminController {
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/member_update")
-    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
+    public ResponseEntity<Integer> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
         HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
         System.out.println(member);
-        try{
-            int result = adminService.updateMember(member);
-            if(result !=0) {
-                String token = jwtService.create(member);
-                response.setHeader("auth-token", token);
-                resultMap.put("status", true);
-                resultMap.put("auth-token", token);
-                status = HttpStatus.ACCEPTED;
-                System.out.println(response.getHeader("auth-token"));
-            }
-            else{
-                System.out.println("업데이트 실패");
-            }
+        int result = adminService.updateMember(member);
+        status = HttpStatus.OK;
 
-        }
-        catch(RuntimeException e){
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<Integer>(result, status);
 
     }
 

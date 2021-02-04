@@ -42,7 +42,8 @@
         set u_pw = #{u_pw},
             u_phone_number = #{u_phone_number},
             u_nickname = #{u_nickname},
-            u_profile_pic = #{u_profile_pic}
+            u_is_admin = #{u_is_admin},
+            u_is_blocked = #{u_is_blocked}
         where u_id = #{u_id}
     </update>
 

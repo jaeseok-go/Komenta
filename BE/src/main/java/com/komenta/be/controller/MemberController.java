@@ -191,7 +191,10 @@ public class MemberController{
 
         String token1 = request.getHeader("auth-token");
         int idid = (int) jwtService.get(token1).get("u_id");
-        System.out.println("id 는 무엇이냐 : "+idid);
+        boolean is_blocked = (boolean) jwtService.get(token1).get("is_blocked");
+        boolean is_admin = (boolean) jwtService.get(token1).get("is_admin");
+        member.setU_is_admin(is_admin);
+        member.setU_is_blocked(is_blocked);
         System.out.println("수정 할 정보 :  "+member);
         try{
             int result = mservice.updateMember(member);
