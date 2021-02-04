@@ -70,7 +70,7 @@ export default {
         },
     loginWithKakao() {
         const params = {
-            redirectUri: "http://localhost:8080/auth",
+            redirectUri: `process.env.VUE_APP_URL/Auth`,
             // scope: 'phone_number_needs_agreement'
             // scope:'phone_number'
         };
