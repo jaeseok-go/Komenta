@@ -61,6 +61,7 @@ public class AdminController {
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
         HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
+        System.out.println(member);
         try{
             int result = adminService.updateMember(member);
             if(result !=0) {
