@@ -142,7 +142,7 @@
 <script>
 import { mapGetters } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist } from '@/api/user'
+import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
 
@@ -287,9 +287,9 @@ export default {
         //팔로우하는 로직 추가 구현
         followUser() {
             const my_id = this.fetchedUserInfo.u_id
-            const your_id = this.fetchedUserFeedInfo.u_id
+            const your_id = this.$route.params.id;
             const bothId = { u_id : my_id, f_id :your_id }
-            response = modifyfollow(bothId)
+            const response = modifyfollow(bothId)
             console.log(response)
 
         },
