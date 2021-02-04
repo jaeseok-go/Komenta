@@ -1,18 +1,19 @@
 <template>
     <div >
         <div>
-            <button @click="getCurTime">현재시간?</button>
+            <!-- <button @click="getCurTime">현재시간?</button> -->
             <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" autoplay>
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
 
            <h3>회차별 댓글</h3> 
            <input type="text" v-model="userComment">
-            <div v-for="comment in comments"  :key="comment.c_id">
-                <!-- c_playtime?? c_uploadtime?? -->
+           <div style="overflow:auto; width:500px; height:150px;" id="comment_div">
+            <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                   <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
                 </p>
+            </div>
             </div>
 
         </div>
@@ -38,6 +39,7 @@ export default {
             // showComment:false,
             selectedId:0,
             videoCurrentTime: 0,
+            sortcomments:[],
             comments : [
                 {
                     "c_id" : 1,
@@ -49,6 +51,7 @@ export default {
                     "u_id" : 1,
                     "u_nickname" : "아롱롱"
                 },
+            
                 {
                     "c_id" : 2,
                     "c_contents":"스위트홈 웹툰 정주행 하러 가야지~~~~",
@@ -69,6 +72,46 @@ export default {
                     "u_id" : 3,
                     "u_nickname" : "우리조는 1등"
                 },
+                {
+                    "c_id" : 4,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "5",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 3,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 5,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ웹툰보다별로,,ㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "5.5",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 4,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 6,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "6",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 17,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "5.1",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
             ],
             video: {
                 sources: [{
@@ -87,12 +130,22 @@ export default {
         }
     },
     created() {
+        this.comments.sort(function (a,b) {
+            return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+        })
+        console.log(this.comments)
         // this.videoCurrentTime = this.$refs.video.currentTime
         // console.log(this.videoCurrentTime, this.$refs.video.currentTime)
         // const veId = this.$route.parmas.id;
         // this.getVideo(veId)
     },
     methods:{   
+        // addDiv(){
+        //     const div = document.createElement('div');
+        //     comments.foreach(comment => )
+        //     div.innerText= this.commennts;
+        //     document.getElementById('comment_div').appendChild(div);
+        // },
           nowTime(){
             const date = new Date();
             this.nowTime = date.getHours() + ":" + date.getMinutes()
