@@ -78,13 +78,14 @@
                     <h3 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
-                       >{{ vod.v_title }}</span> 
+                       >{{ playlist.pl_name }}</span> 
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                     @click="vodEpiModal = false">
                     </i>
                     </h3>
                     <p slot="body">
+                        {{vod.v_title}}
                         <input type="text" v-model="epiComment">
                         <button @click="addComment">리뷰작성</button>
                     </p>
@@ -115,6 +116,7 @@
                >
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
+                    {{ playlist.pl_name }}
                     {{ vod.v_title }}
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
