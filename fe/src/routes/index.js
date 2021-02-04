@@ -92,13 +92,13 @@ export default new Router({
           // redirect: 'usermanage/allUser',
           children: [
             {
-              path: 'allUser',
+              path: 'alluser',
               name: 'AllUser',
               component: () => import('@/components/admin/UserManagement/AllUser.vue'),
               props: true
             },
             {
-              path: 'blockedUser',
+              path: 'blockeduser',
               name: 'BlockedUser',
               component: () => import('@/components/admin/UserManagement/BlockedUser.vue'),
               props: true
@@ -126,7 +126,7 @@ export default new Router({
       ]
     },
     {
-      path: '/vodDetail/:id',
+      path: '/voddetail/:id',
       name: 'VodDetail',
       component: () => import('@/views/vod/VodDetail.vue'),
       props: true
@@ -161,11 +161,7 @@ export default new Router({
       name:'PlayListDetail',
       component: () => import('@/components/MyPlayList/PlayListDetail')
     },
-    {
-      path: '/vodtest',
-      name: 'Video',
-      component: () => import('@/components/vod/Video')
-    },
+
 
   ],
 });
