@@ -31,8 +31,8 @@
             </svg>
 
         </button>
-        <button @click="handleClickLogin">get authCode</button> <br>
-        <button @click="handleClickDisconnect">disconnect</button><br>
+        <!-- <button @click="handleClickLogin">get authCode</button> <br>
+        <button @click="handleClickDisconnect">disconnect</button><br> -->
         <!-- <button @click="handleClickSignIn">sign in</button><br> -->
         <!-- <button @click="handleClickSignOut">sign out</button><br>
         <p>isInit: {{isInit}}</p>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { dupIdChk }  from '@/api/user'
+import store from '@/stores/modules/user'
 
 export default {
     name: 'GoogleLogin',
@@ -71,7 +73,7 @@ export default {
         .getAuthCode()
         .then((authCode) => {
           //on success
-          console.log("authCode", authCode);
+          console.log("????authCode", authCode);
         })
         .catch((error) => {
             console.log(error)
@@ -88,18 +90,20 @@ export default {
         }
         console.log("googleUser", googleUser);
         const userData = {
-            // u_id:100,
-            u_email:googleUser.Fs.lt,
-            u_pw: googleUser.uc.id_token,
+          u_email:googleUser.Fs.lt,
+            u_pw: googleUser.uc.login_hint,
             u_phone_number : null,
-            // googleUser.Fs.KR 가 이름 근데 중복된값 피하기 위해 유니크한값..
             u_nickname : googleUser.Fs.sd,
-            // u_expire_member :null,
-            // u_is_admin:false,
-            // u_is_blocked:false,
-            // u_profile_pic:null,
-   
         };
+        // 로그인한 아이디였으면!
+        if (dupIdChk(googleUser.Fs.lt)) {
+          store.dispatch('Login',{
+          u_email:googleUser.Fs.lt,
+          u_pw:googleUser.uc.login_hint
+        })
+        this.$route.push('/')
+        return
+        }
         this.$store.commit('fetchInfo',userData);
         console.log("getId", googleUser.getId());
         console.log("getBasicProfile", googleUser.getBasicProfile());

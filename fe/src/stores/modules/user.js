@@ -1,6 +1,6 @@
 import { loginUser, 
     updateMyInfo,
-    fetchLikePlaylist, addPlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed,fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
+    fetchLikePlaylist, fetchfollowinglist, fetchMyPlaylist, fetchUserFeed,fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
@@ -138,10 +138,6 @@ const actions = {
         //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
         const likePlaylist = await fetchLikePlaylist(userId)
         commit('setLikePlaylist', likePlaylist)
-    },
-    async ADD_PLAYLIST({ commit }, data) {
-        const response = await addPlaylist(data)
-        console.log(response,commit)
     },
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)

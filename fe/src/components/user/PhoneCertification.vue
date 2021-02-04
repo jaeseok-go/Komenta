@@ -37,7 +37,7 @@ export default {
             idDisplay: 'none',
             resetBtnDisplay: 'none',
             authenNum: '',
-            confirmNum: '',
+            confirmNum: '0000',
         };
     },
     computed: {
@@ -65,7 +65,7 @@ export default {
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
-      this.confirmNum = `${response.data.auth_number}`;
+      // this.confirmNum = `${response.data.auth_number}`;
       // response.data.u_email
       this.userId = response.data.u_email;
       console.log(response)
