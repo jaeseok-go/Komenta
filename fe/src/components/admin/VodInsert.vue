@@ -16,7 +16,7 @@
               {{ item.gd_name }}
             </option>
           </select>
-          <select v-model="vod" @change="autoWriteVodInfo()">
+          <select v-model="vod" @change="autoWriteVodInfo()" ref="directInput">
             <option selected>직접 입력</option>
             <option v-for="(item, index) in vod_list_by_gd" :value="item" :key="index">
               {{ item.v_title }}
@@ -76,8 +76,7 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod';
-import axios from 'axios';
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVodFirstRegist, sendVodEpisodeRegist} from '@/api/vod';
 
 export default {
   components: { 
@@ -123,67 +122,65 @@ export default {
     });
   },
   methods: {
-   detailGenre(){ //VOD 종류 불러오기
-     fetchGenreDetail(this.genre_id)
-     .then((response) => {
-       this.genre_detail_list = response.data;
-       console.log("genre detail 여깄다"+ response);
-     })
-     .catch(()=>{
-       alert('genre detail error');
-     })
-   },
+    detailGenre(){ //VOD 종류 불러오기
+      fetchGenreDetail(this.genre_id)
+      .then((response) => {
+        this.genre_detail_list = response.data;
+        console.log("genre detail 여깄다"+ response);
+      })
+      .catch(()=>{
+        alert('genre detail error');
+      })
+    },
     showVodList(){ //선택한 장르 기준으로 등록된 VOD list 불러오기
-     fetchVodListByGenreDetailId(this.genre_detail_id)
-     .then((response) => {
-       this.vod_list_by_gd= response.data;
-       this.vod.v_id = response.data.v_id;
-       console.log("vod 확인",this.vod);
-       console.log("gd에 해당하는 vod 여깄다", response.data);
-     })
-     .catch(()=>{
-       alert('show vod list error');
-     })
-   },
-   autoWriteVodInfo(){
-     console.log("vod id : ",this.vod.v_id)
-     if(this.vod.v_id > 0){
-       this.vod_id = this.vod.v_id; 
-       this.vod_episode.v_id = this.vod_id;
-       this.is_exist_vod = true;
-     }else if(this.vod.v_id == undefined) {
-       console.log("직접입력")
-       this.vod = {}
-     }
-   },
-   send(){
-     console.log("vod episode : ",this.vod_episode);
-     if(this.is_exist_vod == true){
-      axios
-     .post('http://i4b201.p.ssafy.io:8080/admin/episode_upload', this.vod_episode)
-     .then((response)=>{
-       console.log(response.data);
-     })
-     .catch(()=>{
-       console.log("업로드에러");
-     })
-     }
-     else{
-       console.log(this.vod)
-       axios
-     .post('http://i4b201.p.ssafy.io:8080/admin/vod_regist_first', this.vod)
-     .then((response)=>{
-       alert(response);
-     })
-     .catch(()=>{
-       console.log("업로드에러");
-     })
-     }
-     
-   },
-   toVideo(){
-     location.href="test";
-   }
+      fetchVodListByGenreDetailId(this.genre_detail_id)
+      .then((response) => {
+        this.vod_list_by_gd= response.data;
+        this.vod.v_id = response.data.v_id;
+        console.log("vod 확인",this.vod);
+        console.log("gd에 해당하는 vod 여깄다", response.data);
+      })
+      .catch(()=>{
+        alert('해당 장르에 저장된 VOD가 없습니다. 직접 입력을 통해 등록해주세요.');
+        this.$refs.directInput.focus();
+      })
+    },
+    autoWriteVodInfo(){
+      console.log("vod id : ",this.vod.v_id)
+      if(this.vod.v_id > 0){
+        this.vod_id = this.vod.v_id; 
+        this.vod_episode.v_id = this.vod_id;
+        this.is_exist_vod = true;
+      }else if(this.vod.v_id == undefined) {
+        console.log("직접입력")
+        this.vod = {}
+      }
+    },
+    async send(){
+      console.log("vod episode : ",this.vod_episode);
+      if(this.is_exist_vod == true){
+        await sendVodEpisodeRegist(this.vod_episode)
+        .then((response)=>{
+          console.log(response.data);
+        })
+        .catch(()=>{
+          console.log("업로드에러");
+        })
+      }
+      else{
+        console.log(this.vod)
+        sendVodFirstRegist(this.vod)
+        .then((response)=>{
+          alert(response);
+        })
+        .catch(()=>{
+          console.log("업로드에러");
+        })
+      } 
+    },
+    toVideo(){
+      location.href="test";
+    }
   }
 };
 </script>
