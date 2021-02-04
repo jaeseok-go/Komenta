@@ -17,7 +17,7 @@
               {{ item.gd_name }}
             </option>
           </b-select>
-          <b-select v-model="vod" @change="autoWriteVodInfo()">
+          <b-select v-model="vod" @change="autoWriteVodInfo()" ref="directInput">
             <option selected>직접 입력</option>
             <option v-for="(item, index) in vod_list_by_gd" :value="item" :key="index">
               {{ item.v_title }}
@@ -84,9 +84,8 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod';
-import axios from 'axios';
-import store from '@/stores/index.js';
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod';
+// import store from '@/stores/index.js';
 // import 'url-search-params-polyfill';
 export default {
   components: { 
@@ -158,7 +157,8 @@ export default {
        this.vod_list_by_gd= response.data;
      })
      .catch(()=>{
-       alert('show vod list error');
+        alert('해당 장르에 저장된 VOD가 없습니다. 직접 입력을 통해 등록해주세요.');
+        this.$refs.directInput.focus();
      })
    },
    autoWriteVodInfo(){
@@ -174,61 +174,50 @@ export default {
       }
      }
    },
-   send(){
+   async send(){
      
-    let token = store.state.user.token;
-     this.vod_all.gd_id = this.genre_detail_id;
-     this.vod_all.v_poster = this.file1.name;
+    this.vod_all.gd_id = this.genre_detail_id;
+    this.vod_all.v_poster = this.file1.name;
     console.log("들어가기전 최종",this.vod_all);
     let formData1 = new FormData();
-    formData1.append("file", this.file);
-    formData1.append("vod_all", this.vod_all);
+    // formData1.append("file", this.file);
+    console.log('vod 영상 정보 : ',formData1)
+    console.log('영상 file name : ',this.vod_all.v_title," ",this.vod_all.ve_episode_num)
+    // this.file.name = this.vod_all.v_title+this.vod_all.vod_episode_num;
+    // formData1.append("vod_all", this.vod_all);
     let formData2 = new FormData();
     formData2.append("v_poster", this.file1);
-    formData2.append("vod_all", this.vod_all);
+    // formData2.append("vod_all", this.vod_all);
 
-    axios
-     .post('http://localhost:8080/admin/vod_regist',this.vod_all,{
-       headers:{
-         'auth-token': token
-       }
-     })
-     .then((response)=>{
-       console.log("vod regist 잘들어감",  response.data);
-     })
-     .catch(()=>{
-       console.log("vod, vod epi 업로드에러");
-     });
-     axios
-     .post('http://localhost:8080/admin/video_upload',formData1, { 
-       headers: {
-          'Content-Type': 'multipart/form-data',
-          'auth-token': token
-      }
-     })
-     .then((response)=>{
-       console.log("video data 잘들어감", response.data);
-     })
-     .catch(()=>{
-       console.log("video 업로드에러");
-     });
-     axios
-     .post('http://localhost:8080/admin/poster_upload',formData2, { 
-       headers: {
-          'Content-Type': 'multipart/form-data',
-          'auth-token': token
-      }
-     })
-     .then((response)=>{
-       console.log("poster 사진 잘 들어감", response.data);
-     })
-     .catch(()=>{
-       console.log("poster 업로드에러");
-     })
+    await sendVODInfo(this.vod_all)
+    .then((response)=>{
+      console.log("vod regist 잘들어감",  response.data);
+    })
+    .catch((err)=>{
+      console.log("vod, vod epi 업로드에러");
+      console.log(err)
+    });
      
-   },
-   toVideo(){
-     location.href="test";
+    await insertVOD(this.formData1)
+      .then((response)=>{
+        console.log("video data 잘들어감", response.data);
+      })
+      .catch((err)=>{
+        console.log("video 업로드에러");
+        console.log(err)
+      });
+     
+    await insertVodPoster(this.formData2)
+    .then((response)=>{
+      console.log("poster 사진 잘 들어감", response.data);
+    })
+    .catch((err)=>{
+      console.log("poster 업로드에러");
+      console.log(err)
+    })
+  },
+  toVideo(){
+    location.href="test";
   }
   }
 };

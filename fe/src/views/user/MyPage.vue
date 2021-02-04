@@ -313,7 +313,6 @@ export default {
           u_pw: this.userPassword,
           u_nickname : this.userNickName,
           u_phone_number : this.userPhoneNumber,
-          // userInfoModify api에 u_profile_pic 업로드하는 쿼리 추가 요청
           u_profile_pic : this.userProfilePic
         };
         console.log('유저데이터잘들어왔니',userData)
@@ -325,7 +324,7 @@ export default {
         
         // this.getUserInfo();
         this.closeUserInfoModal();
-        // window.location.reload();
+        window.location.reload();
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
