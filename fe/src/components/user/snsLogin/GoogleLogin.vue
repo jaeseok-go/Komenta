@@ -93,7 +93,7 @@ export default {
             u_email:googleUser.Fs.lt,
             u_pw:googleUser.uc.login_hint
           })
-          this.$router.push({ name: 'MyPage'});
+          this.$router.push({ name: 'Main'});
           return
           }
         if (!googleUser) {

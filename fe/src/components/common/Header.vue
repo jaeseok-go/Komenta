@@ -2,6 +2,7 @@
   <div id="app">
     <!-- Searchbar with a placeholder -->
     <!-- <ion-searchbar placeholder="검색어를 입력하세요"></ion-searchbar> -->
+      <button @click="logout">LOGOUT</button>
     <form class="search-box" @submit.prevent="searchTemplate">
         <input type="text" id="search" placeholder="검색어를 입력하세요" v-model="keyword">
         <label for="search" @click="searchTemplate"><i class="fas fa-search icon-color"></i></label>
@@ -21,6 +22,14 @@ export default {
     }
   },
   methods: {
+    logout() {
+      if (confirm('로그아웃 하시겠습니까?')) {
+        this.$store.commit('logout');
+        if (this.$route.path !== '/') {
+          this.$router.push('/');
+        }
+      }
+    },
       searchTemplate() {
       if (this.keyword) {
         this.$router.push(`/search/${this.keyword}`)
