@@ -6,7 +6,7 @@
       <h4 class="inline-block">Follower 관리</h4>
       <div class="inline-block">
         <input type="text">
-        <button>검색</button>
+        <button @click="fetchFollow">검색</button>
       </div>
       <div class="follow-card">
         <div v-for="(follow, index) in followings" :key="index">

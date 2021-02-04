@@ -88,7 +88,7 @@ export default {
       // this.watchedVODList = this.$store.state.recentPlaylist;
       // this.watchedVODList = response.data;
       //최근 시청 VOD 5개만 표출
-      // for (let index = 0; index < this.watchedVODList; index++) {
+      // for (let index = 0; index < 5; index++) {
       //   this.recentlyPlayList.concat(this.watchedVODList[index]);
       // }
     }
