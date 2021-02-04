@@ -39,9 +39,6 @@ public class CommentController {
     @Autowired
     CommentService cservice;
 
-    @Autowired
-    JwtService jwtService;
-
 
     @ApiOperation(value = "댓글 입력", notes = "댓글을 입력하면 해당 댓글을 DB에 저장하고 이를 반환")
     @ApiImplicitParams({
@@ -73,11 +70,9 @@ public class CommentController {
     }
 
 
-    @ApiOperation(value = "내가 단 댓글 조회", notes = "내가 달았던 모든 댓글 조회")
+    @ApiOperation(value = "회원이 단 모든 댓글 조회", notes = "입력받은 u_id가 달았던 모든 댓글 조회")
     @GetMapping("/comment_list")
-    public List<MyCommentDTO> getMyComment(HttpServletRequest request){
-        String token = request.getHeader("auth-token");
-        int u_id = (int) jwtService.get(token).get("u_id");
+    public List<MyCommentDTO> getMyComment(int u_id, HttpServletRequest request){
         return cservice.getMyComment(u_id);
     }
 
