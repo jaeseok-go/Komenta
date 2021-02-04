@@ -59,4 +59,9 @@ public class MemberServiceImpl implements MemberService {
     public String chkDupByNickname(String u_nickname) {
         return  sqlsession.getMapper(MemberMapper.class).chkDupByNickname(u_nickname);
     }
+
+    @Override
+    public int updateMembership(int u_id) {
+        return sqlsession.getMapper(MemberMapper.class).updateMembership(u_id);
+    }
 }

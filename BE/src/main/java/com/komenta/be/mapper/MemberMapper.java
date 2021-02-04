@@ -16,4 +16,5 @@ public interface MemberMapper {
     int deleteMember(int u_id);
     String chkDupByID(String u_email);
     String chkDupByNickname(String u_nickname);
+    public int updateMembership(int u_id);
 }
