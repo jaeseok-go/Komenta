@@ -53,7 +53,8 @@ export default {
     },
     getPicPath(index){
       if(this.vodList[index].v_poster != '') {
-        const picPath = require(`@/assets/images/${this.vodList[index].v_poster}.png`);
+        console.log('poster 이름 : ',this.vodList[index].v_poster)
+        const picPath = require(`@/assets/images/${this.vodList[index].v_poster}`);
         return picPath;
       } else {
         console.log('이미지 없음')

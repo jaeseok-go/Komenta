@@ -82,6 +82,15 @@ function fetchVodEpiDetail({veId}) {
         })
 }
 
+//직접 입력하는 VOD 추가
+function sendVodFirstRegist(vodInfo) {
+    return instance.post(`/admin/vod_regist_first`,vodInfo)
+}
+
+//이미 존재하는 VOD의 회차 추가
+function sendVodEpisodeRegist(episodeInfo) {
+    return instance.post(`admin/episode_upload`,episodeInfo)
+}
 
 
 export {
@@ -96,5 +105,7 @@ export {
     fetchAllGenre,
     fetchGenreDetail,
     fetchVodListByGenreDetailId,
-    fetchVodDetail
+    fetchVodDetail,
+    sendVodFirstRegist,
+    sendVodEpisodeRegist
 }
