@@ -91,7 +91,8 @@ function sendVODInfo(vodInfo) {
 
 //vod 영상 저장
 function insertVOD(vodForm) {
-    return axios.post('http://localhost:8080/admin/video_upload',vodForm, { 
+    console.log(vodForm.get('file'))
+    return axios.post('http://i4b201.p.ssafy.io:8080/admin/video_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
          'auth-token': store.state.token
@@ -100,7 +101,7 @@ function insertVOD(vodForm) {
 }
 
 function insertVodPoster(vodForm) {
-    return axios.post('http://localhost:8080/admin/poster_upload',vodForm, { 
+    return axios.post('http://i4b201.p.ssafy.io:8080/admin/poster_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
          'auth-token': store.state.token
