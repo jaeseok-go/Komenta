@@ -36,6 +36,7 @@ export default {
   border: 19px solid black;
   border-radius: 20px;
   /* display: flex; */
+  display: block;
 }
 
 
@@ -51,6 +52,7 @@ section {
   height: 96vh;
   padding-left: 16.9rem;
   width: 100%;
+
 }
 
 #page-view {
@@ -65,5 +67,6 @@ section {
 .bottomNav.show {
   bottom: 0; 
   background:#111;}
+
 
 </style>
