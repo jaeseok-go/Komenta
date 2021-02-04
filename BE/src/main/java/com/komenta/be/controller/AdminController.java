@@ -58,14 +58,10 @@ public class AdminController {
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/member_update")
-    public ResponseEntity<Integer> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
-        HttpStatus status = null;
-        Map<String, Object> resultMap = new HashMap<>();
+    public int updateMember(@RequestBody MemberDTO member){
         System.out.println(member);
         int result = adminService.updateMember(member);
-        status = HttpStatus.OK;
-
-        return new ResponseEntity<Integer>(result, status);
+        return result;
 
     }
 
