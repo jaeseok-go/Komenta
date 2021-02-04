@@ -91,6 +91,7 @@ public class MemberController{
         params.put("text", " 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
+        System.out.println(auth_number);
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
             System.out.println(obj.toString());
@@ -99,7 +100,7 @@ public class MemberController{
             System.out.println(e.getCode());
         }
 
-        AuthPhoneDTO result = new AuthPhoneDTO(Integer.parseInt(auth_number), mservice.findId(u_phone_number));
+        AuthPhoneDTO result = new AuthPhoneDTO(auth_number, mservice.findId(u_phone_number));
 
         return result;
     }
