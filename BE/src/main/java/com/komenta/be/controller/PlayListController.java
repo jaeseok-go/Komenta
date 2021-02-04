@@ -98,7 +98,7 @@ public class PlayListController {
                 dtolist.add((PlayListGetAllDTO) playListService.playlist_info(a));
             }
 
-            status = HttpStatus.OK
+            status = HttpStatus.OK;
         }
         catch(RuntimeException e){
             status = HttpStatus.INTERNAL_SERVER_ERROR;
