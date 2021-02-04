@@ -52,10 +52,18 @@ const mutations = {
 
     },
     logout(state) {
+        // this.$gAuth.signOut();
         state.token = ''
         state.isLogin = false
         state.isLoginError = false
         sessionStorage.clear()
+        if (!window.Kakao.Auth.getAccessToken()) {
+            console.log('Not logged in.');
+            return;
+        }
+        window.Kakao.Auth.logout(function () {
+            console.log(window.Kakao.Auth.getAccessToken());
+        });
     },
     loginError(state) {
         state.isLoginError = true
@@ -105,7 +113,7 @@ const actions = {
         
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
-            commit('fetchInfo', response.data.data)
+            // commit('fetchInfo', response.data.data)
             console.log(response.data.data, '유저정보들어왔니')
 
         } else {

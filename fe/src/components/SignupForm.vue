@@ -242,7 +242,7 @@ export default {
       console.log("뭐가 들어오는데",response);
       return response;
     },
-    isNickNameDuplicationCheck() {
+    isNickNameDuplicaionCheck() {
       const response = this.isDupNickNameCheck()
       console.log("왜 오류 나는데... ",response);
       return response;
@@ -334,7 +334,7 @@ export default {
     },
     // 우리서버이용
     async submitSignup() {
-      this.clickSignupBtn = true
+      // this.clickSignupBtn = true
       if (!this.clickSignupBtn) {
         return
       }
