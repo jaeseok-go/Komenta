@@ -87,6 +87,7 @@ export default {
         const googleUser = await this.$gAuth.signIn();
           // 로그인한 아이디였으면!
           const response  = await dupIdChk(googleUser.Fs.lt)
+          console.log(response,'뭐가오니?')
           if (response) {
             console.log('로그인하러가자,,')
             this.$store.dispatch('LOGIN',{
