@@ -76,7 +76,7 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVodFirstRegist, sendVodEpisodeRegist} from '@/api/vod';
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod'; //, sendVodFirstRegist, sendVodEpisodeRegist
 
 export default {
   components: { 
@@ -156,31 +156,31 @@ export default {
         this.vod = {}
       }
     },
-    async send(){
-      console.log("vod episode : ",this.vod_episode);
-      if(this.is_exist_vod == true){
-        await sendVodEpisodeRegist(this.vod_episode)
-        .then((response)=>{
-          console.log(response.data);
-        })
-        .catch(()=>{
-          console.log("업로드에러");
-        })
-      }
-      else{
-        console.log(this.vod)
-        sendVodFirstRegist(this.vod)
-        .then((response)=>{
-          alert(response);
-        })
-        .catch(()=>{
-          console.log("업로드에러");
-        })
-      } 
-    },
-    toVideo(){
-      location.href="test";
-    }
+    // async send(){
+    //   console.log("vod episode : ",this.vod_episode);
+    //   if(this.is_exist_vod == true){
+    //     await sendVodEpisodeRegist(this.vod_episode)
+    //     .then((response)=>{
+    //       console.log(response.data);
+    //     })
+    //     .catch(()=>{
+    //       console.log("업로드에러");
+    //     })
+    //   }
+    //   else{
+    //     console.log(this.vod)
+    //     sendVodFirstRegist(this.vod)
+    //     .then((response)=>{
+    //       alert(response);
+    //     })
+    //     .catch(()=>{
+    //       console.log("업로드에러");
+    //     })
+    //   } 
+    // },
+    // toVideo(){
+    //   location.href="test";
+    // }
   }
 };
 </script>

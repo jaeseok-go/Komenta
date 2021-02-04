@@ -39,7 +39,7 @@
           <!-- 작성자<b-input type="text" id="ve_admin" v-model="vod_episode.ve_admin" value="admin"></b-input> -->
           <!-- 작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input> -->
           
-          VOD<input type="file" id="file" ref="file" v-on:change="handleFileUpload()" required>
+          VOD<input type="file" id="file" ref="file" v-on:change="handleFileUpload()" required accept="video/mp4">
           poster<input type="file" id="v_poster" ref="file1" v-on:change="handleFileUpload1()" required>
           <b-button @click="send" class="testbtn">추가</b-button>
         </b-form>
@@ -68,12 +68,7 @@
           </b-tr>
         </table>
       </b-col>
-
-
-      
     </b-container>
-
-
   </div>
 </template>
 <style>
@@ -84,7 +79,7 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod';
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId,sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod'; //
 // import store from '@/stores/index.js';
 // import 'url-search-params-polyfill';
 export default {
@@ -169,7 +164,7 @@ export default {
             
             // console.log(this.vod_all);
             this.vod_all = this.vod_list_by_gd[step];
-            
+
           }
       }
      }
@@ -177,17 +172,26 @@ export default {
    async send(){
      
     this.vod_all.gd_id = this.genre_detail_id;
-    this.vod_all.v_poster = this.file1.name;
+    let vposter_name = this.file1.name.split('.');
+    this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
     console.log("들어가기전 최종",this.vod_all);
     let formData1 = new FormData();
     // formData1.append("file", this.file);
-    console.log('vod 영상 정보 : ',formData1)
-    console.log('영상 file name : ',this.vod_all.v_title," ",this.vod_all.ve_episode_num)
+    // console.log('영상 file name : ',this.vod_all.v_title+this.vod_all.ve_episode_num)
+    // console.log('변경된 이름',String(this.vod.v_id+'_'+this.vod.v_title+this.vod_all.ve_episode_num+'.mp4'))
+    formData1.append("file",this.file,String(this.vod.v_id+'_'+this.vod.v_title+this.vod_all.ve_episode_num+'.mp4'))
+    // console.log("file 타입 : ",formData1.get('file'))
+    // console.log('vod 영상 정보 : ',formData1)
     // this.file.name = this.vod_all.v_title+this.vod_all.vod_episode_num;
     // formData1.append("vod_all", this.vod_all);
     let formData2 = new FormData();
-    formData2.append("v_poster", this.file1);
-    // formData2.append("vod_all", this.vod_all);
+    let poster_name = this.file1.name;
+    // console.log('poster name',poster_name);
+    let extensions = poster_name.split('.');
+    // console.log('확장자명 : ',extensions[1])
+    formData2.append("v_poster", this.file1, String(this.vod.v_id+'_'+this.vod.v_title+'.'+extensions[1]));
+    // console.log('poster 이름 : ',formData2.get('v_poster'))
+    // // formData2.append("vod_all", this.vod_all);
 
     await sendVODInfo(this.vod_all)
     .then((response)=>{
@@ -198,7 +202,7 @@ export default {
       console.log(err)
     });
      
-    await insertVOD(this.formData1)
+    await insertVOD(formData1)
       .then((response)=>{
         console.log("video data 잘들어감", response.data);
       })
@@ -207,7 +211,7 @@ export default {
         console.log(err)
       });
      
-    await insertVodPoster(this.formData2)
+    await insertVodPoster(formData2)
     .then((response)=>{
       console.log("poster 사진 잘 들어감", response.data);
     })
