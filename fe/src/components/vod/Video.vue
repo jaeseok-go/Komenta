@@ -45,6 +45,7 @@ export default {
     // 기록을 해주는 이유는 데이터 타입을 알기 쉽게 위해서.
     // comments: Array, 
     veId : Number,
+    sendcommenttime:[String,Number],
     // 반드시 필요하다는 의미
     // required: true,
     // 값을 전달하지 않을 경우 디폴트값 설정 가능 
@@ -250,7 +251,9 @@ export default {
   }
     },
     watch : {
- 
+        sendcommenttime : function() {
+            this.goCommentTime(this.sendcommenttime)
+        },
         // 비디오 시간을 보며 스크롤 자동으로 내리기
         videoCurrentTime :function (){
             const scrollDiv = document.getElementById('comment_div');

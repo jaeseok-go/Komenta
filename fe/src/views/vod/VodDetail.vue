@@ -1,27 +1,24 @@
 <template>
   <div>
     <!-- 사이드바는 hidden -->
-    <Asidebar></Asidebar>
+    <!-- <Asidebar></Asidebar> -->
     <Header></Header>
     <!-- vod -->
     <div id="appBody">
         <div>VOD</div>
-        <Video :comments="comments" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
-
-        <!-- </div> -->
-        1-2. 해당회차 세부내용<br>
-        GET(ve_id) -> res(v_id,회차,날짜,vod회차세부내용,)<br>
+        <Video :comments="comments" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
+        <hr>
         {{vodEpiInfo.episodeInfo}}
         <div>vod회차세부정보</div>
-        3. 해당 VOD 전체 세부 내용<br>
-        GET(v_id) -> res(vod이름(v_title),vod세부내용,vod장르 대분류/소분류,vod출연진,vod감독,)<br>
+
+        <hr>
         <div>vod전체 내용</div>
         {{ vodInfo }}
-        <VodAllEpi :vodInfo="vodInfo"></VodAllEpi>
-        <!-- router children 등록 VodAllEpi, VodEpiComment -->
         <!-- <router-link :to="{name:'VodAllEpi'}">전체회차</router-link> | <router-link :to="{name:'VodEpiComment'}">Best댓글</router-link>
         <router-view></router-view> -->
-        <Comments :comments="comments"></Comments>
+        <VodAllEpi :vodInfo="vodInfo"></VodAllEpi>
+        <!-- router children 등록 VodAllEpi, VodEpiComment -->
+        <Comments :comments="comments" @goCommentTime="goCommentTime"></Comments>
        
     </div>
   </div>
@@ -29,7 +26,7 @@
 
 <script>
 import Header from '@/components/common/Header';
-import Asidebar from '@/components/common/Asidebar';
+// import Asidebar from '@/components/common/Asidebar';
 import Comments from '@/views/vod/Comments';
 import { fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
 import { fetchEpiComment } from '@/api/comment'
@@ -39,7 +36,7 @@ import VodAllEpi from '@/components/vod/VodAllEpi'
 export default {
 components: { 
   Header,
-  Asidebar, 
+  // Asidebar, 
   Comments,
   Video,
   VodAllEpi
@@ -72,14 +69,14 @@ data(){
     // vod 세부정보
     vodInfo : [],
     comments : [],
-
+    sendcommenttime:"",
   }
 },
 
 created(){
-  this.getVodEpi();
-  this.getEpiComment();
-  this.getVodDetail();
+  // this.getVodEpi();
+  // this.getEpiComment();
+  // this.getVodDetail();
   // 해당 회차 VOD 세부 내용 조회 GET
   // this.vodEpiInfo = getVodEpi(ve_id)
   // this.vodInfo = getVod(v_id);
@@ -91,7 +88,9 @@ watch: {
    },
 },
 methods : {
-
+  goCommentTime(time) {
+    this.sendcommenttime = time
+  },
   async getVodEpi() {
     const epiId = this.$route.params.id;
     console.log(epiId)  
