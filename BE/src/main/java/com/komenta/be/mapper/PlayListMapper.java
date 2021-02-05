@@ -16,4 +16,8 @@ public interface PlayListMapper {
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
 
     List<PlaytListBestDTO> getBestPlayList();
+
+    int likePList(PlayListGoodDTO dto);
+
+    int unLikePList(PlayListGoodDTO dto);
 }

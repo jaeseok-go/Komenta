@@ -12,7 +12,10 @@ public interface PlayListService {
     public List<Integer> select_favorite_pl_id(int u_id);
     public List<Integer> select_regist_pl_id(int u_id);
     public List<PlaytListBestDTO> getBestPlayList();
+    public int likePList(PlayListGoodDTO dto);
     public int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info);
     public int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info);
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
+
+    int unLikePList(PlayListGoodDTO dto);
 }

@@ -19,6 +19,11 @@
         FROM play_list
         WHERE pl_id = #{pl_id}
     </delete>
+    <delete id="unLikePList" parameterType = "com.komenta.be.model.playlist.PlayListGoodDTO">
+        DELETE
+        FROM play_list_good
+        where pl_id = #{pl_id} and u_id = #{u_id}
+    </delete>
 
     <select id="playlist_info" parameterType = "int" resultType="com.komenta.be.model.playlist.PlayListGetAllDTO">
         SELECT M.pl_id, M.pl_name, M.pl_comment, (case when M.pl_good_count IS NULL then 0 ELSE M.pl_good_count end) AS pl_good_count, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id,
@@ -57,6 +62,11 @@
     <insert id="moveHistoryToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromHistoryDTO">
         insert into play_list_contents(vh_id, pl_id)
         values (#{vh_id}, #{pl_id})
+    </insert>
+
+    <insert id="likePList" parameterType="com.komenta.be.model.playlist.PlayListGoodDTO">
+        insert into play_list_good (pl_id, u_id)
+        values (#{pl_id}, #{u_id});
     </insert>
 
     <update id="movePlaylistToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromPlayListDTO">

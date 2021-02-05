@@ -49,6 +49,11 @@ public class PlayListServiceImpl implements PlayListService{
     }
 
     @Override
+    public int likePList(PlayListGoodDTO dto) {
+        return sqlSession.getMapper(PlayListMapper.class).likePList(dto);
+    }
+
+    @Override
     public int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info) {
         return sqlSession.getMapper(PlayListMapper.class).moveHistoryToPlaylist(move_info);
     }
@@ -61,6 +66,11 @@ public class PlayListServiceImpl implements PlayListService{
     @Override
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id) {
         return sqlSession.getMapper(PlayListMapper.class).getPlayListDetail(pl_id);
+    }
+
+    @Override
+    public int unLikePList(PlayListGoodDTO dto) {
+        return sqlSession.getMapper(PlayListMapper.class).unLikePList(dto);
     }
 
 }
