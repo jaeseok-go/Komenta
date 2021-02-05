@@ -99,6 +99,19 @@ function insertVodPoster(vodForm) {
      }
     })
 }
+// 플레이리스트 세부페이지
+function fetchPlayListDetail(plId) {
+    return instance.get('', {
+        params: {
+            pl_id: plId
+        }
+    })
+}
+
+// 좋아요가 많은 플레이리스트 순
+function fetchPopularPlayList() {
+    return instance.get()
+}
 
 
 
@@ -115,5 +128,7 @@ export {
     fetchVodDetail,
     sendVODInfo,
     insertVOD,
-    insertVodPoster
+    insertVodPoster,
+    fetchPlayListDetail,
+    fetchPopularPlayList
 }

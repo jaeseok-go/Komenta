@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { fetchStreamingListDetail } from '@/api/vod'
+import { fetchPlayListDetail } from '@/api/vod'
 import store from '@/stores/modules/user'
 
 export default {
@@ -29,7 +29,7 @@ export default {
             const u_id = store.state.userInfo.u_id
             const pl_id = this.$route.params.id;
             const data = {u_id, pl_id}
-            this.streamingListDetail = fetchStreamingListDetail(data)
+            this.streamingListDetail = fetchPlayListDetail(data)
         }
     },
     created() {
