@@ -81,6 +81,16 @@ function phoneAuth(userPhonenum) {
     }) 
 }
 
+// 멤버십 가입/해지
+function membership() {
+    return instance.post('member/membership')
+}
+
+// 프로필 사진 file 업로드 
+function uploadProfile(profile) {
+    return instance.post('member/profile_upload',profile)
+}
+
 // 유저 전체 목록 불러오기(관리자용)
 function fetchAllUsers() {
     return instance.get('admin/member_list')
@@ -111,7 +121,9 @@ function fetchRecentPlaylist(userId) {
 
 // 유저가 좋아요 누른 플레이 리스트
 function fetchLikePlaylist(userId) {
-    return instance.get('',userId)
+    return instance.get(`playlist/get_favorite_plist/${userId}`, {
+        params: { u_id: userId }
+    })
 }
 
 // 유저가 피드에서 플레이 리스트 생성
@@ -119,10 +131,26 @@ function addPlaylist(data) {
     return instance.post('playlist/plcreate',data)
 }
 
+//플레이리스트 VOD생성
+function addPlaylistVod(vodInfo) {
+    return instance.post('playlist/move_history_to_playlist',vodInfo)
+}
 
+// 플레이리스트 수정
+function modifyPlaylist(playlistInfo) {
+    return instance.put('playlist/plist_update',playlistInfo)
+}
 
+// 플레이리스트 삭제
+function deletePlaylist(plId){
+    return instance.delete('playlist/plist_delete',plId)
+}
+
+// 회원이 등록한 플레이리스트 목록 조회
 function fetchMyPlaylist(userId){
-    return instance.get(`/${userId}`)
+    return instance.get(`playlist/get_plist_list/${userId}`, {
+        params: { u_id: userId }
+    })
 }
 
 function fetchUserFeed(userId){
@@ -161,6 +189,7 @@ function modifyunfollow(unfollowInfo) {
 }
 
 
+
 export {
     registerUser,
     loginUser,
@@ -172,6 +201,8 @@ export {
     fetchAllVOD,
     emailAuth,
     phoneAuth,
+    membership,
+    uploadProfile,
     userIdChk,
     dupIdChk,
     dupNickNameChk,
@@ -180,8 +211,11 @@ export {
     fetchRecentPlaylist,
     fetchLikePlaylist,
     addPlaylist,
+    addPlaylistVod,
+    deletePlaylist,
     fetchfollowinglist,
     fetchMyPlaylist,
+    modifyPlaylist,
     fetchUserFeed,
     fetchfollowerlist,
     modifyfollow,

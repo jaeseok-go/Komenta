@@ -29,7 +29,7 @@
                     draggable
                     @dragstart='startDrag($event, vod)'
                     >
-                        {{ vod.v_title }}
+                    {{ vod.v_title }}
                     </div>
                 </div>
         </div>
@@ -44,9 +44,9 @@
             </i>
             </h3>
             <p slot="body">
-                <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요.">
-                <input type="text" v-model="plComment">
-                <button @click="createPlaylist">제출</button>
+            <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요.">
+            <input type="text" v-model="plComment">
+            <button @click="createPlaylist">제출</button>
             </p>
 
         </Modal>
@@ -57,7 +57,7 @@
         :key='playlist[0].pl_id'
         height="300"
         >
-        {{playlist[0].pl_name}}
+        {{playlist[index].pl_name}}
             <div class='drop-zone'
             @drop='onDrop($event, playlist[0].pl_id,index)'
             @dragover.prevent
@@ -66,19 +66,19 @@
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면  -->
             <div
-                v-for='(vod,index) in playlist[1]' 
-                :key='vod.ve_id' 
-                class='drag-el'
-                draggable
-                @dragstart='startDrag($event, vod)'
-                 @click="showVodEpiModal(index)"
+            v-for='(vod,index) in playlist[1]' 
+            :key='vod.ve_id' 
+            class='drag-el'
+            draggable
+            @dragstart='startDrag($event, vod)'
+            @click="showVodEpiModal(index)"
             >
-                <span >{{vod.v_title}}</span>
+                <span>{{vod.v_title}}</span>
                 <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
-                       >{{ playlist.pl_name }}</span> 
+                       >{{ vod.v_title }}</span> 
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                     @click="vodEpiModal = false">
@@ -106,16 +106,14 @@
         {{playlist[0].pl_name}}
             <div class='drop-zone'>
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
-            <!-- startDrag -1이면  -->
+            <!-- startDrag -1이면 -->
             <div
                 v-for='(vod,index) in playlist[1]' 
                 :key='vod.ve_id' 
                 class='drag-el'
-                
                >
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
-                    {{ playlist.pl_name }}
                     {{ vod.v_title }}
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
@@ -126,12 +124,10 @@
                         {{vod.pl_comment}}
                         <button  @click="goEpiDetail(vod.ve_id)">지금시청하기</button>
                     </p>
-
                 </Modal>
-                
+                </div>
             </div>
-            </div>
-            </div>
+        </div>
     </section>
 
     
@@ -165,8 +161,7 @@ export default {
                     {
                         ve_id: 1,
                         v_title: "test1",
-                        
-
+  
                     },
                     {
                         ve_id: 2,
