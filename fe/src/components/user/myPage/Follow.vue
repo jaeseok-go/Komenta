@@ -4,10 +4,10 @@
     <hr>
     <div class="inline-block followForm">
       <h4 class="inline-block">Follower 관리</h4>
-      <div class="inline-block">
+      <!-- <div class="inline-block">
         <input type="text">
         <button @click="fetchFollow">검색</button>
-      </div>
+      </div> -->
       <div class="follow-card">
         <div v-for="(follow, index) in followings" :key="index">
           <div class="inline-block">
@@ -24,10 +24,10 @@
       1-3. 팔로우 버튼, 차단 버튼<br> -->
     <div class="inline-block followForm">
       <h4 class="inline-block">Following 관리</h4>
-      <div class="inline-block">
+      <!-- <div class="inline-block">
         <input type="text">
         <button>검색</button>
-      </div>
+      </div> -->
       <div class="follow-card">
         <div v-for="(follow, index) in followers" :key="index">
           <div class="inline-block">
@@ -45,61 +45,73 @@
   </b-col>
 </template>
 <script>
+import {fetchfollowinglist} from '@/api/user';
 export default {
   data() {
     return {
       followings:[
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Choi Seoul'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Choi Seoul'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
       ],
     followers:[
-      {
-        f_img:'#',
-        f_nickname: 'Choi Seoul'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Kim SSAFY'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Park Deajeon'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Choi Seoul'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Kim SSAFY'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Park Deajeon'
-      },
-      {
-        f_img:'#',
-        f_nickname: 'Choi Seoul'
-      }
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Choi Seoul'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Kim SSAFY'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Park Deajeon'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Choi Seoul'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Kim SSAFY'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Park Deajeon'
+      // },
+      // {
+      //   f_img:'#',
+      //   f_nickname: 'Choi Seoul'
+      // }
     ]
+    }
+  },
+  props:['getUserId'],
+  created(){
+    this.fetchFollowingList(this.getUserId);
+  },
+  methods: {
+    async fetchFollowingList(userId){
+      console.log('getUserId',userId)
+      const response = await fetchfollowinglist(userId)
+      console.log(response);
     }
   },
 }

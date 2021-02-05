@@ -281,7 +281,7 @@ export default {
         return response.data;
       });
     },
-    //비밀번호 중복 체크 데이터 넘어가는 것도...
+    //닉네임 중복 체크 데이터 넘어가는 것도...
     async isDupNickNameCheck() {
       const result = await dupNickNameChk(this.username);
       console.log("닉네임 중복 체크 : ",result.data)
@@ -350,7 +350,7 @@ export default {
             // u_expire_member :null,
             // u_is_admin:false,
             // u_is_blocked:false,
-            // u_profile_pic:null,
+            u_profile_pic:'default_profile.png',
         };
         console.log(userData,'유저데이터다')
         console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)

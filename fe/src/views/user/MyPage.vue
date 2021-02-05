@@ -1,6 +1,6 @@
 <template>
   <b-container>
-
+    <h1>{{uId}}</h1>
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
@@ -86,7 +86,7 @@
       <my-comment></my-comment>
 
       <!-- 시청 VOD 관리 -->
-      <watched-vod @showVODForm="showVODForm" :getUserId="this.uId"></watched-vod>
+      <watched-vod @showVODForm="showVODForm" :getUserId="uId"></watched-vod>
       <Modal v-if="showVODModal">
         <div slot="header">
             <h3 class="findIdPw__title">시청 VOD 관리</h3>
@@ -127,7 +127,7 @@
       <interest-play-list></interest-play-list>
 
       <!-- 팔로우 관리 -->
-      <follow></follow>
+      <follow :getUserId="uId"></follow>
 
       <!-- 언팔로우 관리 -->
       <un-follow></un-follow>
