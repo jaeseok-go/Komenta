@@ -6,15 +6,26 @@
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
 
-           <h3>회차별 댓글</h3> 
-           <input type="text" v-model="userComment">
+           <h3>회차별 댓글</h3>
+           <div id="comment_div">
+               <div v-for="comment in comments" :key="comment.c_id">
+                   <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
+                       <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
+                    </p>
+               </div>
+           </div>
+            <div>
+            <input type='text' id=msg />
+            <button @click="addComment()">create</button>
+            </div>
+           <!-- <input type="text" v-model="userComment">
            <div style="overflow:auto; width:500px; height:150px;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                   <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
                 </p>
             </div>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -139,6 +150,20 @@ export default {
         // const veId = this.$route.parmas.id;
         // this.getVideo(veId)
     },
+    computed: {
+        // comScroll() {
+        //     const scrollDiv = document.getElementById('comment_div');
+        //     // scrollDiv.scrollTop = scrollDiv.scrollHeight;
+        //     scrollDiv.isScrollBotttom = true;
+        //     scrollDiv.addEventListener('scroll',(event) => {
+        //         if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+        //             scrollDiv.isScrollBotttom = true;
+        //         } else {
+        //             scrollDiv.isScrollBotttom = false;
+        //         }
+        //     })
+        // }
+    },
     methods:{   
         nowTime(){
             const date = new Date();
@@ -202,15 +227,31 @@ export default {
         videoCurrentTime :function (){
             const scrollDiv = document.getElementById('comment_div');
             scrollDiv.scrollTop = scrollDiv.scrollHeight;
+            // scrollDiv.isScrollBotttom = true;
+            // scrollDiv.addEventListener('scroll',(event) => {
+            //     if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
+            //         scrollDiv.isScrollBotttom = true;
+            //     } else {
+            //         scrollDiv.isScrollBotttom = false;
+            //     }
+            // })
+            
         },
 
     }
 }
 </script>
 
-<style>
+<style scoped>
 .testbtn{
   color : black;
   background-color: gray;
+}
+#comment_div {
+    white-space: pre;
+    overflow-y: scroll;
+    width:500px;
+    height:200px;
+    border: 1px solid black;
 }
 </style>

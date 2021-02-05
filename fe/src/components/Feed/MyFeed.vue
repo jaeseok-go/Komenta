@@ -89,7 +89,6 @@
                         <input type="text" v-model="epiComment">
                         <button @click="addComment">리뷰작성</button>
                     </p>
-
                 </Modal>
             </div>
             </div>
