@@ -1,9 +1,6 @@
 package com.komenta.be.service;
 
-import com.komenta.be.model.playlist.PlayListDTO;
-import com.komenta.be.model.playlist.PlayListFromHistoryDTO;
-import com.komenta.be.model.playlist.PlayListFromPlayListDTO;
-import com.komenta.be.model.playlist.PlayListGetAllDTO;
+import com.komenta.be.model.playlist.*;
 
 import java.util.List;
 
@@ -16,4 +13,5 @@ public interface PlayListService {
     public List<Integer> select_regist_pl_id(int u_id);
     public int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info);
     public int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info);
+    public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
 }

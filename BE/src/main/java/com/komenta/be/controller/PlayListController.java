@@ -173,8 +173,8 @@ public class PlayListController {
             @ApiImplicitParam(name = "pl_id", value = "플레이리스트 아이디", dataType = "int", required = true),
     })
     @GetMapping("/playlist_detail/{pl_id}")
-    public String getPlayListDetail(@PathVariable("pl_id") int pl_id){
-        return "";
+    public List<PlayListDetailDTO> getPlayListDetail(@PathVariable("pl_id") int pl_id){
+        return playListService.getPlayListDetail(pl_id);
     }
 }
 

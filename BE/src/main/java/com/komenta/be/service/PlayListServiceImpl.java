@@ -1,10 +1,7 @@
 package com.komenta.be.service;
 
 import com.komenta.be.mapper.PlayListMapper;
-import com.komenta.be.model.playlist.PlayListDTO;
-import com.komenta.be.model.playlist.PlayListFromHistoryDTO;
-import com.komenta.be.model.playlist.PlayListFromPlayListDTO;
-import com.komenta.be.model.playlist.PlayListGetAllDTO;
+import com.komenta.be.model.playlist.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +51,11 @@ public class PlayListServiceImpl implements PlayListService{
     @Override
     public int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info) {
         return sqlSession.getMapper(PlayListMapper.class).movePlaylistToPlaylist(move_info);
+    }
+
+    @Override
+    public List<PlayListDetailDTO> getPlayListDetail(int pl_id) {
+        return sqlSession.getMapper(PlayListMapper.class).getPlayListDetail(pl_id);
     }
 
 }

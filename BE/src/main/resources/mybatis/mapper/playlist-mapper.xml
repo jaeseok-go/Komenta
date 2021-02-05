@@ -65,7 +65,7 @@
         where plc_id = #{plc_id}
     </update>
 
-    <select>
+    <select id="getPlayListDetail" parameterType="int" resultType="com.komenta.be.model.playlist.PlayListDetailDTO">
         SELECT O.*, P.u_nickname, P.u_profile_pic
         FROM (SELECT M.pl_id, M.pl_name, M.pl_comment, (case when M.pl_good_count IS NULL then 0 ELSE M.pl_good_count end) AS pl_good_count,
                      M.u_id, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id,
@@ -76,7 +76,7 @@
                                                             FROM play_list_good
                                                             GROUP BY pl_id) B
                          ON A.pl_id = B.pl_id
-                         WHERE A.pl_id = 1) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
+                         WHERE A.pl_id = #{pl_id}) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
                                                                FROM play_list_contents D LEFT OUTER JOIN vod_history E
                                                                ON D.vh_id = E.vh_id) F
                    ON C.pl_id = F.pl_id) M LEFT OUTER JOIN (SELECT K.*, L.ve_id, L.ve_episode_num
