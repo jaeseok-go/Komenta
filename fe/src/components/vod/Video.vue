@@ -7,25 +7,30 @@
             </video>
 
            <h3>회차별 댓글</h3>
-           <div id="comment_div">
-               <div v-for="comment in comments" :key="comment.c_id">
+           <!-- <div id="comment_div" onscroll="chat_on_scroll()"> -->
+                 <!-- 이곳이 채팅내용에 의해 스크롤이 발생하는 구간 -->
+               <!-- <div v-for="comment in comments" :key="comment.c_id">
                    <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                        <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
                     </p>
-               </div>
-           </div>
+               </div> -->
+           <!-- </div>
             <div>
             <input type='text' id=msg />
             <button @click="addComment()">create</button>
-            </div>
-           <!-- <input type="text" v-model="userComment">
+            </div> -->
+           <!-- <input type="text" v-model="userComment"> -->
            <div style="overflow:auto; width:500px; height:150px;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                   <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
                 </p>
             </div>
-            </div> -->
+            </div>
+            <div>
+            <input type='text' id=msg v-model="userComment"/>
+            <button @click="addComment()">create</button>
+            </div>
 
         </div>
     </div>
@@ -136,7 +141,9 @@ export default {
                 }
             },
                 userComment:'',
-                now: "00:00:00"
+                now: "00:00:00",
+                pre_diffHeight :0,
+                bottom_flag : true
         }
     },
     created() {
@@ -165,6 +172,26 @@ export default {
         // }
     },
     methods:{   
+        onscroll() {
+            const objDiv = document.getElementById("comment_div");
+
+            if((objDiv.scrollTop + objDiv.clientHeight) == objDiv.scrollHeight){
+                    // 채팅창 전체높이 + 스크롤높이가 스크롤 전체높이와 같다면
+                    // 이는 스크롤이 바닥을 향해있다는것이므로
+                    // 스크롤 바닥을 유지하도록 플래그 설정
+                    this.bottom_flag = true;
+            }
+
+            if(this.pre_diffHeight > objDiv.scrollTop + objDiv.clientHeight ){
+                // 스크롤이 한번이라도 바닥이 아닌 위로 상승하는 액션이 발생할 경우
+                // 스크롤 바닥유지 플래그 해제
+                this.bottom_flag = false;  
+            }
+                    //
+                // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
+            // }
+
+        },
         nowTime(){
             const date = new Date();
             this.nowTime = date.getHours() + ":" + date.getMinutes()
@@ -223,6 +250,7 @@ export default {
   }
     },
     watch : {
+ 
         // 비디오 시간을 보며 스크롤 자동으로 내리기
         videoCurrentTime :function (){
             const scrollDiv = document.getElementById('comment_div');

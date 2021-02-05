@@ -4,10 +4,6 @@ import store from '@/stores/modules/user'
 
 const instance = setInterceptors()
 
-//인기 플레이 리스트
-function fetchPopularPlayList() {
-    return instance.get('');
-}
 
 //댓글순 vod 조회
 function fetchCommentVOD() {
@@ -24,11 +20,6 @@ function fetchRecentVOD() {
     return instance.get('vod/list_recent')
 }
 
-function fetchStreamingListDetail(data) {
-    return instance.get(``,{
-        params: { u_id: data.u_id, pl_id: data.pl_id }
-    })
-}
 
 //vod 리스트 가져오기(VOD 추가)
 function fetchVodList() {
@@ -112,11 +103,9 @@ function insertVodPoster(vodForm) {
 
 
 export {
-    fetchPopularPlayList,
     fetchCommentVOD,
     fetchPopularVOD,
     fetchRecentVOD,
-    fetchStreamingListDetail,
     fetchVodEpiDetail,
     fetchVodList,
     fetchAllEpi,
