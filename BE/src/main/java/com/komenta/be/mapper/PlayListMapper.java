@@ -1,9 +1,6 @@
 package com.komenta.be.mapper;
 
-import com.komenta.be.model.playlist.PlayListDTO;
-import com.komenta.be.model.playlist.PlayListFromHistoryDTO;
-import com.komenta.be.model.playlist.PlayListFromPlayListDTO;
-import com.komenta.be.model.playlist.PlayListGetAllDTO;
+import com.komenta.be.model.playlist.*;
 
 import java.util.List;
 
@@ -16,4 +13,5 @@ public interface PlayListMapper {
     List<Integer> select_regist_pl_id(int u_id);
     int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info);
     int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info);
+    public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
 }
