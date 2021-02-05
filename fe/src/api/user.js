@@ -136,6 +136,8 @@ function addPlaylistVod(vodInfo) {
     return instance.post('playlist/move_history_to_playlist',vodInfo)
 }
 
+
+
 // 플레이리스트 수정
 function modifyPlaylist(playlistInfo) {
     return instance.put('playlist/plist_update',playlistInfo)
@@ -153,9 +155,6 @@ function fetchMyPlaylist(userId){
     })
 }
 
-function fetchUserFeed(userId){
-    return instance.get(`뭐뭐/머머/${userId}`)
-}
 // 팔로잉 조회 
 function fetchfollowinglist(userId) {
     return instance.get('follow/follow_list', {
@@ -216,7 +215,6 @@ export {
     fetchfollowinglist,
     fetchMyPlaylist,
     modifyPlaylist,
-    fetchUserFeed,
     fetchfollowerlist,
     modifyfollow,
     fetchunfollowinglist,

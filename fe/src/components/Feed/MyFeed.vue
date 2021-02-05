@@ -139,7 +139,7 @@
 <script>
 import { mapState } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow } from '@/api/user'
+import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow, modifyPlaylist } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
 import store from '@/stores/modules/user'
@@ -266,6 +266,8 @@ export default {
             pl_id:plId
             }
         console.log(epiInfo,'플레이리스트에 추가할 epi')
+        modifyPlaylist(epiInfo)
+        this.getUserPlayList();
         },
         showModalForm() {
             this.showModal=true
