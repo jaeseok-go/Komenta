@@ -44,7 +44,7 @@ public class PlayListServiceImpl implements PlayListService{
     }
 
     @Override
-    public List<Integer> getBestPlayList() {
+    public List<PlaytListBestDTO> getBestPlayList() {
         return sqlSession.getMapper(PlayListMapper.class).getBestPlayList();
     }
 

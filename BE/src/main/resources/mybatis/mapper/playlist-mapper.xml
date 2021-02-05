@@ -90,12 +90,9 @@
         ON O.u_id = P.u_id
     </select>
 
-    <select id="getBestPlayList" resultType="java.lang.Integer">
-        select pl_id
-        from  play_list_good
-        GROUP BY pl_id
-        ORDER BY count(pl_id)
-        DESC
-        LIMIT 10 ;
+    <select id="getBestPlayList" resultType="com.komenta.be.model.playlist.PlaytListBestDTO">
+        select pl_id as plb_id, COUNT(pl_id) as plb_cnt, RANK() Over (ORDER BY count(pl_id) desc) plb_rank
+        from  play_list_good GROUP BY pl_id ORDER BY count(pl_id) DESC LIMIT 10 ;
+
     </select>
 </mapper>

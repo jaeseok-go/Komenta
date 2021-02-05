@@ -1,5 +1,6 @@
 package com.komenta.be.controller;
 
+import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.playlist.*;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.PlayListService;
@@ -13,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -129,16 +132,13 @@ public class PlayListController {
 
     @ApiOperation(value = "전체 플레이리스트 중 탑 10", notes = "전체 플레이 리스트 중 좋아요를 받은 플레이리스트 탑 10")
     @GetMapping("/bestplist")
-    public ResponseEntity<List<List<PlayListDetailDTO>>> bestPList(){
-        // 1. pl_id로 플레이리스 굿을 그룹화
-        // 2. 그룹화 된 pl_id count를 세서 가장 큰거 10개정도
-        // 3. where 절로 get playlist
-        List<Integer> list= playListService.getBestPlayList();
-        List<List<PlayListDetailDTO>> result = null;
-        for(int a : list){
-            result.add(playListService.getPlayListDetail(a));
+    public ResponseEntity<List<PlaytListBestDTO> > bestPList(){
+        // pl_id, pl_id 갯수, rank, pldetail list를 담은 List
+        List<PlaytListBestDTO> list= playListService.getBestPlayList();
+        for(PlaytListBestDTO a : list){
+            a.setPldetail(playListService.getPlayListDetail(a.getPlb_id()));
         }
-        return new ResponseEntity<List<List<PlayListDetailDTO>>>(result, HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<PlaytListBestDTO> >(list, HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "나의 시청 기록에서 플레이리스트에 VOD 추가", notes = "나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가")

@@ -15,5 +15,5 @@ public interface PlayListMapper {
     int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info);
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
 
-    List<Integer> getBestPlayList();
+    List<PlaytListBestDTO> getBestPlayList();
 }
