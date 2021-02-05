@@ -1,20 +1,18 @@
 <template>
     <div class="container">
         <div class="at-section">
-            <div class="at-section__title">The Team</div>
+            <div class="at-section__title">Follow!</div>
         </div>
         <div class="at-grid">
-            <div v-for="(user,index) in users" :key="index">
-                <div class="at-column">
-                    <div class="at-user">
-                        <div class="at-user__avatar" src="user.avatar"></div>
-                        <div class="at-user__name">{{user.name}}</div>
-                        <div class="at-user__title">{{user.title}}</div>
-                    </div>
+            <div class="at-column" v-for="(user,index) in users" :key="index">
+                <div class="at-user">
+                    <div class="at-user__avatar" :src="user.avatar"><i class="fab fa-apple"></i></div>
+                    <div class="at-user__name">{{user.name}}</div>
+                    <div class="at-user__title">{{user.title}}</div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -22,6 +20,11 @@ import { mapGetters } from 'vuex'
 import store from '@/stores/modules/user'
 
 export default {
+    methods: {
+      getImg (user) {
+          return user.avatar
+      } 
+    },
     data() {
         return {
             users:
@@ -73,6 +76,42 @@ export default {
 
                     },   
                      {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
+                        "name": "George Mitch",
+                        "title": "UX Designer",
+                        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",
+
+                    },
+                                         {
                         "name": "George Mitch",
                         "title": "UX Designer",
                         "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/tonychester/128.jpg",

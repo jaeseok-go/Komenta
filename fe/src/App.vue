@@ -52,7 +52,7 @@ section {
 
 #page-view {
   min-height: 100%;
-  margin: 2rem;
+  /* margin: 2rem; */
 }
 
 .bottomNav {
