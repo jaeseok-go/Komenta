@@ -53,4 +53,9 @@
         FROM play_list
         WHERE u_id = #{u_id}
     </select>
+
+    <insert id="moveHistoryToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromHistoryDTO">
+        insert into play_list_contents(vh_id, pl_id)
+        values (#{vh_id}, #{pl_id});
+    </insert>
 </mapper>
