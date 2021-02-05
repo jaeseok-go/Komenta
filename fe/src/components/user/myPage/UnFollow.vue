@@ -31,46 +31,46 @@ export default {
   data() {
     return {
       unfollowings:[
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Choi Seoul'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Choi Seoul'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Kim SSAFY'
-        },
-        {
-          f_img:'#',
-          f_nickname: 'Park Deajeon'
-        },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Choi Seoul'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Choi Seoul'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Kim SSAFY'
+        // },
+        // {
+        //   f_img:'#',
+        //   f_nickname: 'Park Deajeon'
+        // },
       ],
     }
   },
