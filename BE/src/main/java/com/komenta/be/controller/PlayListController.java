@@ -126,26 +126,20 @@ public class PlayListController {
         }
         return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
     }
-//    @GetMapping("/otherplist")
-//    public ResponseEntity<List<PlayListDTO>> myPlayList(HttpServletRequest request){
-//        String token = request.getHeader("auth-token");
-//        int u_id = jwtService.getUidFromJwt(token);
-//        // 남이 만든 플레이리스트, 내가 좋아요 한 보기
-//        // 1. 먼저 플레이리스트 굿을 살펴본다 (uid) => pl id
-//        // 2. pl_id와 내 u_id가 아닌 play list를 가져온다
-//        // 3. 각 플레이 리스트에서 play list contents를 가져온다 (pl_id)
-//        // 4. play list contents에서 vod history를 가져온다
-//        // 5. vod history에서 vod episod_all을 가져온다.
-//        return new ResponseEntity<List<PlayListDTO>>(playListService.getPlayListById(u_id), HttpStatus.ACCEPTED);
-//    }
 
-//    @GetMapping("/bestplist")
-//    public ResponseEntity<List<PlayListDTO>> bestPList(){
-//        // 1. pl_id로 플레이리스 굿을 그룹화
-//        // 2. 그룹화 된 pl_id count를 세서 가장 큰거 10개정도
-//        // 3. where 절로 get playlist
-//        return new ResponseEntity<List<PlayListDTO>>(playListService.getPlayListById(u_id), HttpStatus.ACCEPTED);
-//    }
+    @ApiOperation(value = "전체 플레이리스트 중 탑 10", notes = "전체 플레이 리스트 중 좋아요를 받은 플레이리스트 탑 10")
+    @GetMapping("/bestplist")
+    public ResponseEntity<List<PlayListDetailDTO>> bestPList(){
+        // 1. pl_id로 플레이리스 굿을 그룹화
+        // 2. 그룹화 된 pl_id count를 세서 가장 큰거 10개정도
+        // 3. where 절로 get playlist
+        List<Integer> list= playListService.getBestPlayList();
+        List<PlayListDetailDTO> result = null;
+        for(int a : list){
+            result.add((PlayListDetailDTO) playListService.getPlayListDetail(a));
+        }
+        return new ResponseEntity<List<PlayListDetailDTO>>( result, HttpStatus.ACCEPTED);
+    }
 
     @ApiOperation(value = "나의 시청 기록에서 플레이리스트에 VOD 추가", notes = "나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가")
     @ApiImplicitParams({
