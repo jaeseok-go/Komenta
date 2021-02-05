@@ -5,15 +5,13 @@
     <Header></Header>
     <!-- vod -->
     <div id="appBody">
-        <div>VOD</div>
         <Video :comments="comments" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
         <hr>
-        {{vodEpiInfo.episodeInfo}}
+        <!-- {{vodEpiInfo.episodeInfo}} -->
         <div>vod회차세부정보</div>
-
         <hr>
         <div>vod전체 내용</div>
-        {{ vodInfo }}
+        <!-- {{ vodInfo }} -->
         <!-- <router-link :to="{name:'VodAllEpi'}">전체회차</router-link> | <router-link :to="{name:'VodEpiComment'}">Best댓글</router-link>
         <router-view></router-view> -->
         <VodAllEpi :vodInfo="vodInfo"></VodAllEpi>
@@ -131,7 +129,7 @@ methods : {
       display: inline-block;
       position: fixed;
       top: 100px;
-      background-color: red;
+      /* background-color: red; */
       width: 100%;
   }
 </style>

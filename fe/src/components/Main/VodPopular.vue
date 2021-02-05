@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>인기순</h1>
-        <div>{{ this.popularVODs }}}}</div>
+        <!-- <h1>인기순</h1>
+        <div>{{ this.popularVODs }}}}</div> -->
     </div>
   
 </template>

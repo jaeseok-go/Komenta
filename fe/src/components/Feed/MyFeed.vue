@@ -16,7 +16,7 @@
 
         <div>
         <!-- 최근 본 VOD div -->
-            <h1>나의 최근 시청목록보기</h1>
+            <h3>나의 최근 시청목록보기</h3>
                 <div class='drop-zone'
                 @dragover.prevent
                 @dragenter.prevent
@@ -36,13 +36,13 @@
 
          <button @click="showButton">+</button>
         <Modal v-if="showModal" @close="showModal=false">
-            <h3 slot="header">
+            <h4 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
             <i class="closeModalBtn fa fa-times"
             aria-hidden="true"
             @click="showModal = false">
             </i>
-            </h3>
+            </h4>
             <p slot="body">
             <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요.">
             <input type="text" v-model="plComment">
@@ -51,7 +51,6 @@
 
         </Modal>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
-        <h1>플레이리스트 목록</h1>
         <div 
         v-for='(playlist,index) in playlists' 
         :key='playlist[0].pl_id'
@@ -73,9 +72,10 @@
             @dragstart='startDrag($event, vod)'
             @click="showVodEpiModal(index)"
             >
+                <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
                 <span>{{vod.v_title}}</span>
                 <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
-                    <h3 slot="header">
+                    <h4 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
                        >{{ vod.v_title }}</span> 
@@ -83,7 +83,7 @@
                     aria-hidden="true"
                     @click="vodEpiModal = false">
                     </i>
-                    </h3>
+                    </h4>
                     <p slot="body">
                         {{vod.v_title}}
                         <input type="text" v-model="epiComment">
@@ -97,7 +97,6 @@
     </section>
 
     <section v-else>
-        <h3>타유저 플레이리스트</h3>
         <div 
         v-for='playlist in playlists' 
         :key='playlist[0].pl_id'
@@ -112,14 +111,15 @@
                 :key='vod.ve_id' 
                 class='drag-el'
                >
+                <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
-                    <h3 slot="header">
+                    <h4 slot="header">
                     {{ vod.v_title }}
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                     @click="vodEpiModal = false">
                     </i>
-                    </h3>
+                    </h4>
                     <p slot="body">
                         {{vod.pl_comment}}
                         <button  @click="goEpiDetail(vod.ve_id)">지금시청하기</button>
@@ -142,7 +142,7 @@ import { mapState } from 'vuex';
 import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow, modifyPlaylist } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
-import store from '@/stores/modules/user'
+// import store from '@/stores/modules/user'
 
 export default {
     
@@ -288,7 +288,6 @@ export default {
             const your_id = this.$route.params.id;
             console.log(your_id,'유어')
             const my_id = this.userInfo.u_id
-            console.log(store.userInfo,'유저인포?????왜안들어외??진짜,,궁금...')
             console.log(my_id,'마이')
 
             const bothId = { u_id : my_id, f_id :your_id }
@@ -342,8 +341,8 @@ export default {
         const userId = this.$route.params.id;
         try {
             const res = await fetchMyPlaylist(userId)
-            this.playlists = res.data
-            console.log(this.playlists,this.recentlistLen)
+            // this.playlists = res.data
+            console.log(res.data,this.recentlistLen)
         } catch {
             console.log('에러')
         }
@@ -356,6 +355,9 @@ export default {
         ...mapState({
         userInfo: state => state.user.userInfo,
     }),
+    getVodPoster(vId,title){
+        return require(`@/assets/images/${vId}${title}`)
+    }
   },
 
 

@@ -2,7 +2,6 @@
   <div>
     <!-- {{ comments }} -->
     <!-- playtime에 댓글이 떠야됨 -->
-    <div>댓글유저,댓글내용,좋아요수,댓글시간정보</div>
     <div v-for="comment in comments" :key="comment.c_id">
       <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}        
     </div>

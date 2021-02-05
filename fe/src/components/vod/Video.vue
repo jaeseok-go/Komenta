@@ -6,7 +6,7 @@
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
 
-           <h3>회차별 댓글</h3>
+           <!-- <h3>회차별 댓글</h3> -->
            <!-- <div id="comment_div" onscroll="chat_on_scroll()"> -->
                  <!-- 이곳이 채팅내용에 의해 스크롤이 발생하는 구간 -->
                <!-- <div v-for="comment in comments" :key="comment.c_id">
@@ -20,15 +20,15 @@
             <button @click="addComment()">create</button>
             </div> -->
            <!-- <input type="text" v-model="userComment"> -->
-           <div style="overflow:auto; width:500px; height:150px;" id="comment_div">
+           <div style="overflow:auto; width:600px; height:300px; white-space:pre-line;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
-                  <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}
+                  <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | {{ comment.comment_good_count }}
                 </p>
             </div>
             </div>
             <div>
-            <input type='text' id=msg v-model="userComment"/>
+            <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤"/>
             <button @click="addComment()">create</button>
             </div>
 
@@ -92,7 +92,7 @@ export default {
                     "c_id" : 4,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "7",
+                    "c_playtime" : "1",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 3,
@@ -102,7 +102,7 @@ export default {
                     "c_id" : 5,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ웹툰보다별로,,ㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "15.5",
+                    "c_playtime" : "2",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 4,
@@ -112,7 +112,7 @@ export default {
                     "c_id" : 6,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "6",
+                    "c_playtime" : "4",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 17,
@@ -123,6 +123,66 @@ export default {
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
                     "c_playtime" : "5.1",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "14",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "3",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "9",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "17",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "11",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "13",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 14,
@@ -274,15 +334,13 @@ export default {
 </script>
 
 <style scoped>
-.testbtn{
-  color : black;
-  background-color: gray;
-}
+
 #comment_div {
     white-space: pre;
     overflow-y: scroll;
     width:500px;
     height:200px;
     border: 1px solid black;
+    display: inline-block;
 }
 </style>
