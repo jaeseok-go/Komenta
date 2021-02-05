@@ -282,6 +282,7 @@ hr {
   padding-inline-start: 25px;
   -webkit-padding-end: 25px;
   padding-inline-end: 25px;
+  padding-left: 10px;
 }
 
 .web-navigation__header {
@@ -299,6 +300,12 @@ hr {
   padding-inline-start: 25px;
   -webkit-padding-end: 25px;
   padding-inline-end: 25px;
+}
+
+.web-navigation .web-navigation__logo {
+  color: #fa233b;
+  font-size: 2.5rem;
+  font-weight: 500;
 }
 
 .web-navigation__scrollable {
@@ -320,6 +327,7 @@ hr {
   padding-inline-start: 25px;
   -webkit-padding-end: 25px;
   padding-inline-end: 25px;
+  padding-left: 10px;
 }
 
 .web-navigation__scrollable .web-navigation__nav-list {
@@ -341,8 +349,8 @@ hr {
           margin-inline-start: 0px;
   -webkit-margin-end: 0px;
           margin-inline-end: 0px;
-  -webkit-padding-start: 40px;
-          padding-inline-start: 40px;
+  -webkit-padding-start: 5px;
+          padding-inline-start: 5px;
 }
 
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item {
@@ -403,6 +411,7 @@ hr {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-left: 0.7rem;
 }
 
 .icon-bg1 {
