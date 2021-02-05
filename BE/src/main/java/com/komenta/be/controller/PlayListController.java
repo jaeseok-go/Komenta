@@ -87,7 +87,7 @@ public class PlayListController {
             @ApiImplicitParam(name = "u_id", value = "플레이리스트 주인의 회원 아이디", dataType = "int", required = true),
     })
     @GetMapping("/get_plist_list/{u_id}")
-    public ResponseEntity<List<PlayListGetAllDTO>> myPlayList(@PathVariable("u_id") int u_id){
+    public ResponseEntity<List<List<PlayListGetAllDTO>>> myPlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
         List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
         try{
@@ -112,13 +112,13 @@ public class PlayListController {
             @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
     })
     @GetMapping("/get_favorite_plist/{u_id}")
-    public ResponseEntity<List<PlayListGetAllDTO>> myFavoritePlayList(@PathVariable("u_id") int u_id){
+    public ResponseEntity<List<List<PlayListGetAllDTO>>> myFavoritePlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
-        List<PlayListGetAllDTO> dtolist = new ArrayList<>();
+        List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
         try {
             List<Integer> pl_id = playListService.select_favorite_pl_id(u_id);
             for (int a : pl_id) {
-                dtolist.add((PlayListGetAllDTO) playListService.playlist_info(a));
+                dtolist.add(playListService.playlist_info(a));
             }
 
             status = HttpStatus.OK;
@@ -126,7 +126,7 @@ public class PlayListController {
         catch(RuntimeException e){
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<PlayListGetAllDTO>>(dtolist, status);
+        return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
     }
 //    @GetMapping("/otherplist")
 //    public ResponseEntity<List<PlayListDTO>> myPlayList(HttpServletRequest request){
