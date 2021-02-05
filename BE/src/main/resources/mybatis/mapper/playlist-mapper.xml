@@ -89,4 +89,13 @@
               ON M.ve_id = N.ve_id) O left outer join member P
         ON O.u_id = P.u_id
     </select>
+
+    <select id="getBestPlayList" resultType="java.lang.Integer">
+        select pl_id
+        from  play_list_good
+        GROUP BY pl_id
+        ORDER BY count(pl_id)
+        DESC
+        LIMIT 10 ;
+    </select>
 </mapper>

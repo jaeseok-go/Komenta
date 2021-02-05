@@ -44,6 +44,11 @@ public class PlayListServiceImpl implements PlayListService{
     }
 
     @Override
+    public List<Integer> getBestPlayList() {
+        return sqlSession.getMapper(PlayListMapper.class).getBestPlayList();
+    }
+
+    @Override
     public int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info) {
         return sqlSession.getMapper(PlayListMapper.class).moveHistoryToPlaylist(move_info);
     }

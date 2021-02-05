@@ -11,6 +11,7 @@ public interface PlayListService {
     public List<PlayListGetAllDTO> playlist_info(int pl_id);
     public List<Integer> select_favorite_pl_id(int u_id);
     public List<Integer> select_regist_pl_id(int u_id);
+    public List<Integer> getBestPlayList();
     public int moveHistoryToPlaylist(PlayListFromHistoryDTO move_info);
     public int movePlaylistToPlaylist(PlayListFromPlayListDTO move_info);
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
