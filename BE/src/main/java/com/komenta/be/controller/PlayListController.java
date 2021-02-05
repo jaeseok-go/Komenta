@@ -1,9 +1,6 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.playlist.PlayListContentsDTO;
-import com.komenta.be.model.playlist.PlayListDTO;
-import com.komenta.be.model.playlist.PlayListFromHistoryDTO;
-import com.komenta.be.model.playlist.PlayListGetAllDTO;
+import com.komenta.be.model.playlist.*;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.PlayListService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -157,6 +154,15 @@ public class PlayListController {
     @PostMapping("/move_history_to_playlist")
     public int moveHistoryToPlaylist(@RequestBody PlayListFromHistoryDTO move_info){
         return playListService.moveHistoryToPlaylist(move_info);
+    }
+
+    @ApiOperation(value = "나의 시청 기록에서 플레이리스트에 VOD 추가", notes = "나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "move_info", value = "plc_id(옮겨질 플레이리스트 콘텐츠 아이디), pl_id(옮길 플레이리스트 아이디)", dataType = "PlayListFromPlayListDTO", required = true),
+    })
+    @PostMapping("/move_playlist_to_playlist")
+    public int movePlaylistToPlaylist(@RequestBody PlayListFromPlayListDTO move_info){
+        return playListService.movePlaylistToPlaylist(move_info);
     }
 }
 

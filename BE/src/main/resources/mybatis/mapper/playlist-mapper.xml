@@ -56,6 +56,12 @@
 
     <insert id="moveHistoryToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromHistoryDTO">
         insert into play_list_contents(vh_id, pl_id)
-        values (#{vh_id}, #{pl_id});
+        values (#{vh_id}, #{pl_id})
     </insert>
+
+    <update id="movePlaylistToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromPlayListDTO">
+        update play_list_contents
+        set pl_id = #{pl_id}
+        where plc_id = #{plc_id}
+    </update>
 </mapper>
