@@ -32,12 +32,6 @@ export default {
 
 <style scoped>
 
-#app {
-  border: 19px solid black;
-  border-radius: 20px;
-  /* display: flex; */
-  display: block;
-}
 
 
 aside {
@@ -50,7 +44,7 @@ aside {
 
 section {
   height: 96vh;
-  padding-left: 16.9rem;
+  padding-left: 230px;
   width: 100%;
 
 }
