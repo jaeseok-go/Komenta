@@ -156,6 +156,8 @@ public class PlayListController {
         return playListService.moveHistoryToPlaylist(move_info);
     }
 
+
+
     @ApiOperation(value = "나의 시청 기록에서 플레이리스트에 VOD 추가", notes = "나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "move_info", value = "plc_id(옮겨질 플레이리스트 콘텐츠 아이디), pl_id(옮길 플레이리스트 아이디)", dataType = "PlayListFromPlayListDTO", required = true),
@@ -163,6 +165,16 @@ public class PlayListController {
     @PostMapping("/move_playlist_to_playlist")
     public int movePlaylistToPlaylist(@RequestBody PlayListFromPlayListDTO move_info){
         return playListService.movePlaylistToPlaylist(move_info);
+    }
+
+
+    @ApiOperation(value = "플레이리스트 상세 내용 조회", notes = "입력받은 pl_id의 플레이리스트 정보를 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pl_id", value = "플레이리스트 아이디", dataType = "int", required = true),
+    })
+    @GetMapping("/playlist_detail/{pl_id}")
+    public String getPlayListDetail(@PathVariable("pl_id") int pl_id){
+        return "";
     }
 }
 
