@@ -43,33 +43,50 @@ public class PlayListController {
     @Autowired
     JwtService jwtService;
 
-    @ApiOperation(value = "PlayList 생성", notes = "나의 PlayList (틀)을 만들어 줌")
+
+    @ApiOperation(value = "플레이리스트 생성", notes = "나의 플레이리스트 (틀)을 만들어 줌")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pl_name", value = "playlist name", dataType = "String", required = true),
-            @ApiImplicitParam(name = "pl_comment", value = "playlist comment", dataType = "String", required = true)
+            @ApiImplicitParam(name = "playlist", value = "pl_name(플레이리스트 이름), pl_comment(플레이리스트에 대한 리뷰)", dataType = "PlayListDTO", required = true),
     })
     @PostMapping("/plist_regist")
-    public int createPlayList(@RequestBody PlayListDTO pldto, HttpServletRequest request){
+    public int createPlayList(@RequestBody PlayListDTO playlist, HttpServletRequest request){
         String token = request.getHeader("auth-token");
         int u_id = jwtService.getUidFromJwt(token);
-//        int u_id = 1;
-        pldto.setU_id(u_id);
-        return playListService.createPlayList(pldto);
+//      int u_id = 1;
+        playlist.setU_id(u_id);
+        return playListService.createPlayList(playlist);
     }
 
+
+    @ApiOperation(value = "플레이리스트 생성", notes = "나의 플레이리스트의 이름이나 리뷰를 수정해서 결과를 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "playlist", value = "pl_name(플레이리스트 이름), pl_comment(플레이리스트에 대한 리뷰)", dataType = "PlayListDTO", required = true),
+    })
     @PutMapping("/plist_update")
-    public int updatePlayList(@RequestBody PlayListDTO pldto, HttpServletRequest request){
+    public int updatePlayList(@RequestBody PlayListDTO playlist, HttpServletRequest request){
         // 1. 입력 받은 플레이리스트 컨텐츠 dto로 변경
-        return playListService.playlist_info_modify(pldto);
+        return playListService.playlist_info_modify(playlist);
     }
 
+
+
+    @ApiOperation(value = "플레이리스트 삭제", notes = "입력받은 pl_id로 나의 플레이리스트를 삭제하고 그 결과를 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pl_id", value = "플레이리스트 아이디", dataType = "int", required = true),
+    })
     @DeleteMapping("/plist_delete")
     public int deletePlayList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
         // 1. u_id, pl_id 로 플레이 리스트 굿에서 지우기
         return playListService.playlist_delete(pl_id);
     }
 
-    @GetMapping("/my_plist/{u_id}")
+
+
+    @ApiOperation(value = "회원이 등록한 플레이리스트 목록 조회", notes = "입력받은 u_id의 플레이리스트들의 목록을 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_id", value = "플레이리스트 주인의 회원 아이디", dataType = "int", required = true),
+    })
+    @GetMapping("/get_plist_list/{u_id}")
     public ResponseEntity<List<PlayListGetAllDTO>> myPlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
         List<PlayListGetAllDTO> dtolist = new ArrayList<>();
@@ -88,7 +105,13 @@ public class PlayListController {
         }
         return new ResponseEntity<List<PlayListGetAllDTO>>(dtolist, status);
     }
-    @GetMapping("/my_favorite_plist/{u_id}")
+
+
+    @ApiOperation(value = "회원이 좋아요한 플레이리스트 목록 조회", notes = "입력받은 u_id가 좋아요한 플레이리스트들의 목록을 반환")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
+    })
+    @GetMapping("/get_favorite_plist/{u_id}")
     public ResponseEntity<List<PlayListGetAllDTO>> myFavoritePlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
         List<PlayListGetAllDTO> dtolist = new ArrayList<>();
