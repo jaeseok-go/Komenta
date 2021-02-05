@@ -1,15 +1,13 @@
 
-  
 .sidebar {
-width: 270px;
-background-color:$base-color4;
+width: 240px;
+background-color: #eee;
 height: 96vh;
 // left: 0;
 // top: 0;
 
     &-logo {
-        // margin-left: 20px;
-        color: $komenta-color;
+        color: #fc3c44;
         font-size: 3rem;
         font-weight: 800;
         margin-left: 1rem;

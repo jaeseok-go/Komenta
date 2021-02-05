@@ -80,6 +80,11 @@ export default new Router({
       component: () => import('@/components/admin/Test.vue'),
     },
     {
+      path: 'people',
+      name:'People',
+      component: () => import('@/components/People/PeopleList.vue')
+    },
+    {
       path: '/member/mypage',
       name: 'MyPage',
       component: () => import('@/views/user/MyPage.vue'),
