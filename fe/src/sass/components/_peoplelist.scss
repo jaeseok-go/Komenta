@@ -18,24 +18,18 @@ $totalColumns: 9;
   }
   
   &-grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    background: #FFF;
-    border: 1px solid #E2E9ED;
+      
+      width: 1000px;
+      display: flex;
+      flex-wrap: wrap;
 
-    @for $i from 1 through $totalColumns {
-        .#{$prefix}-column {
-          width: percentage( 1 / $i );
-          max-width: percentage( 1 / $i );
-          min-width: percentage( 1 / $i );
-          flex-basis: percentage( 1 / $i );
-      }
-    }
 
   }
   
   &-column {
+    background-color: beige;
+      // background: linear-gradient(to right, #de6262, #ffb88c);
+    flex: 0 0 33.3333%;
     position: relative;
     background: #FFF;
     box-shadow: 0 0 0 1px #E2E9ED;
@@ -43,11 +37,9 @@ $totalColumns: 9;
     box-sizing: border-box;
     transition: box-shadow 0.2s ease,
                 transform 0.2s ease;
-    // width: 20rem;
-    // height: 100px;
-
     
     &:before {
+       background: linear-gradient(to right, #de6262, #ffb88c);
       content: "";
       display: block;
       padding-top: 100%;
@@ -88,7 +80,6 @@ $totalColumns: 9;
     text-align: center;
     
     &__avatar {
-      width: 98px;
       height: 98px;
       border-radius: 100%;
       margin: 0 auto 20px;
