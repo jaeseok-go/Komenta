@@ -37,7 +37,7 @@
                 </router-link>
 
               <li class="sidebar-child">
-                <router-link :to="{name:'Main'}">
+                <router-link :to="{name:'People'}">
                   <span class="sidebar-title">
                     <span class="sidebar-title-icon icon-bg4"><ion-icon name="globe-outline"></ion-icon></span>
                     <span class="sidebar-title-text">People</span>
