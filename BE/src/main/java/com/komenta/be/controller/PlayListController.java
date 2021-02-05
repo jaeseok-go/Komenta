@@ -89,21 +89,21 @@ public class PlayListController {
     @GetMapping("/get_plist_list/{u_id}")
     public ResponseEntity<List<PlayListGetAllDTO>> myPlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
-        List<PlayListGetAllDTO> dtolist = new ArrayList<>();
+        List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
         try{
 
             List<Integer> pl_id = playListService.select_regist_pl_id(u_id);
 
 
             for(int a : pl_id){
-                dtolist.add((PlayListGetAllDTO) playListService.playlist_info(a));
+                dtolist.add(playListService.playlist_info(a));
             }
             status = HttpStatus.OK;
         }
         catch(RuntimeException e){
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<List<PlayListGetAllDTO>>(dtolist, status);
+        return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
     }
 
 

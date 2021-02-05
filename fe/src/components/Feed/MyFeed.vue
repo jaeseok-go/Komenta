@@ -78,13 +78,14 @@
                     <h3 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
-                       >{{ vod.v_title }}</span> 
+                       >{{ playlist.pl_name }}</span> 
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                     @click="vodEpiModal = false">
                     </i>
                     </h3>
                     <p slot="body">
+                        {{vod.v_title}}
                         <input type="text" v-model="epiComment">
                         <button @click="addComment">리뷰작성</button>
                     </p>
@@ -115,6 +116,7 @@
                >
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h3 slot="header">
+                    {{ playlist.pl_name }}
                     {{ vod.v_title }}
                     <i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
@@ -140,11 +142,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 // import store from '@/stores/modules/user'
 import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
+import store from '@/stores/modules/user'
 
 export default {
     
@@ -286,8 +289,12 @@ export default {
         },
         //팔로우하는 로직 추가 구현
         followUser() {
-            const my_id = this.fetchedUserInfo.u_id
             const your_id = this.$route.params.id;
+            console.log(your_id,'유어')
+            const my_id = this.userInfo.u_id
+            console.log(store.userInfo,'유저인포?????왜안들어외??진짜,,궁금...')
+            console.log(my_id,'마이')
+
             const bothId = { u_id : my_id, f_id :your_id }
             const response = modifyfollow(bothId)
             console.log(response)
@@ -350,10 +357,9 @@ export default {
     },
 
     computed: {
-        //fetchedUserFeedInfo에 있어야 하는 정보는 pl_id,pl_name,pl_comment,u_nickname
-        //u_profile_pic,v_poster, g_name ,gd_name,v_title ,ve_episode_num,vh_comment
-    ...mapGetters('fetchedUserInfo'),
-    ...mapGetters('fetchedUserFeedInfo')
+        ...mapState({
+        userInfo: state => state.user.userInfo,
+    }),
   },
 
 
