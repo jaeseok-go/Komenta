@@ -1,33 +1,122 @@
 <template>
     <div>
-        1. 장르 대분류 / 소분류 셀렉트 박스
-        1) 장르 대분류 선택시
-        GET('g_name') 보냄 -> res(해당 대분류 장르의 VOD(v_id,v_poster)받음)
-        2) 장르 대분류 + 소분류 선택시
-        GET('g_id,gd_name') 보냄 -> res(해당 소분류 장르의 VOD(v_id,v_poster)받음)
-        3)받은 VOD v-for
-
-
+    <select v-model="selectedGenre">
+        <option disabled value="">--장르선택--</option>
+        <option v-for="genre in allGenres" :key="genre.g_id" :value="`${genre.g_id}`">{{genre.g_name}}</option>
+    </select>
+    <select v-model="selectedGenreDetail">
+        <option disabled value="">--세부 장르선택--</option>
+        <option v-for="genrdetail in genreDetails[selectedGenre]" :key="genrdetail.gd_id" :value="`${genrdetail.gd_id}`">{{genrdetail.gd_name}}</option>
+    </select>
+    <div v-for='vod in vodlists' :key="vod.v_id">
+    <span @click="goVodDetail(vod.v_id)">{{ vod.v_poster }}</span>
+    </div>
     </div>
 </template>
 
 <script>
+// import {fetchAllGenre,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
 
 export default {
     name: 'Category',
-    components: {
-
-    },
     data() {
         return {
-            
+            selectedGenre:'',
+            selectedGenreDetail:'',
+            allGenres :[
+            {
+                "g_id": 0,
+                "g_name": "드라마"
+            },
+            {
+                "g_id": 1,
+                "g_name": "예능"
+            }
+            ],
+            genreDetails:[[
+                {
+                    "g_id": 0,
+                    "gd_id": 0,
+                    "gd_name": "멜로"
+                },
+                {
+                    "g_id": 0,
+                    "gd_id": 1,
+                    "gd_name": "스릴러"
+                },
+                {
+                    "g_id": 0,
+                    "gd_id": 2,
+                    "gd_name": "코미디"
+                }],
+                [
+                   {
+                    "g_id": 1,
+                    "gd_id": 0,
+                    "gd_name": "버라이어티"
+                },
+                {
+                    "g_id": 1,
+                    "gd_id": 1,
+                    "gd_name": "음악"
+                },
+                {
+                    "g_id": 1,
+                    "gd_id": 2,
+                    "gd_name": "요리"
+                } 
+                ]
+            ],
+            vodlists:[
+                [
+                {
+                    "g_name": "드라마",
+                    "gd_id": 0,
+                    "gd_name": "멜로",
+                    "v_actors": "string",
+                    "v_age_grade": 0,
+                    "v_director": "string",
+                    "v_id": 0,
+                    "v_poster": "string",
+                    "v_summary": "string",
+                    "v_title": "string"
+                }
+                ]
+            ]
         };
     },
-    mounted() {
-        
+    created(){
+        // this.getAllGenre();
     },
     methods: {
-        
+        getAllGenre() {
+            // this.allGenres = fetchAllGenre();
+        },
+        getGenreDetail(gId) {
+            // this.genreDetails = fetchMainGenreVod(gId);
+            // this.vodlists = fetchMainGenreVod(gId);
+            console.log(gId,'장르내용')
+        },
+        getVodlist(gdId) {
+            // this.vodlists = fetchSubGenreVod(gdId);
+            console.log(gdId,'장르세부내용')
+        },
+        async goVodDetail(vId){
+            console.log(vId,'vod가장 첫 epi로 이동')
+            // const res = await fetchVodDetail(vId)
+            // VOD의 가장 첫 epi로 보내기
+            // this.$router.push(`/voddetail/${res.data[0].ve_id}`)
+        },
+    },
+    watch:{
+        selectedGenre : function(){
+            console.log(this.selectedGenre)
+            this.getGenreDetail(this.selectedGenre)
+        },
+        selectedGenreDetail:function(){
+            console.log(this.selectedGenreDetail)
+            this.getVodlist(this.selectedGenreDetail)
+        }
     },
 };
 </script>
