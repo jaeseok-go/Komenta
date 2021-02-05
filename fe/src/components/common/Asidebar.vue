@@ -2,7 +2,7 @@
 
     <div class="web-navigation">
             <div class="web-navigation__header">
-                <span>Komenta</span>
+                <span class="web-navigation__logo">Komenta</span>
             </div>
             <div class="web-navigation__scrollable">
               <!-- <div class="sidebar-scrollable-profile">

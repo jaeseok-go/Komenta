@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 
 
@@ -39,12 +39,13 @@ aside {
   position: fixed;
   min-width: 170px;
   min-height: 100%;
+  height: 100vh;
 }
 
 
 section {
-  height: 96vh;
-  padding-left: 230px;
+  height: 100vh;
+  padding-left: 220px;
   width: 100%;
 
 }
