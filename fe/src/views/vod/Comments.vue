@@ -1,27 +1,55 @@
 <template>
   <div>
-    댓글 컴포넌트
-    6. 해당시간 댓글 보여주는 컴포넌트<br>
-    GET(ve_id)-> res(댓글유저, 댓글내용, 좋아요수,댓글시간정보,playtime)<br>
-    {{ comments }}
+    <!-- {{ comments }} -->
     <!-- playtime에 댓글이 떠야됨 -->
     <div>댓글유저,댓글내용,좋아요수,댓글시간정보</div>
-    <!-- 로그인한 유저가 팔로우한 댓글이라면 주황색 글씨 -->
-    <!-- 로그인한 유저가 차단한 댓글이라면 보이지 않게 -->
+    <div v-for="comment in comments" :key="comment.c_id">
+      <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}        
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props :['comments'],
+  // props :['comments'],
   data() {
     return {
-      vodEpiComment: {}
+      comments: [
+        {
+                    "c_id" : 6,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "6",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 1440000,
+                    "u_id" : 17,
+                    "u_nickname" : "아롱롱"
+                },
+                {
+                    "c_id" : 7,
+                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
+                    // "c_playtime" : "00:00:05",
+                    "c_playtime" : "5.1",
+                    "c_upload_time" : "2020.02.03 09:03:20",
+                    "comment_good_count" : 10000,
+                    "u_id" : 14,
+                    "u_nickname" : "아롱롱"
+                },
+      ]
     }
   },
   created() {
-  // this.vodEpiComment = getVodEpi(ve_id)
-  },
+        // comments 좋아요순으로 정렬, parseFloat(문자열 실수로 크기비교)
+        this.comments.sort(function (a,b) {
+            return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
+        })
+        console.log(this.comments)
+    },
+    methods : {
+      goCommentTime(time){
+        this.$emit('goCommentTime',time)
+      }
+    }
 }
 </script>
 
