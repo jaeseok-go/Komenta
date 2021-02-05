@@ -36,15 +36,33 @@ function fetchAllGenre() {
     return instance.get(`genre/list_genre`)
 }
 
-//장르 소분류 선택 조회(VOD 추가)
-function fetchGenreDetail(gId, gdId) {
+//장르 대분류 선택 조회(VOD 추가)
+function fetchGenreDetail(gId) {
     return instance.get(`genre/list_genre_detail`, {
         params: {
-            g_id: gId,
+            g_id: gId
+        }
+    })
+}
+
+// 장르 대분류별 VOD선택 조회
+function fetchMainGenreVod(gId) {
+    return instance.get('vod/list_genre',{
+        parmas: {
+            g_id:gId
+        }
+    })
+}
+
+// 장르 대분류별 소분류 VOD선택 조회
+function fetchSubGenreVod(gdId) {
+    return instance.get('vod/list_genre_detail', {
+        parmas: {
             gd_id: gdId
         }
     })
 }
+
 
 //VOD 소분류에 의한 vod list 가져오기
 function fetchVodListByGenreDetailId(gdId) {
@@ -56,8 +74,8 @@ function fetchVodListByGenreDetailId(gdId) {
 }
 
 //vod 세부내용조회
-function fetchVodDetail({ vId }) {
-    return instance.get(`/vod/vod_info/${vId}`,
+function fetchVodDetail(vId) {
+    return instance.get(`vod/vod_info/${vId}`,
         {
             params: {
                 v_id: vId,
@@ -124,6 +142,8 @@ export {
     fetchAllEpi,
     fetchAllGenre,
     fetchGenreDetail,
+    fetchMainGenreVod,
+    fetchSubGenreVod,
     fetchVodListByGenreDetailId,
     fetchVodDetail,
     sendVODInfo,
