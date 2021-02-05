@@ -130,6 +130,33 @@ public class PlayListController {
         return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
     }
 
+    @ApiOperation(value = "플레이 리스트 좋아요", notes = "pl_id을 입력받고 jwt 토큰에 u_id를 받아서 좋아요 추가")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true),
+            @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
+    })
+    @PostMapping("/like")
+    public int likePList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        PlayListGoodDTO dto = new PlayListGoodDTO(pl_id, u_id);
+        return playListService.likePList(dto);
+
+    }
+
+    @ApiOperation(value = "플레이 리스트 좋아요 취소", notes = "pl_id을 입력받고 jwt 토큰에 u_id를 받아서 좋아요 삭제")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true),
+            @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
+    })
+    @PostMapping("/unlike")
+    public int unLikePList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        PlayListGoodDTO dto = new PlayListGoodDTO(pl_id, u_id);
+        return playListService.unLikePList(dto);
+
+    }
+
+
     @ApiOperation(value = "전체 플레이리스트 중 탑 10", notes = "전체 플레이 리스트 중 좋아요를 받은 플레이리스트 탑 10")
     @GetMapping("/bestplist")
     public ResponseEntity<List<PlaytListBestDTO> > bestPList(){
@@ -140,6 +167,8 @@ public class PlayListController {
         }
         return new ResponseEntity<List<PlaytListBestDTO> >(list, HttpStatus.ACCEPTED);
     }
+
+
 
     @ApiOperation(value = "나의 시청 기록에서 플레이리스트에 VOD 추가", notes = "나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가")
     @ApiImplicitParams({
