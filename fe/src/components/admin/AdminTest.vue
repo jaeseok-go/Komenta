@@ -3,6 +3,7 @@
     <b-container>
       <!-- VOD 등록하는 부분 입니다. -->
       <b-col>
+        <button @click="test">replace 버튼</button>
         <h2>Vod 등록</h2>
         <b-form>
           <b-select v-model="genre_id" @change="detailGenre()">
@@ -79,7 +80,7 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId,sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod'; //
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod'; //
 // import store from '@/stores/index.js';
 // import 'url-search-params-polyfill';
 export default {
@@ -157,7 +158,7 @@ export default {
      })
    },
    autoWriteVodInfo(){
-     console.log("vod id : ",this.vod.v_id)
+    //  console.log("vod id : ",this.vod.v_id)
      if(this.vod.v_id > 0){
       for (var step = 0; step < this.vod_list_by_gd.length; step++) {
           if(this.vod_list_by_gd[step].v_id== this.vod.v_id){
@@ -176,21 +177,14 @@ export default {
     this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
     console.log("들어가기전 최종",this.vod_all);
     let formData1 = new FormData();
-    // formData1.append("file", this.file);
-    // console.log('영상 file name : ',this.vod_all.v_title+this.vod_all.ve_episode_num)
-    // console.log('변경된 이름',String(this.vod.v_id+'_'+this.vod.v_title+this.vod_all.ve_episode_num+'.mp4'))
-    formData1.append("file",this.file,String(this.vod.v_id+'_'+this.vod.v_title+this.vod_all.ve_episode_num+'.mp4'))
-    // console.log("file 타입 : ",formData1.get('file'))
-    // console.log('vod 영상 정보 : ',formData1)
-    // this.file.name = this.vod_all.v_title+this.vod_all.vod_episode_num;
+    let vodTitle = this.vod_all.v_title;
+    let vodReplace = vodTitle.replace(" ","");
+    formData1.append("file",this.file, String(this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4'))
     // formData1.append("vod_all", this.vod_all);
     let formData2 = new FormData();
     let poster_name = this.file1.name;
-    // console.log('poster name',poster_name);
     let extensions = poster_name.split('.');
-    // console.log('확장자명 : ',extensions[1])
-    formData2.append("v_poster", this.file1, String(this.vod.v_id+'_'+this.vod.v_title+'.'+extensions[1]));
-    // console.log('poster 이름 : ',formData2.get('v_poster'))
+    formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.'+extensions[1]));
     // // formData2.append("vod_all", this.vod_all);
 
     await sendVODInfo(this.vod_all)
@@ -203,13 +197,13 @@ export default {
     });
      
     await insertVOD(formData1)
-      .then((response)=>{
-        console.log("video data 잘들어감", response.data);
-      })
-      .catch((err)=>{
-        console.log("video 업로드에러");
-        console.log(err)
-      });
+    .then((response)=>{
+      console.log("video data 잘들어감", response.data);
+    })
+    .catch((err)=>{
+      console.log("video 업로드에러");
+      console.log(err)
+    });
      
     await insertVodPoster(formData2)
     .then((response)=>{
@@ -219,6 +213,9 @@ export default {
       console.log("poster 업로드에러");
       console.log(err)
     })
+  },
+  test() {
+    
   },
   toVideo(){
     location.href="test";
