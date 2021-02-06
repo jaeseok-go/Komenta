@@ -2,7 +2,7 @@
     <div>
         <h3>Video 입니다.</h3>
         <video ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate"  autoplay>
-            <source src="https://drive.google.com/uc?export=download&id=0B4BsAbG4atWHQzVfLUU3UnhhZTA" id="player" type='video/webm' />
+            <source src="http://localhost:7000/video/stream/mp4/1인간극장1" id="player" type='video/webm' />
         </video>
         <b-button @click="a(5)" v-show="showcomment" class="testbtn">5초로 이동하는 댓글</b-button>
 
