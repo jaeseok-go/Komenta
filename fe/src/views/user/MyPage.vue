@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    <h1>{{uId}}</h1>
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
