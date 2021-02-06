@@ -28,6 +28,7 @@
                     class='drag-el'
                     draggable
                     @dragstart='startDrag($event, vod)'
+                    style="margin:5px; border-radius: 2px; padding: 5px; background-color: #F4F4F4;"
                     >
                     {{ vod.v_title }}
                     </div>
@@ -51,13 +52,14 @@
 
         </Modal>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
+
         <div 
         v-for='(playlist,index) in playlists' 
         :key='playlist[0].pl_id'
         height="300"
         >
         {{playlist[index].pl_name}}
-            <div class='drop-zone'
+            <div class='plylist-zone'
             @drop='onDrop($event, playlist[0].pl_id,index)'
             @dragover.prevent
             @dragenter.prevent
@@ -103,7 +105,7 @@
         height="300"
         >
         {{playlist[0].pl_name}}
-            <div class='drop-zone'>
+            <div class='plylist-zone'>
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면 -->
             <div
@@ -365,17 +367,25 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .drop-zone {
-  background-color: #eee;
+  /* background-color: #eee; */
+  background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
   margin-bottom: 10px;
   padding: 10px;
 }
 
 .drag-el {
-  background-color: #fff;
+  background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
   margin-bottom: 10px;
   padding: 5px;
+}
+
+.plylist-zone {
+  background-color: #c1dfc4; 
+  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
 </style>
