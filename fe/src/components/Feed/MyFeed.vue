@@ -28,14 +28,16 @@
                     class='drag-el'
                     draggable
                     @dragstart='startDrag($event, vod)'
-                    style="margin:5px; border-radius: 2px; padding: 5px; background-color: #F4F4F4;"
                     >
-                    {{ vod.v_title }}
+                    <!-- {{ vod.v_title }}
+                    {{vod.v_poster}} -->
+                    <img :src="require('@/assets/images/poster00.jpg')" width="70%">
+                    <!-- <img :src="getPoster(vod.v_poster)" width="10%"> -->
                     </div>
                 </div>
         </div>
 
-         <button @click="showButton">+</button>
+         <button @click="showButton"><i class="fas fa-plus"></i></button>
         <Modal v-if="showModal" @close="showModal=false">
             <h4 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
@@ -58,7 +60,7 @@
         :key='playlist[0].pl_id'
         height="300"
         >
-        {{playlist[index].pl_name}}
+        {{playlist[0].pl_name}}
             <div class='plylist-zone'
             @drop='onDrop($event, playlist[0].pl_id,index)'
             @dragover.prevent
@@ -124,7 +126,7 @@
                     </h4>
                     <p slot="body">
                         {{vod.pl_comment}}
-                        <button  @click="goEpiDetail(vod.ve_id)">지금시청하기</button>
+                        <button  @click="goEpiDetail(index)">지금시청하기</button>
                     </p>
                 </Modal>
                 </div>
@@ -163,16 +165,19 @@ export default {
                     {
                         ve_id: 1,
                         v_title: "test1",
+                        v_poster:'@/assets/images/poster00.jpg'
   
                     },
                     {
                         ve_id: 2,
                         v_title: "test2",
+                        v_poster:'@/assets/images/poster01.jpg'
 
                     },
                     {
                         ve_id: 3,
                         v_title: "test3",
+                        v_poster:'@/assets/images/poster02.jpg'
 
                     },
                 ]
@@ -187,14 +192,14 @@ export default {
                 {   
                     ve_id : 4,
                     v_title : "런닝맨",
-                    v_poster:'poster1',
+                    v_poster:'@/assets/images/poster03.jpg',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
                 {   
                     ve_id : 5,
                     v_title : "최고다",
-                    v_poster:'poster2',
+                    v_poster:'@/assets/images/poster04.jpg',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
@@ -210,14 +215,14 @@ export default {
                 {   
                     ve_id : 7,
                     v_title : "우리 모두 힘내서",
-                    v_poster:'poster4',
+                    v_poster:'@/assets/images/poster05.jpg',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
                 {   
                     ve_id : 8,
                     v_title : "성공해용",
-                    v_poster:'poster5',
+                    v_poster:'@/assets/images/poster06.jpg',
                     ve_episode_num : 0,
                     vh_commnet : "string",
                 },
@@ -299,7 +304,7 @@ export default {
         },
         showVodEpiModal(index){
             this.selectedId = index;
-            console.log(this.selectedId)
+            console.log(this.selectedId,'선택된 VOD index')
             this.vodEpiModal=true
         },
         addComment(plId){
@@ -349,6 +354,10 @@ export default {
             console.log('에러')
         }
         },
+        getPoster(poster){
+        const picPath = require(poster);
+        return picPath
+    },
 
 
     },
@@ -357,6 +366,7 @@ export default {
         ...mapState({
         userInfo: state => state.user.userInfo,
     }),
+
     getVodPoster(vId,title){
         return require(`@/assets/images/${vId}${title}`)
     }
@@ -369,7 +379,7 @@ export default {
 
 <style scoped>
 .drop-zone {
-  /* background-color: #eee; */
+  background-color: #eee;
   background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
   margin-bottom: 10px;
   padding: 10px;
@@ -377,8 +387,13 @@ export default {
 
 .drag-el {
   background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
-  margin-bottom: 10px;
-  padding: 5px;
+  /* margin-bottom: 10px; */
+  margin:5px;
+  padding: 10px;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border: 1px solid blue;
 }
 
 .plylist-zone {
