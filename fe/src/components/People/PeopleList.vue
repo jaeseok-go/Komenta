@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div class="at-section">
-            <div class="at-section__title">Follow!</div>
+            <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
+            <div>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
         </div>
         <div class="at-grid">
             <div class="at-column" v-for="(user,index) in users" :key="index">
@@ -11,8 +12,22 @@
                     <div class="at-user__title">{{user.title}}</div>
                 </div>
             </div>
+        </div>
+        <div class="at-section">
+            <div class="at-section__title">인기DJ</div>
+            <div>{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</div>
+        </div>
+        <div class="at-grid">
+            <div class="at-column" v-for="(user,index) in users" :key="index">
+                <div class="at-user">
+                    <div class="at-user__avatar" :src="user.avatar"><i class="fab fa-apple"></i></div>
+                    <div class="at-user__name">{{user.name}}</div>
+                    <div class="at-user__title">{{user.title}}</div>
+                </div>
             </div>
         </div>
+    </div>
+
 </template>
 
 <script>
@@ -120,7 +135,11 @@ export default {
                 ]
     }},
     computed: {
-        ...mapGetters(['fetchedFollowingList'])
+        ...mapGetters(['fetchedFollowingList']),
+        // ...mapState(['userInfo']),
+        userInfo() {
+            return store.state.userInfo;
+        }
     },
     created() {
         const userId = store.state.userInfo.u_id
@@ -132,5 +151,30 @@ export default {
 </script>
 
 <style>
+/* .test {
+  display: inline-block;
+  margin: 50px auto 0;
+  padding: 10px 25px;
+  font-family: 'Roboto', sans-serif;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+} */
+
+
+
+/* .test:hover {
+  background: linear-gradient(to right, #fbcac9, #8ca6ce);
+} */
+
+/* .test:hover span {
+  background: none;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+} */
+
 
 </style>
