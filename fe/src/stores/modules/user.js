@@ -105,12 +105,6 @@ const actions = {
     async LOGIN({ commit }, userData) {
         console.log("야야야야야ㅑ야", commit, userData)
         const response = await loginUser(userData);
-        //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
-        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
-        //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        commit('setRecentPlaylist', recentPlaylist)
-        
-        
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
             // commit('fetchInfo', response.data.data)
@@ -119,6 +113,12 @@ const actions = {
         } else {
             commit('loginError')
         }
+        //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
+        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
+        //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
+        commit('setRecentPlaylist', recentPlaylist)
+        
+        
         console.log(state.userInfo)
         return response
     },
