@@ -28,6 +28,7 @@ public class VideoStreamController {
     public int registVideo(@RequestParam("file") MultipartFile videofile) {
 //        System.out.println(ClassLoader.getSystemResource());
         String videoPath = ApplicationConstants.VIDEO_CONTENT;
+        System.out.println("저장된곳 : " +videoPath);
         String video = videoPath + videofile.getOriginalFilename();
 //        video.replace(" ", "_");
 

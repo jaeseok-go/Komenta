@@ -107,6 +107,7 @@ public class VideoStreamService {
      */
     private String getFilePath() {
         URL url = this.getClass().getResource(VIDEO);
+        System.out.println(url);
         return new File(url.getFile()).getAbsolutePath();
     }
 

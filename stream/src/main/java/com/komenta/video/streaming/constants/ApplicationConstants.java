@@ -6,7 +6,7 @@ public class ApplicationConstants {
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String CONTENT_LENGTH = "Content-Length";
 //    public static final String VIDEO_CONTENT = "/video/";
-    public static final String VIDEO_CONTENT = "file:////root/Video/";
+    public static final String VIDEO_CONTENT = "/home/ubuntu/Video/";
     public static final String CONTENT_RANGE = "Content-Range";
     public static final String ACCEPT_RANGES = "Accept-Ranges";
     public static final String BYTES = "bytes";
