@@ -8,7 +8,7 @@
       <li v-if="this.popularVODs.length == 0">
         <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
-      <li class="scene" v-for="vod in paginatedData" :key="vod.v_id" v-else>
+      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" v-else>
         <div class="movie" onclick="return true">
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
@@ -117,7 +117,7 @@ export default {
 .scene{
   width: 200px;
   height: 330px;
-  margin: 30px 25px 60px 25px;
+  margin: 30px 25px 10px 25px;
 }
 
 .movie {
