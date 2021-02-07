@@ -19,7 +19,7 @@
             </td>
           </tr>
           <tr v-for="(user,index) in bestComment" :key="index" v-else>
-            <td class="commRank-num" :class="{red: index < 3}">{{index+1}}</td> 
+            <td class="commRank-num" :class="{red: index < 3, nonHighLight: index >= 3}">{{index+1}}</td> 
             <!-- :class="{red:fetchBestComment(index)}" -->
             <td class="userPic">
               <div>
@@ -127,6 +127,11 @@ table {
 
 .commRank-num.red {
   color: #fc3c44;
+}
+
+.commRank-num.nonHighLight {
+  font-size: 25px;
+  font-weight: 600;
 }
 
 .userPic img {
