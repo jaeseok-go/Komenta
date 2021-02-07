@@ -47,8 +47,8 @@
             </i>
             </h4>
             <p slot="body">
-            <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요.">
-            <input type="text" v-model="plComment">
+            <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." >
+            <input type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요.">
             <button @click="createPlaylist">제출</button>
             </p>
 
@@ -58,7 +58,7 @@
         <div 
         v-for='(playlist,index) in playlists' 
         :key='playlist[0].pl_id'
-        height="300"
+        height="300px"
         >
         {{playlist[0].pl_name}}
             <div class='plylist-zone'
@@ -355,8 +355,8 @@ export default {
         }
         },
         getPoster(poster){
-        const picPath = require(poster);
-        return picPath
+        // const picPath = require(poster);
+        return poster
     },
 
 
