@@ -1,16 +1,19 @@
-package com.komenta.streaming.demo.controller;
+package com.komenta.video.streaming.controller;
 
-import com.komenta.streaming.demo.service.VideoStreamService;
+import com.komenta.video.streaming.constants.ApplicationConstants;
+import com.komenta.video.streaming.service.VideoStreamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/video")
 public class VideoStreamController {
@@ -23,7 +26,9 @@ public class VideoStreamController {
 
     @PostMapping("/video_upload")
     public int registVideo(@RequestParam("file") MultipartFile videofile) {
-        String video = "video/" + videofile.getOriginalFilename();
+//        System.out.println(ClassLoader.getSystemResource());
+        String videoPath = ApplicationConstants.VIDEO_CONTENT;
+        String video = videoPath + videofile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);

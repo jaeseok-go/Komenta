@@ -1,4 +1,4 @@
-package com.komenta.streaming.demo.service;
+package com.komenta.video.streaming.service;
 
 
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static com.komenta.streaming.demo.constants.ApplicationConstants.*;
+import static com.komenta.video.streaming.constants.ApplicationConstants.*;
 
 @Service
 public class VideoStreamService {
