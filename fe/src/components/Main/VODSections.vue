@@ -32,11 +32,13 @@
   }
 
   .selectTab {
-    z-index: 99;
+    z-index: 999;
+    position: relative;
+    display: inline-block;
   }
 
   .col {
-    z-index: -9999;
+    z-index: 998;
   }
 
 </style>
