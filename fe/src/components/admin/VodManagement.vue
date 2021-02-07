@@ -2,7 +2,7 @@
   <b-container>
     <h4>전체 VOD</h4>
     <div class="btn-right">
-      <router-link :to="{name:'AdminTest'}">VOD 추가</router-link>
+      <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
     </div>
     <table style="text-align:center;">
       <colgroup>
@@ -22,7 +22,6 @@
           등록된 VOD가 없습니다.
         </td>
       </tbody>
-      <!-- 페이징 처리...어케해... -->
       <tbody v-for="(vod, index) in vodList" :key="index" v-else>
         <td>{{vod.v_id}}</td>
         <td><img :src="getPicPath(index)" width="50%"></td>
