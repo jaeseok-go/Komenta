@@ -3,7 +3,8 @@
     <!-- {{ comments }} -->
     <!-- playtime에 댓글이 떠야됨 -->
     <div v-for="comment in comments" :key="comment.c_id">
-      <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | {{ comment.comment_good_count }}        
+      <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}} </span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | 
+      <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
     </div>
   </div>
 </template>
@@ -47,11 +48,16 @@ export default {
     methods : {
       goCommentTime(time){
         this.$emit('goCommentTime',time)
-      }
+      },
+      
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.comment__time {
+  color: blue;
+  cursor: pointer;
+  text-decoration: none;
+}
 </style>

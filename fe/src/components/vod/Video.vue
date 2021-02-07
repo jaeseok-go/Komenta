@@ -23,7 +23,8 @@
            <div style="overflow:auto; width:600px; height:300px; white-space:pre-line;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
-                  <span @click="goCommentTime(comment.c_playtime)"> ({{comment.c_playtime}})</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | {{ comment.comment_good_count }}
+                  <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
+                  <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
                 </p>
             </div>
             </div>
@@ -61,7 +62,7 @@ export default {
                     "c_id" : 1,
                     "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
                     // "c_playtime" : "00:00:05",
-                    "c_playtime" : "5",
+                    "c_playtime" : "00:05",
                     "c_upload_time" : "2020.02.03 09:03:20",
                     "comment_good_count" : 10000,
                     "u_id" : 1,
@@ -342,5 +343,11 @@ export default {
     height:200px;
     border: 1px solid black;
     display: inline-block;
+}
+
+.comment__time {
+  color: blue;
+  cursor: pointer;
+  text-decoration: none;
 }
 </style>
