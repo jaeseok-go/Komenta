@@ -717,6 +717,14 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   font-size: 18px;
 }
 
+.half-card {
+  display: inline-block;
+}
+
+.ad-space {
+  margin: 2rem 0;
+}
+
 .bannerAd-Form {
   position: relative;
   text-align: center;
@@ -731,21 +739,6 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   height: 100%;
   background: -webkit-gradient(linear, left top, right top, color-stop(80%, rgba(255, 255, 255, 0)), color-stop(85%, rgba(255, 255, 255, 0.2)), color-stop(90%, rgba(255, 255, 255, 0.45)), color-stop(95%, rgba(255, 255, 255, 0.85)), color-stop(99%, white)), -webkit-gradient(linear, right top, left top, color-stop(80%, rgba(255, 255, 255, 0)), color-stop(85%, rgba(255, 255, 255, 0.2)), color-stop(90%, rgba(255, 255, 255, 0.45)), color-stop(95%, rgba(255, 255, 255, 0.85)), color-stop(99%, white));
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0.2) 85%, rgba(255, 255, 255, 0.45) 90%, rgba(255, 255, 255, 0.85) 95%, white 99%), linear-gradient(to left, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0.2) 85%, rgba(255, 255, 255, 0.45) 90%, rgba(255, 255, 255, 0.85) 95%, white 99%);
-}
-
-.bannerAd-Form .banner::after {
-  width: 100%;
-  content: '';
-}
-
-.bannerAd-Form img::before {
-  position: absolute;
-  clip: rect(0px 100px 450px 0px);
-}
-
-.ad-space {
-  width: 100%;
-  height: 450px;
 }
 
 button {
