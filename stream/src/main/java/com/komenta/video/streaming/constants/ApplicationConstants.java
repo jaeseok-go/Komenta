@@ -1,7 +1,7 @@
 package com.komenta.video.streaming.constants;
 
 public class ApplicationConstants {
-    public static final String VIDEO = "/video";
+//    public static final String VIDEO = "/";
 
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String CONTENT_LENGTH = "Content-Length";
