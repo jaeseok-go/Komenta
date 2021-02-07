@@ -3,10 +3,10 @@
     <!-- 인기순, 댓글순, 최신순 정렬 탭 -->
     <VODSections></VODSections>
     <!-- 실시간 인기 댓글 유저 -->
-    <BestCommentRank></BestCommentRank>
+    <BestCommentRank class="col-md-6"></BestCommentRank>
 
     <!-- 보고 있는 VOD -->
-    <NowPlaying></NowPlaying>
+    <NowPlaying class="col-md-6"></NowPlaying>
 
     <!-- 인기있는 플레이 리스트 -->
     <PopularPlayList></PopularPlayList>
