@@ -14,9 +14,9 @@
     </div>
     <ul class="stage clearfix">
       <li v-if="this.recentVODs.length == 0">
-        <div>등록된 VOD가 없습니다.</div>
+        <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
-      <li class="scene" v-for="vod in paginatedData" :key="vod.v_id" v-else>
+      <li class="scene" v-for="vod in paginatedData" :key="vod.ve_episode_num" v-else>
         <div class="movie" onclick="return true">
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
@@ -146,6 +146,11 @@ export default {
   height: 200px;
   transform: rotateX(90deg) translateY(99px);
   box-shadow: 0 22px 33px rgb(0 0 0 / 30%);
+}
+
+.noRegister-text {
+  position: relative;
+  top: 50px;
 }
 
 .btn-cover {

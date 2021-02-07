@@ -1,50 +1,45 @@
 <template>
-  <b-container>
-    <!-- VOD 등록하는 부분 입니다. -->
+  <div>
+    <b-container>
+      <!-- VOD 등록하는 부분 입니다. -->
       <b-col>
+        <button @click="test">replace 버튼</button>
         <h2>Vod 등록</h2>
         <b-form>
-          <select v-model="genre_id" @change="detailGenre()">
+          <b-select v-model="genre_id" @change="detailGenre()">
             <option selected disabled>종류</option>
             <option v-for="(item, index) in genre_list" :value="item.g_id" :key="index">
               {{ item.g_name }}
             </option>
-          </select>
-          <select v-model="genre_detail_id" @change="showVodList()">
+          </b-select>
+          <b-select v-model="genre_detail_id" @change="showVodList()">
             <option selected disabled>장르</option>
             <option v-for="(item, index) in genre_detail_list" :value="item.gd_id" :key="index">
               {{ item.gd_name }}
             </option>
-          </select>
-          <select v-model="vod" @change="autoWriteVodInfo()" ref="directInput">
+          </b-select>
+          <b-select v-model="vod" @change="autoWriteVodInfo()" ref="directInput">
             <option selected>직접 입력</option>
             <option v-for="(item, index) in vod_list_by_gd" :value="item" :key="index">
               {{ item.v_title }}
             </option>
-          </select>
+          </b-select>
           <br>
-          번호<b-input type="text" id="v_id" v-model="vod.v_id"></b-input>
-          제목<b-input type="text" id="v_title" v-model="vod.v_title"></b-input>
-          요약<b-input type="text" id="v_summary" v-model="vod.v_summary"></b-input>
-          감독<b-input type="text" id="v_director" v-model="vod.v_director"></b-input>
-          출연진<b-input type="text" id="v_actors" v-model="vod.v_actors"></b-input>
-          연령<b-input type="text" id="v_age_grade" v-model="vod.v_age_grade"></b-input>
-          <!-- <b-input type="file" id="v_poster"> -->
-          포스터<b-input type="text" id="v_poster" v-model="vod.v_poster"></b-input>
+          <input type="hidden" id="v_id" v-model="vod_all.v_id">
+          제목<b-input type="text" id="v_title" v-model="vod_all.v_title"></b-input>
+          요약<b-input type="text" id="v_summary" v-model="vod_all.v_summary"></b-input>
+          감독<b-input type="text" id="v_director" v-model="vod_all.v_director"></b-input>
+          출연진<b-input type="text" id="v_actors" v-model="vod_all.v_actors"></b-input>
+          연령<b-input type="text" id="v_age_grade" v-model="vod_all.v_age_grade"></b-input> 
           
+          몇화<b-input type="text" id="ve_episode_num" v-model="vod_all.ve_episode_num"></b-input>
+          해당 화 내용<b-input type="text" id="ve_contents" v-model="vod_all.ve_contents"></b-input>
           
-          몇화<b-input type="text" id="ve_episode_num" v-model="vod_episode.ve_episode_num"></b-input>
-          해당 화 내용<b-input type="text" id="ve_contents" v-model="vod_episode.ve_contents"></b-input>
-          작성자<b-input type="text" id="ve_admin" v-model="vod_episode.ve_admin" value="admin"></b-input>
-          작성날짜<b-input type="text" id="ve_upload_date" v-model="vod_episode.ve_upload_date" value="0"></b-input>
-          
-          VOD<input type="file" id="file" required>
+          VOD<input type="file" id="file" ref="file" v-on:change="handleFileUpload()" required accept="video/mp4"><br>
+          poster<input type="file" id="v_poster" ref="file1" v-on:change="handleFileUpload1()" required>
           <b-button @click="send" class="testbtn">추가</b-button>
         </b-form>
       </b-col>
-
-      {{vod}} <br>
-      {{vod_episode}}
 
       <b-col>
         <table>
@@ -67,6 +62,7 @@
         </table>
       </b-col>
     </b-container>
+  </div>
 </template>
 <style>
 .testbtn{
@@ -76,17 +72,18 @@
 </style>
 
 <script>
-import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId} from '@/api/vod'; //, sendVodFirstRegist, sendVodEpisodeRegist
-
+import {fetchVodList, fetchAllEpi, fetchAllGenre, fetchGenreDetail, fetchVodListByGenreDetailId, sendVODInfo, insertVOD, insertVodPoster} from '@/api/vod';
 export default {
   components: { 
-    },
+  },
+  
   data() {
     return {  
       genre_id:0,
       genre_detail_id:0,
       vod_id :0,
       vod:{},
+      vod_all:{},
       is_exist_vod:false,
       vod_episode :{},
       genre_list:[],
@@ -95,92 +92,126 @@ export default {
       vod_episode_list:[],
       genre_detail_list:[],
       all_episode:[],
+      file: '',
+      file1: '',
     };
   },
   created(){
     fetchVodList()
     .then((response) => {
       this.vod_list = response.data;
-      console.log("VOD 리스트 가져오기 : ",this.vod_list);
+      // console.log("VOD 리스트 가져오기 : ",this.vod_list);
     })
     .catch((ex) => {
+      alert('VOD 리스트를 가져오는데 문제가 발생했습니다.')
       console.log(ex);
     });
 
     fetchAllEpi()
     .then((response)=>{
       this.all_episode = response.data;
-      console.log("모든 episode 가져오기 : ",this.all_episode);
+      // console.log("모든 episode 가져오기 : ",this.all_episode);
+    })
+    .catch(() => {
+      alert('VOD episode를 가져오는데 문제가 생겼습니다.');
     });
+
     fetchAllGenre()
     .then((response) =>{
-      console.log("모든 장르 가져오기 : ",response.data)
+      // console.log("모든 장르 가져오기 : ",response.data)
       this.genre_list = response.data;
     })
     .catch(()=>{
-      alert('genre error');
+      alert('장르를 가져오는데 문제가 생겼습니다.');
     });
   },
   methods: {
-    detailGenre(){ //VOD 종류 불러오기
-      fetchGenreDetail(this.genre_id)
-      .then((response) => {
-        this.genre_detail_list = response.data;
-        console.log("genre detail 여깄다"+ response);
-      })
-      .catch(()=>{
-        alert('genre detail error');
-      })
+    handleFileUpload(){
+        this.file = this.$refs.file.files[0];
     },
+    handleFileUpload1(){
+      this.file1 = this.$refs.file1.files[0];
+    },
+   detailGenre(){ //VOD 종류 불러오기
+     fetchGenreDetail(this.genre_id)
+     .then((response) => {
+       this.genre_detail_list = response.data;
+      //  console.log("genre detail 여깄다"+ response);
+     })
+     .catch(()=>{
+       alert('소장르를 가져오는데 문제가 생겼습니다.');
+     })
+   },
     showVodList(){ //선택한 장르 기준으로 등록된 VOD list 불러오기
-      fetchVodListByGenreDetailId(this.genre_detail_id)
-      .then((response) => {
-        this.vod_list_by_gd= response.data;
-        this.vod.v_id = response.data.v_id;
-        console.log("vod 확인",this.vod);
-        console.log("gd에 해당하는 vod 여깄다", response.data);
-      })
-      .catch(()=>{
+     fetchVodListByGenreDetailId(this.genre_detail_id)
+     .then((response) => {
+       this.vod_list_by_gd= response.data;
+     })
+     .catch(()=>{
         alert('해당 장르에 저장된 VOD가 없습니다. 직접 입력을 통해 등록해주세요.');
         this.$refs.directInput.focus();
-      })
-    },
-    autoWriteVodInfo(){
-      console.log("vod id : ",this.vod.v_id)
-      if(this.vod.v_id > 0){
-        this.vod_id = this.vod.v_id; 
-        this.vod_episode.v_id = this.vod_id;
-        this.is_exist_vod = true;
-      }else if(this.vod.v_id == undefined) {
-        console.log("직접입력")
-        this.vod = {}
+     })
+   },
+   autoWriteVodInfo(){
+     if(this.vod.v_id > 0){
+      for (var step = 0; step < this.vod_list_by_gd.length; step++) {
+          if(this.vod_list_by_gd[step].v_id== this.vod.v_id){
+            this.vod_all = this.vod_list_by_gd[step];
+          }
       }
-    },
-    // async send(){
-    //   console.log("vod episode : ",this.vod_episode);
-    //   if(this.is_exist_vod == true){
-    //     await sendVodEpisodeRegist(this.vod_episode)
-    //     .then((response)=>{
-    //       console.log(response.data);
-    //     })
-    //     .catch(()=>{
-    //       console.log("업로드에러");
-    //     })
-    //   }
-    //   else{
-    //     console.log(this.vod)
-    //     sendVodFirstRegist(this.vod)
-    //     .then((response)=>{
-    //       alert(response);
-    //     })
-    //     .catch(()=>{
-    //       console.log("업로드에러");
-    //     })
-    //   } 
-    // },
-    // toVideo(){
-    //   location.href="test";
-    // }
+     }
+   },
+   async send(){
+     
+    this.vod_all.gd_id = this.genre_detail_id;
+    let vposter_name = this.file1.name.split('.');
+    this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
+    // console.log("들어가기전 최종",this.vod_all);
+    let formData1 = new FormData();
+    let vodTitle = this.vod_all.v_title;
+    let vodReplace = vodTitle.replace(" ","");
+    formData1.append("file",this.file, String(this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4'))
+    let formData2 = new FormData();
+    let poster_name = this.file1.name;
+    let extensions = poster_name.split('.');
+    formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.'+extensions[1]));
+
+    await sendVODInfo(this.vod_all)
+    .then((response)=>{
+      console.log("vod regist 잘들어감",  response.data);
+    })
+    .catch((err)=>{
+      console.log("vod, vod epi 업로드에러");
+      console.log(err)
+    });
+     
+    await insertVOD(formData1)
+    .then((response)=>{
+      console.log("video data 잘들어감", response.data);
+    })
+    .catch((err)=>{
+      console.log("video 업로드에러");
+      console.log(err)
+    });
+     
+    await insertVodPoster(formData2)
+    .then((response)=>{
+      console.log("poster 사진 잘 들어감", response.data);
+    })
+    .catch((err)=>{
+      console.log("poster 업로드에러");
+      console.log(err)
+    })
+
+    alert("VOD가 정상적으로 등록되었습니다.");
+    window.location.reload();
+  },
+  test() {
+    
+  },
+  toVideo(){
+    location.href="test";
+  }
   }
 };
 </script>
