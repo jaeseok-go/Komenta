@@ -6,7 +6,7 @@
         <div class="btn active">Middle</div>
         <div class="btn">Last</div>
      </div> -->
-      <div>
+      <div class="selectTab">
         <ion-chip outline color="primary">
           <ion-label><router-link :to="{name:'VodPopular'}" class="text-color">인기순</router-link></ion-label>
         </ion-chip>
@@ -17,7 +17,7 @@
           <ion-label><router-link :to="{name:'VodRecent'}" class="text-color">최신순</router-link></ion-label>
         </ion-chip>
       </div>
-          <router-view></router-view>
+      <router-view></router-view>
     </div>
 </template>
 
@@ -29,6 +29,14 @@
 
   ion-label {
     color: black;
+  }
+
+  .selectTab {
+    z-index: 99;
+  }
+
+  .col {
+    z-index: -9999;
   }
 
 </style>

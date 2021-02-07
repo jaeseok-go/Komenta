@@ -18,6 +18,7 @@ export default new Router({
         {
           path: 'vodpopular',
           name: 'VodPopular',
+          // component: () => import('@/components/Main/VodPopular.vue'),
           component: () => import('@/components/Main/VodPopular.vue'),
         },
         {
