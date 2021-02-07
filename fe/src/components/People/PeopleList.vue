@@ -2,7 +2,7 @@
     <div class="container">
         <div class="at-section">
             <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
-            <div>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
+            <div class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
         </div>
         <div class="at-grid">
             <div class="at-column" v-for="(user,index) in users" :key="index">
