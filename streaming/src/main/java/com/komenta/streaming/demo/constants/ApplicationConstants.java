@@ -1,7 +1,9 @@
 package com.komenta.streaming.demo.constants;
 
+import java.nio.file.Paths;
+
 public class ApplicationConstants {
-    public static final String VIDEO = "/ubuntu/Video" ;
+    public static final String VIDEO = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
 
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String CONTENT_LENGTH = "Content-Length";
