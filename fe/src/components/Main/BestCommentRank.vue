@@ -126,5 +126,6 @@ table {
 .userPic img {
   border-radius: 50%;
   border:1px solid black;
+  background-color: white;
 }
 </style>

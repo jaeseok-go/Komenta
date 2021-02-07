@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-col>
     <h4>전체 VOD</h4>
     <div class="btn-right">
       <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
@@ -30,7 +30,7 @@
       </tbody>
     </table>
     <br>
-  </b-container>
+  </b-col>
 </template>
 
 <script>

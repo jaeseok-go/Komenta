@@ -100,7 +100,7 @@ function sendVODInfo(vodInfo) {
 
 //vod 영상 저장
 function insertVOD(vodForm) {
-    console.log("vod 영상 정보 : ",vodForm.get('file'))
+    // console.log("vod 영상 정보 : ",vodForm.get('file'))
     return axios.post('http://i4b201.p.ssafy.io:8080/admin/video_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
@@ -110,7 +110,7 @@ function insertVOD(vodForm) {
 }
 
 function insertVodPoster(vodForm) {
-    console.log("vod 포스터 정보 : ",vodForm.get('v_poster'))
+    // console.log("vod 포스터 정보 : ",vodForm.get('v_poster'))
     return axios.post('http://i4b201.p.ssafy.io:8080/admin/poster_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
@@ -129,7 +129,7 @@ function fetchPlayListDetail(plId) {
 
 // 좋아요가 많은 플레이리스트 순
 function fetchPopularPlayList() {
-    return instance.get()
+    return instance.get(`/playlist/bestplist`)
 }
 
 
