@@ -106,8 +106,11 @@ public class VideoStreamService {
      * @return String.
      */
     private String getFilePath() {
+        File file = new File(VIDEO);
+        String abpath = file.getAbsolutePath();
+        System.out.println("절대경로 가즈아 : "+abpath);
         URL url = this.getClass().getResource(VIDEO);
-        return new File(url.getFile()).getAbsolutePath();
+        return abpath;
     }
 
     /**
