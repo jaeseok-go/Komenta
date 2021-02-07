@@ -28,6 +28,9 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     // https://mvnrepository.com/artifact/io.projectreactor/reactor-test
     testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.3.0.RELEASE'
+// https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
 }
 test {
