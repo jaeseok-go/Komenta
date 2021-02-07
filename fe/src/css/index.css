@@ -1374,13 +1374,26 @@ select {
 }
 
 .at-section__title {
-  margin: 0 0 70px;
+  margin: 0 0 50px;
   color: #000;
   font-family: 'Roboto', sans-serif;
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 300;
   line-height: 2.625rem;
   text-align: center;
+}
+
+.at-section__subtitle {
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
+.at-section__nickname {
+  background: -webkit-gradient(linear, left top, right top, from(#fbcac9), to(#8ca6ce));
+  background: linear-gradient(to right, #fbcac9, #8ca6ce);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3.5rem;
 }
 
 .at-grid {
