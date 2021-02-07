@@ -19,7 +19,8 @@
             </td>
           </tr>
           <tr v-for="(user,index) in bestComment" :key="index" v-else>
-            <td class="commRank-num" :class="{red:fetchBestComment(index)}">{{index+1}}</td>
+            <td class="commRank-num" :class="{red: index < 3, nonHighLight: index >= 3}">{{index+1}}</td> 
+            <!-- :class="{red:fetchBestComment(index)}" -->
             <td class="userPic">
               <div>
                 <img :src="getProfile(index)" width="35px" alt="" />
@@ -28,7 +29,7 @@
             <td>{{user.u_nickname}}</td>
             <td>{{user.v_title}} {{user.ve_episode_num}}화</td>
             <td>
-              <font-awesome-icon :icon="['fas', 'thumbs-up']" :style="{ color: '#495057' }"/>
+              <font-awesome-icon :icon="['fas', 'thumbs-up']" :style="{ color: '#fc3c44'}"/>
               {{user.c_good_count}}
             </td>
           </tr>
@@ -109,13 +110,6 @@ export default {
       let profile = this.bestComment[index].u_profile_pic;
        return require(`@/assets/images/${profile}`);
     },
-    fetchRankNumColor(index){
-      console.log("몇등이니?",index);
-      if(index < 3) {
-        return true;
-      }
-      return false;
-    }
   },
   
 }
@@ -132,7 +126,12 @@ table {
 }
 
 .commRank-num.red {
-  color: red;
+  color: #fc3c44;
+}
+
+.commRank-num.nonHighLight {
+  font-size: 25px;
+  font-weight: 600;
 }
 
 .userPic img {
