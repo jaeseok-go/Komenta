@@ -41,14 +41,14 @@
         <Modal v-if="showModal" @close="showModal=false">
             <h4 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
-            <i class="closeModalBtn fa fa-times"
+            <span @click="showModal = false"><i class="closeModalBtn fa fa-times"
             aria-hidden="true"
-            @click="showModal = false">
-            </i>
+            >
+            </i></span>
             </h4>
             <p slot="body">
-            <input type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." >
-            <input type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요.">
+            <input class="input-group" type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." > <br>
+            <input class="input-group" type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요."> <br>
             <button @click="createPlaylist">제출</button>
             </p>
 
@@ -83,14 +83,14 @@
                     <span
                        @click="goEpiDetail(vod.ve_id)"
                        >{{ vod.v_title }}</span> 
-                    <i class="closeModalBtn fa fa-times"
+                    <div  @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
-                    @click="vodEpiModal = false">
-                    </i>
+                   >
+                    </i></div>
                     </h4>
                     <p slot="body">
                         {{vod.v_title}}
-                        <input type="text" v-model="epiComment">
+                        <input class="input-group" type="text" v-model="epiComment">
                         <button @click="addComment">리뷰작성</button>
                     </p>
                 </Modal>
@@ -119,10 +119,10 @@
                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     {{ vod.v_title }}
-                    <i class="closeModalBtn fa fa-times"
+                    <div @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
-                    @click="vodEpiModal = false">
-                    </i>
+                    >
+                    </i></div>
                     </h4>
                     <p slot="body">
                         {{vod.pl_comment}}

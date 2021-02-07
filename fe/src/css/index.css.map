@@ -24,8 +24,7 @@
         "../sass/components/_searchbar.scss",
         "../sass/components/_vodsections.scss",
         "../sass/components/_feed.scss",
-        "../sass/components/_peoplelist.scss",
-        "../sass/components/_modal.scss"
+        "../sass/components/_peoplelist.scss"
     ],
     "names": [],
     "file": "index.css"
