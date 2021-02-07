@@ -1,6 +1,28 @@
 $prefix: at;
 $totalColumns: 9;
 
+.container {
+  // display: flex;
+  max-width: 1170px;
+  width: 100%;
+  margin: 100px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  transform-origin: top center;
+  transform: scale(0.8);
+  
+ 
+
+  &__friend {
+    
+
+  }
+
+  &__influences {
+
+  }
+}
+
 // Custom Prefix
 .#{$prefix} {
   
@@ -33,7 +55,8 @@ $totalColumns: 9;
       
       width: 1000px;
       display: flex;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
+      overflow-x: scroll;
 
 
   }
