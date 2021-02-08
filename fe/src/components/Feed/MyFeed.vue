@@ -6,13 +6,13 @@
         <div class="userprofile">
             <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
             <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-            <div v-if="!showMyRecent">
+            <div v-if="!showMyRecent()">
                 <button class="userprofile__button" @click="followUser">FOLLOW</button>
             </div>
         </div>
     
 
-    <template v-if="showMyRecent">
+    <template v-if="showMyRecent()">
         <div>
         <!-- 최근 본 VOD div -->
           <button @click="showModalForm"><h4>플레이리스트 생성 <i class="fas fa-plus"></i></h4></button>
@@ -70,7 +70,7 @@
             draggable
             @dragstart='startDrag($event, vod)'
             @click="showVodEpiModal(pindex,index)"
-            height="300px"
+           
             >
                 <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
                 <span v-if="vod.gd_name"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" width="100%"></span>
@@ -111,7 +111,7 @@
                 class='drag-el'
                 @click="showVodEpiModal(pindex,index)"
                >
-               <span ><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" width="100%"></span>
+               <span ><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="200px"></span>
                <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     {{ vod.v_title }}
@@ -317,6 +317,7 @@ export default {
         // },
         showMyRecent() {
             if (this.userInfo.u_id == this.feedUserInfo.u_id) {
+                console.log(this.userInfo.u_id,this.feedUserInfo.u_id,'와이ㅣㅣㅣ')
                 return true
             }
             return false
@@ -439,6 +440,7 @@ export default {
 .drop-zone {
   background-color: #eee;
   background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
+  height: 200px;
 }
 
 .drag-el {
@@ -453,7 +455,7 @@ export default {
 .plylist-zone {
   background-color: #c1dfc4; 
   background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
-
+  height: 200px;
 }
 
 </style>
