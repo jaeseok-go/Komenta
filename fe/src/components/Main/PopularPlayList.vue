@@ -115,10 +115,12 @@ export default {
     getPoster(index) {
       const poster = this.popularPlaylist[index].v_poster;
       return require(`@/assets/images/${poster}`);
+      // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);
     },
     getUserPic(index) {
       const profile = this.popularPlaylist[index].u_profile_pic;
       return require(`@/assets/images/${profile}`);
+      // return require(`http://i4b201.p.ssafy.io:7000/Picture/Profile/${profile}`);
     },
   },
   computed: {
@@ -153,8 +155,9 @@ export default {
 .playList-Form {
   width: 230px;
   height: 300px;
-  background-color: rgb(187, 187, 187);
+  background-color: white;
   margin: 2rem 2rem;
+  box-shadow: 5px 5px 10px rgb(168, 168, 168);
 }
 
 .userPic {
