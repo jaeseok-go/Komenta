@@ -339,6 +339,10 @@ hr {
   text-align: start;
 }
 
+.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title:active {
+  background-color: aqua;
+}
+
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title-icon icon-bg1 {
   font-size: x-large;
   font-size: 25px;
@@ -354,7 +358,7 @@ hr {
 }
 
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title-text {
-  font-size: 15px;
+  font-size: 100px;
   line-height: 1.46667;
   font-weight: 400;
   letter-spacing: 0;
@@ -374,7 +378,7 @@ hr {
 
 .icon-bg1 {
   color: #fa233b;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .icon-bg2 {
