@@ -96,8 +96,9 @@ export default {
       // this.bestComment = response.data;
     },
     getProfile(index) {
-      let profile = this.bestComment[index].u_profile_pic;
-       return require(`@/assets/images/${profile}`);
+      let profile = this.bestComment[index].u_profile_pic.split('.');
+      let picName = profile[0]
+       return `http://i4b201.p.ssafy.io:7000/picture/user/${picName}`;
     },
   },
   

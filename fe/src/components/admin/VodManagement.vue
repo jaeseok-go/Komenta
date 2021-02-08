@@ -53,9 +53,7 @@ export default {
     getPicPath(index){
       console.log('vod 정보 : ',this.vodList[index].v_poster)
       if(this.vodList[index].v_poster) {
-        const picPath = require(`@/assets/images/${this.vodList[index].v_poster}`);
-        console.log('poster 이름 : ',picPath)
-        return picPath;
+        return `http://i4b201.p.ssafy.io:7000/picture/poster/${this.vodList[index].v_poster}`;
       } else {
         console.log('이미지 없음')
         return '#'

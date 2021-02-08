@@ -1,6 +1,6 @@
 import { setInterceptors } from './config/interceptors'
-// import axios from 'axios';
-// import store from '@/stores/index.js';
+import axios from 'axios';
+import store from '@/stores/index.js';
 
 
 const instance = setInterceptors()
@@ -92,7 +92,13 @@ function membership() {
 
 // 프로필 사진 file 업로드 
 function uploadProfile(profile) {
-    return instance.post('member/profile_upload',profile)
+    console.log('프로필 마지막 확인 : ',profile.get('profile'))
+    return axios.post('http://i4b201.p.ssafy.io:8080/member/profile_upload',profile, { 
+        headers: {
+           'Content-Type': 'multipart/form-data',
+           'auth-token': store.state.token
+       }
+    })
 }
 
 // 유저 전체 목록 불러오기(관리자용)
@@ -139,8 +145,6 @@ function addPlaylist(data) {
 function addPlaylistVod(vodInfo) {
     return instance.post('playlist/move_history_to_playlist',vodInfo)
 }
-
-
 
 // 플레이리스트 수정
 function modifyPlaylist(playlistInfo) {

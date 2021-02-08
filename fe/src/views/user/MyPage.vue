@@ -21,7 +21,7 @@
               <div class="file-input">
                 <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
                 <!-- <button>프로필 사진 변경</button> -->
-                <input ref="imageInput" type="file" hidden @change="onChangeImages" accept="image/gif,image/jpeg,image/png">
+                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages()" required accept="image/jpeg">
                 <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
                 {{userProfilePic}}
               </div>
@@ -150,7 +150,7 @@ import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
-import { deleteMyInfo } from '@/api/user';
+import { deleteMyInfo, uploadProfile } from '@/api/user';
 import { mapState } from 'vuex';
 
 
@@ -176,6 +176,7 @@ export default {
       userNickName:'',
       userPhoneNumber:'',
       userProfilePic:'',
+      profilePicFile:'',
       userIsAdmin:0,
       modiForm:'none',
       showUserInfoModal:false,
@@ -283,10 +284,11 @@ export default {
     onClickImageUpload() {
       this.$refs.imageInput.click();
     },
-    onChangeImages(e) {
-      console.log("e target files : ",e.target.files[0])
-      const file = e.target.files[0].name; // Get first index in files
-      this.userProfilePic = file; // Create File URL
+    onChangeImages() {
+      this.userProfilePic = this.$refs.imageInput.files[0].name;
+      this.profilePicFile = this.$refs.imageInput.files[0];
+      console.log("user pic : ",this.userProfilePic)
+      console.log("user pic Info : ",this.profilePicFile)
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
@@ -321,9 +323,23 @@ export default {
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
         
-        // this.getUserInfo();
-        this.closeUserInfoModal();
-        window.location.reload();
+        let profilePic = new FormData();
+        let pic = this.userProfilePic.split('.');
+        profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
+
+        // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
+        await uploadProfile(profilePic)
+        .then((response) => {
+          console.log("프로필 사진 잘 들어감",response.data);
+          this.closeUserInfoModal();
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+          return false;
+        });
+
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
