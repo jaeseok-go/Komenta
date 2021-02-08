@@ -25,7 +25,11 @@ function loginUser(userData) {
 
 // 내 정보 가져오는 API
 function fetchMyInfo(userId) {
-    return instance.get(`member/info`,userId)
+    return instance.get(`member/info`,{
+        params:{
+            u_id: userId
+        }
+    })
 }
 
 // 내 정보 수정
@@ -128,7 +132,7 @@ function fetchLikePlaylist(userId) {
 
 // 유저가 피드에서 플레이 리스트 생성
 function addPlaylist(data) {
-    return instance.post('playlist/move_history_to_playlist',data)
+    return instance.post('playlist/plist_regist',data)
 }
 
 //플레이리스트 VOD생성(나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가)
@@ -145,7 +149,16 @@ function modifyPlaylist(playlistInfo) {
 
 // 플레이리스트 삭제
 function deletePlaylist(plId){
-    return instance.delete('playlist/plist_delete',plId)
+    return instance.delete('playlist/plist_delete',{
+        params:{
+            pl_id:plId
+        }
+    })
+}
+
+//플레이리스트 좋아요 추가
+function likePlaylist(plId){
+    return instance.post('playlist/like',plId)
 }
 
 // 플레이리스트 좋아요 취소
@@ -223,6 +236,7 @@ export {
     fetchMyComment,
     fetchRecentPlaylist,
     fetchLikePlaylist,
+    likePlaylist,
     addPlaylist,
     addPlaylistVod,
     deletePlaylist,

@@ -5,17 +5,17 @@
     <section>
         <div class="userprofile">
             <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
-            <div class="userprofile__name">1등이다</div>
-            <div v-if="showButton">
+            <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
+            <div v-if="!showUserFeed">
                 <button class="userprofile__button" @click="followUser">FOLLOW</button>
             </div>
         </div>
     
 
     <template v-if="showMyRecent">
-
         <div>
         <!-- 최근 본 VOD div -->
+          <button @click="showModalForm"><h4>플레이리스트 생성 <i class="fas fa-plus"></i></h4></button>
             <h3>나의 최근 시청목록보기</h3>
                 <div class='drop-zone'
                 @dragover.prevent
@@ -37,7 +37,7 @@
                 </div>
         </div>
 
-         <button @click="showButton"><i class="fas fa-plus"></i></button>
+        
         <Modal v-if="showModal" @close="showModal=false">
             <h4 slot="header">
             나만의 스트리밍 리스트를 만들어보세요
@@ -54,22 +54,22 @@
 
         </Modal>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
-
         <div 
         v-for='(playlist,pindex) in playlists' 
-        :key='playlist[0].pl_id'
+        :key='pindex'
         height="300px"
         >
-        <h3 @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}}</h3>
+        <span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span>
+        <h3 @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </h3> 
             <div class='plylist-zone'
-            @drop='onDrop($event, playlist[0].pl_id,index)'
+            @drop='onDrop($event, playlist[0].pl_id,pindex)'
             @dragover.prevent
             @dragenter.prevent
             >
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면  -->
             <div
-            v-for='(vod,index) in playlist[1]' 
+            v-for='(vod,index) in playlist' 
             :key='vod.ve_id' 
             class='drag-el'
             draggable
@@ -82,7 +82,7 @@
                     <h4 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
-                       >{{ playlists[pindex][1][index].v_title }}</span> 
+                       >{{ playlists[pindex][index].v_title }}</span> 
                     <span  @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                    >
@@ -103,15 +103,15 @@
     <template v-else>
         <div 
         v-for='(playlist,pindex) in playlists' 
-        :key='playlist[0].pl_id'
+        :key='playlist.pl_id'
         height="300"
         >
-        {{playlist[0].pl_name}}
+        <h3 @click="goPlaylsitDetail(playlist.pl_id)">{{playlist.pl_name}} <i class="far fa-star" @click="likePlaylist(playlist.pl_id)"></i></h3> 
             <div class='plylist-zone'>
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면 -->
             <div
-                v-for='(vod,index) in playlist[1]' 
+                v-for='(vod,index) in playlist' 
                 :key='vod.ve_id' 
                 class='drag-el'
                 @click="showVodEpiModal(pindex,index)"
@@ -145,7 +145,7 @@
 <script>
 import { mapState } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, modifyPlaylist } from '@/api/user'
+import { fetchMyInfo, fetchRecentPlaylist, likePlaylist, deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
 // import store from '@/stores/modules/user'
@@ -157,80 +157,9 @@ export default {
     },
     data(){
         return {
-            myrecentlists : {
-                "historyList": [
-                    {
-                        vh_id: 1,
-                    }
-                ],
-                "episodeList": [
-                    {
-                        ve_id: 1,
-                        v_title: "test1",
-                        v_poster:'@/assets/images/poster00.jpg'
-  
-                    },
-                    {
-                        ve_id: 2,
-                        v_title: "test2",
-                        v_poster:'@/assets/images/poster01.jpg'
-
-                    },
-                    {
-                        ve_id: 3,
-                        v_title: "test3",
-                        v_poster:'@/assets/images/poster02.jpg'
-
-                    },
-                ]
-            },
-            playlists : [ [
-                {
-                    pl_id : 0,
-                    pl_name : "겁나재밌는 플레이리스트 모음",
-                    pl_commnet : "string",
-                },
-                [
-                {   
-                    ve_id : 4,
-                    v_title : "런닝맨",
-                    v_poster:'@/assets/images/poster03.jpg',
-                    ve_episode_num : 0,
-                    vh_commnet : "string",
-                },
-                {   
-                    ve_id : 5,
-                    v_title : "최고다",
-                    v_poster:'@/assets/images/poster04.jpg',
-                    ve_episode_num : 0,
-                    vh_commnet : "string",
-                },
-                ]
-            ],  
-            [
-                {
-                    pl_id : 1,
-                    pl_name : "우리팀 1등하자",
-                    pl_commnet : "string",
-                },
-                [
-                {   
-                    ve_id : 7,
-                    v_title : "우리 모두 힘내서",
-                    v_poster:'@/assets/images/poster05.jpg',
-                    ve_episode_num : 0,
-                    vh_commnet : "string",
-                },
-                {   
-                    ve_id : 8,
-                    v_title : "성공해용",
-                    v_poster:'@/assets/images/poster06.jpg',
-                    ve_episode_num : 0,
-                    vh_commnet : "string",
-                },
-                ]
-            ],  
-            ],
+            feedUserInfo:{},
+            myrecentlists :{},
+            playlists : [],
             showModal:false,
             vodEpiModal:false,
             showFollow:false,
@@ -244,8 +173,9 @@ export default {
         }
     },
     created(){
-       this.getRecentPlayList();
+        this.getFeedInfo();
        this.getUserPlayList();
+        this.getRecentPlayList();
     },
     methods: {        
         // drag and drop 메소드
@@ -274,22 +204,24 @@ export default {
             pl_id:plId
             }
         console.log(epiInfo,'플레이리스트에 추가할 epi')
-        modifyPlaylist(epiInfo)
+        addPlaylistVod(epiInfo)
         this.getUserPlayList();
         },
         showModalForm() {
             this.showModal=true
         },
-        showButton() {
-            this.showModal=true
-            // if (this.fetchedUserInfo.u_id !== this.fetchedUserFeedInfo.u_id) {
-            //     this.showFollow=true
-            // }
+        showUserFeed() {
+            if (this.userInfo.u_id !== this.feedUserInfo.u_id) {
+                this.showModalForm()
+                return true
+            }
+            return false
         },
         showMyRecent() {
-            // if (this.fetchedUserInfo.u_id == this.fetchedUserFeedInfo.u_id) {
-            //     this.showRecent=true
-            // }
+            if (this.userInfo.u_id == this.feedUserInfo.u_id) {
+                return true
+            }
+            return false
         },
         //팔로우하는 로직 추가 구현
         followUser() {
@@ -326,6 +258,8 @@ export default {
             }
             try {
                 await addPlaylist(playlistinfo)
+                this.showModal = false
+                this.getUserPlayList();
             } catch {
                 console.log('플레이리스트 생성 실패')
             }
@@ -340,29 +274,47 @@ export default {
             .catch(err => console.log(err))
         },
         async getRecentPlayList() {
-        const userId = this.$route.params.id;
         try {
             // userId를 같이 안보내주고 토큰으로??
             const res = await fetchRecentPlaylist()
-            // this.myrecentlists = res.data
-            console.log(this.myrecentlists,userId,res,'???????????')
+            this.myrecentlists = res.data
+            console.log(this.myrecentlists,res,'나의 최신vod목록')
         } catch {
-            console.log('에러')
+            console.log('최신vod에러')
         }
         },
         async getUserPlayList() {
         const userId = this.$route.params.id;
         try {
             const res = await fetchMyPlaylist(userId)
-            // this.playlists = res.data
-            console.log(res.data,this.recentlistLen)
+            this.playlists = res.data
+            console.log(res.data,this.recentlistLen,'playlist목록')
         } catch {
-            console.log('에러')
+            console.log('playlist목록에러')
         }
         },
-        getVodPoster(vId,title){
-            return require(`@/assets/images/${vId}${title}`)
-        }
+        likeUserPlaylist(plId){
+            likePlaylist(plId);
+            alert('플레이리스트 좋아요 함')
+        },
+        async deleteUserPlaylist(plId){
+            const response = await deletePlaylist(plId);
+            console.log(response)
+            this.getUserPlayList();
+        },
+        async getFeedInfo(){
+            try {
+                const feedUserId = this.$route.params.id;
+                const response = await fetchMyInfo(feedUserId)
+                this.feedUserInfo = response.data
+                console.log(feedUserId,this.feedUserInfo)
+            } catch {
+                console.log('피드목록 에러', this.$route.params.id)
+            }
+        },
+        // getVodPoster(vId,title){
+        //     return require(`@/assets/images/${vId}${title}`)
+        // }
 
 
     },
@@ -372,8 +324,8 @@ export default {
         userInfo: state => state.user.userInfo,
     }),
 
-
   },
+
 
 
 }
