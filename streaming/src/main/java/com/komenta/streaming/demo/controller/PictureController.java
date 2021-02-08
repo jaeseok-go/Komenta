@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -16,12 +17,15 @@ public class PictureController {
             value = "/poster/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
+    public @ResponseBody byte[] getImageWithMediaType(@PathVariable(name = "fileName") String fileName) throws IOException {
         String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
         path += "home/ubuntu/Picture/Poster/";
         System.out.println(path+fileName+".jpg");
-        InputStream in = getClass().getResourceAsStream(path+fileName+".jpg");
-        return IOUtils.toByteArray(in);
+        InputStream image = new FileInputStream(path+fileName+".jpg");
+        byte[] imageByte = IOUtils.toByteArray(image);
+        System.out.println(imageByte);
+        image.close();
+        return imageByte;
     }
 
 }
