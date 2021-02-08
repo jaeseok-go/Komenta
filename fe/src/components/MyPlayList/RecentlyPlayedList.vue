@@ -83,7 +83,10 @@ export default {
     },
     getPoster(index) {
       const poster = this.episodeList[index].v_poster;
+      console.log("recent list poster name : ",poster)
       return require(`@/assets/images/${poster}`);
+      //this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg' //포스터 이름
+      //this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4' //vod 영상 이름
       // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);
     },
     async fetchRPlayList(){
