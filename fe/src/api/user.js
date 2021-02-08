@@ -197,6 +197,10 @@ function modifyunfollow(unfollowInfo) {
     return instance.post('follow/un_add_sub',unfollowInfo)
 }
 
+// 유저 검색
+function searchUserlist(){
+    return instance.get('search/list_member')
+}
 
 
 export {
@@ -230,6 +234,7 @@ export {
     fetchunfollowinglist,
     modifyunfollow,
     removePlaylist,
-    addReviewPlaylist
+    addReviewPlaylist,
+    searchUserlist
     
 }

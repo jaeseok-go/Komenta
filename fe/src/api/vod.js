@@ -142,6 +142,21 @@ function fetchPlaylistContent(plcId){
     })
 }
 
+// vod검색
+function searchVodlist() {
+ return instance.get('search/list_vod')
+}
+
+// vod 시청시작
+function startVodWatch(veId){
+    return instance.post('vod/start_watching',veId)
+}
+
+// vod 시청 끝
+function endVodWatch(vodData){
+    return instance.put('vod/end_watching',vodData)
+}
+
 export {
     fetchCommentVOD,
     fetchPopularVOD,
@@ -160,5 +175,8 @@ export {
     insertVodPoster,
     fetchPlayListDetail,
     fetchPopularPlayList,
-    fetchPlaylistContent
+    fetchPlaylistContent,
+    searchVodlist,
+    startVodWatch,
+    endVodWatch
 }
