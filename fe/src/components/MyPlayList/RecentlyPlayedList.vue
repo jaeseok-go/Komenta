@@ -18,13 +18,10 @@
             {{vod}}
           </div> -->
           <!-- vod poster -->
-          <div>
-            <img :src="getPoster(index)" width="20%">
+          <div class="vodListPoster">
+            <img :src="getPoster(index)">
+            <!-- vod 개요(mouseon) -->
           </div>
-          <!-- vod 개요(mouseon) -->
-          <!-- <div>
-
-          </div> -->
         </div>
         <!-- 다음 버튼 -->
         <div class="btn-cover">
