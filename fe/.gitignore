@@ -28,3 +28,7 @@ pnpm-debug.log*
 
 //vod files
 .mp4
+
+#index.css
+.css/index.css
+.css/index.css.map
