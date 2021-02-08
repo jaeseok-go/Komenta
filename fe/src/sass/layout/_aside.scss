@@ -25,22 +25,9 @@
   z-index: 9890;
 
   .web-navigation__scrollable {
-    padding-bottom: 16px;
-    margin-bottom: 0;
-    padding-bottom: 10px;
-    grid-area: scrollable;
-    overflow: hidden;
-    -ms-scroll-chaining: none;
-    overscroll-behavior: contain;
-    margin-top: 0;
-    padding-top: 9px;
-    -webkit-margin-start: 0;
-    margin-inline-start: 0;
-    -webkit-padding-start: 25px;
-    padding-inline-start: 25px;
-    -webkit-padding-end: 25px;
-    padding-inline-end: 25px;
-    padding-left: 10px;
+    margin: 3rem 1rem;
+    
+
   }
 
   &__header {
@@ -57,39 +44,23 @@
     padding-inline-start: 25px;
     -webkit-padding-end: 25px;
     padding-inline-end: 25px;
+
   }
 
   .web-navigation__logo {
-    color: $primaryColor;
+    color: black;
     font-size: 2.5rem;
     font-weight: 500;
   }
 
   &__scrollable {
-    padding-bottom: 16px;
-    overflow: auto;
-    margin-bottom: 0;
-    padding-bottom: 10px;
-    grid-area: scrollable;
-    overflow: hidden;
-    -ms-scroll-chaining: none;
-    overscroll-behavior: contain;
-    margin-top: 0;
-    padding-top: 9px;
-    -webkit-margin-start: 0;
-    margin-inline-start: 0;
-    -webkit-padding-start: 25px;
-    padding-inline-start: 25px;
-    -webkit-padding-end: 25px;
-    padding-inline-end: 25px;
-    padding-left: 10px;
+    // margin-top: 3rem;
 
     .web-navigation__nav-list {
       list-style-type: none;
       user-select: none;
       -webkit-user-drag: none;
       padding: 0;
-      margin: 0;
       display: block;
       list-style-type: disc;
       margin-block-start: 1em;
@@ -155,36 +126,36 @@
 }
 
 .icon-bg1 {
-  color: $accent-color1;
+  color: $apple-color;
   font-size: 25px;
 }
 
 .icon-bg2 {
-  color: $accent-color2;
+  color: $apple-color;
   font-size: 25px;
 }
 
 .icon-bg3 {
-  color: $accent-color3;
+  color: $apple-color;
   font-size: 25px;
 }
 
 .icon-bg4 {
-  color: $accent-color5;
+  color:$apple-color;
   font-size: 25px;
 }
 
 .icon-bg5 {
-  color: $accent-color4;
+  color: $apple-color;
   font-size: 25px;
 }
 
 .icon-bg6 {
-  color: $accent-color6;
+  color: $apple-color;
   font-size: 25px;
 }
 
 .icon-bg7 {
-  color: $accent-color7;
+  color: $apple-color;
   font-size: 25px;
 }

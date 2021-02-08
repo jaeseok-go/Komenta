@@ -265,24 +265,7 @@ hr {
 }
 
 .web-navigation .web-navigation__scrollable {
-  padding-bottom: 16px;
-  margin-bottom: 0;
-  padding-bottom: 10px;
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: scrollable;
-  overflow: hidden;
-  -ms-scroll-chaining: none;
-  overscroll-behavior: contain;
-  margin-top: 0;
-  padding-top: 9px;
-  -webkit-margin-start: 0;
-  margin-inline-start: 0;
-  -webkit-padding-start: 25px;
-  padding-inline-start: 25px;
-  -webkit-padding-end: 25px;
-  padding-inline-end: 25px;
-  padding-left: 10px;
+  margin: 3rem 1rem;
 }
 
 .web-navigation__header {
@@ -301,31 +284,9 @@ hr {
 }
 
 .web-navigation .web-navigation__logo {
-  color: #fa233b;
+  color: black;
   font-size: 2.5rem;
   font-weight: 500;
-}
-
-.web-navigation__scrollable {
-  padding-bottom: 16px;
-  overflow: auto;
-  margin-bottom: 0;
-  padding-bottom: 10px;
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: scrollable;
-  overflow: hidden;
-  -ms-scroll-chaining: none;
-  overscroll-behavior: contain;
-  margin-top: 0;
-  padding-top: 9px;
-  -webkit-margin-start: 0;
-  margin-inline-start: 0;
-  -webkit-padding-start: 25px;
-  padding-inline-start: 25px;
-  -webkit-padding-end: 25px;
-  padding-inline-end: 25px;
-  padding-left: 10px;
 }
 
 .web-navigation__scrollable .web-navigation__nav-list {
@@ -336,7 +297,6 @@ hr {
           user-select: none;
   -webkit-user-drag: none;
   padding: 0;
-  margin: 0;
   display: block;
   list-style-type: disc;
   -webkit-margin-before: 1em;
@@ -413,37 +373,37 @@ hr {
 }
 
 .icon-bg1 {
-  color: #007aff;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg2 {
-  color: #8e8e93;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg3 {
-  color: #5ac8fa;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg4 {
-  color: #ff3b30;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg5 {
-  color: #34c759;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg6 {
-  color: #ff9500;
+  color: #fa233b;
   font-size: 25px;
 }
 
 .icon-bg7 {
-  color: #5856d6;
+  color: #fa233b;
   font-size: 25px;
 }
 
