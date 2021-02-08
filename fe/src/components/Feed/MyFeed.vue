@@ -52,44 +52,25 @@
         </Modal>
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
         <div 
-        v-for='(playlist,pindex) in playlists' 
-        :key='pindex'
+        v-for='playlist in playlists' 
+        :key='playlist[0].pl_id'
         >
         <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
             <div class='plylist-zone'
-            @drop='onDrop($event, playlist[0].pl_id,pindex)'
+            @drop='onDrop($event, playlist[0].pl_id)'
             @dragover.prevent
             @dragenter.prevent
             >
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
             <!-- startDrag -1이면  -->
             <div
-            v-for='(vod,index) in playlist' 
+            v-for='vod in playlist' 
             :key='vod.ve_id' 
             class='drag-el'
             draggable
-            @dragstart='startDrag($event, vod)'
-            @click="showVodEpiModal(pindex,index)"
-           
-            >
-                <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
-                <span v-if="vod.gd_name"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" width="100%"></span>
-                <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
-                    <h4 slot="header">
-                    <span
-                       @click="goEpiDetail(vod.ve_id)"
-                       >{{ playlists[pindex][index].v_title }}</span> 
-                    <span  @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
-                    aria-hidden="true"
-                   >
-                    </i></span>
-                    </h4>
-                    <p slot="body">
-                        {{vod.v_title}}
-                        <input class="input-group" type="text" v-model="epiComment">
-                        <button @click="addComment">리뷰작성</button>
-                    </p>
-                </Modal>
+            
+            > 
+                <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
             </div>
             </div>
     </div>
@@ -98,36 +79,24 @@
 
     <template v-else>
         <div 
-        v-for='(playlist,pindex) in playlists' 
-        :key='playlist.pl_id'
+        v-for='playlist in playlists' 
+        :key='playlist[0].pl_id'
         >
-        <h3 @click="goPlaylsitDetail(playlist.pl_id)">{{playlist.pl_name}} <i class="far fa-star" @click="likePlaylist(playlist.pl_id)"></i></h3> 
-            <div class='plylist-zone'>
+        <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
+            <div class='plylist-zone'
+    
+            >
             <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
-            <!-- startDrag -1이면 -->
+            <!-- startDrag -1이면  -->
             <div
-                v-for='(vod,index) in playlist' 
-                :key='vod.ve_id' 
-                class='drag-el'
-                @click="showVodEpiModal(pindex,index)"
-               >
-               <span ><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="200px"></span>
-               <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
-                    <h4 slot="header">
-                    {{ vod.v_title }}
-                    <div @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
-                    aria-hidden="true"
-                    >
-                    </i></div>
-                    </h4>
-                    <p slot="body">
-                        {{vod.pl_comment}}
-                        <button  @click="goEpiDetail(index)">지금시청하기</button>
-                    </p>
-                </Modal>
-                </div>
+            v-for='vod in playlist' 
+            :key='vod.ve_id' 
+            class='drag-el'
+            > 
+                <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
             </div>
-        </div>
+            </div>
+    </div>
     </template>
     </section>
 
@@ -139,11 +108,9 @@
 
 <script>
 import { mapState } from 'vuex';
-// import store from '@/stores/modules/user'
 import { fetchMyInfo, fetchRecentPlaylist, likePlaylist, deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod } from '@/api/user'
-import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
-// import store from '@/stores/modules/user'
+
 
 export default {
     
@@ -156,7 +123,6 @@ export default {
             myrecentlists :{},
             playlists : [],
             showModal:false,
-            vodEpiModal:false,
             showFollow:false,
             showRecent:false,
             dragVod:{}, 
@@ -284,40 +250,30 @@ export default {
         evt.dataTransfer.setData('vodID', vod.ve_id)
         },
         // vod를 끌어다가 놓는 플레이리스트
-        onDrop (evt, plId,index) {
+        onDrop (evt, plId) {
         const vodID = evt.dataTransfer.getData('vodID')
-        const vod = this.myrecentlists.episodeList.find(vod => vod.ve_id == vodID)
-        this.dragIndex = this.myrecentlists.episodeList.indexOf(vod,0)
+        const vod = this.myrecentlists.historyList.find(vod => vod.ve_id == vodID)
+        this.dragIndex = this.myrecentlists.historyList.indexOf(vod,0)
+        // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
         console.log(this.dragIndex)
-        console.log(plId,vod,'플레이리스트ID')
         // 해당 vod를 플레이리스트에 추가
         this.myrecentlists.episodeList.pop(this.dragIndex)
+        this.myrecentlists.historyList.pop(this.dragIndex)
         // 플레이리스트추가api(vod.ve_id,plId)
         // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
-        // this.playlists[index][1].splice(0,0,vod)
-        this.playlists[index][1].push(vod)
-        console.log('플레이리스트 추가',this.playlists[index])
         const epiInfo = {
             vh_id:vod.vh_id,
             pl_id:plId
             }
-        console.log(epiInfo,'플레이리스트에 추가할 epi')
         addPlaylistVod(epiInfo)
         this.getUserPlayList();
         },
         showModalForm() {
             this.showModal=true
         },
-        // showUserFeed() {
-        //     if (this.userInfo.u_id !== this.feedUserInfo.u_id) {
-        //         // this.showModalForm()
-        //         return true
-        //     }
-        //     return false
-        // },
         showMyRecent() {
             if (this.userInfo.u_id == this.feedUserInfo.u_id) {
-                console.log(this.userInfo.u_id,this.feedUserInfo.u_id,'와이ㅣㅣㅣ')
+            
                 return true
             }
             return false
@@ -333,11 +289,6 @@ export default {
             const response = modifyfollow(bothId)
             console.log(response)
 
-        },
-        showVodEpiModal(index){
-            this.selectedId = index;
-            console.log(this.selectedId,'선택된 VOD index')
-            this.vodEpiModal=true
         },
         async addComment(plId){
             try {
@@ -367,10 +318,8 @@ export default {
         goPlaylsitDetail(plId){
             this.$router.push(`/playlist/${plId}`)
         },
-        async goEpiDetail(veId){
-            await fetchVodEpiDetail(veId)
-            .then(this.$router.push(`/voddetail/${veId}`))
-            .catch(err => console.log(err))
+        goEpiDetail(veId){
+            this.$router.push(`/voddetail/${veId}`)
         },
         async getRecentPlayList() {
         try {
@@ -444,12 +393,12 @@ export default {
 }
 
 .drag-el {
-  background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+  /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
   margin:5px;
     display: inline-block;
     width: 10rem;
     height: 100%;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .plylist-zone {

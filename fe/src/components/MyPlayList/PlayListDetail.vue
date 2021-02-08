@@ -1,8 +1,10 @@
 <template>
   <div>
       <!-- 여기 플레이리스트 타이틀, 플레이 리스트 대표사진, 플레이 리스트 작성자, 플레이 리스트 안에 콘텐츠들(각각 장르, 제목, 몇화인지, 러닝타임)-->
-      <h1>스트리밍 리스트 디테일 페이지</h1>
-      {{playlists[0].pl_name}} | {{ playlists[0].u_nick_name }} | <img src="playlists[0].u_profile_pic" alt="유저프로필">
+      <img :src="getUserProfile(playlists[0].u_profile_pic)" alt="유저프로필" width="20%"> {{ playlists[0].u_nickname }}
+      <h1>{{playlists[0].pl_name}}</h1>
+      <h3>{{playlists[0].pl_comment}}</h3>
+       
     <v-simple-table
         fixed-header
         height="300px"
@@ -27,8 +29,10 @@
           :key="playlist.pl_id"
         >
         <td>{{playlist.g_name}}/{{playlist.gd_name}}</td>
-          <td>  {{playlist.v_title}}  </td>
-          <td>{{ playlist.vh_comment }}</td>
+          <td>  {{playlist.v_title}} {{playlist.ve_episode_num}}회  </td>
+          <td v-if="showMyRecent() && playlist.vh_comment"><input type="text" :placeholder="`${playlist.vh_comment}`" :value='review' @key.enter="addComment(playlist.plc_id)"></td>
+          <td v-else-if="showMyRecent() && !playlist.vh_comment"><input type="text" placeholder="리뷰를 입력해주세요" v-model='review' @key.enter="addComment(playlist.plc_id)"></td>
+          <td v-else>{{ playlist.vh_comment }}</td>
         </tr>
       </tbody>
     </template>
@@ -40,46 +44,54 @@
 
 <script>
 import { fetchPlayListDetail } from '@/api/vod'
+import { mapState } from 'vuex';
+import { addReviewPlaylist} from '@/api/user'
 
 
 export default {
     data() {
         return {
-            playlists:[
-  {
-    "pl_id": 1,
-    "pl_name": "test playlist",
-    "pl_comment": null,
-    "pl_good_count": 1,
-    "u_id": 1,
-    "u_nick_name": null,
-    "u_profile_pic": "default_profile.png",
-    "plc_id": 0,
-    "v_id": 0,
-    "v_title": null,
-    "v_actors": null,
-    "v_director": null,
-    "v_poster": null,
-    "ve_id": 0,
-    "ve_episode_num": 0,
-    "vh_id": 0,
-    "vh_comment": null,
-    "vh_score": 0,
-    "g_name": null,
-    "gd_name": null
-  }
-],
+            playlists:[],
+            review:'',
         }
     },
     methods: {
-        getStreamingListDetail() {
+        async addComment(plId){
+            try {
+                const commentInfo = {
+                    plc_id : plId,
+                    vh_comment : this.review
+                }
+                const res = await addReviewPlaylist(commentInfo);
+                console.log(res,'등록?')
+                this.getStreamingListDetail();
+            } catch {
+                console.log('플레이리스트 comment생성 실패')
+            }
+        },
+        showMyRecent() {
+            if (this.userInfo.u_id == this.playlists[0].u_id) {
+                return true
+            }
+            return false
+        },
+        async getStreamingListDetail() {
             const plId = this.$route.params.id;
-            this.playlists = fetchPlayListDetail(plId)
+            const res = await fetchPlayListDetail(plId)
+            this.playlists = res.data
+        },
+        getUserProfile(path) {
+            return require(`@/assets/images/${path}`)
         }
     },
     created() {
         this.getStreamingListDetail()
     },
+    computed: {
+        ...mapState({
+        userInfo: state => state.user.userInfo,
+    }),
+    }
 
 }
 </script>
