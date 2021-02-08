@@ -1,7 +1,10 @@
 package com.komenta.be.mapper;
 
 import com.komenta.be.model.member.MemberDTO;
+import com.komenta.be.model.member.MemberSearchInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface MemberMapper {
@@ -17,4 +20,5 @@ public interface MemberMapper {
     String chkDupByID(String u_email);
     String chkDupByNickname(String u_nickname);
     public int updateMembership(int u_id);
+    List<MemberSearchInfoDTO> getAllMember();
 }
