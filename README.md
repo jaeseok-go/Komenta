@@ -78,9 +78,12 @@ gantt
     VOD 댓글 정보   :02-02, 3d
     
     section myFeed
-    Follow 기능            :02-08,2d
+    Follow 기능            :02-04,2d
     VOD 플레이리스트 생성   :02-04, 2d
 
+    section Unite
+    front-back 합치기  :02-08, 3d
+    
     section Result
     ChekcList       : 02-15, 3d
     UCC           :02-16, 2d
