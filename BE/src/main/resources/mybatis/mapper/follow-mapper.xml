@@ -66,4 +66,14 @@
         WHERE u_id = #{u_id}
         AND uf_id = #{uf_id}
     </update>
+
+    <select id="getFollowerRankingList" resultType="com.komenta.be.model.follow.FollowerRankingDTO">
+        SELECT @rownum := @rownum + 1 as ranking, B.u_id, B.u_nickname, B.u_profile_pic, 	A.follower_count
+        FROM (SELECT f_id, COUNT(*) AS follower_count
+            FROM follow
+            GROUP BY f_id
+            ORDER BY follower_count desc) A LEFT OUTER JOIN member B
+        ON A.f_id = B.u_id, (SELECT @rownum := 0) rownum
+        LIMIT 9
+    </select>
 </mapper>

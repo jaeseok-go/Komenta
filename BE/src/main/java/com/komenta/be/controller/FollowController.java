@@ -2,6 +2,7 @@ package com.komenta.be.controller;
 
 import com.komenta.be.model.follow.FollowDTO;
 import com.komenta.be.model.follow.FollowSelectDTO;
+import com.komenta.be.model.follow.FollowerRankingDTO;
 import com.komenta.be.model.follow.UnFollowDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.FollowService;
@@ -91,7 +92,11 @@ public class FollowController {
     }
 
 
-
+    @ApiOperation(value = "팔로워많은 사람 랭킹 9", notes = "팔로워가 많은 사람 순으로 9명 리스트 반환")
+    @GetMapping("/ranking9")
+    public List<FollowerRankingDTO> getFollowerList(){
+        return followService.getFollowerRankingList();
+    }
 
 
 }
