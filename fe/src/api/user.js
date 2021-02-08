@@ -167,7 +167,7 @@ function addReviewPlaylist(playlistInfo){
 
 // 팔로잉 조회 
 function fetchfollowinglist(userId) {
-    return instance.get('follow/follow_list', {
+    return instance.get('follow/following_list', {
         params: { u_id: userId }
     })
 }
