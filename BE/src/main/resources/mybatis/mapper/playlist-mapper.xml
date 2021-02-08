@@ -119,8 +119,10 @@
     </select>
 
     <update id="addContentsReview" parameterType="com.komenta.be.model.playlist.AddContentsReviewDTO">
-        UPDATE play_list_contents
-        SET plc_review = #{plc_review}
-        WHERE plc_id = #{plc_id}
+        UPDATE vod_history
+        SET vh_comment = #{vh_comment}
+        WHERE vh_id = (SELECT vh_id
+                       FROM play_list_contents
+                       WHERE plc_id = #{plc_id});
     </update>
 </mapper>

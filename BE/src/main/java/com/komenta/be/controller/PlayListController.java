@@ -209,7 +209,7 @@ public class PlayListController {
 
     @ApiOperation(value = "플레이리스트의 컨텐츠 리뷰 입력", notes = "내가 등록한 플레이리스트의 각 컨텐츠에 리뷰다는 기능")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "review", value = "plc_id(컨텐츠 아이디), plc_comment(컨텐츠에 대한 리뷰)", dataType = "AddContentsReviewDTO", required = true),
+            @ApiImplicitParam(name = "review", value = "plc_id(컨텐츠 아이디), vh_comment(컨텐츠에 대한 리뷰)", dataType = "AddContentsReviewDTO", required = true),
     })
     @PutMapping("/add_contents_review")
     public int addContentsReview(@RequestBody AddContentsReviewDTO review){
