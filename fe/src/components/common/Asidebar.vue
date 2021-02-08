@@ -44,7 +44,7 @@
                   </router-link>
                 </li>
                 <li class="web-navigation__nav-list-item">
-                  <router-link :to="{name:'Feed'}">
+                  <router-link :to="{ name: 'Feed', params: { id: userInfo.u_id }}">
                     <span class="sidebar-scrollable-title">
                       <span class="sidebar-scrollable-title-icon icon-bg5"><ion-icon name="share-social-outline"></ion-icon></span>
                       <span class="sidebar-scrollable-title-text">My Feed</span>
@@ -79,9 +79,15 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 
 export default {
     // el: '#app',
+    computed: {
+        ...mapState({
+        userInfo: state => state.user.userInfo,
+    }),
+    }
 
 };
 </script>
