@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-col>
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
@@ -134,7 +134,7 @@
       <!-- 멤버십 관리 -->
       <membership-setting></membership-setting>
     </div>
-  </b-container>
+  </b-col>
 </template>
 
 <script>

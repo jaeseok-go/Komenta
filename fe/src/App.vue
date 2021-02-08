@@ -47,12 +47,14 @@ section {
   height: 100vh;
   padding-left: 220px;
   width: 100%;
+  
 
 }
 
 #page-view {
   min-height: 100%;
   /* margin: 2rem; */
+  
 }
 
 .bottomNav {

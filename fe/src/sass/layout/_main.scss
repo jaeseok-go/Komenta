@@ -1,0 +1,38 @@
+//main - now playing
+.half-card {
+  display: inline-block;
+}
+
+//main - 광고 배너
+.ad-space {
+  margin: 2rem 0;
+}
+
+.bannerAd-Form {
+  position: relative;
+  text-align: center;
+  & .banner::before {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    content: '';
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 80%,
+        rgba(255, 255, 255, 0.2) 85%,
+        rgba(255, 255, 255, 0.45) 90%,
+        rgba(255, 255, 255, 0.85) 95%,
+        rgba(255, 255, 255, 1) 99%
+      ),
+      linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0) 80%,
+        rgba(255, 255, 255, 0.2) 85%,
+        rgba(255, 255, 255, 0.45) 90%,
+        rgba(255, 255, 255, 0.85) 95%,
+        rgba(255, 255, 255, 1) 99%
+      );
+  }
+}

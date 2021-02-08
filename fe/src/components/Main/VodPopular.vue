@@ -6,9 +6,9 @@
     </div>
     <ul class="stage clearfix">
       <li v-if="this.popularVODs.length == 0">
-        <div>등록된 VOD가 없습니다.</div>
+        <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
-      <li class="scene" v-for="vod in paginatedData" :key="vod.v_id" v-else>
+      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" v-else>
         <div class="movie" onclick="return true">
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
@@ -75,7 +75,6 @@ export default {
         for (let i = 0; i < this.allVODInfo.length; i++) {
             if(this.allVODInfo[i].v_id === index) {
                 let poster = this.allVODInfo[i].v_poster;
-                console.log('이거임: ', this.allVODInfo[i].v_poster)
                 return require(`@/assets/images/${poster}`);
             }
         }
@@ -118,7 +117,7 @@ export default {
 .scene{
   width: 200px;
   height: 330px;
-  margin: 30px 25px 60px 25px;
+  margin: 30px 25px 10px 25px;
 }
 
 .movie {
@@ -145,6 +144,12 @@ export default {
   transform: rotateX(90deg) translateY(99px);
   box-shadow: 0 22px 33px rgb(0 0 0 / 30%);
 }
+
+.noRegister-text {
+  position: relative;
+  top: 50px;
+}
+
 
 .btn-cover {
   text-align: right;

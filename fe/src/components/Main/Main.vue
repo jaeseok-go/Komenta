@@ -3,11 +3,11 @@
     <!-- 인기순, 댓글순, 최신순 정렬 탭 -->
     <VODSections></VODSections>
     <!-- 실시간 인기 댓글 유저 -->
-    <BestCommentRank></BestCommentRank>
+    <BestCommentRank class="col-md-6 half-card"></BestCommentRank>
 
     <!-- 보고 있는 VOD -->
-    <NowPlaying></NowPlaying>
-
+    <NowPlaying class="col-md-6 half-card"></NowPlaying>
+    <banner-ad class="ad-space"></banner-ad>
     <!-- 인기있는 플레이 리스트 -->
     <PopularPlayList></PopularPlayList>
   </div>
@@ -18,6 +18,7 @@ import BestCommentRank from '@/components/Main/BestCommentRank';
 import NowPlaying from '@/components/Main/NowPlaying';
 import PopularPlayList from '@/components/Main/PopularPlayList';
 import VODSections from '@/components/Main/VODSections';
+import BannerAd from '@/components/Main/BannerAd.vue';
 import { mapState } from 'vuex';
 
 export default {
@@ -31,6 +32,7 @@ export default {
     BestCommentRank,
     NowPlaying,
     PopularPlayList,
+    BannerAd
   },
   computed:{
       ...mapState({

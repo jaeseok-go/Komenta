@@ -14,7 +14,7 @@
     </div>
     <ul class="stage clearfix">
       <li v-if="this.commentVODs.length == 0">
-        <div>등록된 VOD가 없습니다.</div>
+        <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
       <li class="scene" v-for="vod in paginatedData" :key="vod.v_id" v-else>
         <div class="movie" onclick="return true">
