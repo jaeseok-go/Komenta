@@ -215,6 +215,10 @@ function searchUserlist(){
     return instance.get('search/list_member')
 }
 
+//top9팔로워
+function top9followers(){
+    return instance.get('/follow/ranking9')
+}
 
 export {
     registerUser,
@@ -249,6 +253,7 @@ export {
     modifyunfollow,
     removePlaylist,
     addReviewPlaylist,
-    searchUserlist
+    searchUserlist,
+    top9followers
     
 }
