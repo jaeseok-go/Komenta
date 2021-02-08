@@ -2,25 +2,25 @@
   <div>
     <h4>최근 시청한 VOD 목록</h4>
     <!-- vod 목록 보여줄 전체 폼 -->
-    <div>
+    <div class="rPlayList-Form">
       <!-- 시청중인 VOD가 없을 때 -->
-      <div v-if="fetchedRecentPlaylist.length == 0">
+      <div v-if="historyList.length == 0">
         <p>시청중인 VOD가 없습니다.</p>
       </div>
       <!-- 시청중인 VOD가 있을 때 -->
       <div v-else>
         <!-- 이전 버튼 -->
-        <div class="btn-cover">
+        <div class="btn-cover displayInlineBlock">
           <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">&lt;</button>
         </div>
-        <div v-for="vod in paginatedData" :key="vod.v_id">
-          <div>
-            {{vod}}
-          </div>
-          <!-- vod poster -->
+        <div v-for="(vod,index) in paginatedData" :key="vod.v_id">
           <!-- <div>
-            <img src="" alt="">
+            {{vod}}
           </div> -->
+          <!-- vod poster -->
+          <div>
+            <img :src="getPoster(index)" width="20%">
+          </div>
           <!-- vod 개요(mouseon) -->
           <!-- <div>
 
@@ -43,6 +43,7 @@ export default {
     return {
       pageNum:0,
       historyList:[],
+      episodeList:[]
     }
   },
   created() {
@@ -84,7 +85,7 @@ export default {
       this.pageNum -= 1;
     },
     getPoster(index) {
-      const poster = this.historyList[index].v_poster;
+      const poster = this.episodeList[index].v_poster;
       return require(`@/assets/images/${poster}`);
       // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);
     },
@@ -92,6 +93,7 @@ export default {
       const response = await fetchRecentPlaylist(this.userInfo.u_id);
       console.log("최근 시청 VOD 정보 : ",response);
       this.historyList = response.data.historyList;
+      this.episodeList = response.data.episodeList;
     },
   },
 }
