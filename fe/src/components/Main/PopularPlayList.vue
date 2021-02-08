@@ -14,15 +14,17 @@
       <div class="playList" v-for="(playList, index) in paginatedData" :key="index" v-else>
         <div class="playList-Form">
           <div class="reprePoster">
-            <img :src="getPoster(index)" width="210px">
+            <img :src="getPoster(index)" width="210px" height="150px">
           </div>
-          <div class="userPic playList">
+          <div class="userPic">
             <img :src="getUserPic(index)" width="40px">
           </div>
           <div class="plInfo">
             <p>
               {{playList.pl_title}} <br>
               {{playList.u_nickname}}'S PICK <br>
+            </p>
+            <p class="likeInfo">
               <font-awesome-icon :icon="[starType, 'star']" :style="{ color: 'yellow'}"/>
               {{playList.pl_good_cnt}} | {{playList.pl_vod_num}}개
             </p>
@@ -96,7 +98,7 @@ export default {
     pageSize: {
       type: Number,
       required: false,
-      default: 3
+      default: 4
     }
   },
   methods: {
@@ -144,9 +146,9 @@ export default {
 </script>
 
 <style>
-/* .playList {
+.playList {
   display: inline-block;
-} */
+}
 
 .playList-Form {
   width: 230px;
@@ -166,5 +168,10 @@ export default {
   position: relative;
   top: 10px;
   left: 10px;
+}
+
+.likeInfo {
+  position: relative;
+  top:15px;
 }
 </style>
