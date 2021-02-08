@@ -81,6 +81,11 @@ export default new Router({
       component: () => import('@/components/admin/Test.vue'),
     },
     {
+      path: '/admin/vodPosterInput',
+      name: 'PosterInput',
+      component: () => import('@/components/admin/vodPosterInput.vue')
+    },
+    {
       path: 'people',
       name:'People',
       component: () => import('@/components/People/PeopleList.vue')
