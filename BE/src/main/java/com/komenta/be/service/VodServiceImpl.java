@@ -50,4 +50,9 @@ public class VodServiceImpl implements VodService{
     public List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id) {
         return sqlSession.getMapper(VodMapper.class).getVodListGenreDetail(gd_id);
     }
+
+    @Override
+    public List<VodSearchInfoDTO> getAllVod() {
+        return sqlSession.getMapper(VodMapper.class).getAllVod();
+    }
 }
