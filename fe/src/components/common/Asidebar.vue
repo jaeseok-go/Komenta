@@ -2,7 +2,9 @@
 
     <div class="web-navigation">
             <div class="web-navigation__header">
-                <span class="web-navigation__logo">Komenta</span>
+                <span class="web-navigation__logo">
+                  <img src="@/assets/images/KOMENTA_logo.png" alt="">
+                </span>
             </div>
             <div class="web-navigation__scrollable">
               <!-- <div class="sidebar-scrollable-profile">

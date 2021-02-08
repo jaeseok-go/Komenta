@@ -290,8 +290,6 @@ hr {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   font-size: unset;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
   margin-top: 17px;
   margin-bottom: 18px;
   padding-top: 0;
@@ -1188,6 +1186,31 @@ select {
   padding: 10px 30px;
   border-radius: 50px;
   position: relative;
+}
+
+.rPlayList-Form img,
+.rPlayList-Form div {
+  display: inline-block;
+}
+
+.rPlayList-Form img {
+  border-radius: 15px;
+  -webkit-box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
+          box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
+}
+
+.btn-cover.displayInlineBlock {
+  display: inline-block;
+}
+
+.vodListPoster {
+  width: 150px;
+  height: 230px;
+  margin: 2rem;
+}
+
+.vodListPoster img {
+  width: 100%;
 }
 
 .container {
