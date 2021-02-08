@@ -12,7 +12,6 @@
     import org.springframework.web.bind.annotation.*;
 
     import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
     import java.util.HashMap;
     import java.util.LinkedList;
     import java.util.List;
@@ -140,10 +139,46 @@
             return vodService.getVodListGenre(g_id);
         }
 
+
+
         @ApiOperation(value = "장르 소분류별 VOD 선택 조회", notes = "입력받은 gd_id로 VOD의 목록 반환")
         @GetMapping("/list_genre_detail")
         public List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id){
             return vodService.getVodListGenreDetail(gd_id);
         }
 
+
+
+        @ApiOperation(value = "VOD 시청 시작", notes = "VOD 시청 시작할 때 시청기록이 있으면 그냥 시작, 없으면 시청기록 만들어서 결과 반환")
+        @ApiImplicitParams({
+                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true),
+        })
+        @PostMapping("/start_watching")
+        public int startWatching(@RequestBody int ve_id, HttpServletRequest request){
+            String token = request.getHeader("auth_token");
+            int u_id = (int) jwtService.get(token).get("u_id");
+            int result = 0;
+
+            VodHistorySetDTO history = new VodHistorySetDTO(u_id, ve_id);
+            if(vodService.getVodHistoryByUAndVe(history) == 0) {
+                result = vodService.insertVodHistory(history);
+            }
+
+            return result;
+        }
+
+
+        @ApiOperation(value = "VOD 시청 끝", notes = "VOD 시청 끝날때 입력받은 VOD 회차를 히스토리 현재 시간으로 업데이트해서 결과 반환")
+        @ApiImplicitParams({
+                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true),
+                @ApiImplicitParam(name = "vh_watching_time", value = "VOD 시청중인 시간(HH:MM:SS)", dataType = "String", required = true)
+        })
+        @PutMapping("/end_watching")
+        public int endWatching(@RequestBody VodUpdateTimeDTO history, HttpServletRequest request){
+            String token = request.getHeader("auth_token");
+            int u_id = (int) jwtService.get(token).get("u_id");
+            history.setU_id(u_id);
+
+            return vodService.updateTime(history);
+        }
     }

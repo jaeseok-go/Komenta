@@ -7,6 +7,7 @@
         select vh_id, vh_watching_time, ve_id, vh_score, vh_good
         from vod_history
         where u_id = #{u_id}
+        order by vh_watching_time desc;
     </select>
 
 
@@ -97,10 +98,31 @@
 
 
     <select id="getAllVod" resultType="com.komenta.be.model.vod.VodSearchInfoDTO">
-        SELECT B.v_id, B.v_title, A.ve_episode_num, A.ve_id, B.gd_id FROM vod B INNER JOIN
-                      (SELECT v_id, MAX(ve_episode_num)
-                       FROM vod_episode
-                       GROUP BY v_id) A
-                      ON A.v_id = B.v_id;
+        SELECT B.v_id, B.v_title, A.ve_episode_num, A.ve_id, B.gd_id
+        FROM vod B INNER JOIN (SELECT v_id,ve_id, MAX(ve_episode_num) ve_episode_num
+                               FROM vod_episode
+                               GROUP BY v_id) A
+        ON A.v_id = B.v_id;
     </select>
+
+    <select id="getVodHistoryByUAndVe" parameterType="com.komenta.be.model.vod.VodHistorySetDTO" resultType="int">
+        SELECT count(*)
+        FROM vod_history
+        WHERE u_id = #{u_id}
+        AND ve_id = #{ve_id}
+    </select>
+
+    <insert id="insertVodHistory" parameterType="com.komenta.be.model.vod.VodHistorySetDTO">
+        INSERT INTO vod_history(u_id, ve_id) VALUES (#{u_id}, #{ve_id});
+    </insert>
+
+    <update id="updateTime" parameterType="com.komenta.be.model.vod.VodUpdateTimeDTO">
+        UPDATE vod_history
+        SET vh_last_watched_time = NOW(),
+            vh_watching_time = #{vh_watching_time}
+        WHERE u_id = #{u_id}
+        AND ve_id = #{ve_id}
+    </update>
+
+
 </mapper>
