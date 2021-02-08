@@ -6,7 +6,7 @@
         <div class="userprofile">
             <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
             <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-            <div v-if="!showUserFeed">
+            <div v-if="!showMyRecent">
                 <button class="userprofile__button" @click="followUser">FOLLOW</button>
             </div>
         </div>
@@ -29,10 +29,7 @@
                     draggable
                     @dragstart='startDrag($event, vod)'
                     >
-                    <!-- {{ vod.v_title }}
-                    {{vod.v_poster}} -->
-                    <img :src="require('@/assets/images/poster00.jpg')" width="70%">
-                    <!-- <img :src="getPoster(vod.v_poster)" width="10%"> -->
+                    <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
                     </div>
                 </div>
         </div>
@@ -57,10 +54,8 @@
         <div 
         v-for='(playlist,pindex) in playlists' 
         :key='pindex'
-        height="300px"
         >
-        <span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span>
-        <h3 @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </h3> 
+        <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
             <div class='plylist-zone'
             @drop='onDrop($event, playlist[0].pl_id,pindex)'
             @dragover.prevent
@@ -75,9 +70,10 @@
             draggable
             @dragstart='startDrag($event, vod)'
             @click="showVodEpiModal(pindex,index)"
+            height="300px"
             >
                 <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
-                <span >{{vod.v_title}}</span>
+                <span v-if="vod.gd_name"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" width="100%"></span>
                 <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     <span
@@ -104,7 +100,6 @@
         <div 
         v-for='(playlist,pindex) in playlists' 
         :key='playlist.pl_id'
-        height="300"
         >
         <h3 @click="goPlaylsitDetail(playlist.pl_id)">{{playlist.pl_name}} <i class="far fa-star" @click="likePlaylist(playlist.pl_id)"></i></h3> 
             <div class='plylist-zone'>
@@ -116,7 +111,7 @@
                 class='drag-el'
                 @click="showVodEpiModal(pindex,index)"
                >
-                <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
+               <span ><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" width="100%"></span>
                <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     {{ vod.v_title }}
@@ -167,9 +162,112 @@ export default {
             dragVod:{}, 
             plName:'',
             plComment:'',
-            // plComment:`${this.fetchedUserInfo.u_nickname}님의 플레이리스트`,
             epiComment:'',     
             selectedId:[],
+            genreDetails:[
+            {
+                "gd_id": 1,
+                "gd_name": "멜로",
+                "g_id": 1
+            },
+            {
+                "gd_id": 2,
+                "gd_name": "스릴러",
+                "g_id": 1
+            },
+            {
+                "gd_id": 3,
+                "gd_name": "코미디",
+                "g_id": 1
+            },
+            {
+                "gd_id": 4,
+                "gd_name": "액션",
+                "g_id": 1
+            }
+            ,
+            {
+                "gd_id": 5,
+                "gd_name": "음악",
+                "g_id": 2
+            },
+            {
+                "gd_id": 6,
+                "gd_name": "버라이어티",
+                "g_id": 2
+            },
+            {
+                "gd_id": 7,
+                "gd_name": "토크",
+                "g_id": 2
+            },
+            {
+                "gd_id": 8,
+                "gd_name": "요리",
+                "g_id": 2
+            }
+            ,
+
+            {
+                "gd_id": 9,
+                "gd_name": "환경",
+                "g_id": 3
+            },
+            {
+                "gd_id": 10,
+                "gd_name": "역사",
+                "g_id": 3
+            },
+            {
+                "gd_id": 11,
+                "gd_name": "휴먼",
+                "g_id": 3
+            }
+            ,
+
+            {
+                "gd_id": 12,
+                "gd_name": "축구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 13,
+                "gd_name": "농구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 14,
+                "gd_name": "배구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 15,
+                "gd_name": "야구",
+                "g_id": 4
+            }
+            ,
+            {
+                "gd_id": 16,
+                "gd_name": "로맨스/순정",
+                "g_id": 5
+            },
+            {
+                "gd_id": 17,
+                "gd_name": "스포츠",
+                "g_id": 5
+            },
+            {
+                "gd_id": 18,
+                "gd_name": "액션/추리",
+                "g_id": 5
+            },
+            {
+                "gd_id": 19,
+                "gd_name": "코미디",
+                "g_id": 5
+            }
+
+            ]
         }
     },
     created(){
@@ -210,13 +308,13 @@ export default {
         showModalForm() {
             this.showModal=true
         },
-        showUserFeed() {
-            if (this.userInfo.u_id !== this.feedUserInfo.u_id) {
-                this.showModalForm()
-                return true
-            }
-            return false
-        },
+        // showUserFeed() {
+        //     if (this.userInfo.u_id !== this.feedUserInfo.u_id) {
+        //         // this.showModalForm()
+        //         return true
+        //     }
+        //     return false
+        // },
         showMyRecent() {
             if (this.userInfo.u_id == this.feedUserInfo.u_id) {
                 return true
@@ -235,8 +333,8 @@ export default {
             console.log(response)
 
         },
-        showVodEpiModal(pindex,index){
-            this.selectedId = [pindex,index];
+        showVodEpiModal(index){
+            this.selectedId = index;
             console.log(this.selectedId,'선택된 VOD index')
             this.vodEpiModal=true
         },
@@ -312,10 +410,15 @@ export default {
                 console.log('피드목록 에러', this.$route.params.id)
             }
         },
-        // getVodPoster(vId,title){
-        //     return require(`@/assets/images/${vId}${title}`)
-        // }
-
+        getPlaylistVodPoster(gdname,title){
+            const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
+            return `http://i4b201.p.ssafy.io:7000/picture/poster/${gdId.gd_id}_${title}`
+        },
+        getVodPoster(gdId,title){
+           return `http://i4b201.p.ssafy.io:7000/picture/poster/${gdId}_${title}`
+        },
+        
+        
 
     },
 
@@ -336,26 +439,21 @@ export default {
 .drop-zone {
   background-color: #eee;
   background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
-  margin-bottom: 10px;
-  padding: 10px;
 }
 
 .drag-el {
   background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
-  /* margin-bottom: 10px; */
   margin:5px;
-  padding: 10px;
     display: inline-block;
-    width: 200px;
-    height: 200px;
+    width: 10rem;
+    height: 100%;
     border: 1px solid blue;
 }
 
 .plylist-zone {
   background-color: #c1dfc4; 
   background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
-  margin-bottom: 10px;
-  padding: 10px;
+
 }
 
 </style>
