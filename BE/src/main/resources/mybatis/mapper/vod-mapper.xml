@@ -51,7 +51,7 @@
                                                      FROM comment_info
                                                      GROUP BY ve_id) Y
         ON X.ve_id = Y.ve_id
-        WHERE A.v_id = #{v_id}
+        WHERE X.v_id = #{v_id}
         ORDER BY c_count desc;
 
     </select>
