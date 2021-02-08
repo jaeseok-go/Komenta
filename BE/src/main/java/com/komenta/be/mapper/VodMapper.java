@@ -22,4 +22,6 @@ public interface VodMapper {
     List<VodInfoByGenreDTO> getVodListGenre(int g_id);
 
     List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id);
+
+    List<VodSearchInfoDTO> getAllVod();
 }

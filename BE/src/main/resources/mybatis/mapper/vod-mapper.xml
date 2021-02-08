@@ -24,8 +24,6 @@
         where C.ve_id = #{ve_id}
     </select>
 
-
-
     <select id = "getVodListRecent" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
         SELECT E.ve_id, E.ve_episode_num, E.ve_upload_date, E.ve_contents, E.ve_admin, F.v_id, F.v_title, F.gd_id, F.g_name, F.gd_name
         FROM vod_episode E LEFT OUTER JOIN (SELECT C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
@@ -95,5 +93,14 @@
         SELECT v_id, v_poster, v_title
         FROM vod
         WHERE gd_id = #{gd_id}
+    </select>
+
+
+    <select id="getAllVod" resultType="com.komenta.be.model.vod.VodSearchInfoDTO">
+        SELECT B.v_id, B.v_title, A.ve_episode_num, A.ve_id, B.gd_id FROM vod B INNER JOIN
+                      (SELECT v_id, MAX(ve_episode_num)
+                       FROM vod_episode
+                       GROUP BY v_id) A
+                      ON A.v_id = B.v_id;
     </select>
 </mapper>
