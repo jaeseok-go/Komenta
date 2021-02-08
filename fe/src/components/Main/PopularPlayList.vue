@@ -79,9 +79,11 @@ export default {
       return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
     },
     getUserPic(index) {
-      const profile = this.popularPlaylist[index].u_profile_pic;
+      const profile = this.popularPlaylist[index].u_profile_pic.split('.');
+      let picName = profile[0];
+      console.log("picname : ",picName);
       // return require(`@/assets/images/${profile}`);
-      return `http://i4b201.p.ssafy.io:7000/picture/user/${profile}`;
+      return `http://i4b201.p.ssafy.io:7000/picture/user/${picName}`;
     },
   },
   computed: {
