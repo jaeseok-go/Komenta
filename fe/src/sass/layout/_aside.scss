@@ -90,6 +90,10 @@
           box-sizing: content-box;
           text-align: start;
 
+          &:active {
+            background-color: aqua;
+          }
+
           .sidebar-scrollable-title-icon icon-bg1 {
             font-size: x-large;
             font-size: 25px;
@@ -104,7 +108,7 @@
             font-weight: 400;
           }
           .sidebar-scrollable-title-text {
-            font-size: 15px;
+            font-size: 100px;
             line-height: 1.46667;
             font-weight: 400;
             letter-spacing: 0;
@@ -127,7 +131,7 @@
 
 .icon-bg1 {
   color: $apple-color;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .icon-bg2 {
