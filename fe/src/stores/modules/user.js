@@ -153,7 +153,9 @@ const actions = {
     },
     //팔로잉 조회
     async FETCH_FOLLOWING({ commit }, userId) {
+        console.log('팔로잉조회 액션 ..........................')
         const followingList = await fetchfollowinglist(userId)
+        console.log(followingList,'여기 원래 닉네임도 들어와야됨 진짜..ㅋㅋ')
         commit('setMyfollowingList', followingList )
     },
     async FETCH_MYPLAYLIST({ commit }, userId){

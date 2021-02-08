@@ -33,7 +33,6 @@ export default {
 <style>
 
 
-
 aside {
   border-radius: 4%;
   position: fixed;

@@ -157,7 +157,7 @@ function fetchMyPlaylist(userId){
 
 // 팔로잉 조회 
 function fetchfollowinglist(userId) {
-    return instance.get('follow/follow_list', {
+    return instance.get('follow/following_list', {
         params: { u_id: userId }
     })
 }
@@ -186,6 +186,11 @@ function fetchunfollowinglist(userId) {
 function modifyunfollow(unfollowInfo) {
     return instance.post('follow/un_add_sub',unfollowInfo)
 }
+
+//top9 
+function TopInfluencers() {
+    return instance.get('follow/ranking9')
+} 
 
 
 
@@ -218,6 +223,7 @@ export {
     fetchfollowerlist,
     modifyfollow,
     fetchunfollowinglist,
-    modifyunfollow
+    modifyunfollow,
+    TopInfluencers
     
 }

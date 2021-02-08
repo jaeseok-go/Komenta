@@ -1,11 +1,12 @@
 <template>
+    <div>
     <div class="container">
         <div class="container__friend">
-            <div class="at-section">
-                <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
-                <div class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
-            </div>
-            <div class="at-grid">
+        <div class="at-section">
+            <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
+            <div class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
+        </div>
+            <div class="at-grid basic-scroll">
                 <div class="at-column" v-for="(user,index) in users" :key="index">
                     <div class="at-user">
                         <div class="at-user__avatar" :src="user.avatar"><i class="fab fa-apple"></i></div>
@@ -14,14 +15,13 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="container__influencer">
             <div class="at-section">
-                <div class="at-section__title">인기DJ</div>
-                <div>{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</div>
+                <div class="at-section__title popular-title" id="top9_color">KOMENTA TOP9 DJ</div>
+                <div class="at-section__subtitle">{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</div>
             </div>
-            <div class="at-grid">
+            <div class="at-grid basic-scroll">
                 <div class="at-column" v-for="(user,index) in users" :key="index">
                     <div class="at-user">
                         <div class="at-user__avatar" :src="user.avatar"><i class="fab fa-apple"></i></div>
@@ -30,24 +30,29 @@
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
     </div>
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { TopInfluencers } from '@/api/user'
+import { mapState } from 'vuex'
 import store from '@/stores/modules/user'
 
 export default {
     methods: {
       getImg (user) {
           return user.avatar
-      } 
+      },
+      getTopInfluencer() {
+          this.top9 = TopInfluencers()
+      }
     },
     data() {
         return {
+            top9:[],
             users:
                 [{
                 "name": "Aaron Rossi",
@@ -141,7 +146,7 @@ export default {
                 ]
     }},
     computed: {
-        ...mapGetters(['fetchedFollowingList']),
+        ...mapState({ myFollowingList : state => state.user.myFollowingList}),
         // ...mapState(['userInfo']),
         userInfo() {
             return store.state.userInfo;
@@ -149,7 +154,10 @@ export default {
     },
     created() {
         const userId = store.state.userInfo.u_id
-        this.store.dispatch('FETCH_FOLLOWING',userId)
+        this.$store.dispatch('FETCH_FOLLOWING',userId)
+
+        // const top9 = TopInfluencers()
+
         //여기서 인기유저 갖고옴 -> 재석님 피드백 듣고 작업하면될듯
     }
 
@@ -157,6 +165,13 @@ export default {
 </script>
 
 <style>
+#top9_color {
+    background:linear-gradient(to right, #ff416c, #ff4b2b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+
+}
 /* .test {
   display: inline-block;
   margin: 50px auto 0;
