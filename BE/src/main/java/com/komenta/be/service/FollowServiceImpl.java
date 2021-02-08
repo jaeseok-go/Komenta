@@ -4,6 +4,7 @@ import com.komenta.be.mapper.FollowMapper;
 import com.komenta.be.mapper.GenreMapper;
 import com.komenta.be.model.follow.FollowDTO;
 import com.komenta.be.model.follow.FollowSelectDTO;
+import com.komenta.be.model.follow.FollowerRankingDTO;
 import com.komenta.be.model.follow.UnFollowDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,11 @@ public class FollowServiceImpl implements FollowService{
     @Override
     public int unFollowSub(UnFollowDTO unfollow_info) {
         return sqlSession.getMapper(FollowMapper.class).unFollowSub(unfollow_info);
+    }
+
+    @Override
+    public List<FollowerRankingDTO> getFollowerRankingList() {
+        return sqlSession.getMapper(FollowMapper.class).getFollowerRankingList();
     }
 
 }

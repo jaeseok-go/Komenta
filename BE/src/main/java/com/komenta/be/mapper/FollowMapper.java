@@ -2,6 +2,7 @@ package com.komenta.be.mapper;
 
 import com.komenta.be.model.follow.FollowDTO;
 import com.komenta.be.model.follow.FollowSelectDTO;
+import com.komenta.be.model.follow.FollowerRankingDTO;
 import com.komenta.be.model.follow.UnFollowDTO;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface FollowMapper {
     public int unFollowAdd(UnFollowDTO unfollow_info);
 
     public int unFollowSub(UnFollowDTO unfollow_info);
+
+    public List<FollowerRankingDTO> getFollowerRankingList();
 }
