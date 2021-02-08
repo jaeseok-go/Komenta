@@ -1,6 +1,7 @@
 package com.komenta.be.controller;
 
 import com.komenta.be.model.member.MemberDTO;
+import com.komenta.be.model.member.MemberSearchInfoDTO;
 import com.komenta.be.model.vod.VodDTO;
 import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodSearchInfoDTO;
@@ -30,8 +31,8 @@ public class SearchController {
     }
 
     @GetMapping("/list_member")
-    public List<MemberDTO> selectAllMember(){
-
+    public List<MemberSearchInfoDTO> selectAllMember(){
+        return memberService.getAllMember();
     }
 
 }

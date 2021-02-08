@@ -2,9 +2,12 @@ package com.komenta.be.service;
 
 import com.komenta.be.mapper.MemberMapper;
 import com.komenta.be.model.member.MemberDTO;
+import com.komenta.be.model.member.MemberSearchInfoDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -63,5 +66,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int updateMembership(int u_id) {
         return sqlsession.getMapper(MemberMapper.class).updateMembership(u_id);
+    }
+
+    @Override
+    public List<MemberSearchInfoDTO> getAllMember() {
+        return sqlsession.getMapper(MemberMapper.class).getAllMember();
     }
 }
