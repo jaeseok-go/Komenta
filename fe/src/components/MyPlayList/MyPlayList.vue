@@ -11,7 +11,7 @@
             <li v-for="(likePlayList,index) in fetchedLikePlaylist" :key="index"></li>
         </ul> -->
         <RecentlyPlayList></RecentlyPlayList>
-        <!-- <MyLikePlayList></MyLikePlayList> -->
+        <MyLikePlayList></MyLikePlayList>
     </div>
 </template>
 
@@ -22,6 +22,7 @@
 // import AsideBar from '@/components/common/Asidebar'
 // import Header from '@/components/common/Header'
 import RecentlyPlayList from '@/components/MyPlayList/RecentlyPlayedList'
+import MyLikePlayList from '@/components/MyPlayList/MyLikePlayList'
 
 export default {
     
@@ -29,6 +30,7 @@ export default {
         // AsideBar,
         // Header
         RecentlyPlayList,
+        MyLikePlayList
     },
     computed: {
     // ...mapGetters(['fetchedRecentPlaylist']),

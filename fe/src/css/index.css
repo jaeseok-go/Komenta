@@ -1194,7 +1194,6 @@ select {
 }
 
 .rPlayList-Form img {
-  margin: 2rem;
   border-radius: 15px;
   -webkit-box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
           box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
@@ -1202,6 +1201,16 @@ select {
 
 .btn-cover.displayInlineBlock {
   display: inline-block;
+}
+
+.vodListPoster {
+  width: 150px;
+  height: 230px;
+  margin: 2rem;
+}
+
+.vodListPoster img {
+  width: 100%;
 }
 
 .container {
