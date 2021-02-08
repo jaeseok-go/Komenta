@@ -21,5 +21,14 @@ public interface VodService {
 
     List<VodInfoByGenreDTO> getVodListGenreDetail(int gd_id);
 
+    List<VodSearchInfoDTO> getAllVod();
+
+    int getVodHistoryByUAndVe(VodHistorySetDTO history);
+
+    int insertVodHistory(VodHistorySetDTO history);
+
+    int updateTime(VodUpdateTimeDTO history);
+
+
 
 }

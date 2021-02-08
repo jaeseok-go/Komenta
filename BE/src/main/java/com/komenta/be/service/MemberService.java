@@ -1,6 +1,9 @@
 package com.komenta.be.service;
 
 import com.komenta.be.model.member.MemberDTO;
+import com.komenta.be.model.member.MemberSearchInfoDTO;
+
+import java.util.List;
 
 public interface MemberService{
 
@@ -36,4 +39,7 @@ public interface MemberService{
 
     //회원 멤버쉽 가입/해지
     public int updateMembership(int u_id);
+
+    public List<MemberSearchInfoDTO> getAllMember();
+
 }

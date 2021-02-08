@@ -7,11 +7,12 @@
         select vh_id, vh_watching_time, ve_id, vh_score, vh_good
         from vod_history
         where u_id = #{u_id}
+        order by vh_watching_time desc;
     </select>
 
 
     <select id="selectEpisodeById" resultType="com.komenta.be.model.vod.VodEpisodeAllDTO" parameterType="int">
-        select C.ve_id, C.ve_episode_num, C.ve_contents,C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.g_name, D.gd_name
+        select C.ve_id, C.ve_episode_num, C.ve_contents,C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
         from
             (select A.ve_id, A.ve_episode_num, A.ve_contents, A.ve_admin, A.ve_upload_date, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
              from vod_episode A left outer join vod B
@@ -23,8 +24,6 @@
             on C.gd_id = D.gd_id
         where C.ve_id = #{ve_id}
     </select>
-
-
 
     <select id = "getVodListRecent" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
         SELECT E.ve_id, E.ve_episode_num, E.ve_upload_date, E.ve_contents, E.ve_admin, F.v_id, F.v_title, F.gd_id, F.g_name, F.gd_name
@@ -51,7 +50,7 @@
                                                      FROM comment_info
                                                      GROUP BY ve_id) Y
         ON X.ve_id = Y.ve_id
-        WHERE A.v_id = #{v_id}
+        WHERE X.v_id = #{v_id}
         ORDER BY c_count desc;
 
     </select>
@@ -96,4 +95,33 @@
         FROM vod
         WHERE gd_id = #{gd_id}
     </select>
+
+
+    <select id="getAllVod" resultType="com.komenta.be.model.vod.VodSearchInfoDTO">
+        SELECT B.v_id, B.v_title, A.ve_episode_num, A.ve_id, B.gd_id FROM vod B INNER JOIN
+                      (SELECT v_id, ve_id, MAX(ve_episode_num) as ve_episode_num,
+                       FROM vod_episode
+                       GROUP BY v_id) A
+                      ON A.v_id = B.v_id;
+    </select>
+
+    <select id="getVodHistoryByUAndVe" parameterType="com.komenta.be.model.vod.VodHistorySetDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM vod_history
+        WHERE u_id =
+        AND ve_id = 1
+    </select>
+
+    <insert id="insertVodHistory" parameterType="com.komenta.be.model.vod.VodHistorySetDTO">
+        INSERT INTO vod_history (u_id, ve_id)
+        VALUES (#{u_id} ,#{ve_id})
+    </insert>
+
+    <update id="updateTime" parameterType="com.komenta.be.model.vod.VodUpdateTimeDTO">
+        UPDATE vod_history
+        SET vh_last_watched_time = NOW(),
+            vh_watching_time = #{vh_watching_time}
+        WHERE u_id = #{u_id}
+        AND ve_id = #{ve_id}
+    </update>
 </mapper>

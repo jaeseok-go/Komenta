@@ -172,9 +172,9 @@ export default {
     let vodReplace = vodTitle.replace(" ","");
     formData1.append("file",this.file, String(this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4'))
     let formData2 = new FormData();
-    let poster_name = this.file1.name;
-    let extensions = poster_name.split('.');
-    formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.'+extensions[1]));
+    // let poster_name = this.file1.name;
+    // let extensions = poster_name.split('.');
+    formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg'));
 
     await sendVODInfo(this.vod_all)
     .then((response)=>{

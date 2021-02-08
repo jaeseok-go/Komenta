@@ -14,15 +14,17 @@
       <div class="playList" v-for="(playList, index) in paginatedData" :key="index" v-else>
         <div class="playList-Form">
           <div class="reprePoster">
-            <img :src="getPoster(index)" width="210px">
+            <img :src="getPoster(index)" width="210px" height="150px">
           </div>
-          <div class="userPic playList">
+          <div class="userPic">
             <img :src="getUserPic(index)" width="40px">
           </div>
           <div class="plInfo">
             <p>
               {{playList.pl_title}} <br>
               {{playList.u_nickname}}'S PICK <br>
+            </p>
+            <p class="likeInfo">
               <font-awesome-icon :icon="[starType, 'star']" :style="{ color: 'yellow'}"/>
               {{playList.pl_good_cnt}} | {{playList.pl_vod_num}}개
             </p>
@@ -96,7 +98,7 @@ export default {
     pageSize: {
       type: Number,
       required: false,
-      default: 3
+      default: 4
     }
   },
   methods: {
@@ -113,10 +115,12 @@ export default {
     getPoster(index) {
       const poster = this.popularPlaylist[index].v_poster;
       return require(`@/assets/images/${poster}`);
+      // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);
     },
     getUserPic(index) {
       const profile = this.popularPlaylist[index].u_profile_pic;
       return require(`@/assets/images/${profile}`);
+      // return require(`http://i4b201.p.ssafy.io:7000/Picture/Profile/${profile}`);
     },
   },
   computed: {
@@ -144,15 +148,16 @@ export default {
 </script>
 
 <style>
-/* .playList {
+.playList {
   display: inline-block;
-} */
+}
 
 .playList-Form {
   width: 230px;
   height: 300px;
-  background-color: rgb(187, 187, 187);
+  background-color: white;
   margin: 2rem 2rem;
+  box-shadow: 5px 5px 10px rgb(168, 168, 168);
 }
 
 .userPic {
@@ -166,5 +171,10 @@ export default {
   position: relative;
   top: 10px;
   left: 10px;
+}
+
+.likeInfo {
+  position: relative;
+  top:15px;
 }
 </style>

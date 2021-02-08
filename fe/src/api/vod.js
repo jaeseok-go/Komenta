@@ -118,21 +118,44 @@ function insertVodPoster(vodForm) {
      }
     })
 }
+
 // 플레이리스트 세부페이지
 function fetchPlayListDetail(plId) {
-    return instance.get('', {
+    return instance.get(`playlist/playlist_detail/${plId}`, {
         params: {
             pl_id: plId
         }
     })
 }
 
-// 좋아요가 많은 플레이리스트 순
+// 좋아요가 많은 플레이리스트 순(전체 플레이리스트 중 탑 10)
 function fetchPopularPlayList() {
-    return instance.get(`/playlist/bestplist`)
+    return instance.get(`playlist/bestplist`)
 }
 
+// 플레이리스트 컨텐츠의 상세보기
+function fetchPlaylistContent(plcId){
+    return instance.get(`playlist/contents_detail/${plcId}`,{
+        params:{
+            plc_id:plcId
+        }
+    })
+}
 
+// vod검색
+function searchVodlist() {
+ return instance.get('search/list_vod')
+}
+
+// vod 시청시작
+function startVodWatch(veId){
+    return instance.post('vod/start_watching',veId)
+}
+
+// vod 시청 끝
+function endVodWatch(vodData){
+    return instance.put('vod/end_watching',vodData)
+}
 
 export {
     fetchCommentVOD,
@@ -151,5 +174,9 @@ export {
     insertVOD,
     insertVodPoster,
     fetchPlayListDetail,
-    fetchPopularPlayList
+    fetchPopularPlayList,
+    fetchPlaylistContent,
+    searchVodlist,
+    startVodWatch,
+    endVodWatch
 }

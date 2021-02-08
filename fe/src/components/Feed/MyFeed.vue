@@ -10,9 +10,9 @@
                 <button class="userprofile__button" @click="followUser">FOLLOW</button>
             </div>
         </div>
-    </section>
+    
 
-    <section v-if="showMyRecent">
+    <template v-if="showMyRecent">
 
         <div>
         <!-- 최근 본 VOD div -->
@@ -56,11 +56,11 @@
                 <!-- 플레이리스트 수만큼 drop-zon v-for -->
 
         <div 
-        v-for='(playlist,index) in playlists' 
+        v-for='(playlist,pindex) in playlists' 
         :key='playlist[0].pl_id'
         height="300px"
         >
-        {{playlist[0].pl_name}}
+        <h3 @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}}</h3>
             <div class='plylist-zone'
             @drop='onDrop($event, playlist[0].pl_id,index)'
             @dragover.prevent
@@ -74,19 +74,19 @@
             class='drag-el'
             draggable
             @dragstart='startDrag($event, vod)'
-            @click="showVodEpiModal(index)"
+            @click="showVodEpiModal(pindex,index)"
             >
                 <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
-                <span>{{vod.v_title}}</span>
-                <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
+                <span >{{vod.v_title}}</span>
+                <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     <span
                        @click="goEpiDetail(vod.ve_id)"
-                       >{{ vod.v_title }}</span> 
-                    <div  @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
+                       >{{ playlists[pindex][1][index].v_title }}</span> 
+                    <span  @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
                     aria-hidden="true"
                    >
-                    </i></div>
+                    </i></span>
                     </h4>
                     <p slot="body">
                         {{vod.v_title}}
@@ -98,11 +98,11 @@
             </div>
     </div>
         
-    </section>
+    </template>
 
-    <section v-else>
+    <template v-else>
         <div 
-        v-for='playlist in playlists' 
+        v-for='(playlist,pindex) in playlists' 
         :key='playlist[0].pl_id'
         height="300"
         >
@@ -114,9 +114,10 @@
                 v-for='(vod,index) in playlist[1]' 
                 :key='vod.ve_id' 
                 class='drag-el'
+                @click="showVodEpiModal(pindex,index)"
                >
                 <!-- <img :src=getVodPoster(vod.v_id,vod.v_title) alt="vod.v_poster"> -->
-               <Modal v-if="selectedId == index && vodEpiModal" @close="vodEpiModal=false">
+               <Modal v-if="selectedId == [pindex,index] && vodEpiModal" @close="vodEpiModal=false">
                     <h4 slot="header">
                     {{ vod.v_title }}
                     <div @click="vodEpiModal = false"><i class="closeModalBtn fa fa-times"
@@ -132,6 +133,7 @@
                 </div>
             </div>
         </div>
+    </template>
     </section>
 
     
@@ -143,7 +145,7 @@
 <script>
 import { mapState } from 'vuex';
 // import store from '@/stores/modules/user'
-import { fetchRecentPlaylist, fetchMyPlaylist,addPlaylist, modifyfollow, modifyPlaylist } from '@/api/user'
+import { fetchRecentPlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, modifyPlaylist } from '@/api/user'
 import { fetchVodEpiDetail } from '@/api/vod'
 import Modal from '@/components/common/Modal';
 // import store from '@/stores/modules/user'
@@ -238,7 +240,7 @@ export default {
             plComment:'',
             // plComment:`${this.fetchedUserInfo.u_nickname}님의 플레이리스트`,
             epiComment:'',     
-            selectedId:0,
+            selectedId:[],
         }
     },
     created(){
@@ -268,8 +270,7 @@ export default {
         this.playlists[index][1].push(vod)
         console.log('플레이리스트 추가',this.playlists[index])
         const epiInfo = {
-            u_id:this.fetchedUserInfo.u_id ,
-            ve_id:vod.ve_id,
+            vh_id:vod.vh_id,
             pl_id:plId
             }
         console.log(epiInfo,'플레이리스트에 추가할 epi')
@@ -302,19 +303,21 @@ export default {
             console.log(response)
 
         },
-        showVodEpiModal(index){
-            this.selectedId = index;
+        showVodEpiModal(pindex,index){
+            this.selectedId = [pindex,index];
             console.log(this.selectedId,'선택된 VOD index')
             this.vodEpiModal=true
         },
-        addComment(plId){
-            const userId = this.fetchedUserInfo.u_id
-            const commentInfo = {
-                pl_id : plId,
-                u_id : userId,
-                pl_comment : this.epiComment
+        async addComment(plId){
+            try {
+                const commentInfo = {
+                    plc_id : plId,
+                    vh_comment : this.epiComment
+                }
+                await addReviewPlaylist(commentInfo);
+            } catch {
+                console.log('플레이리스트 comment생성 실패')
             }
-            console.log(commentInfo,'플레이리스트 comment생성 실패')
         },
         async createPlaylist() {
             const playlistinfo = {
@@ -327,6 +330,9 @@ export default {
                 console.log('플레이리스트 생성 실패')
             }
 
+        },
+        goPlaylsitDetail(plId){
+            this.$router.push(`/playlist/${plId}`)
         },
         async goEpiDetail(veId){
             await fetchVodEpiDetail(veId)
@@ -354,10 +360,9 @@ export default {
             console.log('에러')
         }
         },
-        getPoster(poster){
-        // const picPath = require(poster);
-        return poster
-    },
+        getVodPoster(vId,title){
+            return require(`@/assets/images/${vId}${title}`)
+        }
 
 
     },
@@ -367,9 +372,7 @@ export default {
         userInfo: state => state.user.userInfo,
     }),
 
-    getVodPoster(vId,title){
-        return require(`@/assets/images/${vId}${title}`)
-    }
+
   },
 
 

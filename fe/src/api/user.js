@@ -128,10 +128,10 @@ function fetchLikePlaylist(userId) {
 
 // 유저가 피드에서 플레이 리스트 생성
 function addPlaylist(data) {
-    return instance.post('playlist/plcreate',data)
+    return instance.post('playlist/move_history_to_playlist',data)
 }
 
-//플레이리스트 VOD생성
+//플레이리스트 VOD생성(나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가)
 function addPlaylistVod(vodInfo) {
     return instance.post('playlist/move_history_to_playlist',vodInfo)
 }
@@ -148,11 +148,21 @@ function deletePlaylist(plId){
     return instance.delete('playlist/plist_delete',plId)
 }
 
+// 플레이리스트 좋아요 취소
+function removePlaylist(playlistInfo){
+    return instance.put('playlist/plist_update', playlistInfo)
+}
+
 // 회원이 등록한 플레이리스트 목록 조회
 function fetchMyPlaylist(userId){
     return instance.get(`playlist/get_plist_list/${userId}`, {
         params: { u_id: userId }
     })
+}
+
+// 플레이리스트의 컨텐츠 리뷰 입력
+function addReviewPlaylist(playlistInfo){
+    return instance.put('playlist/add_contents_review', playlistInfo)
 }
 
 // 팔로잉 조회 
@@ -187,11 +197,10 @@ function modifyunfollow(unfollowInfo) {
     return instance.post('follow/un_add_sub',unfollowInfo)
 }
 
-//top9 
-function TopInfluencers() {
-    return instance.get('follow/ranking9')
-} 
-
+// 유저 검색
+function searchUserlist(){
+    return instance.get('search/list_member')
+}
 
 
 export {
@@ -224,6 +233,8 @@ export {
     modifyfollow,
     fetchunfollowinglist,
     modifyunfollow,
-    TopInfluencers
+    removePlaylist,
+    addReviewPlaylist,
+    searchUserlist
     
 }
