@@ -22,9 +22,9 @@ public class PictureController {
     public byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
         String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
         path += "home/ubuntu/Picture/Poster/";
-        System.out.println(path);
+        System.out.println(path+fileName+".jpg");
         InputStream in = getClass().getResourceAsStream(path+fileName+".jpg");
-        System.out.println(in);
+        System.out.println(in.readAllBytes());
         return IOUtils.toByteArray(in);
     }
 
