@@ -164,8 +164,8 @@ export default {
    async send(){
      
     this.vod_all.gd_id = this.genre_detail_id;
-    let vposter_name = this.file1.name.split('.');
-    this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
+    // let vposter_name = this.file1.name.split('.');
+    // this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
     // console.log("들어가기전 최종",this.vod_all);
     let formData1 = new FormData();
     let vodTitle = this.vod_all.v_title;
@@ -175,6 +175,7 @@ export default {
     // let poster_name = this.file1.name;
     // let extensions = poster_name.split('.');
     formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg'));
+    this.vod_all.v_poster = String(this.vod_all.gd_id+'_'+this.vod_all.v_title);
 
     await sendVODInfo(this.vod_all)
     .then((response)=>{
@@ -183,6 +184,8 @@ export default {
     .catch((err)=>{
       console.log("vod, vod epi 업로드에러");
       console.log(err)
+      alert("vod 정보를 업로드 하던 중 오류가 발생했습니다.")
+      return;
     });
      
     await insertVOD(formData1)
@@ -192,6 +195,8 @@ export default {
     .catch((err)=>{
       console.log("video 업로드에러");
       console.log(err)
+      alert("vod 영상을 업로드 하던 중 오류가 발생했습니다.")
+      return;
     });
      
     await insertVodPoster(formData2)
@@ -201,6 +206,8 @@ export default {
     .catch((err)=>{
       console.log("poster 업로드에러");
       console.log(err)
+      alert("vod 포스터를 업로드 하던 중 오류가 발생했습니다.")
+      return;
     })
 
     alert("VOD가 정상적으로 등록되었습니다.");
