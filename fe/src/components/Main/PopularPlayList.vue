@@ -149,35 +149,3 @@ export default {
 
 }
 </script>
-
-<style>
-.playList {
-  display: inline-block;
-}
-
-.playList-Form {
-  width: 230px;
-  height: 300px;
-  background-color: white;
-  margin: 2rem 2rem;
-  box-shadow: 5px 5px 10px rgb(168, 168, 168);
-}
-
-.userPic {
-  position: relative;
-  bottom: 10px;
-  right: 15px;
-  text-align: right;
-}
-
-.reprePoster {
-  position: relative;
-  top: 10px;
-  left: 10px;
-}
-
-.likeInfo {
-  position: relative;
-  top:15px;
-}
-</style>
