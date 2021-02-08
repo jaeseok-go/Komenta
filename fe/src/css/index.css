@@ -290,8 +290,6 @@ hr {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   font-size: unset;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
   margin-top: 17px;
   margin-bottom: 18px;
   padding-top: 0;
