@@ -113,6 +113,9 @@ export default {
     //   this.popularPlaylist = fetchPopularPlayList()
     // }
     getPoster(index) {
+      // const poster = String(this.allVODInfo[i].gd_id+'_'+ this.allVODInfo[i].v_title);
+      // console.log("comment poster name : ",poster)
+      // return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
       const poster = this.popularPlaylist[index].v_poster;
       return require(`@/assets/images/${poster}`);
       // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);

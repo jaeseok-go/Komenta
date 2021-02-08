@@ -16,7 +16,7 @@
       <li v-if="this.recentVODs.length == 0">
         <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
-      <li class="scene" v-for="vod in paginatedData" :key="vod.ve_episode_num" v-else>
+      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" v-else>
         <div class="movie" onclick="return true">
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
@@ -73,8 +73,9 @@ export default {
     getPoster(index) {
         for (let i = 0; i < this.allVODInfo.length; i++) {
             if(this.allVODInfo[i].v_id === index) {
-                let poster = this.allVODInfo[i].v_poster;
-                return require(`@/assets/images/${poster}`);
+                const poster = String(this.allVODInfo[i].gd_id+'_'+ this.allVODInfo[i].v_title); 
+                console.log("recent poster name : ",poster)
+                return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
             }
         }
     },
