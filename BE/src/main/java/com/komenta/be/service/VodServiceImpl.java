@@ -55,4 +55,20 @@ public class VodServiceImpl implements VodService{
     public List<VodSearchInfoDTO> getAllVod() {
         return sqlSession.getMapper(VodMapper.class).getAllVod();
     }
+
+
+    @Override
+    public int getVodHistoryByUAndVe(VodHistorySetDTO history) {
+        return sqlSession.getMapper(VodMapper.class).getVodHistoryByUAndVe(history);
+    }
+
+    @Override
+    public int insertVodHistory(VodHistorySetDTO history) {
+        return sqlSession.getMapper(VodMapper.class).insertVodHistory(history);
+    }
+
+    @Override
+    public int updateTime(VodUpdateTimeDTO history) {
+        return sqlSession.getMapper(VodMapper.class).updateTime(history);
+    }
 }
