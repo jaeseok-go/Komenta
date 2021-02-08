@@ -12,7 +12,7 @@
 
 
     <select id="selectEpisodeById" resultType="com.komenta.be.model.vod.VodEpisodeAllDTO" parameterType="int">
-        select C.ve_id, C.ve_episode_num, C.ve_contents,C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.g_name, D.gd_name
+        select C.ve_id, C.ve_episode_num, C.ve_contents,C.ve_upload_date, C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
         from
             (select A.ve_id, A.ve_episode_num, A.ve_contents, A.ve_admin, A.ve_upload_date, A.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, B.gd_id
              from vod_episode A left outer join vod B
