@@ -5,7 +5,7 @@
     <Header></Header>
     <!-- vod -->
     <div id="appBody">
-        <Video :comments="comments" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
+        <Video :comments="comments" :title="title" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
         <hr>
         <!-- {{vodEpiInfo.episodeInfo}} -->
         <div>vod회차세부정보</div>
@@ -68,16 +68,16 @@ data(){
     vodInfo : [],
     comments : [],
     sendcommenttime:"",
+    title:''
   }
 },
 
 created(){
-  // this.getVodEpi();
-  // this.getEpiComment();
-  // this.getVodDetail();
+  this.getVodEpi();
+  this.getEpiComment();
+  this.getVodDetail();
   // 해당 회차 VOD 세부 내용 조회 GET
-  // this.vodEpiInfo = getVodEpi(ve_id)
-  // this.vodInfo = getVod(v_id);
+  this.title = this.vodEpiInfo.episodeInfo.v_title + this.vodEpiInfo.episodeInfo.ve_episode_num
   // response로 받은 vod정보 template에 뿌려주기
 },
 watch: {

@@ -47,6 +47,7 @@ export default {
     // comments: Array, 
     veId : Number,
     sendcommenttime:[String,Number],
+    titile:String,
     // 반드시 필요하다는 의미
     // required: true,
     // 값을 전달하지 않을 경우 디폴트값 설정 가능 
@@ -217,7 +218,7 @@ export default {
         // this.videoCurrentTime = this.$refs.video.currentTime
         // console.log(this.videoCurrentTime, this.$refs.video.currentTime)
         // const veId = this.$route.parmas.id;
-        // this.getVideo(veId)
+        // this.getVsideo()
     },
     computed: {
         // comScroll() {
@@ -265,11 +266,9 @@ export default {
         },
         // 비디오 불러오기
         getVideo() {
-            //  vedio 회차 동영상 path "/home/ubuntu/Video/" + vedto.getVe_id() + vdto.getV_title() + vedto.getVe_episode_num() + ".mp4";
-            // console.log(veId)
-            // return `/home/ubuntu/Video/${vod.v_id}/${vod.v_title}/${vod.ve_title}/${vod.ve_id}.mp4`;
-            const path =require(`@/assets/videos/sweethome.mp4`)
-            return path
+            // const path =require(`http://i4b201.p.ssafy.io:7000/video/stream/mp4/${this.title}`)
+            // return path
+            return require(`@/assets/videos/sweethome.mp4`)
         },
         // 댓글 보이기 -> 이러면 둘다 보이나,,?ㅎ
         showComment(index){
