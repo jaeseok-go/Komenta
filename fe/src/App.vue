@@ -51,7 +51,7 @@ section {
 }
 
 #page-view {
-  min-height: 100%;
+  min-height: 50rem;
   /* margin: 2rem; */
   
 }

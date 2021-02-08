@@ -1,10 +1,9 @@
 <template>
-    <div>
     <div class="container">
         <div class="container__friend">
         <div class="at-section">
             <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
-            <div class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</div>
+            <span class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span>
         </div>
             <div class="at-grid basic-scroll">
                 <div class="at-column" v-for="(user,index) in users" :key="index">
@@ -18,8 +17,8 @@
         </div>
         <div class="container__influencer">
             <div class="at-section">
-                <div class="at-section__title popular-title" id="top9_color">KOMENTA TOP9 DJ</div>
-                <div class="at-section__subtitle">{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</div>
+                <div class="at-section__title popular-title at-section__nickname">KOMENTA TOP9 DJ</div>
+                <span class="at-section__subtitle">{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</span>
             </div>
             <div class="at-grid basic-scroll">
                 <div class="at-column" v-for="(user,index) in users" :key="index">
@@ -166,11 +165,9 @@ export default {
 
 <style>
 #top9_color {
-    background:linear-gradient(to right, #ff416c, #ff4b2b);
+    background:backglinear-gradient(to right, #ff416c, #ff4b2b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 500;
-
 }
 /* .test {
   display: inline-block;

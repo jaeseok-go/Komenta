@@ -21,25 +21,7 @@ $totalColumns: 9;
 }
 
 .container {
-  // display: flex;
-  max-width: 1170px;
-  width: 100%;
-  margin: 100px auto;
-  padding: 0 20px;
-  box-sizing: border-box;
-  transform-origin: top center;
-  transform: scale(0.8);
-  
- 
-
-  &__friend {
-    
-
-  }
-
-  &__influences {
-
-  }
+  // width: 100%;
 }
 
 // Custom Prefix
@@ -47,20 +29,24 @@ $totalColumns: 9;
   
   // Section
   &-section {
-    margin-top: 2rem;
+    margin-top: 4rem;
     &__title {
       margin: 0 0 40px;
       color: #000;
       font-family: 'Roboto', sans-serif;
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 300;
       line-height: 2.625rem;
       // text-align: center;
     }
 
     &__subtitle {
+      display: inline-block;
+      background: linear-gradient(to right, #fbcac9, #8ca6ce);
+      color: white;
       margin-bottom: 25px;
-      font-size: 1rem;
+      font-size: 1.5rem;
+      font-weight: 300;
     }
 
     &__nickname {
@@ -77,11 +63,11 @@ $totalColumns: 9;
       width: 1000px;
       display: flex;
       // flex-wrap: wrap;
-      // overflow-x: scroll;
-      // overflow-y:hidden;
-      //     grid-auto-flow: column;
-    overflow-x: auto;
-    overflow-y: hidden;
+      overflow-x: scroll;
+      overflow-y:hidden;
+      grid-auto-flow: column;
+      overflow-x: auto;
+      overflow-y: hidden;
 
 
   }
@@ -89,7 +75,7 @@ $totalColumns: 9;
   &-column {
     background-color: beige;
       // background: linear-gradient(to right, #de6262, #ffb88c);
-    flex: 0 0 33.3333%;
+    flex: 0 0 20%;
     position: relative;
     background: #FFF;
     box-shadow: 0 0 0 1px #E2E9ED;
@@ -99,7 +85,7 @@ $totalColumns: 9;
                 transform 0.2s ease;
     
     &:before {
-       background: linear-gradient(to right, #de6262, #ffb88c);
+      //  background: linear-gradient(to right, #de6262, #ffb88c);
       content: "";
       display: block;
       padding-top: 100%;
@@ -115,20 +101,7 @@ $totalColumns: 9;
         opacity: 1;
       }
     }
-    
-    @media (max-width: 800px) {
-      width: 50% !important;
-      max-width: 50% !important;
-      min-width: 50% !important;
-      flex-basis: 50% !important;
-    }
 
-    @media (max-width: 600px) {
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 100% !important;
-      flex-basis: 100% !important;
-    }
   }
   
   &-user {
@@ -178,13 +151,14 @@ body {
 }
 
 .container {
-  // max-width: 1200px;
-  // width: 100%;
-  // margin: 100px asuto;
-  // padding: 0;
-  // box-sizing: border-box;
+  max-width: 1200px;
+  height: 50rem;
+  width: 100%;
+  margin: 100px asuto;
+  padding: 0;
+  box-sizing: border-box;
   transform-origin: 50px 50px;
   transform: scale(0.8);
-  left: 0;
+  // left: 0;
 }
 }
