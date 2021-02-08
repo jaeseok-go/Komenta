@@ -1,0 +1,16 @@
+.rPlayList-Form {
+  & img,
+  & div {
+    display: inline-block;
+  }
+
+  & img {
+    margin: 2rem;
+    border-radius: 15px;
+    box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
+  }
+}
+
+.btn-cover.displayInlineBlock {
+  display: inline-block;
+}
