@@ -25,7 +25,6 @@ public class PictureController {
         byte[] imageByte = IOUtils.toByteArray(image);
         System.out.println(imageByte);
         image.close();
-
         return imageByte;
     }
 
