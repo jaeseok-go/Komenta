@@ -1232,35 +1232,27 @@ select {
   background: #ffffff;
 }
 
-.container {
-  max-width: 1170px;
-  width: 100%;
-  margin: 100px auto;
-  padding: 0 20px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-}
-
 .at-section {
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
 .at-section__title {
   margin: 0 0 40px;
   color: #000;
   font-family: 'Roboto', sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 300;
   line-height: 2.625rem;
 }
 
 .at-section__subtitle {
+  display: inline-block;
+  background: -webkit-gradient(linear, left top, right top, from(#fbcac9), to(#8ca6ce));
+  background: linear-gradient(to right, #fbcac9, #8ca6ce);
+  color: white;
   margin-bottom: 25px;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .at-section__nickname {
@@ -1277,6 +1269,9 @@ select {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  grid-auto-flow: column;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -1284,8 +1279,8 @@ select {
 .at-column {
   background-color: beige;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 33.3333%;
-          flex: 0 0 33.3333%;
+      -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
   position: relative;
   background: #FFF;
   -webkit-box-shadow: 0 0 0 1px #E2E9ED;
@@ -1300,8 +1295,6 @@ select {
 }
 
 .at-column:before {
-  background: -webkit-gradient(linear, left top, right top, from(#de6262), to(#ffb88c));
-  background: linear-gradient(to right, #de6262, #ffb88c);
   content: "";
   display: block;
   padding-top: 100%;
@@ -1318,26 +1311,6 @@ select {
 .at-column:hover .at-social {
   margin: 16px 0 0;
   opacity: 1;
-}
-
-@media (max-width: 800px) {
-  .at-column {
-    width: 50% !important;
-    max-width: 50% !important;
-    min-width: 50% !important;
-    -ms-flex-preferred-size: 50% !important;
-        flex-basis: 50% !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .at-column {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    -ms-flex-preferred-size: 100% !important;
-        flex-basis: 100% !important;
-  }
 }
 
 .at-user {
@@ -1386,10 +1359,16 @@ select {
 }
 
 .at .container {
+  max-width: 1200px;
+  height: 50rem;
+  width: 100%;
+  margin: 100px asuto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   -webkit-transform-origin: 50px 50px;
           transform-origin: 50px 50px;
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
-  left: 0;
 }
 /*# sourceMappingURL=index.css.map */
