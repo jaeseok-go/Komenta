@@ -2,9 +2,11 @@ package com.komenta.streaming.demo.controller;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -17,28 +19,11 @@ public class PictureController {
             value = "/poster/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody byte[] getPosterImage(@PathVariable(name = "fileName") String fileName) throws IOException {
+    public byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
         String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
         path += "home/ubuntu/Picture/Poster/";
-        System.out.println(path+fileName+".jpg");
-        InputStream image = new FileInputStream(path+fileName+".jpg");
-        byte[] imageByte = IOUtils.toByteArray(image);
-        System.out.println(imageByte);
-        image.close();
-        return imageByte;
+        InputStream in = getClass().getResourceAsStream(path+fileName+".jpg");
+        return IOUtils.toByteArray(in);
     }
-    @GetMapping(
-            value = "/profile/{fileName}",
-            produces = MediaType.IMAGE_JPEG_VALUE
-    )
-    public @ResponseBody byte[] getProfileImage(@PathVariable(name = "fileName") String fileName) throws IOException {
-        String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
-        path += "home/ubuntu/Picture/User/";
-        System.out.println(path+fileName+".jpg");
-        InputStream image = new FileInputStream(path+fileName+".jpg");
-        byte[] imageByte = IOUtils.toByteArray(image);
-        System.out.println(imageByte);
-        image.close();
-        return imageByte;
-    }
+
 }
