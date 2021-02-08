@@ -20,4 +20,7 @@ public interface PlayListMapper {
     int likePList(PlayListGoodDTO dto);
 
     int unLikePList(PlayListGoodDTO dto);
+
+    public ContentDetailDTO getContentDetail(int plc_id);
+    public int addContentsReview(AddContentsReviewDTO review);
 }

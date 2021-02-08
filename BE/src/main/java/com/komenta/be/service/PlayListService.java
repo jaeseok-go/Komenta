@@ -18,4 +18,7 @@ public interface PlayListService {
     public List<PlayListDetailDTO> getPlayListDetail(int pl_id);
 
     int unLikePList(PlayListGoodDTO dto);
+
+    public ContentDetailDTO getContentDetail(int plc_id);
+    public int addContentsReview(AddContentsReviewDTO review);
 }

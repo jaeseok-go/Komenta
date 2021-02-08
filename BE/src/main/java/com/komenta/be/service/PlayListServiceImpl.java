@@ -73,4 +73,14 @@ public class PlayListServiceImpl implements PlayListService{
         return sqlSession.getMapper(PlayListMapper.class).unLikePList(dto);
     }
 
+    @Override
+    public ContentDetailDTO getContentDetail(int plc_id) {
+        return sqlSession.getMapper(PlayListMapper.class).getContentDetail(plc_id);
+    }
+
+    @Override
+    public int addContentsReview(AddContentsReviewDTO review) {
+        return sqlSession.getMapper(PlayListMapper.class).addContentsReview(review);
+    }
+
 }

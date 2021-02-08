@@ -105,4 +105,22 @@
         from  play_list_good GROUP BY pl_id ORDER BY count(pl_id) DESC LIMIT 10 ;
 
     </select>
+
+    <select id="getContentDetail" parameterType="int" resultType="com.komenta.be.model.playlist.ContentDetailDTO">
+        SELECT B.v_title, B.ve_episode_num, A.vh_comment
+        FROM (SELECT ve_id, vh_comment
+              FROM vod_history
+              WHERE vh_id = (SELECT vh_id
+                             FROM play_list_contents
+                             WHERE plc_id = #{plc_id})) A LEFT OUTER JOIN (SELECT C.ve_id, C.ve_episode_num, D.v_title
+                                                                   FROM vod_episode C LEFT OUTER JOIN vod D
+                                                                   ON C.v_id = D.v_id) B
+        ON A.ve_id = B.ve_id;
+    </select>
+
+    <update id="addContentsReview" parameterType="com.komenta.be.model.playlist.AddContentsReviewDTO">
+        UPDATE play_list_contents
+        SET plc_review = #{plc_review}
+        WHERE plc_id = #{plc_id}
+    </update>
 </mapper>

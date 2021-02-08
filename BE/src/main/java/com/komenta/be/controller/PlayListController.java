@@ -59,7 +59,7 @@ public class PlayListController {
     }
 
 
-    @ApiOperation(value = "플레이리스트 생성", notes = "나의 플레이리스트의 이름이나 리뷰를 수정해서 결과를 반환")
+    @ApiOperation(value = "플레이리스트 수정", notes = "나의 플레이리스트의 이름이나 리뷰를 수정해서 결과를 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "playlist", value = "pl_name(플레이리스트 이름), pl_comment(플레이리스트에 대한 리뷰)", dataType = "PlayListDTO", required = true),
     })
@@ -132,8 +132,7 @@ public class PlayListController {
 
     @ApiOperation(value = "플레이 리스트 좋아요", notes = "pl_id을 입력받고 jwt 토큰에 u_id를 받아서 좋아요 추가")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true),
-            @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
+            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true)
     })
     @PostMapping("/like")
     public int likePList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
@@ -145,8 +144,7 @@ public class PlayListController {
 
     @ApiOperation(value = "플레이 리스트 좋아요 취소", notes = "pl_id을 입력받고 jwt 토큰에 u_id를 받아서 좋아요 삭제")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true),
-            @ApiImplicitParam(name = "u_id", value = "플레이리스트를 좋아요한 회원 아이디", dataType = "int", required = true),
+            @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true)
     })
     @PostMapping("/unlike")
     public int unLikePList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
@@ -199,5 +197,25 @@ public class PlayListController {
     public List<PlayListDetailDTO> getPlayListDetail(@PathVariable("pl_id") int pl_id){
         return playListService.getPlayListDetail(pl_id);
     }
+
+
+
+    @ApiOperation(value = "플레이리스트 컨텐츠의 상세보기", notes = "입력받은 plc_id로 제목, 회차, 리뷰 등을 보여줌")
+    @GetMapping("/contents_detail/{plc_id}")
+    public ContentDetailDTO getContentDetail(@PathVariable("plc_id") int plc_id){
+        return playListService.getContentDetail(plc_id);
+    }
+
+
+    @ApiOperation(value = "플레이리스트의 컨텐츠 리뷰 입력", notes = "내가 등록한 플레이리스트의 각 컨텐츠에 리뷰다는 기능")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "review", value = "plc_id(컨텐츠 아이디), plc_comment(컨텐츠에 대한 리뷰)", dataType = "AddContentsReviewDTO", required = true),
+    })
+    @PutMapping("/add_contents_review")
+    public int addContentsReview(@RequestBody AddContentsReviewDTO review){
+        // 1. 입력 받은 플레이리스트 컨텐츠 dto로 변경
+        return playListService.addContentsReview(review);
+    }
+
 }
 
