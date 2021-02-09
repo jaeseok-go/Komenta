@@ -26,25 +26,24 @@
     </delete>
 
     <select id="playlist_info" parameterType = "int" resultType="com.komenta.be.model.playlist.PlayListGetAllDTO">
-        SELECT M.pl_id, M.pl_name, M.pl_comment, (case when M.pl_good_count IS NULL then 0 ELSE M.pl_good_count end) AS pl_good_count, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id,
-               N.v_id, N.v_title, N.v_director, N.v_actors, N.g_name, N.gd_name, N.ve_episode_num
-        FROM(SELECT C.pl_id, C.pl_name, C.pl_comment, C.u_id, C.pl_good_count, F.plc_id, F.vh_id, F.vh_comment, F.vh_score, F.ve_id
-             FROM (SELECT A.pl_id, A.pl_name, A.pl_comment, A.u_id, B.pl_good_count
-                   FROM play_list A LEFT OUTER JOIN ( SELECT pl_id, COUNT(*) AS pl_good_count
+        SELECT M.pl_id, M.pl_name, M.pl_comment, M.pl_good_count, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id, N.v_id, N.v_title, N.v_director, N.v_actors, N.g_name, N.gd_name, N.ve_episode_num
+        FROM (SELECT C.pl_id, C.pl_name, C.pl_comment, C.u_id, C.pl_good_count, F.plc_id, F.vh_id, F.vh_comment, F.vh_score, F.ve_id
+              FROM (SELECT A.pl_id, A.pl_name, A.pl_comment, A.u_id, (case when B.pl_good_count IS NULL then 0 ELSE B.pl_good_count END) AS pl_good_count
+                    FROM play_list A LEFT OUTER JOIN (SELECT pl_id, COUNT(*) AS pl_good_count
                                                       FROM play_list_good
                                                       GROUP BY pl_id) B
-                   ON A.pl_id = B.pl_id
-                   WHERE A.pl_id = #{pl_id}) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
-                                                         FROM play_list_contents D LEFT OUTER JOIN vod_history E
-                                                         ON D.vh_id = E.vh_id) F
-             ON C.pl_id = F.pl_id) M LEFT OUTER JOIN (SELECT K.*, L.ve_id, L.ve_episode_num
-                                                      FROM (SELECT I.*, J.g_name
-                                                            FROM (SELECT G.v_id, G.v_title, G.v_director, G.v_actors, H.gd_id, H.gd_name, H.g_id
-                                                                  FROM vod G LEFT OUTER JOIN genre_detail H
-                                                                  ON G.gd_id = H.gd_id) I LEFT OUTER JOIN genre J
-                                                            ON I.g_id = J.g_id) K LEFT OUTER JOIN vod_episode L
-                                                      ON K.v_id = L.v_id) N
-        ON M.ve_id = N.ve_id
+                                                     ON A.pl_id = B.pl_id
+                    WHERE A.pl_id = #{pl_id}) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
+                                                           FROM play_list_contents D LEFT OUTER JOIN vod_history E
+                                                                                                     ON D.vh_id = E.vh_id) F
+                                                          ON C.pl_id = F.pl_id) M LEFT OUTER JOIN (SELECT K.*, L.ve_id, L.ve_episode_num
+                                                                                                   FROM (SELECT I.*, J.g_name
+                                                                                                         FROM (SELECT G.v_id, G.v_title, G.v_director, G.v_actors, H.gd_id, H.gd_name, H.g_id
+                                                                                                               FROM vod G LEFT OUTER JOIN genre_detail H
+                                                                                                                                          ON G.gd_id = H.gd_id) I LEFT OUTER JOIN genre J
+                                                                                                                                                                                  ON I.g_id = J.g_id) K LEFT OUTER JOIN vod_episode L
+                                                                                                                                                                                                                        ON K.v_id = L.v_id) N
+                                                                                                  ON M.ve_id = N.ve_id
     </select>
 
     <select id="select_follower_pl_id" parameterType="int" resultType="int">

@@ -182,7 +182,7 @@ public class PlayListController {
     @GetMapping("/bestplist")
     public ResponseEntity<List<PlaytListBestDTO> > bestPList(){
         // pl_id, pl_id 갯수, rank, pldetail list를 담은 List
-        List<PlaytListBestDTO> list= playListService.getBestPlayList();
+        List<PlaytListBestDTO> list = playListService.getBestPlayList();
         for(PlaytListBestDTO a : list){
             a.setPldetail(playListService.getPlayListDetail(a.getPlb_id()));
         }

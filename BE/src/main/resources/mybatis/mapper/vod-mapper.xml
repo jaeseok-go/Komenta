@@ -38,7 +38,7 @@
 
 
 
-    <select id = "getVodListComment" parameterType="int" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
+    <select id = "getVodListComment" resultType="com.komenta.be.model.vod.VodEpisodeDTO">
         SELECT X.ve_id, X.ve_episode_num, X.ve_upload_date, X.ve_contents, X.ve_admin, X.v_id, X.v_title, X.gd_id, X.g_name, X.gd_name, (case when Y.c_count IS NULL then 0 ELSE Y.c_count END) AS c_count
         FROM (SELECT E.ve_id, E.ve_episode_num, E.ve_upload_date, E.ve_contents, E.ve_admin, F.v_id, F.v_title, F.gd_id, F.g_name, F.gd_name
               FROM vod_episode E LEFT OUTER JOIN (SELECT C.v_id, C.v_title, C.v_summary, C.v_director, C.v_actors, C.v_age_grade, C.v_poster, D.gd_id, D.g_name, D.gd_name
@@ -50,8 +50,7 @@
                                                      FROM comment_info
                                                      GROUP BY ve_id) Y
         ON X.ve_id = Y.ve_id
-        WHERE X.v_id = #{v_id}
-        ORDER BY c_count desc;
+        ORDER BY c_count desc
 
     </select>
 
@@ -68,7 +67,7 @@
                                                                                         FROM vod_history
                                                                                         GROUP BY ve_id) Y
                                                                                        ON X.ve_id = Y.ve_id
-        ORDER BY w_count desc;
+        ORDER BY w_count desc
     </select>
 
     <select id="getVodInfoForUser" resultType="com.komenta.be.model.vod.VodInfoForUserDTO">
