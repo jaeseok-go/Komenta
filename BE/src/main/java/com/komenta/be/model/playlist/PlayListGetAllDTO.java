@@ -6,6 +6,7 @@ public class PlayListGetAllDTO {
     private int plc_id;
     private int vh_id;
     private int v_id;
+    private String v_poster;
     private int ve_id;
     private int ve_episode_num;
     private String v_title;
@@ -18,6 +19,7 @@ public class PlayListGetAllDTO {
     private int vh_score;
     private boolean vh_good;
 
+    private String gd_id;
     private String g_name;
     private String gd_name;
 
@@ -28,12 +30,16 @@ public class PlayListGetAllDTO {
     public PlayListGetAllDTO() {
     }
 
-    public PlayListGetAllDTO(int pl_id, int u_id, int plc_id, int vh_id, int v_id, int ve_id, int ve_episode_num, String v_title, String v_actors, String v_director, int pl_good_count, String vh_watching_time, String vh_comment, int vh_score, boolean vh_good, String g_name, String gd_name, String pl_name, String pl_comment) {
+    public PlayListGetAllDTO(int pl_id, int u_id, int plc_id, int vh_id, int v_id, String v_poster,
+                             int ve_id, int ve_episode_num, String v_title, String v_actors, String v_director,
+                             int pl_good_count, String vh_watching_time, String vh_comment, int vh_score,
+                             boolean vh_good, String gd_id, String g_name, String gd_name, String pl_name, String pl_comment) {
         this.pl_id = pl_id;
         this.u_id = u_id;
         this.plc_id = plc_id;
         this.vh_id = vh_id;
         this.v_id = v_id;
+        this.v_poster = v_poster;
         this.ve_id = ve_id;
         this.ve_episode_num = ve_episode_num;
         this.v_title = v_title;
@@ -44,6 +50,7 @@ public class PlayListGetAllDTO {
         this.vh_comment = vh_comment;
         this.vh_score = vh_score;
         this.vh_good = vh_good;
+        this.gd_id = gd_id;
         this.g_name = g_name;
         this.gd_name = gd_name;
         this.pl_name = pl_name;
@@ -88,6 +95,14 @@ public class PlayListGetAllDTO {
 
     public void setV_id(int v_id) {
         this.v_id = v_id;
+    }
+
+    public String getV_poster() {
+        return v_poster;
+    }
+
+    public void setV_poster(String v_poster) {
+        this.v_poster = v_poster;
     }
 
     public int getVe_id() {
@@ -170,6 +185,14 @@ public class PlayListGetAllDTO {
         this.vh_good = vh_good;
     }
 
+    public String getGd_id() {
+        return gd_id;
+    }
+
+    public void setGd_id(String gd_id) {
+        this.gd_id = gd_id;
+    }
+
     public String getG_name() {
         return g_name;
     }
@@ -210,6 +233,7 @@ public class PlayListGetAllDTO {
                 ", plc_id=" + plc_id +
                 ", vh_id=" + vh_id +
                 ", v_id=" + v_id +
+                ", v_poster='" + v_poster + '\'' +
                 ", ve_id=" + ve_id +
                 ", ve_episode_num=" + ve_episode_num +
                 ", v_title='" + v_title + '\'' +
@@ -220,6 +244,7 @@ public class PlayListGetAllDTO {
                 ", vh_comment='" + vh_comment + '\'' +
                 ", vh_score=" + vh_score +
                 ", vh_good=" + vh_good +
+                ", gd_id='" + gd_id + '\'' +
                 ", g_name='" + g_name + '\'' +
                 ", gd_name='" + gd_name + '\'' +
                 ", pl_name='" + pl_name + '\'' +

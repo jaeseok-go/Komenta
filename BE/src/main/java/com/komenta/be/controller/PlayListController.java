@@ -91,10 +91,9 @@ public class PlayListController {
     public ResponseEntity<List<List<PlayListGetAllDTO>>> myPlayList(@PathVariable("u_id") int u_id){
         HttpStatus status = null;
         List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
+
         try{
-
             List<Integer> pl_id = playListService.select_regist_pl_id(u_id);
-
 
             for(int a : pl_id){
                 dtolist.add(playListService.playlist_info(a));
