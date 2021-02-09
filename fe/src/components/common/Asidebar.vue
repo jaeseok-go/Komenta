@@ -59,8 +59,8 @@
 
                 <div>
                   <span  id="sub-group">PLAYLISTS</span>
-                    <li class="web-navigation__nav-list-item" v-for="(my,index) in myPlayList" :key="index">
-                      <router-link :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id }}">
+                    <li class="web-navigation__nav-list-item" v-for="(my,index) in myPlayList" :key="index" @click="reload(my[0].pl_id)">
+                      <router-link :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id }}" >
                         <span class="sidebar-scrollable-title">
                           <span class="sidebar-scrollable-title-icon icon-bg5"><i class="far fa-file-video"></i></span>
                           <span class="sidebar-scrollable-title-text">{{my[0].pl_name}}</span>
@@ -79,6 +79,13 @@ import {mapState} from 'vuex';
 // import store from '@/stores/modules/user'
 
 export default {
+    methods: {
+      reload(id) {
+
+        this.$router.push(`/playlist/${id}`)
+        window.location.reload();
+      }
+    },
     computed: {
         ...mapState({
         userInfo: state => state.user.userInfo,

@@ -357,6 +357,10 @@ hr {
   border-radius: 6px;
 }
 
+.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .web-navigation__nav-list-item:hover {
+  text-decoration: none;
+}
+
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title {
   text-decoration: none;
   margin: -3px;
@@ -375,8 +379,14 @@ hr {
   text-align: start;
 }
 
-.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title:active {
-  background-color: aqua;
+.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title:hover {
+  text-decoration: none;
+}
+
+.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title:active {
+  background-color: #bfbfbf;
+  text-decoration: none;
+  list-style: none;
 }
 
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title-icon icon-bg1 {
@@ -415,6 +425,19 @@ hr {
 .icon-bg5 {
   color: #fa233b;
   font-size: 15px;
+}
+
+a:hover {
+  color: transparent;
+}
+
+.web-navigation__nav-list-item.active {
+  border: 1px solid white;
+}
+
+.web-navigation__nav-list-item:hover {
+  border-color: white;
+  background-color: #D3D3D3;
 }
 
 .form-control {

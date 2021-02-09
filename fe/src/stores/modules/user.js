@@ -122,9 +122,7 @@ const actions = {
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist()
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        console.log('여기 스토어ㅋㅋ?')
         commit('setRecentPlaylist', recentPlaylist)
-        console.log(recentPlaylist,'리센플리')
 
         //로그인할때, 내가 만든 플레이리스트 목록 저장 
         const myPlayList = await fetchMyPlaylist(state.userInfo.u_id)

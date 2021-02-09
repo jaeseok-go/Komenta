@@ -113,6 +113,10 @@
         list-style: none;
         border-radius: 6px;
 
+        .web-navigation__nav-list-item:hover {
+          text-decoration: none;
+        }
+
         .sidebar-scrollable-title {
           text-decoration: none;
           margin: -3px;
@@ -125,9 +129,16 @@
           box-sizing: content-box;
           text-align: start;
 
-          &:active {
-            background-color: aqua;
+        .sidebar-scrollable-title:hover {
+          text-decoration: none;
+        }
+          
+           .sidebar-scrollable-title:active {
+            background-color: rgba(191, 191, 191, 1);
+            text-decoration: none;
+            list-style: none;
           }
+
 
           .sidebar-scrollable-title-icon icon-bg1 {
             font-size: x-large;
@@ -157,6 +168,7 @@
             white-space: nowrap;
             overflow: hidden;
             margin-left: 0.7rem;
+
           }
         }
       }
@@ -169,3 +181,23 @@
   font-size: 15px;
 }
 
+// router-link-exact-active router-link-active {
+//   text-decoration: none;
+
+// }
+
+a:hover {
+    // background-color: hotpink;
+    color:transparent
+}
+
+
+.web-navigation__nav-list-item.active {
+    border: 1px solid white;
+}
+
+
+.web-navigation__nav-list-item:hover {
+    border-color: white;
+    background-color: #D3D3D3;
+}
