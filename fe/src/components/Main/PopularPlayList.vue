@@ -66,23 +66,17 @@ export default {
       const response = await fetchPopularPlayList();
       console.log("popular play list : ",response);
       this.popularPlaylist = response.data;
-      console.log('popularPlayList : ',this.popularPlaylist)
+      console.log('popularPlayList 저장 : ',this.popularPlaylist)
     },
     getPoster(index) {
-      //다른거 다 들어오는데 gd_id 안들어오는거 실환가....ㄹㅇ...?
       var poster = this.popularPlaylist[index].pldetail[0].v_poster;
-      // const poster = String(this.allVODInfo[i].gd_id+'_'+ this.allVODInfo[i].v_title);
       console.log("comment poster name : ",poster)
-      // return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
-      // const poster = this.popularPlaylist[index].v_poster;
-      // return require(`@/assets/images/${poster}`);
       return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
     },
     getUserPic(index) {
       const profile = this.popularPlaylist[index].u_profile_pic.split('.');
       let picName = profile[0];
       console.log("picname : ",picName);
-      // return require(`@/assets/images/${profile}`);
       return `http://i4b201.p.ssafy.io:7000/picture/user/${picName}`;
     },
   },

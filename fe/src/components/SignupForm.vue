@@ -22,12 +22,12 @@
                 />
               </div>
               <!-- 중복 아이디가 아닐 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && !isIdDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && !idCheck">
               <!-- 체크표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 아이디일 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && isIdDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && idCheck">
               <!-- 엑스표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
@@ -44,7 +44,7 @@
                   v-model="password"
                   class="form-control form-control-lg"
                   :type="passwordType"
-                  placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
+                  placeholder="8자 이상 입력"
                 />
                 <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
                 <div class="input-group-append">
@@ -82,12 +82,12 @@
                 type="text"
               />
               <!-- 중복 닉네임이 아닐 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !nickCheck">
               <!-- 체크표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 닉네임일 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && nickCheck">
               <!-- 엑스표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
@@ -168,7 +168,9 @@ export default {
       termPopup: false,
       showCertiForm: true,
       isAuthentic:false,
-      authenResult:'휴대폰 인증'
+      authenResult:'휴대폰 인증',
+      idCheck:false,
+      nickCheck:false,
     };
   },
   computed: {
@@ -237,16 +239,13 @@ export default {
       }
       return false;
     },
-    isIdDuplicaionCheck(){
-      const response = this.isDupIdCheck()
-      console.log("뭐가 들어오는데",response);
-      return response;
-    },
-    isNickNameDuplicaionCheck() {
-      const response = this.isDupNickNameCheck()
-      console.log("왜 오류 나는데... ",response);
-      return response;
-    }
+    // isNickNameDuplicaionCheck() {
+    //   const response = this.isDupNickNameCheck();
+    //   if (response.data) {
+    //     return true;
+    //   }
+    //   return false;
+    // },
   },
   watch: {
     'isTerm.term1': function() {
@@ -270,27 +269,36 @@ export default {
         this.isTerm.icon3 = 'far'
       }
     },
+    userId : function () {
+      this.isDupIdCheck()
+    },
+    username : function () {
+      this.isDupNickNameCheck()
+    }
   },
   methods: {
     //아이디 중복 체크 데이터 넘어가는 순서 꼬임...
     async isDupIdCheck() {
-      console.log("userId: ",this.userId)
-      await dupIdChk(this.userId)
-      .then(function(response) {
-        console.log("야이...좋은 말로 할 때, 잘 들어와라 : ",response.data)
-        return response.data;
-      });
+      try{
+        // console.log("userId: ",this.userId)
+        const response = await dupIdChk(this.userId);
+        // console.log("중복?!",response);
+        this.idCheck = response.data;
+      }catch(err) {
+        console.log(err);
+      }
+      return false;
     },
     //닉네임 중복 체크 데이터 넘어가는 것도...
     async isDupNickNameCheck() {
-      const result = await dupNickNameChk(this.username);
-      console.log("닉네임 중복 체크 : ",result.data)
-      if(result.data === true) {
-        console.log('NICNAME DUPLICATED')
-        return true;
+      try{
+        const result = await dupNickNameChk(this.username);
+        this.nickCheck = result.data;
+      }catch(err) {
+        console.log(err);
       }
-      console.log('NICKNAME NOT DUPLICATED')
       return false;
+      
     },
     checkCertification() {
       console.log(store.state.userInfo,'들어왓니 유저정보야')
@@ -334,9 +342,16 @@ export default {
     },
     // 우리서버이용
     async submitSignup() {
-      // this.clickSignupBtn = true
+      if(this.idCheck){
+        alert("이미 사용중인 아이디입니다.");
+        return;
+      }
+      if(this.nickCheck) {
+        alert("이미 사용중인 닉네임입니다.");
+        return;
+      }
       if (!this.clickSignupBtn) {
-        return
+        return;
       }
       // nickname params로 넘겨주기 추가해야함
       // String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, boolean u_is_blocked, String u_profile_pic
@@ -347,10 +362,6 @@ export default {
             u_pw: this.password,
             u_phone_number : this.userPhoneNumber,
             u_nickname : this.username,
-            // u_expire_member :null,
-            // u_is_admin:false,
-            // u_is_blocked:false,
-            u_profile_pic:'default_profile.png',
         };
         console.log(userData,'유저데이터다')
         console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)

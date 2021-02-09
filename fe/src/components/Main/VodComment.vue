@@ -74,10 +74,8 @@ export default {
     getPoster(index) {
         for (let i = 0; i < this.allVODInfo.length; i++) {
             if(this.allVODInfo[i].v_id === index) {
-                const poster = String(this.allVODInfo[i].gd_id+'_'+ this.allVODInfo[i].v_title);
-                console.log("comment poster name : ",poster)
+                const poster = this.allVODInfo[i].v_poster;
                 return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
-                // return require(`@/assets/images/${poster}`);
             }
         }
     },

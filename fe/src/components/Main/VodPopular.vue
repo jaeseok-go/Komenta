@@ -13,7 +13,7 @@
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
           </div>
-          <div class="info" @click="goVod(vod.v_id)">
+          <div class="info" @click="goVod(vod.ve_id)">
             <header>
               <h1>{{ vod.v_title }} {{ vod.ve_episode_num }}회</h1>
               <span class="year">{{ vod.ve_upload_date }}</span>
@@ -74,17 +74,13 @@ export default {
     getPoster(index) {
         for (let i = 0; i < this.allVODInfo.length; i++) {
             if(this.allVODInfo[i].v_id === index) {
-                const poster = String(this.allVODInfo[i].gd_id+'_'+ this.allVODInfo[i].v_title);
-                // console.log("popular poster name : ",poster)
+                const poster = this.allVODInfo[i].v_poster;
                 return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
-                // return require(`@/assets/images/${poster}`);
             }
         }
-    //   console.log('뭐가 들어오닝?',poster);
-      // return require(`@/assets/images/sweet_home.png`)
     },
-    goVod(vId) {
-      this.$router.push(`/voddetail/${vId}`);
+    goVod(veId) {
+      this.$router.push(`/voddetail/${veId}`);
     }
   },
   computed: {
