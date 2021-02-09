@@ -11,32 +11,9 @@
 
 <script>
 export default {
-  // props :['comments'],
-  data() {
-    return {
-      comments: [
-        {
-                    "c_id" : 6,
-                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
-                    // "c_playtime" : "00:00:05",
-                    "c_playtime" : "6",
-                    "c_upload_time" : "2020.02.03 09:03:20",
-                    "comment_good_count" : 1440000,
-                    "u_id" : 17,
-                    "u_nickname" : "아롱롱"
-                },
-                {
-                    "c_id" : 7,
-                    "c_contents":"ㅋㅋㅋㅋㅋㅋㅋㅋㅋ벌써 재밌겠다ㅋㅋㅋㅋㅋㅋ",
-                    // "c_playtime" : "00:00:05",
-                    "c_playtime" : "5.1",
-                    "c_upload_time" : "2020.02.03 09:03:20",
-                    "comment_good_count" : 10000,
-                    "u_id" : 14,
-                    "u_nickname" : "아롱롱"
-                },
-      ]
-    }
+  props :{
+    comments:Array,
+    veId : Number,
   },
   created() {
         // comments 좋아요순으로 정렬, parseFloat(문자열 실수로 크기비교)

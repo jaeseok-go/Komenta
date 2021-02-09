@@ -20,7 +20,7 @@ function fetchEpiComment(veId) {
 // 회원이 단 모든 댓글 조회
 function fetchUserComment(uId){
     return instance.get('comment/comment_list',{
-        parmas: {
+        params: {
             u_id : uId
         }
     })

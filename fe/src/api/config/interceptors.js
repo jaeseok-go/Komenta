@@ -30,8 +30,8 @@ export function setInterceptors() {
         else{
         config.headers['auth-token'] = token;
         }
-        console.log(config.headers,'토큰????????')
-        console.log(config)
+        // console.log(config.headers,'토큰????????')
+        // console.log(config)
 
       }
       return config;

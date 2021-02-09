@@ -6,7 +6,7 @@
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
 
-           <div style="overflow:auto; width:600px; height:300px; white-space:pre-line;" id="comment_div">
+           <div style="overflow:auto; width:400px; height:150px; white-space:pre-line;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
                   <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
@@ -16,7 +16,7 @@
             </div>
             <div>
             <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤"/>
-            <button @click="createComment">create</button>
+            <button @click="createComment()">create</button>
             </div>
 
         </div>
@@ -24,8 +24,10 @@
 </template>
 
 <script>
-import { fetchEpiComment,  commentInsert } from '@/api/comment'
-// import 
+import { fetchEpiComment,  commentInsert } from '@/api/comment';
+import {endVodWatch} from '@/api/vod';
+import {mapState} from 'vuex';
+
 export default {
     props: { 
     // 변수 : 변수타입 
@@ -57,16 +59,16 @@ export default {
     },
     methods:{   
     async getEpiComment() {
-    const epiId = this.$route.params.id;
-    console.log(epiId)  
     try {
-      const res = await fetchEpiComment(this.veId)
-      console.log(res.data,'Comment??')
+        const epiId = this.$route.params.id;
+        console.log(epiId,this.veId,'ve_id')  
+      const res = await fetchEpiComment(epiId)
+      console.log(res,'Comment??')
       this.comments = res.data
-      this.comments.sort(function (a,b) {
-            return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
-        })
-        console.log(this.comments)
+    //   this.comments.sort(function (a,b) {
+    //         return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+    //     })
+        console.log(this.comments,'댓글?')
 
     } catch {
       console.log('epicomment 에러!!')
@@ -112,39 +114,38 @@ export default {
             this.selectedId = index;
             const scrollDiv = document.getElementById('comment_div');
             scrollDiv.scrollTop = scrollDiv.scrollHeight;
-            // console.log(cId)
             return true
         },
         // 해당시간으로 댓글 이동
         goCommentTime(time){
             const vod = document.getElementById("videotag");
             vod.currentTime = time;
-            // console.log(typeof vod.currentTime,typeof time)
+    
         },
         // 비디오 시간과 currentTIme 일치시킴
         onTimeUpdate(){
             const vod = document.getElementById("videotag");
             this.videoCurrentTime = vod.currentTime;
-            // this.videoCurrentTime = this.$refs.video.currentTime;
-            // console.log(this.videoCurrentTime,vod.currentTime);
+
         },
         async createComment() {
             try {
-            const commentInfo = {
-                c_contents : this.userComment,
-                c_playtime : this.videoCurrentTime,
-                // 댓글 등록 시간?? 비디오시간?
-                u_id : this.$store.user.userInfo.u_id,
-                ve_id : this.veId
+                const commentInfo = {
+                    c_contents : this.userComment,
+                    c_playtime : this.videoCurrentTime,
+                    u_id : this.userInfo.u_id,
+                    ve_id : this.veId
+                }
+            const res = await commentInsert(commentInfo)
+            console.log(res,'댓글써졌니?')
+            this.getEpiComment();
+            } catch {
+                console.log('댓글썼는데 실패함')
+                
             }
-                console.log(commentInfo,'너 는 뭐 냐')
-        // c_contents(댓글 내용), u_playtime(등록 시간), u_id(회원 아이디), ve_id(vod 회차 아이디)
-        const res = await commentInsert(commentInfo)
-        console.log(res,'댓글써졌니?')
 
-        } catch {
-        console.log('댓글썼는데 실패함')
-        }
+
+
   }
     },
     watch : {
@@ -155,18 +156,23 @@ export default {
         videoCurrentTime :function (){
             const scrollDiv = document.getElementById('comment_div');
             scrollDiv.scrollTop = scrollDiv.scrollHeight;
-            // scrollDiv.isScrollBotttom = true;
-            // scrollDiv.addEventListener('scroll',(event) => {
-            //     if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-            //         scrollDiv.isScrollBotttom = true;
-            //     } else {
-            //         scrollDiv.isScrollBotttom = false;
-            //     }
-            // })
-            
         },
 
-    }
+    },
+    computed:{
+         ...mapState({
+      userInfo: state => state.user.userInfo,
+    }),
+    },
+    beforeDestroy(){
+        const watching = {
+            // u_id: this.userInfo.u_id,
+            ve_id: this.veId,
+            vh_watching_time: this.videoCurrentTime
+        }
+        const end = endVodWatch(watching);
+        console.log('시청기록끝',end)
+}
 }
 </script>
 

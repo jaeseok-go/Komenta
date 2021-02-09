@@ -2,10 +2,9 @@
   <div id="app">
     <!-- Searchbar with a placeholder -->
     <!-- <ion-searchbar placeholder="검색어를 입력하세요"></ion-searchbar> -->
-      <button @click="logout">LOGOUT</button>
     <form class="search-box" @submit.prevent="searchTemplate" :style="{border:searchBox}">
-        <input type="text" id="search" placeholder="검색어를 입력하세요" v-model="keyword" v-if="isView">
-        <label for="search" @click="viewSearchBox"><i class="fas fa-search icon-color"/></label>
+      <input type="text" id="search" placeholder="검색어를 입력하세요" v-model="keyword" v-if="isView">
+      <label for="search" @click="viewSearchBox"><i class="fas fa-search icon-color"/></label>
     </form>
   </div>
 </template>
@@ -15,8 +14,6 @@
 // import { defineComponent } from 'vue';
 import {searchVodlist} from '@/api/vod';
 import {searchUserlist} from '@/api/user';
-
-
 
 export default {
   data() {
@@ -30,14 +27,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      if (confirm('로그아웃 하시겠습니까?')) {
-        this.$store.commit('logout');
-        if (this.$route.path !== '/member/login') {
-          this.$router.push('/member/login');
-        }
-      }
-    },
    async getAllVodandUser(){
      const vods = await searchVodlist();
      this.vodlists = vods.data
@@ -60,7 +49,7 @@ export default {
     viewSearchBox(){
       if(!this.isView) {
         this.isView = true;
-        this.searchBox='1px solid rgb(158, 158, 158)';
+        this.searchBox='1.3px solid rgb(158, 158, 158)';
         return;
       }else {
         this.searchTemplate();
@@ -72,46 +61,7 @@ export default {
 </script>
 
 <style scoped>
-#header-section {
+#app {
   text-align: right;
 }
-/* 인풋박스 이용 */
-.search-box {
-    border: 1px solid rgb(158, 158, 158);
-    border-radius: 20px;
-    /* background-color: #e5e5e5; */
-    padding: 0.14rem 0.5rem;
-    margin: 0.5rem;
-    width: 17rem;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-}
-
-.search-box > input {
-  height: 25px;
-  width: 100%;
-  padding: 5px;
-  border: transparent;
-  border-style: none;
-  border-radius: 10px;
-  color: black;
-  margin-right: 8px;
-}
-
-.search-box input:focus {
-  outline: none;
-  caret-color: black;
-}
-
-.icon-color {
-  font-size: 20px;
-  color: #FA233B;
-  position: relative;
-  top: 5px;
-  right: 2px;
-  cursor:pointer;
-}
-  
-
 </style>
