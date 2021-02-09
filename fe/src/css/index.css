@@ -357,10 +357,6 @@ hr {
   border-radius: 6px;
 }
 
-.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .web-navigation__nav-list-item:hover {
-  text-decoration: none;
-}
-
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title {
   text-decoration: none;
   margin: -3px;
@@ -377,16 +373,6 @@ hr {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   text-align: start;
-}
-
-.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title:hover {
-  text-decoration: none;
-}
-
-.web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title:active {
-  background-color: #bfbfbf;
-  text-decoration: none;
-  list-style: none;
 }
 
 .web-navigation__scrollable .web-navigation__nav-list .web-navigation__nav-list-item .sidebar-scrollable-title .sidebar-scrollable-title-icon icon-bg1 {
