@@ -32,11 +32,14 @@
         from member
         where u_email = #{u_email}
     </select>
+
     <update id="updatePassword" parameterType="com.komenta.be.model.member.MemberDTO">
         update member
         set u_pw = #{u_pw}
         where u_email = #{u_email}
     </update>
+
+
     <update id="updateMember" parameterType="com.komenta.be.model.member.MemberDTO">
         update member
         set u_pw = #{u_pw},
