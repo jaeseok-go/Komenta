@@ -14,7 +14,7 @@ function commentInsert(commentInfo){
 
 //회차별 댓글 정보
 function fetchEpiComment(veId) {
-    return instance.get(`comment/ve_c_list${veId}`);
+    return instance.get(`comment/ve_c_list/${veId}`);
 }
 
 // 회원이 단 모든 댓글 조회

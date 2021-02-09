@@ -84,7 +84,7 @@ function fetchVodDetail(vId) {
 }
 
 // vod_epi로 세부내용조회
-function fetchVodEpiDetail({veId}) {
+function fetchVodEpiDetail(veId) {
     return instance.get(`/vod/vodnum/${veId}`,
         {
             params: {
