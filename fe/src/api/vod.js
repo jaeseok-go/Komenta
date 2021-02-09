@@ -75,22 +75,12 @@ function fetchVodListByGenreDetailId(gdId) {
 
 //vod 세부내용조회
 function fetchVodDetail(vId) {
-    return instance.get(`vod/vod_info/${vId}`,
-        {
-            params: {
-                v_id: vId,
-            }
-        })
+    return instance.get(`vod/vod_info/${vId}`)
 }
 
 // vod_epi로 세부내용조회
 function fetchVodEpiDetail(veId) {
-    return instance.get(`/vod/vodnum/${veId}`,
-        {
-            params: {
-                ve_id: veId,
-            }
-        })
+    return instance.get(`vod/vodnum/${veId}`)
 }
 
 //vod 정보 추가
