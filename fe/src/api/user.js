@@ -1,8 +1,6 @@
 import { setInterceptors } from './config/interceptors'
 import axios from 'axios';
-import store from '@/stores/index.js';
-
-
+import store from '@/stores/modules/user'
 const instance = setInterceptors()
 // const instance = axios.create({
 //     baseURL: process.env.VUE_APP_URL,
