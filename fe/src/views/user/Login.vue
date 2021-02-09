@@ -1,8 +1,7 @@
 <template>
     <div>
         <div class="temp-bc-title">
-            <img src="@/imgs/3.png" alt="">
-            <h1 class="title-logo">Komenta</h1>
+            <img src="@/assets/images/KOMENTA_logo.png" alt="">
             <hr>
         </div>
         <!-- <button @click="signOut">Logout</button> -->
@@ -64,10 +63,10 @@ export default {
 </script>
 
 <style scoped>
-  .temp-bc-title {
+  /* .temp-bc-title {
     display: flex;
     background-color: #F9F9F9;
-  }
+  } */
 
   img {
     margin-left: 10px;
