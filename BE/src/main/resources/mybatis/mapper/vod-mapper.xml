@@ -72,12 +72,13 @@
 
     <select id="getVodInfoForUser" resultType="com.komenta.be.model.vod.VodInfoForUserDTO">
         SELECT F.v_id, F.v_title, F.g_name, F.gd_name, F.v_actors, F.v_director, A.ve_id, A.ve_episode_num
-        FROM vod_episode A LEFT OUTER JOIN (SELECT D.v_id, D.v_title, D.v_summary, D.v_director, D.v_actors, D.v_age_grade, D.v_poster, D.gd_id, D.gd_name, E.g_id, E.g_name
-                                            FROM (SELECT B.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, C.gd_id, C.gd_name, C.g_id
-                                                  FROM vod B LEFT OUTER JOIN genre_detail C
-                                                  ON B.gd_id = C.gd_id) D LEFT OUTER JOIN genre E
-                                            ON D.g_id = E.g_id) F
-        ON A.v_id = F.v_id
+        FROM vod_episode A RIGHT OUTER JOIN (SELECT D.v_id, D.v_title, D.v_summary, D.v_director, D.v_actors, D.v_age_grade, D.v_poster, D.gd_id, D.gd_name, E.g_id, E.g_name
+                                             FROM (SELECT B.v_id, B.v_title, B.v_summary, B.v_director, B.v_actors, B.v_age_grade, B.v_poster, C.gd_id, C.gd_name, C.g_id
+                                                   FROM vod B LEFT OUTER JOIN genre_detail C
+                                                                              ON B.gd_id = C.gd_id
+                                                   WHERE B.v_id = #{v_id}) D LEFT OUTER JOIN genre E
+                                                                                             ON D.g_id = E.g_id) F
+                                            ON A.v_id = F.v_id
         ORDER BY ve_episode_num desc
     </select>
 

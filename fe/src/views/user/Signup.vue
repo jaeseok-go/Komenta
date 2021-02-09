@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<div>
-				<h1 class="title-logo">Komenta</h1>
+		<div class="temp-bc-title">
+				<router-link to="/member/login">
+					<img src="@/assets/images/KOMENTA_logo.png" alt="">
+				</router-link>
 				<hr>
 		</div>
 		<SignupForm></SignupForm>
