@@ -113,10 +113,6 @@
         list-style: none;
         border-radius: 6px;
 
-        .web-navigation__nav-list-item:hover {
-          text-decoration: none;
-        }
-
         .sidebar-scrollable-title {
           text-decoration: none;
           margin: -3px;
@@ -129,15 +125,7 @@
           box-sizing: content-box;
           text-align: start;
 
-        .sidebar-scrollable-title:hover {
-          text-decoration: none;
-        }
           
-           .sidebar-scrollable-title:active {
-            background-color: rgba(191, 191, 191, 1);
-            text-decoration: none;
-            list-style: none;
-          }
 
 
           .sidebar-scrollable-title-icon icon-bg1 {
