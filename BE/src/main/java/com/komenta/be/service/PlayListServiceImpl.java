@@ -34,6 +34,11 @@ public class PlayListServiceImpl implements PlayListService{
     }
 
     @Override
+    public List<Integer> select_follower_pl_id(int u_id) {
+        return sqlSession.getMapper(PlayListMapper.class).select_follower_pl_id(u_id);
+    }
+
+    @Override
     public List<Integer> select_favorite_pl_id(int u_id) {
         return sqlSession.getMapper(PlayListMapper.class).select_favorite_pl_id(u_id);
     }

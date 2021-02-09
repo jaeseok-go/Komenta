@@ -129,6 +129,29 @@ public class PlayListController {
         return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
     }
 
+    @ApiOperation(value = "나의 팔로잉들의 최근 갱신 플레이리스트", notes = "내 팔로잉들의 최근 갱신된 플레이리스트")
+    @GetMapping("/recent_update_follow_playlist")
+    public ResponseEntity<List<List<PlayListGetAllDTO>>> recentUpdatedPlayList(HttpServletRequest request){
+        HttpStatus status = null;
+        List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
+        try {
+            String token = request.getHeader("auth_token");
+            int u_id = (int) jwtService.get(token).get("u_id");
+
+            List<Integer> pl_id = playListService.select_follower_pl_id(u_id);
+            for (int a : pl_id) {
+                dtolist.add(playListService.playlist_info(a));
+            }
+
+            status = HttpStatus.OK;
+        }
+        catch(RuntimeException e){
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
+    }
+
+
     @ApiOperation(value = "플레이 리스트 좋아요", notes = "pl_id을 입력받고 jwt 토큰에 u_id를 받아서 좋아요 추가")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true)
