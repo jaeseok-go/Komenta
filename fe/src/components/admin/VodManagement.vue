@@ -5,61 +5,85 @@
       <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
     </div>
     <table style="text-align:center;">
-      <colgroup>
-        <col width="10%" />
-        <col width="15%" />
-        <col width="45%" />
-        <col width="30%" />
-      </colgroup>
       <thead>
         <th>등록번호</th>
-        <th>이미지</th>
         <th>제목</th>
         <th>종류/장르</th>
+        <th>등록일</th>
+        <th>담당자</th>
+        <th>설정</th>
       </thead>
       <tbody v-if="vodList.length == 0">
-        <td colspan="4">
+        <td colspan="6">
           등록된 VOD가 없습니다.
         </td>
       </tbody>
-      <tbody v-for="(vod, index) in vodList" :key="index" v-else>
-        <td>{{vod.v_id}}</td>
-        <td><img :src="getPicPath(index)" width="50%"></td>
+      <tbody v-for="(vod, index) in paginatedData" :key="index" v-else>
+        <td>{{vod.ve_id}}</td>
         <td><router-link to="">{{vod.v_title}}</router-link></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
+        <td>{{vod.ve_upload_date}}</td>
+        <td>{{vod.ve_admin}}</td>
+        <td>수정 / 삭제</td>
       </tbody>
     </table>
-    <br>
+    <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
+      <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
+    </div>
   </b-col>
 </template>
 
 <script>
-import {fetchAllVOD} from '@/api/user';
+import {fetchAllEpi} from '@/api/vod';
 export default {
   data() {
     return {
+      pageNum:0,
       vodList:[],
     }
+  },
+  props: {
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 10
+    },
   },
   created() {
     this.getVODList();
   },
   methods: {
+    nextPage() {
+      this.pageNum += 1;
+    },
+    prevPage() {
+      this.pageNum -= 1;
+    },
     async getVODList() {
-      const response = await fetchAllVOD();
+      const response = await fetchAllEpi();
       console.log("vod list : ",response);
       this.vodList = response.data;
     },
-    getPicPath(index){
-      console.log('vod 정보 : ',this.vodList[index].v_poster)
-      if(this.vodList[index].v_poster) {
-        return `http://i4b201.p.ssafy.io:7000/picture/poster/${this.vodList[index].v_poster}`;
-      } else {
-        console.log('이미지 없음')
-        return '#'
-      }
-    }
   },
+  computed: {
+    pageCount() {
+      let listLeng = this.vodList.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+
+      if(listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    paginatedData() {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+
+      return this.vodList.slice(start, end);
+    }
+  }
 }
 </script>
 

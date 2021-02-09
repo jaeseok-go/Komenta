@@ -40,7 +40,6 @@
           <b-button @click="send" class="testbtn">추가</b-button>
         </b-form>
       </b-col>
-
       <b-col>
         <table>
           <b-tr>
