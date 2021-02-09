@@ -152,7 +152,7 @@ public class MemberController{
     public int registVideo(@RequestParam("profile") MultipartFile profile) {
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
-        String video = "/home/ubuntu/Picture/Profile/" + profile.getOriginalFilename();
+        String video = "/home/ubuntu/Picture/User/" + profile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);
