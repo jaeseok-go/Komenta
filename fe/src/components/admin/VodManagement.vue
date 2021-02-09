@@ -20,7 +20,7 @@
       </tbody>
       <tbody v-for="(vod, index) in paginatedData" :key="index" v-else>
         <td>{{vod.ve_id}}</td>
-        <td><router-link to="">{{vod.v_title}}</router-link></td>
+        <td><p @click="goVod(vod.ve_id)">{{vod.v_title}}</p></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
         <td>{{vod.ve_upload_date}}</td>
         <td>{{vod.ve_admin}}</td>
@@ -66,6 +66,9 @@ export default {
       console.log("vod list : ",response);
       this.vodList = response.data;
     },
+    goVod(veId) {
+      this.$router.push(`/voddetail/${veId}`);
+    }
   },
   computed: {
     pageCount() {

@@ -12,6 +12,7 @@ const state = {
     isLogin: sessionStorage.getItem('auth-token') === null ? false : true,
     isLoginError: false,
     userInfo: sessionStorage.getItem('auth-token') === null ? {
+        token_expired : null,
         u_id: null,
         u_email: null,
         // u_pw: null,
