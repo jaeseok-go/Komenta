@@ -1,5 +1,7 @@
 import axios from 'axios';
 import store from '@/stores/index.js';
+import router from '@/routes/index.js';
+
 
 export function setInterceptors() {
   // let ddddd = store.state.user.token;
@@ -20,9 +22,16 @@ export function setInterceptors() {
       //   config.headers['Authorization'] = 'JWT ' + store.state.user.token
       // }
       if (token) {
+        var expire_date =store.state.user.userInfo['token_expired'];
+        if(expire_date < Date.now()){
+          store.commit('logout')
+          router.push('/member/login');
+        }
+        else{
         config.headers['auth-token'] = token;
-        // console.log(config.headers,'토큰????????')
-        // console.log(config)
+        }
+        console.log(config.headers,'토큰????????')
+        console.log(config)
 
       }
       return config;
