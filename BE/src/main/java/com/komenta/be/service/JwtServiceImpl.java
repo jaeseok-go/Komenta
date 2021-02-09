@@ -35,12 +35,22 @@ public class JwtServiceImpl implements JwtService {
 
 //		Header 설정
         jwtBuilder.setHeaderParam("typ", "JWT"); // 토큰의 타입으로 고정 값.
-        Date expired_token_date = new Date(System.currentTimeMillis() + 10000 * 10 * expireMin);
-        System.out.println(expired_token_date);
+        Date date  = new Date();
+        long t = date.getTime();
+//        System.out.println(t);
+//        System.out.println(t+(1000*60*60*24*14));
+
+        Date expired_token_date = new Date((System.currentTimeMillis() +(1000*60*60*24*14)));
+//        Date expired_token_date = new Date(System.currentTimeMillis()+1000);
+//        System.out.println("현재 : "+System.currentTimeMillis());
+//        System.out.println("완료 : "+(System.currentTimeMillis() +(1000*60*60*24*14)));
+//        System.out.println("완료 : "+expired_token_date);
+
 //		Payload 설정
         jwtBuilder
                 .setSubject("로그인토큰") // 토큰의 제목 설정
-                .setExpiration(expired_token_date) // 유효기간 설정
+//                .setExpiration(new Date((System.currentTimeMillis() +(1000*60*60*24*14))))
+                .setExpiration(expired_token_date)
                 .claim("token_expired", expired_token_date)
                 .claim("u_id", member.getU_id())
                 .claim("u_email", member.getU_email())

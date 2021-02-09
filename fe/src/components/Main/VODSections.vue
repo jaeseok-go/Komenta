@@ -7,15 +7,21 @@
         <div class="btn">Last</div>
      </div> -->
       <div class="selectTab">
-        <ion-chip outline color="primary">
-          <ion-label><router-link :to="{name:'VodPopular'}" class="text-color">인기순</router-link></ion-label>
-        </ion-chip>
+        <router-link :to="{name:'VodPopular'}" class="text-color">
+          <ion-chip outline color="primary">
+            <ion-label>인기순</ion-label>
+          </ion-chip>
+        </router-link>
+        <router-link :to="{name:'VodComment'}" class="text-color">
         <ion-chip outline color="success">
-          <ion-label><router-link :to="{name:'VodComment'}" class="text-color">댓글순</router-link></ion-label>
+          <ion-label>댓글순</ion-label>
         </ion-chip>
-        <ion-chip outline color="danger">
-          <ion-label><router-link :to="{name:'VodRecent'}" class="text-color">최신순</router-link></ion-label>
-        </ion-chip>
+        </router-link>
+        <router-link :to="{name:'VodRecent'}" class="text-color">
+          <ion-chip outline color="danger">
+            <ion-label>최신순</ion-label>
+          </ion-chip>
+        </router-link>
       </div>
       <router-view></router-view>
     </div>
@@ -37,9 +43,9 @@
     display: inline-block;
   }
 
-  .col {
+  /* .col {
     z-index: 998;
-  }
+  } */
 
 </style>
 

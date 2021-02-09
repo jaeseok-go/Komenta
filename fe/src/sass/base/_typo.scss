@@ -50,14 +50,14 @@ h6 {
 
 //hr 공통 설정
 hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  text-align: center;
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  text-align: center !important;
+  box-sizing: content-box !important;
+  height: 0 !important;
+  overflow: visible !important;
 }
 
 //hr 그라데이션
