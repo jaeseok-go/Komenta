@@ -2,14 +2,10 @@
   <b-col>
     <div class="btn-cover">
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
-        &lt;
+        <font-awesome-icon :icon="['fas', 'angle-left']"/>
       </button>
-      <button
-        :disabled="pageNum >= pageCount - 1"
-        @click="nextPage"
-        class="page-btn"
-      >
-        &gt;
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-right']"/>
       </button>
     </div>
     <ul class="stage clearfix">
@@ -21,16 +17,18 @@
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
           </div>
-          <div class="info" @click="goVod(vod.v_id)">
-            <header>
+          <div class="info" @click="goVod(vod.ve_id)">
+            <header class="info-text">
               <h1>{{ vod.v_title }} {{ vod.ve_episode_num }}회</h1>
-              <span class="year">{{ vod.ve_upload_date }}</span>
+              <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
+              <hr>
+              <span v-text="getVeContents(vod.ve_contents)"></span>
               <!-- <span class="rating">PG</span>
             <span class="duration">130 minutes</span> -->
             </header>
-            <p>
-              보러가기
-            </p>
+            <div>
+              <button>보러가기</button>
+            </div>
           </div>
         </div>
       </li>
@@ -88,6 +86,21 @@ export default {
     prevPage() {
       this.pageNum -= 1;
     },
+    getRegistDate(date){
+      const year = date.split(" ");
+      return year[0];
+    },
+    getVeContents(contents) {
+      if(contents === null){
+        const errStr = "해당 VOD 줄거리를 제공하지 않습니다.";
+        return errStr;
+      }else if(contents.length > 93) {
+        const reContents = contents.substring(0,94)+'...';
+        return reContents;
+      }else{
+        return contents;
+      }
+    }
   },
   computed:{
     pageCount() {
