@@ -211,6 +211,7 @@ public class PlayListDetailDTO {
         this.gd_name = gd_name;
     }
 
+
     @Override
     public String toString() {
         return "PlayListDetailDTO{" +
