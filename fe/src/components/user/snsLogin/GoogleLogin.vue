@@ -1,6 +1,6 @@
 <template>
     <div>
-      <button @click="handleClickSignOut">sign out</button><br>
+      <!-- <button @click="handleClickSignOut">sign out</button><br> -->
         <button @click="handleClickSignIn">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="55" viewBox="0 0 55 55">
                 <defs>

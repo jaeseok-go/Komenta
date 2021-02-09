@@ -1,6 +1,6 @@
 <template>
     <div id="kakao-login" class="sns-login-logo">
-        <button @click="logoutWithKakao">KakaoLogout</button>
+        <!-- <button @click="logoutWithKakao">KakaoLogout</button> -->
         <button @click="loginWithKakao">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
