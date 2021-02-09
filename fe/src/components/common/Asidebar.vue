@@ -1,104 +1,132 @@
 <template>
+  <div class="web-navigation">
+    <div class="web-navigation__header">
+      <span class="web-navigation__logo">
+        <img src="@/assets/images/KOMENTA_logo.png" alt="" />
+      </span>
+    </div>
+    <div class="web-navigation__scrollable">
+      <ul class="web-navigation__nav-list">
+        <div class="web-navigation__nav">
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Main' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-home"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">Home</span>
+              </span>
+            </router-link>
+          </li>
 
-    <div class="web-navigation">
-            <div class="web-navigation__header">
-                <span class="web-navigation__logo">
-                  <img src="@/assets/images/KOMENTA_logo.png" alt="">
-                </span>
-            </div>
-              <div class="web-navigation__scrollable">
-                <ul class="web-navigation__nav-list">
-                  
-                  <div>
-                    <li class="web-navigation__nav-list-item">
-                      <router-link :to="{name:'Main'}">
-                        <span class="sidebar-scrollable-title">
-                          <span class="sidebar-scrollable-title-icon icon-bg5"><i class="fas fa-home"></i></span>
-                          <span class="sidebar-scrollable-title-text">Home</span>
-                        </span>
-                      </router-link>
-                    </li>
-                      
-                    <li class="web-navigation__nav-list-item">
-                      <router-link :to="{name:'MyPlayList'}">
-                        <span class="sidebar-scrollable-title">
-                          <span class="sidebar-scrollable-title-icon icon-bg5"><i class="far fa-folder-open"></i></span>
-                          <span class="sidebar-scrollable-title-text">Subscriptions</span>
-                        </span>
-                      </router-link>
-                      </li>
-                    <li class="web-navigation__nav-list-item">
-                      <router-link :to="{name:'Category'}">
-                        <span class="sidebar-scrollable-title">
-                          <span class="sidebar-scrollable-title-icon icon-bg5"><i class="far fa-play-circle"></i></span>
-                          <span class="sidebar-scrollable-title-text">ALL Video</span>
-                        </span>
-                      </router-link>
-                      </li>
-                  </div>
-     
-                <div>
-                  <span id="sub-group">SOCIAL</span>
-                  <li class="web-navigation__nav-list-item">
-                    <router-link :to="{name:'People'}">
-                      <span class="sidebar-scrollable-title">
-                        <span class="sidebar-scrollable-title-icon icon-bg5"><i class="fas fa-globe"></i></span>
-                        <span class="sidebar-scrollable-title-text">People</span>
-                      </span>
-                    </router-link>
-                  </li>
-                  <li class="web-navigation__nav-list-item">
-                    <router-link :to="{ name: 'Feed', params: { id: userInfo.u_id }}">
-                      <span class="sidebar-scrollable-title">
-                        <span class="sidebar-scrollable-title-icon icon-bg5"><i class="fas fa-user-circle"></i></span>
-                        <span class="sidebar-scrollable-title-text">My Feed</span>
-                      </span>
-                    </router-link>
-                  </li>
-                </div>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'MyPlayList' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-folder-open"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">Subscriptions</span>
+              </span>
+            </router-link>
+          </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Category' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-play-circle"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">ALL Video</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
 
-                <div>
-                  <span  id="sub-group">PLAYLISTS</span>
-                    <li class="web-navigation__nav-list-item" v-for="(my,index) in myPlayList" :key="index" @click="reload(my[0].pl_id)">
-                      <router-link :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id }}" >
-                        <span class="sidebar-scrollable-title">
-                          <span class="sidebar-scrollable-title-icon icon-bg5"><i class="far fa-file-video"></i></span>
-                          <span class="sidebar-scrollable-title-text">{{my[0].pl_name}}</span>
-                        </span>
-                      </router-link>
-                    </li>
-                </div>
-              </ul>
+        <div class="web-navigation__nav">
+          <span id="sub-group">SOCIAL</span>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'People' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-globe"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">People</span>
+              </span>
+            </router-link>
+          </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Feed', params: { id: userInfo.u_id } }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-user-circle"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">My Feed</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
 
-            </div>
-      </div>
+        <div class="web-navigation__nav">
+          <span id="sub-group">PLAYLISTS</span>
+          <li
+            class="web-navigation__nav-list-item"
+            v-for="(my, index) in myPlayList"
+            :key="index"
+            @click="reload(my[0].pl_id)"
+          >
+            <router-link
+              :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id } }"
+            >
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-file-video"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">{{
+                  my[0].pl_name
+                }}</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <button @click="logout">LOGOUT</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 // import store from '@/stores/modules/user'
 
 export default {
-    methods: {
-      reload(id) {
-
-        this.$router.push(`/playlist/${id}`)
-        window.location.reload();
+  methods: {
+    reload(id) {
+      this.$router.push(`/playlist/${id}`);
+      window.location.reload();
+    },
+    logout() {
+      if (confirm('로그아웃 하시겠습니까?')) {
+        this.$store.commit('logout');
+        if (this.$route.path !== '/member/login') {
+          this.$router.push('/member/login');
+        }
       }
     },
-    computed: {
-        ...mapState({
-        userInfo: state => state.user.userInfo,
-      }),
-      ...mapState({
-        myPlayList: state => state.user.myPlayList
-      }),
-    },
-    created() {
-      const userId = this.userInfo.u_id
-      this.$store.dispatch('FETCH_MYPLAYLIST',userId)
-      console.log(this.myPlayList,'아아아아아ㅏ')
-      console.log(this.userInfo,'유저ㅏ인포???????')
-    }
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
+    }),
+    ...mapState({
+      myPlayList: (state) => state.user.myPlayList,
+    }),
+  },
+  created() {
+    const userId = this.userInfo.u_id;
+    this.$store.dispatch('FETCH_MYPLAYLIST', userId);
+    console.log(this.myPlayList, '아아아아아ㅏ');
+    console.log(this.userInfo, '유저ㅏ인포???????');
+  },
 };
 </script>

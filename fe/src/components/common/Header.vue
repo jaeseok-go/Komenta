@@ -2,7 +2,6 @@
   <div id="app">
     <!-- Searchbar with a placeholder -->
     <!-- <ion-searchbar placeholder="검색어를 입력하세요"></ion-searchbar> -->
-    <!-- <button @click="logout">LOGOUT</button> -->
     <form class="search-box" @submit.prevent="searchTemplate" :style="{border:searchBox}">
       <input type="text" id="search" placeholder="검색어를 입력하세요" v-model="keyword" v-if="isView">
       <label for="search" @click="viewSearchBox"><i class="fas fa-search icon-color"/></label>
@@ -28,14 +27,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      if (confirm('로그아웃 하시겠습니까?')) {
-        this.$store.commit('logout');
-        if (this.$route.path !== '/member/login') {
-          this.$router.push('/member/login');
-        }
-      }
-    },
    async getAllVodandUser(){
      const vods = await searchVodlist();
      this.vodlists = vods.data
