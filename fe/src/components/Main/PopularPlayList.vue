@@ -7,7 +7,7 @@
         <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">&lt;</button>
         <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">&gt;</button>
       </div>
-      <div v-if="this.popularPlaylist.size == 0">
+      <div v-if="this.popularPlaylist.length == 0">
         <div class="noRegister-text">등록된 플레이 리스트가 없습니다.</div>
       </div>
       <div class="playList" v-for="(playList, index) in paginatedData" :key="index" v-else>
@@ -21,7 +21,7 @@
           <div class="plInfo">
             <p>
               {{playList.pldetail[0].pl_name}} <br>
-              {{playList.u_nick_name}}'S PICK <br>
+              {{playList.pldetail[0].u_nickname}}'S PICK <br>
             </p>
             <p class="likeInfo">
               <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
@@ -66,8 +66,16 @@ export default {
       try{
         const response = await fetchPopularPlayList();
         console.log("popular play list!!!!!!!!!!! : ",response);
-        this.popularPlaylist = response.data;
+        for (let i = 0; i < response.data.length; i++) {
+          const now = response.data[i];
+          if (now.pldetail[0].v_id !==0) {
+            this.popularPlaylist.push(response.data[i])
+            console.log('여기오지마')
+          }
+          
+        }
         console.log('popularPlayList 저장 : ',this.popularPlaylist)
+        
       }catch(err) {
         console.log(err,"err")
       }
@@ -78,7 +86,7 @@ export default {
       return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
     },
     getUserPic(index) {
-      const profile = this.popularPlaylist[index].u_profile_pic.split('.');
+      const profile = this.popularPlaylist[index].pldetail[0].u_profile_pic.split('.');
       let picName = profile[0];
       console.log("picname : ",picName);
       return `http://i4b201.p.ssafy.io:7000/picture/profile/${picName}`;
