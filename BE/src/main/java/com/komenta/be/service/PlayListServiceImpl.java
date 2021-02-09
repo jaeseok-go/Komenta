@@ -83,4 +83,9 @@ public class PlayListServiceImpl implements PlayListService{
         return sqlSession.getMapper(PlayListMapper.class).addContentsReview(review);
     }
 
+    @Override
+    public int updatePlayListUpdateTime(int pl_id) {
+        return sqlSession.getMapper(PlayListMapper.class).updatePlayListUpdateTime(pl_id);
+    }
+
 }

@@ -21,4 +21,5 @@ public interface PlayListService {
 
     public ContentDetailDTO getContentDetail(int plc_id);
     public int addContentsReview(AddContentsReviewDTO review);
+    public int updatePlayListUpdateTime(int pl_id);
 }
