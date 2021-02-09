@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  &__profile {
+    width: 33.3%;
+
+    .cotainer__profileimg {
+      // display: block;
+      width: 80%;
+      -webkit-box-shadow: 10px 10px 5px #ccc;
+      border-radius: 1rem;
+    }
+
+  }
+
+
+  &__info {
+    flex-direction: column;
+    width: 66.7%;
+
+    &__name {
+      margin-top: 0;
+      margin-bottom: 5%;
+      font-weight: 550;
+
+
+    }
+
+    
+    &__comment {
+        margin-top: 0;
+        margin-bottom: 4%;
+        color: rgba(60, 60, 67, 0.6);
+
+      
+    }
+    
+    &__button {
+      margin-bottom: 3%;
+      background-color: #fa233b;
+      width: 100px;
+      height: 30px;
+      border-radius: 0.5rem;
+      color: white;
+
+      .nickname {
+        color: white;
+      }
+      
+    }
+    
+    
+  }
+}
