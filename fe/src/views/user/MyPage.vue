@@ -332,7 +332,7 @@ export default {
         .then((response) => {
           console.log("프로필 사진 잘 들어감",response.data);
           this.closeUserInfoModal();
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((err) => {
           console.log(err);
