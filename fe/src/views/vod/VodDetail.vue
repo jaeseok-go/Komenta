@@ -57,7 +57,9 @@ data(){
 },
 created(){
   this.getVodEpi();
+  // this.getVodDetail();
   this.getEpiComment();
+  
   // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
   const res = startVodWatch(this.$route.params.id);
   console.log('시청기록 시작',res,this.$route.params.id)
@@ -76,9 +78,9 @@ methods : {
     this.sendcommenttime = time
   },
   async getVodEpi() {
-    const epiId = this.$route.params.id;
-    console.log(epiId)  
     try {
+      const epiId = this.$route.params.id;
+      console.log(epiId)  
       const res = await fetchVodEpiDetail(epiId)
       console.log(res.data,'DETAIL???')
       this.vodEpiInfo = res.data
@@ -99,10 +101,10 @@ methods : {
     }
   },
     async getEpiComment() {
-  const epiId = this.$route.params.id;
-  console.log(epiId,'에피소드id')  
-  try {
-    const res = await fetchEpiComment(epiId)
+      try {
+        const epiId = this.$route.params.id;
+        console.log(epiId,'에피소드id')  
+        const res = await fetchEpiComment(epiId)
     console.log(res.data,'Comment??')
     this.comments = res.data
     // this.comments.sort(function (a,b) {
