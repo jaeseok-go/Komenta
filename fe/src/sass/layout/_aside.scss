@@ -1,17 +1,10 @@
-.asideOn {
-  padding-left: 220px;
+a:hover {
+  // background-color: hotpink;
+  color: transparent;
 }
 
-#sub-group {
-  display: inline-block;
-  margin-top: 22px;
-  margin-bottom: 0.8rem;
-  font-size: 10px;
-  line-height: 1.3;
-  font-weight: 600;
-  letter-spacing: 0;
-  opacity: 0.5;
-  text-transform: uppercase;
+.asideOn {
+  padding-left: 220px;
 }
 
 .web-navigation {
@@ -105,6 +98,10 @@
       margin-inline-end: 0px;
       padding-inline-start: 5px;
 
+      .web-navigation__nav {
+        margin-bottom: 1em;
+      }
+
       .web-navigation__nav-list-item {
         text-decoration: none;
         height: 32px;
@@ -146,7 +143,7 @@
             letter-spacing: 0;
             flex: 1;
             color: $labelPrimary;
-            font-size: 17px;
+            font-size: 15px;
             line-height: 1.29412;
             font-weight: 400;
             letter-spacing: 0;
@@ -171,11 +168,6 @@
 
 // }
 
-a:hover {
-  // background-color: hotpink;
-  color: transparent;
-}
-
 .web-navigation__nav-list-item.active {
   border: 1px solid white;
 }
@@ -183,4 +175,27 @@ a:hover {
 .web-navigation__nav-list-item:hover {
   border-color: white;
   background-color: #d3d3d3;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+#sub-group {
+  display: inline-block;
+  margin-top: 22px;
+  margin-bottom: 0.8rem;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0;
+  opacity: 0.5;
+  text-transform: uppercase;
 }
