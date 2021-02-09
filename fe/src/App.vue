@@ -1,11 +1,11 @@
 <template>
     <div id="app">
-      <aside>
+      <aside v-if="isLogin">
         <Asidebar></Asidebar>
       </aside>
       <section>
-        <Header id="header-section"></Header>
-        <router-view id="page-view"></router-view>
+        <Header id="header-section" v-if="isLogin"></Header>
+        <router-view id="page-view" :class="{asideOn: isLogin}"></router-view>
         <!--  :key="$route.fullPath" -->
       </section>
       <!-- <nav class="bottomNav">
@@ -20,14 +20,26 @@
 // import "@/css/index.css"
 import Asidebar from '@/components/common/Asidebar'
 import Header from '@/components/common/Header'
+// import store from '@/stores/modules/user'
+import { mapState } from 'vuex'
 // import Main from '@/components/Main/Main'
 
 export default {
+  name: 'App',
   components: {
     Asidebar,
     Header
   },
-  name: 'App',
+  computed: {
+    ...mapState({
+      userInfo:state => state.user.userInfo
+    }),
+    isLogin() {
+      console.log(this.userInfo.u_id)
+      if(this.userInfo.u_id === null) return false;
+      else return true;
+    }
+  },
 }
 </script>
 
@@ -45,7 +57,7 @@ aside {
 
 section {
   height: 100vh;
-  padding-left: 220px;
+  /* padding-left: 220px; */
   width: 100%;
   
 

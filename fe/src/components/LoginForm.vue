@@ -11,7 +11,7 @@
     <b-container class="container-setting">
       <GoogleLogin/>
       <kakao/>
-      <hr class="inContent or" />
+      <hr class="inContent or"/>
       <b-col class="bcol-login">
         <b-form @submit.prevent="loginComplete">
           <div class="input-group">
@@ -54,7 +54,7 @@
               v-model="password"
               class="form-control form-control-lg"
               :type="passwordType"
-              placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
+              placeholder="●●●●●●●●(8자 이상)"
             />
             <div class="input-group-append">
               <div class="input-group-text input-group-button" @click="viewPassword">
