@@ -169,7 +169,8 @@ export default {
     // console.log("들어가기전 최종",this.vod_all);
     let formData1 = new FormData();
     let vodTitle = this.vod_all.v_title;
-    let vodReplace = vodTitle.replace(" ","");
+    let vodReplace = vodTitle.replace(/(\s*)/g, "");
+    console.log(vodReplace)
     formData1.append("file",this.file, String(this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4'))
     let formData2 = new FormData();
     // let poster_name = this.file1.name;
