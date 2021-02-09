@@ -2,7 +2,7 @@
     <div >
         <div>
             <!-- <button @click="getCurTime">현재시간?</button> -->
-            <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" autoplay>
+            <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
 
@@ -25,7 +25,7 @@
 
 <script>
 import { fetchEpiComment,  commentInsert } from '@/api/comment'
-
+// import 
 export default {
     props: { 
     // 변수 : 변수타입 
@@ -45,48 +45,22 @@ export default {
             selectedId:0,
             videoCurrentTime: 0,
             comments : [],
-                userComment:'',
-                now: "00:00:00",
-                pre_diffHeight :0,
-                bottom_flag : true,
+            userComment:'',
+            now: "00:00:00",
+            pre_diffHeight :0,
+            bottom_flag : true,
         }
     },
     created() {
         // comments 시간순으로 정렬, parseFloat(문자열 실수로 크기비교)
         this.getEpiComment();
-        
-   
-
-        // this.videoCurrentTime = this.$refs.video.currentTime
-        // console.log(this.videoCurrentTime, this.$refs.video.currentTime)
-        // const veId = this.$route.parmas.id;
-        // this.getVsideo()
-    },
-    computed: {
-        // commentSort(){
-        //     this.comments.sort(function (a,b) {
-        //     return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
-        // })
-        // }
-        // comScroll() {
-        //     const scrollDiv = document.getElementById('comment_div');
-        //     // scrollDiv.scrollTop = scrollDiv.scrollHeight;
-        //     scrollDiv.isScrollBotttom = true;
-        //     scrollDiv.addEventListener('scroll',(event) => {
-        //         if (event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight) {
-        //             scrollDiv.isScrollBotttom = true;
-        //         } else {
-        //             scrollDiv.isScrollBotttom = false;
-        //         }
-        //     })
-        // }
     },
     methods:{   
     async getEpiComment() {
     const epiId = this.$route.params.id;
     console.log(epiId)  
     try {
-      const res = await fetchEpiComment(epiId)
+      const res = await fetchEpiComment(this.veId)
       console.log(res.data,'Comment??')
       this.comments = res.data
       this.comments.sort(function (a,b) {
@@ -155,19 +129,19 @@ export default {
             // console.log(this.videoCurrentTime,vod.currentTime);
         },
         async createComment() {
-        try {
+            try {
+            const commentInfo = {
+                c_contents : this.userComment,
+                c_playtime : this.videoCurrentTime,
+                // 댓글 등록 시간?? 비디오시간?
+                u_id : this.$store.user.userInfo.u_id,
+                ve_id : this.veId
+            }
+                console.log(commentInfo,'너 는 뭐 냐')
         // c_contents(댓글 내용), u_playtime(등록 시간), u_id(회원 아이디), ve_id(vod 회차 아이디)
-        const commentInfo = {
-            c_contents : this.userComment,
-            u_playtime : this.videoCurrentTime,
-            // 댓글 등록 시간?? 비디오시간?
-            // c_playtime : this.nowTime,
-            // c_upload_time : "string",
-            u_id : this.$store.user.userInfo.u_id,
-            ve_id : this.veId
-        }
         const res = await commentInsert(commentInfo)
         console.log(res,'댓글써졌니?')
+
         } catch {
         console.log('댓글썼는데 실패함')
         }
