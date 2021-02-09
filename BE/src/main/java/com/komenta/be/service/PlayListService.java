@@ -1,6 +1,7 @@
 package com.komenta.be.service;
 
 import com.komenta.be.model.playlist.*;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public interface PlayListService {
     public int playlist_info_modify(PlayListDTO dto);
     public int playlist_delete(int pl_id);
     public List<PlayListGetAllDTO> playlist_info(int pl_id);
+    public List<Integer> select_follower_pl_id(int u_id);
     public List<Integer> select_favorite_pl_id(int u_id);
     public List<Integer> select_regist_pl_id(int u_id);
     public List<PlaytListBestDTO> getBestPlayList();

@@ -47,6 +47,16 @@
         ON M.ve_id = N.ve_id
     </select>
 
+    <select id="select_follower_pl_id" parameterType="int" resultType="int">
+        SELECT B.pl_id
+        FROM (SELECT f_id
+              FROM follow
+              WHERE u_id = #{u_id}) A LEFT OUTER JOIN play_list B
+        ON A.f_id = B.u_id
+        WHERE B.pl_update_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        ORDER BY pl_update_date desc
+    </select>
+
     <select id="select_favorite_pl_id" parameterType="int" resultType="int">
         SELECT pl_id
         FROM play_list_good
