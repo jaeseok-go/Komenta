@@ -3,7 +3,7 @@
         <div class="temp-bc-title">
             <img src="@/assets/images/KOMENTA_logo.png" alt="">
             <hr>
-        </div> -->
+        </div>
         <!-- <button @click="signOut">Logout</button> -->
         <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
       
