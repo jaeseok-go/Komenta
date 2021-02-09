@@ -2,6 +2,9 @@ import { loginUser,
     updateMyInfo,
     fetchLikePlaylist, fetchfollowinglist, fetchMyPlaylist, fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
+
+
+
 // localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
     adminAuth: 0,
@@ -113,11 +116,17 @@ const actions = {
         } else {
             commit('loginError')
         }
+        console.log(userData,'유저데이터')
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
-        const recentPlaylist = await fetchRecentPlaylist(userData.userId)
+        const recentPlaylist = await fetchRecentPlaylist()
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
+        console.log('여기 스토어ㅋㅋ?')
         commit('setRecentPlaylist', recentPlaylist)
-        
+        console.log(recentPlaylist,'리센플리')
+
+        //로그인할때, 내가 만든 플레이리스트 목록 저장 
+        const myPlayList = await fetchMyPlaylist(state.userInfo.u_id)
+        commit('setMyPlayList',myPlayList)
         
         console.log(state.userInfo)
         return response
@@ -153,9 +162,7 @@ const actions = {
     },
     //팔로잉 조회
     async FETCH_FOLLOWING({ commit }, userId) {
-        console.log('팔로잉조회 액션 ..........................')
         const followingList = await fetchfollowinglist(userId)
-        console.log(followingList,'여기 원래 닉네임도 들어와야됨 진짜..ㅋㅋ')
         commit('setMyfollowingList', followingList )
     },
     async FETCH_MYPLAYLIST({ commit }, userId){
