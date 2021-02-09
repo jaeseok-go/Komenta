@@ -33,7 +33,7 @@ public class PictureController {
     )
     public @ResponseBody byte[] getProfileImage(@PathVariable(name = "fileName") String fileName) throws IOException {
         String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
-        path += "home/ubuntu/Picture/Profile/";
+        path += "home/ubuntu/Picture/User/";
         System.out.println(path+fileName+".jpg");
         InputStream image = new FileInputStream(path+fileName+".jpg");
         byte[] imageByte = IOUtils.toByteArray(image);
