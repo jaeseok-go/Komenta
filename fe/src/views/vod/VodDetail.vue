@@ -27,6 +27,7 @@ import Header from '@/components/common/Header';
 // import Asidebar from '@/components/common/Asidebar';
 import Comments from '@/views/vod/Comments';
 import { fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
+import { fetchEpiComment } from '@/api/comment'
 import Video from '@/components/vod/Video'
 import VodAllEpi from '@/components/vod/VodAllEpi'
 
@@ -45,7 +46,7 @@ data(){
     vodEpiInfo :{},
     // vod 세부정보
     vodInfo : [],
-
+    comments:[],
     sendcommenttime:"",
   }
 },
@@ -82,6 +83,22 @@ methods : {
       console.log(this.vodInfo,'?????')
     } catch {
       console.log('vod episode 에러')
+    }
+  },
+    async getEpiComment() {
+  const epiId = this.$route.params.id;
+  console.log(epiId)  
+  try {
+    const res = await fetchEpiComment(epiId)
+    console.log(res.data,'Comment??')
+    this.comments = res.data
+    this.comments.sort(function (a,b) {
+          return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+      })
+      console.log(this.comments)
+
+  } catch {
+    console.log('epicomment 에러!!')
     }
   },
 
