@@ -93,7 +93,10 @@ export default {
       return year[0];
     },
     getVeContents(contents) {
-      if(contents.length > 93) {
+      if(contents === null){
+        const errStr = "해당 VOD 줄거리를 제공하지 않습니다.";
+        return errStr;
+      }else if(contents.length > 93) {
         const reContents = contents.substring(0,94)+'...';
         return reContents;
       }else{

@@ -778,9 +778,12 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   font-size: 18px;
 }
 
+.selectTab {
+  margin-left: 1rem;
+}
+
 .col {
-  position: relative;
-  bottom: 48px;
+  bottom: 48px !important;
 }
 
 .scene {
@@ -862,7 +865,33 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .half-card {
-  display: inline-block;
+  display: inline-table;
+}
+
+.nowPlaying {
+  text-align: center;
+}
+
+.nowPlaying .poster img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  border-radius: 50%;
+}
+
+.nowPlaying .poster .posterCD {
+  position: relative;
+  bottom: 203px;
+  left: 88px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+.nowPlaying .poster h3 {
+  font-weight: 600;
 }
 
 .playList {
