@@ -13,7 +13,7 @@
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
           </div>
-          <div class="info" @click="goVod(vod.v_id)">
+          <div class="info" @click="goVod(vod.ve_id)">
             <header>
               <h1>{{ vod.v_title }} {{ vod.ve_episode_num }}회</h1>
               <span class="year">{{ vod.ve_upload_date }}</span>
@@ -79,8 +79,8 @@ export default {
             }
         }
     },
-    goVod(vId) {
-      this.$router.push(`/voddetail/${vId}`);
+    goVod(veId) {
+      this.$router.push(`/voddetail/${veId}`);
     }
   },
   computed: {
