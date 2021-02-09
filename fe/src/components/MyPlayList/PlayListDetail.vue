@@ -30,8 +30,7 @@
         >
         <td>{{playlist.g_name}}/{{playlist.gd_name}}</td>
           <td>  {{playlist.v_title}} {{playlist.ve_episode_num}}회  </td>
-          <td v-if="showMyRecent() && playlist.vh_comment"><input type="text" :placeholder="`${playlist.vh_comment}`" :value='review' @key.enter="addComment(playlist.plc_id)"></td>
-          <td v-else-if="showMyRecent() && !playlist.vh_comment"><input type="text" placeholder="리뷰를 입력해주세요" v-model='review' @key.enter="addComment(playlist.plc_id)"></td>
+          <td v-if="showMyRecent()"><input type="text" v-model='review' :placeholder="playlist.vh_comment"  @keydown.enter="addComment(playlist.plc_id)"></td>
           <td v-else>{{ playlist.vh_comment }}</td>
         </tr>
       </tbody>
@@ -56,6 +55,9 @@ export default {
         }
     },
     methods: {
+      playlistReview(userreview){
+        this.review = userreview;
+      },
         async addComment(plId){
             try {
                 const commentInfo = {
@@ -86,6 +88,7 @@ export default {
     },
     created() {
         this.getStreamingListDetail()
+
     },
     computed: {
         ...mapState({
