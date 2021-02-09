@@ -6,7 +6,7 @@ public class PlayListDetailDTO {
     private String pl_comment;
     private int pl_good_count;
     private int u_id;
-    private String u_nick_name;
+    private String u_nickname;
     private String u_profile_pic;
     private int plc_id;
     private int v_id;
@@ -25,7 +25,7 @@ public class PlayListDetailDTO {
     public PlayListDetailDTO() {
     }
 
-    public PlayListDetailDTO(int pl_id, String pl_name, String pl_comment, int pl_good_count, int u_id, String u_nick_name,
+    public PlayListDetailDTO(int pl_id, String pl_name, String pl_comment, int pl_good_count, int u_id, String u_nickname,
                              String u_profile_pic, int plc_id, int v_id, String v_title, String v_actors, String v_director,
                              String v_poster, int ve_id, int ve_episode_num, int vh_id, String vh_comment, int vh_score,
                              String g_name, String gd_name) {
@@ -34,7 +34,7 @@ public class PlayListDetailDTO {
         this.pl_comment = pl_comment;
         this.pl_good_count = pl_good_count;
         this.u_id = u_id;
-        this.u_nick_name = u_nick_name;
+        this.u_nickname = u_nickname;
         this.u_profile_pic = u_profile_pic;
         this.plc_id = plc_id;
         this.v_id = v_id;
@@ -91,12 +91,12 @@ public class PlayListDetailDTO {
         this.u_id = u_id;
     }
 
-    public String getU_nick_name() {
-        return u_nick_name;
+    public String getU_nickname() {
+        return u_nickname;
     }
 
-    public void setU_nick_name(String u_nick_name) {
-        this.u_nick_name = u_nick_name;
+    public void setU_nickname(String u_nickname) {
+        this.u_nickname = u_nickname;
     }
 
     public String getU_profile_pic() {
@@ -220,7 +220,7 @@ public class PlayListDetailDTO {
                 ", pl_comment='" + pl_comment + '\'' +
                 ", pl_good_count=" + pl_good_count +
                 ", u_id=" + u_id +
-                ", u_nick_name='" + u_nick_name + '\'' +
+                ", u_nickname='" + u_nickname + '\'' +
                 ", u_profile_pic='" + u_profile_pic + '\'' +
                 ", plc_id=" + plc_id +
                 ", v_id=" + v_id +
