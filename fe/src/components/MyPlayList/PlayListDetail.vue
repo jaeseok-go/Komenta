@@ -1,8 +1,7 @@
 <template>
   <div>
       <!-- 여기 플레이리스트 타이틀, 플레이 리스트 대표사진, 플레이 리스트 작성자, 플레이 리스트 안에 콘텐츠들(각각 장르, 제목, 몇화인지, 러닝타임)-->
-      <img :src="getUserProfile(playlists[0].u_profile_pic)" alt="유저프로필" width="20%"> {{ playlists[0].u_nickname }}
-      <h1>{{playlists[0].pl_name}}</h1>
+      <img :src="getUserProfile(playlists[0].u_profile_pic)" alt="" width="20%"> {{ playlists[0].u_nickname }}
       <h3>{{playlists[0].pl_comment}}</h3>
        
     <v-simple-table
@@ -81,9 +80,12 @@ export default {
             const plId = this.$route.params.id;
             const res = await fetchPlayListDetail(plId)
             this.playlists = res.data
+            console.log(this.playlists,'dd')
         },
         getUserProfile(path) {
-            return require(`@/assets/images/${path}`)
+          const profile = path.split('.')
+          console.log(`http://i4b201.p.ssafy.io:7000/picture/profile/${profile[0]}`)
+            return `http://i4b201.p.ssafy.io:7000/picture/profile/${profile[0]}`
         }
     },
     created() {

@@ -59,16 +59,14 @@
 
                 <div>
                   <span  id="sub-group">PLAYLISTS</span>
-                    <li class="web-navigation__nav-list-item" v-for="myPlayList in myPlayList.data" :key="myPlayList.id">
-                      <router-link :to="{ name: 'PlayListDetail', params: { id: myPlayList[0].pl_id }}">
+                    <li class="web-navigation__nav-list-item" v-for="(my,index) in myPlayList" :key="index">
+                      <router-link :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id }}">
                         <span class="sidebar-scrollable-title">
                           <span class="sidebar-scrollable-title-icon icon-bg5"><i class="far fa-file-video"></i></span>
-                          <span class="sidebar-scrollable-title-text rgba(0, 0, 0, 0.95);">{{myPlayList[0].pl_name}}</span>
+                          <span class="sidebar-scrollable-title-text">{{my[0].pl_name}}</span>
                         </span>
                       </router-link>
                     </li>
-
-
                 </div>
               </ul>
 
@@ -92,6 +90,8 @@ export default {
     created() {
       const userId = this.userInfo.u_id
       this.$store.dispatch('FETCH_MYPLAYLIST',userId)
+      console.log(this.myPlayList,'아아아아아ㅏ')
+      console.log(this.userInfo,'유저ㅏ인포???????')
     }
 };
 </script>
