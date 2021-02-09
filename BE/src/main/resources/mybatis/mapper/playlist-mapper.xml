@@ -110,8 +110,12 @@
     </select>
 
     <select id="getBestPlayList" resultType="com.komenta.be.model.playlist.PlaytListBestDTO">
-        select pl_id as plb_id, COUNT(pl_id) as plb_cnt, RANK() Over (ORDER BY count(pl_id) desc) plb_rank
-        from  play_list_good GROUP BY pl_id ORDER BY count(pl_id) DESC LIMIT 10 ;
+        SELECT B.pl_id AS plb_id, (case when C.pl_good_count IS NULL then 0 ELSE C.pl_good_count END) AS plb_cnt, RANK() Over (ORDER BY plb_cnt desc) AS plb_rank
+        FROM play_list B LEFT OUTER JOIN (SELECT pl_id, count(*) AS pl_good_count
+                                          FROM play_list_good
+                                          GROUP BY pl_id) C
+                                         ON B.pl_id = C.pl_id
+            LIMIT 10
 
     </select>
 
