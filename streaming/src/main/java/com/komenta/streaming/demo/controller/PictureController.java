@@ -1,12 +1,10 @@
 package com.komenta.streaming.demo.controller;
 
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -19,13 +17,28 @@ public class PictureController {
             value = "/poster/{fileName}",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public byte[] getImageWithMediaType(@PathVariable("fileName") String fileName) throws IOException {
+    public @ResponseBody byte[] getPosterImage(@PathVariable(name = "fileName") String fileName) throws IOException {
         String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
         path += "home/ubuntu/Picture/Poster/";
         System.out.println(path+fileName+".jpg");
-        InputStream in = getClass().getResourceAsStream(path+fileName+".jpg");
-        System.out.println(in.readAllBytes());
-        return IOUtils.toByteArray(in);
+        InputStream image = new FileInputStream(path+fileName+".jpg");
+        byte[] imageByte = IOUtils.toByteArray(image);
+        System.out.println(imageByte);
+        image.close();
+        return imageByte;
     }
-
+    @GetMapping(
+            value = "/profile/{fileName}",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public @ResponseBody byte[] getProfileImage(@PathVariable(name = "fileName") String fileName) throws IOException {
+        String path = Paths.get(System.getProperty("user.dir")).getFileSystem().getRootDirectories().iterator().next().toString();
+        path += "home/ubuntu/Picture/User/";
+        System.out.println(path+fileName+".jpg");
+        InputStream image = new FileInputStream(path+fileName+".jpg");
+        byte[] imageByte = IOUtils.toByteArray(image);
+        System.out.println(imageByte);
+        image.close();
+        return imageByte;
+    }
 }
