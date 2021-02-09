@@ -310,6 +310,8 @@ export default {
                 await addPlaylist(playlistinfo)
                 this.showModal = false
                 this.getUserPlayList();
+                
+                this.$store.dispatch('FETCH_MYPLAYLIST',this.userInfo.u_id)
             } catch {
                 console.log('플레이리스트 생성 실패')
             }
