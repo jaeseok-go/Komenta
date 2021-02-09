@@ -63,10 +63,14 @@ export default {
     },
     async getPopularPlayList() {
       //좋아요가 많은 순서대로 받아올수있을지? => ok
-      const response = await fetchPopularPlayList();
-      console.log("popular play list : ",response);
-      this.popularPlaylist = response.data;
-      console.log('popularPlayList 저장 : ',this.popularPlaylist)
+      try{
+        const response = await fetchPopularPlayList();
+        console.log("popular play list!!!!!!!!!!! : ",response);
+        this.popularPlaylist = response.data;
+        console.log('popularPlayList 저장 : ',this.popularPlaylist)
+      }catch(err) {
+        console.log(err,"err")
+      }
     },
     getPoster(index) {
       var poster = this.popularPlaylist[index].pldetail[0].v_poster;
@@ -77,7 +81,7 @@ export default {
       const profile = this.popularPlaylist[index].u_profile_pic.split('.');
       let picName = profile[0];
       console.log("picname : ",picName);
-      return `http://i4b201.p.ssafy.io:7000/picture/user/${picName}`;
+      return `http://i4b201.p.ssafy.io:7000/picture/profile/${picName}`;
     },
   },
   computed: {
