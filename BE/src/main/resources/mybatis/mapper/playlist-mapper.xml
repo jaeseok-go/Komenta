@@ -125,4 +125,10 @@
                        FROM play_list_contents
                        WHERE plc_id = #{plc_id});
     </update>
+
+    <update id="updatePlayListUpdateTime" parameterType="int">
+        UPDATE play_list
+        SET pl_update_date = NOW()
+        WHERE pl_id = #{pl_id}
+    </update>
 </mapper>

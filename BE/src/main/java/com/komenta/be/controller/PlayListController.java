@@ -173,6 +173,7 @@ public class PlayListController {
     })
     @PostMapping("/move_history_to_playlist")
     public int moveHistoryToPlaylist(@RequestBody PlayListFromHistoryDTO move_info){
+        playListService.updatePlayListUpdateTime(move_info.getPl_id());
         return playListService.moveHistoryToPlaylist(move_info);
     }
 
@@ -184,6 +185,7 @@ public class PlayListController {
     })
     @PostMapping("/move_playlist_to_playlist")
     public int movePlaylistToPlaylist(@RequestBody PlayListFromPlayListDTO move_info){
+        playListService.updatePlayListUpdateTime(move_info.getPl_id());
         return playListService.movePlaylistToPlaylist(move_info);
     }
 
