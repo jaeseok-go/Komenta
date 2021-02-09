@@ -1,8 +1,12 @@
 <template>
   <b-col>
     <div class="btn-cover">
-      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">&lt;</button>
-      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">&gt;</button>
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+      </button>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-right']"/>
+      </button>
     </div>
     <ul class="stage clearfix">
       <li v-if="this.popularVODs.length == 0">
@@ -14,15 +18,17 @@
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
           </div>
           <div class="info" @click="goVod(vod.ve_id)">
-            <header>
+            <header class="info-text">
               <h1>{{ vod.v_title }} {{ vod.ve_episode_num }}회</h1>
-              <span class="year">{{ vod.ve_upload_date }}</span>
+              <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
+              <hr>
+              <span v-text="getVeContents(vod.ve_contents)"></span>
               <!-- <span class="rating">PG</span>
             <span class="duration">130 minutes</span> -->
             </header>
-            <p>
-              보러가기
-            </p>
+            <div>
+              <button>보러가기</button>
+            </div>
           </div>
         </div>
       </li>
@@ -81,6 +87,18 @@ export default {
     },
     goVod(veId) {
       this.$router.push(`/voddetail/${veId}`);
+    },
+    getRegistDate(date){
+      const year = date.split(" ");
+      return year[0];
+    },
+    getVeContents(contents) {
+      if(contents.length > 93) {
+        const reContents = contents.substring(0,94)+'...';
+        return reContents;
+      }else{
+        return contents;
+      }
     }
   },
   computed: {
@@ -107,57 +125,5 @@ export default {
 @import '../../../public/css/component.css';
 @import '../../../public/css/demo.css';
 @import '../../../public/css/normalize.css';
-.col {
-  position: relative;
-  bottom:65px;
-}
 
-.scene{
-  width: 200px;
-  height: 330px;
-  margin: 30px 25px 10px 25px;
-}
-
-.movie {
-  width: 200px;
-  height: 330px;
-}
-
-.movie .poster, .movie .info {
-  width: 200px;
-  height: 330px;
-}
-
-.movie .poster {
-  transform: translateZ(100px);
-}
-
-.movie .info {
-  transform: rotateY(90deg) translateZ(100px);
-}
-
-.csstransforms3d .movie::after {
-  width: 200px;
-  height: 200px;
-  transform: rotateX(90deg) translateY(99px);
-  box-shadow: 0 22px 33px rgb(0 0 0 / 30%);
-}
-
-.noRegister-text {
-  position: relative;
-  top: 50px;
-}
-
-
-.btn-cover {
-  text-align: right;
-}
-.btn-cover .page-btn {
-  width: 5rem;
-  height: 2rem;
-  letter-spacing: 0.5px;
-}
-.btn-cover .page-count {
-  padding: 0 1rem;
-}
 </style>

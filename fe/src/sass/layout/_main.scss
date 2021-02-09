@@ -1,3 +1,81 @@
+//main - 인기순, 댓글순, 최신순 정렬
+.col {
+  position: relative;
+  bottom: 48px;
+}
+
+.scene {
+  width: 170px !important;
+  height: 280px !important;
+  margin: 30px 25px 10px 25px !important;
+}
+
+.movie {
+  width: 170px !important;
+  height: 280px !important;
+}
+
+.movie .poster,
+.movie .info {
+  width: 170px !important;
+  height: 280px !important;
+}
+
+.movie .poster {
+  transform: translateZ(83px) !important;
+}
+
+.movie .info {
+  transform: rotateY(90deg) translateZ(83px) !important;
+  cursor: inherit !important;
+
+  & .info-text {
+    color: #000 !important;
+    text-shadow: none !important;
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+  & div {
+    text-align: center;
+    margin-top: 1rem;
+
+    & button {
+      background-color: $komenta-color;
+      border-radius: 5px;
+      padding: 0.2rem 0.3rem;
+      color: white;
+    }
+  }
+}
+
+.csstransforms3d .movie::after {
+  width: 170px !important;
+  height: 170px !important;
+  transform: rotateX(90deg) translateY(83px) !important;
+  box-shadow: 0 22px 33px rgba(0, 0, 0, 0.3) !important;
+}
+
+.noRegister-text {
+  position: relative !important;
+  top: 50px !important;
+}
+
+.btn-cover {
+  text-align: right !important;
+  font-size: 20px;
+  margin-right: 1rem;
+}
+.btn-cover .page-btn {
+  width: 3rem !important;
+  height: 2rem !important;
+  letter-spacing: 0.5px !important;
+  color: $komenta-color;
+}
+.btn-cover .page-count {
+  padding: 0 1rem !important;
+}
+
 //main - now playing
 .half-card {
   display: inline-block;
