@@ -97,7 +97,8 @@ const mutations = {
         state.myUnFollowingList = unfollowingList
     },
     setMyPlayList(state, myPlayList){
-        state.myPlayList = myPlayList
+        state.myPlayList = myPlayList.data
+        console.log(state.myPlayList,'마이플레이...')
     },
     setUserFeed(state, userFeed){
         state.userFeed = userFeed
