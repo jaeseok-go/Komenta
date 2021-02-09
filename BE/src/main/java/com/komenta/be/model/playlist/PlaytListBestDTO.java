@@ -8,6 +8,7 @@ public class PlaytListBestDTO {
     private int plb_rank;
     private List<PlayListDetailDTO> pldetail;
     public PlaytListBestDTO() {
+
     }
 
     public PlaytListBestDTO(int plb_id, int plb_cnt, int plb_rank, List<PlayListDetailDTO> pldetail) {
