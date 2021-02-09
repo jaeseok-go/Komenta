@@ -5,7 +5,7 @@
       </aside>
       <section>
         <Header id="header-section"></Header>
-        <router-view id="page-view"></router-view>
+        <router-view id="page-view" :key="$route.fullPath"></router-view>
       </section>
       <!-- <nav class="bottomNav">
         바닥 고정 네비게이션
