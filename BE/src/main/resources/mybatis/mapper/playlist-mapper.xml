@@ -115,7 +115,7 @@
                                           FROM play_list_good
                                           GROUP BY pl_id) C
                                          ON B.pl_id = C.pl_id
-        LIMIT 10
+         LIMIT 10
 
     </select>
 
