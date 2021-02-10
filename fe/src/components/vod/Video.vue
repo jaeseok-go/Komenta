@@ -9,7 +9,7 @@
             <div v-for="(comment,index) in comments" :key="index">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn">
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
-                  <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
+                  <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}</span>    
                 </p>
             </div>
             </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { fetchEpiComment,  commentInsert } from '@/api/comment';
+import { fetchEpiComment,  commentInsert} from '@/api/comment';
 import {endVodWatch} from '@/api/vod';
 import {mapState} from 'vuex';
 
@@ -164,7 +164,22 @@ export default {
 
 
 
-  }
+  },
+  likeComment(cId){
+      const commentInfo = {
+        c_id : cId,
+        u_id : this.userInfo.u_id
+      }
+      this.$emit('likeComment',commentInfo)
+      
+  },
+  unlikeComment(cId){
+      const commentInfo = {
+        c_id : cId,
+        u_id : this.userInfo.u_id
+      }
+      this.$emit('unlikeComment',commentInfo)
+  },
     },
     watch : {
         sendcommenttime : function() {

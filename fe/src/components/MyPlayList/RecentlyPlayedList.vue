@@ -19,7 +19,7 @@
           </div> -->
           <!-- vod poster -->
           <div class="vodListPoster">
-            <img :src="getPoster(index)">
+            <img :src="getPoster(index)" @click="goVodDetail(vod.ve_id)">
             <!-- vod 개요(mouseon) -->
           </div>
         </div>
@@ -40,7 +40,8 @@ export default {
     return {
       pageNum:0,
       historyList:[],
-      episodeList:[]
+      episodeList:[],
+      playlists:[]
     }
   },
   created() {
@@ -75,6 +76,9 @@ export default {
     }
   },
   methods: {
+    goVodDetail(veId){
+      this.$router.push(`/voddetail/${veId}`)
+    },
     nextPage() {
       this.pageNum += 1;
     },
@@ -83,7 +87,7 @@ export default {
     },
     getPoster(index) {
       const poster = String(this.episodeList[index].gd_id+'_'+ this.episodeList[index].v_title);
-      console.log("popular poster name : ",poster)
+      // console.log("popular poster name : ",poster)
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
       //this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg' //포스터 이름
       //this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4' //vod 영상 이름
@@ -91,7 +95,7 @@ export default {
     },
     async fetchRPlayList(){
       const response = await fetchRecentPlaylist(this.userInfo.u_id);
-      console.log("최근 시청 VOD 정보 : ",response);
+      // console.log("최근 시청 VOD 정보 : ",response);
       this.historyList = response.data.historyList;
       this.episodeList = response.data.episodeList;
     },

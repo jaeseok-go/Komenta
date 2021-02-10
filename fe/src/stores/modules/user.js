@@ -45,14 +45,12 @@ const mutations = {
     },
     fetchInfo(state, userData) {
         state.userInfo = userData
-        console.log(state.userInfo,'제대로 들어갔냐')
     },
     setEmail(state, email) {
         state.userInfo.u_email = email
     },
     setPhonenum(state, phone) {
         state.userInfo.u_phone_number = phone
-        console.log(state.userInfo, '제대로 들어갔냐')
 
     },
     logout(state) {
@@ -90,6 +88,7 @@ const mutations = {
     },
     setLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
+        console.log('유저가 좋아요한 플레이리스트 : ',state.likePlaylist)
     },
     setMyfollowingList(state, followingList){
         state.myFollowingList = followingList
@@ -98,8 +97,7 @@ const mutations = {
         state.myUnFollowingList = unfollowingList
     },
     setMyPlayList(state, myPlayList){
-        state.myPlayList = myPlayList.data
-        console.log(state.myPlayList,'마이플레이...')
+        state.myPlayList = myPlayList
     },
     setUserFeed(state, userFeed){
         state.userFeed = userFeed
@@ -108,7 +106,7 @@ const mutations = {
 
 const actions = {
     async LOGIN({ commit }, userData) {
-        console.log("야야야야야ㅑ야", commit, userData)
+        console.log("로그인한다", commit, userData)
         const response = await loginUser(userData);
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
@@ -122,11 +120,11 @@ const actions = {
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist()
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
-        commit('setRecentPlaylist', recentPlaylist)
+        commit('setRecentPlaylist', recentPlaylist.data)
 
         //로그인할때, 내가 만든 플레이리스트 목록 저장 
         const myPlayList = await fetchMyPlaylist(state.userInfo.u_id)
-        commit('setMyPlayList',myPlayList)
+        commit('setMyPlayList',myPlayList.data)
         
         console.log(state.userInfo)
         return response
@@ -158,16 +156,16 @@ const actions = {
     async FETCH_LIKEPLAYLIST({ commit }, userId) {
         //2-1.로그인할때 u_id로 내가 좋아요 누른 모든 플레이리스트 목록 갖고오기
         const likePlaylist = await fetchLikePlaylist(userId)
-        commit('setLikePlaylist', likePlaylist)
+        commit('setLikePlaylist', likePlaylist.data)
     },
     //팔로잉 조회
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)
-        commit('setMyfollowingList', followingList )
+        commit('setMyfollowingList', followingList.data )
     },
     async FETCH_MYPLAYLIST({ commit }, userId){
         const myPlayList = await fetchMyPlaylist(userId)
-        commit('setMyPlayList',myPlayList)
+        commit('setMyPlayList',myPlayList.data)
     },
 
 
