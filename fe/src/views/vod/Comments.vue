@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div v-for="comment in comments" :key="comment.c_id">
+    <div v-for="comment in commentsList" :key="comment.c_id">
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | 
       <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }} </span>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="appBody">
-        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :comments="comments"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
+        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
         <hr>
         <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
         <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
@@ -111,11 +111,11 @@ methods : {
   },
     likeComment(commentInfo){
       userLikeComment(commentInfo)
-      this.getEpiComment();
+
   },
   unlikeComment(commentInfo){
       userUnlikeComment(commentInfo)
-      this.getEpiComment();
+ 
   },
 
 },
