@@ -3,7 +3,7 @@
     <!-- {{ comments }} -->
     <!-- playtime에 댓글이 떠야됨 -->
     <div v-for="comment in comments" :key="comment.c_id">
-      <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}} </span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | 
+      <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | 
       <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
     </div>
   </div>
@@ -26,6 +26,17 @@ export default {
       goCommentTime(time){
         this.$emit('goCommentTime',time)
       },
+      timeToSec(time){
+        let splitTime = time.split(':')
+        // console.log(splitTime)
+        let changeTime = Number(splitTime[splitTime.length-1])
+        for (let i = splitTime.length-2; i >= 0; i--) {
+            let element = Number(splitTime[i]);
+            changeTime += element*(60**(splitTime.length-i-1))
+            // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
+        }
+        return changeTime
+        },
       
     }
 }

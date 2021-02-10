@@ -8,13 +8,13 @@
            <div style="overflow:auto; width:400px; height:300px; white-space:pre-line;" id="comment_div">
             <div v-for="(comment,index) in comments" :key="index">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn">
-                  <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
+                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
                   <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
                 </p>
             </div>
             </div>
             <div>
-            <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤"/>
+            <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤" @keydown.enter="createComment()"/>
             <button @click="createComment()">create</button>
             </div>
 
@@ -103,6 +103,17 @@ export default {
             if (seconds < 10) {seconds = "0"+seconds;}
             return hours+':'+minutes+':'+seconds;
         },
+        timeToSec(time){
+            let splitTime = time.split(':')
+            // console.log(splitTime)
+            let changeTime = Number(splitTime[splitTime.length-1])
+            for (let i = splitTime.length-2; i >= 0; i--) {
+                let element = Number(splitTime[i]);
+                changeTime += element*(60**(splitTime.length-i-1))
+                // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
+            }
+            return changeTime
+        },
         getCurTime() { 
             const vod = document.getElementById("videotag");
             alert(vod.currentTime,'현재시간?');
@@ -134,15 +145,18 @@ export default {
         },
         async createComment() {
             try {
+                const vod = document.getElementById("videotag");
+                console.log(vod.currentTime,'????댓글시간등록')
                 const commentInfo = {
                     c_contents : this.userComment,
-                    c_playtime : this.nowTime(this.videoCurrentTime),
+                    c_playtime : vod.currentTime,
                     u_id : this.userInfo.u_id,
                     ve_id : this.veId
                 }
             const res = await commentInsert(commentInfo)
             console.log(res,'댓글써졌니?')
             this.getEpiComment();
+            this.userComment=""
             } catch {
                 console.log('댓글썼는데 실패함')
                 
