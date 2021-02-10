@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <!-- 인기순, 댓글순, 최신순 정렬 탭 -->
     <VODSections></VODSections>
     <!-- 실시간 인기 댓글 유저 -->
