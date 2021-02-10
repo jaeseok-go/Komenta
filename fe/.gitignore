@@ -30,5 +30,5 @@ pnpm-debug.log*
 .mp4
 
 #index.css
-.css/index.css
-.css/index.css.map
+*.css
+*.css.map

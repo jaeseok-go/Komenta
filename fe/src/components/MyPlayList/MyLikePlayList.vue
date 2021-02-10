@@ -105,8 +105,7 @@ export default {
     getPoster(index) {
       const poster = this.episodeList[index].v_poster;
       // console.log(poster)
-      return require(`@/assets/images/${poster}`);
-      // return require(`http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`);
+      return `${process.env.VUE_APP_PICTURE}poster/${poster}`
     },
     async fetchLikePlayList(){
       const response = await fetchLikePlaylist(this.userInfo.u_id);

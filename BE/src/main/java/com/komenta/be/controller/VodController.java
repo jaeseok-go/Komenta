@@ -148,11 +148,11 @@
 
         @ApiOperation(value = "VOD 시청 시작", notes = "VOD 시청 시작할 때 시청기록이 있으면 그냥 시작, 없으면 시청기록 만들어서 결과 반환")
         @ApiImplicitParams({
-                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true),
+                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true)
         })
-        @PostMapping("/start_watching")
-        public int startWatching(@RequestBody int ve_id, HttpServletRequest request){
-            String token = request.getHeader("auth_token");
+        @PostMapping("/start_watching/{ve_id}")
+        public int startWatching(@PathVariable("ve_id") int ve_id, HttpServletRequest request){
+            String token = request.getHeader("auth-token");
             int u_id = (int) jwtService.get(token).get("u_id");
             int result = 0;
 
@@ -167,12 +167,12 @@
 
         @ApiOperation(value = "VOD 시청 끝", notes = "VOD 시청 끝날때 입력받은 VOD 회차를 히스토리 현재 시간으로 업데이트해서 결과 반환")
         @ApiImplicitParams({
-                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true),
-                @ApiImplicitParam(name = "vh_watching_time", value = "VOD 시청중인 시간(HH:MM:SS)", dataType = "String", required = true)
+                @ApiImplicitParam(name = "history", value = "ve_id(회차 아이디), vh_watching_time(VOD 시청중인 시간(HH:MM:SS))",
+                        dataType = "VodUpdateTimeDTO", required = true)
         })
         @PutMapping("/end_watching")
         public int endWatching(@RequestBody VodUpdateTimeDTO history, HttpServletRequest request){
-            String token = request.getHeader("auth_token");
+            String token = request.getHeader("auth-token");
             int u_id = (int) jwtService.get(token).get("u_id");
             history.setU_id(u_id);
 

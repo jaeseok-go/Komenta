@@ -3,7 +3,7 @@
   margin-left: 1rem;
 }
 
-.col {
+.main .col {
   bottom: 48px !important;
 }
 
@@ -26,11 +26,14 @@
 
 .movie .poster {
   transform: translateZ(83px) !important;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .movie .info {
   transform: rotateY(90deg) translateZ(83px) !important;
   cursor: inherit !important;
+  border-radius: 10px;
 
   & .info-text {
     color: #000 !important;
@@ -53,10 +56,11 @@
 }
 
 .csstransforms3d .movie::after {
-  width: 170px !important;
+  width: 165px !important;
   height: 170px !important;
-  transform: rotateX(90deg) translateY(83px) !important;
+  transform: rotateX(90deg) translateY(80px) !important;
   box-shadow: 0 22px 33px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 27px;
 }
 
 .noRegister-text {
@@ -85,28 +89,62 @@
 }
 
 .nowPlaying {
-  text-align: center;
-  & .poster {
-    & img {
+  display: table;
+  width: 250px;
+  height: 300px;
+  margin: auto auto;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  border-radius: 10px;
+  background-color: #f6faffd1;
+
+  & .poster-form {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+
+    & .poster {
+      position: relative;
+      overflow: hidden;
       width: 200px;
       height: 200px;
       border: 1px solid rgba(206, 206, 206, 0.555);
       border-radius: 50%;
+      margin: 0 auto;
+      transition: all ease 6s;
+      cursor: pointer;
+
+      & img {
+        width: 100%;
+      }
+
+      & .posterCD {
+        position: absolute;
+        top: 27%;
+        left: 25%;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 8px solid #fff;
+
+        & .posterCD-middle {
+          position: absolute;
+          top: 11%;
+          left: 10%;
+          width: 66px;
+          height: 66px;
+          border-radius: 50%;
+          background-color: #fff;
+          border: 1px solid rgba(206, 206, 206, 0.555);
+        }
+      }
+
+      & h3 {
+        font-weight: 700;
+      }
     }
 
-    & .posterCD {
-      position: relative;
-      bottom: 203px;
-      left: 88px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 1px solid #000;
-      background-color: #fff;
-    }
-
-    & h3 {
-      font-weight: 600;
+    & .poster:hover {
+      transform: rotate(720deg);
     }
   }
 }

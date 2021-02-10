@@ -1,21 +1,14 @@
 <template>
   <div>
       <h4>Now playing</h4>
-      <!-- u_id -> GET -> 썸네일, 타이틀, 회차정보 --> <!-- 비디오 에피소드 아이디, 비디오 아이디, 비디오 에피소드 회차, 비디오 포스터  -->
-      <!-- [{vh_id : 0,vh_name:"string",vh_watching_time : "string",vh_score : int,vh_comment : "string",vh_good : int,u_id : int,ve_id : int,}] -->
-      <!-- <div v-show="!fetchedPlaylist">
-        최근 본 VOD가 없습니다.
-      </div>
-      <div v-show="fetchedPlaylist">
-        <div>{{fetchedPlaylist.v_poster}}</div>
-        <div>{{fetchedPlaylist.ve_episode_num}}</div>
-        <div>{{fetchedPlaylist.vh_name}}</div> 
-      </div>
-      -->
       <div class="nowPlaying">
-        <div class="poster">
-          <img :src="getPoster()" />
-          <!-- <div class="posterCD"></div> -->
+        <div class="poster-form">
+          <div class="poster" @click="goVOD(nowPlayingVOD.ve_id)">
+            <img :src="getPoster()" />
+            <div class="posterCD">
+              <div class="posterCD-middle"></div>
+            </div>
+          </div>
           <h3>{{nowPlayingVOD.v_title}} {{nowPlayingVOD.ve_episode_num}}화</h3>
         </div>
       </div>
@@ -51,7 +44,10 @@ export default {
     },
     getPoster(){
       const poster = this.nowPlayingVOD.v_poster;
-      return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
+      return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
+    },
+    goVOD(ve_id){
+      this.$router.push(`voddetail/${ve_id}`)
     }
   },
 }
