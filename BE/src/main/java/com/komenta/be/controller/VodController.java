@@ -150,8 +150,8 @@
         @ApiImplicitParams({
                 @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true)
         })
-        @PostMapping("/start_watching")
-        public int startWatching(@RequestParam int ve_id, HttpServletRequest request){
+        @PostMapping("/start_watching/{ve_id}")
+        public int startWatching(@PathVariable("ve_id") int ve_id, HttpServletRequest request){
             String token = request.getHeader("auth_token");
             int u_id = (int) jwtService.get(token).get("u_id");
             int result = 0;
@@ -172,9 +172,8 @@
         })
         @PutMapping("/end_watching")
         public int endWatching(@RequestBody VodUpdateTimeDTO history, HttpServletRequest request){
-            // String token = request.getHeader("auth_token");
-            // int u_id = (int) jwtService.get(token).get("u_id");
-            int u_id = 1;
+            String token = request.getHeader("auth_token");
+            int u_id = (int) jwtService.get(token).get("u_id");
             history.setU_id(u_id);
 
             return vodService.updateTime(history);
