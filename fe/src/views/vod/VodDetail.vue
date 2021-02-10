@@ -93,11 +93,6 @@ methods : {
       console.log('vod episode 에러')
     }
   },
-  date_ascending(a, b) {
-    const dateA = new Date(a.c_playtime).getTime();
-    const dateB = new Date(b.c_playtime).getTime();
-    return dateA > dateB ? 1 : -1;
-    },
     async getEpiComment() {
       try {
       const epiId = Number(this.$route.params.id);
@@ -106,14 +101,8 @@ methods : {
       console.log(res.data,'Comment??')
       this.comments = res.data
       console.log(this.comments)
-    //   console.log(this.comments.sort(date_ascending(a, b) {
-    // const dateA = new Date(a.c_playtime).getTime();
-    // const dateB = new Date(b.c_playtime).getTime();
-    // return dateA > dateB ? 1 : -1;
-    // }))
-
       // this.comments.sort(function (a,b) {
-      //       return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+      //       return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
       //   })
 
   } catch {

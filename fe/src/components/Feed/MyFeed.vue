@@ -118,7 +118,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { fetchMyInfo, fetchRecentPlaylist, likePlaylist, deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod } from '@/api/user'
+import { fetchMyInfo, fetchRecentPlaylist, unlikePlaylist,likePlaylist,deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod } from '@/api/user'
 import Modal from '@/components/common/Modal';
 
 
@@ -358,6 +358,10 @@ export default {
         likeUserPlaylist(plId){
             likePlaylist({pl_id:plId});
             alert('플레이리스트 좋아요 함')
+        },
+        unlikePlaylist(plId){
+            unlikePlaylist({pl_id:plId})
+            alert('플레이리스트 좋아요 취소함')
         },
         async deleteUserPlaylist(plId){
             const response = await deletePlaylist(plId);
