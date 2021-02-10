@@ -806,12 +806,15 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .movie .poster {
   -webkit-transform: translateZ(83px) !important;
           transform: translateZ(83px) !important;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .movie .info {
   -webkit-transform: rotateY(90deg) translateZ(83px) !important;
           transform: rotateY(90deg) translateZ(83px) !important;
   cursor: inherit !important;
+  border-radius: 10px;
 }
 
 .movie .info .info-text {
@@ -834,12 +837,13 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .csstransforms3d .movie::after {
-  width: 170px !important;
+  width: 165px !important;
   height: 170px !important;
-  -webkit-transform: rotateX(90deg) translateY(83px) !important;
-          transform: rotateX(90deg) translateY(83px) !important;
+  -webkit-transform: rotateX(90deg) translateY(80px) !important;
+          transform: rotateX(90deg) translateY(80px) !important;
   -webkit-box-shadow: 0 22px 33px rgba(0, 0, 0, 0.3) !important;
           box-shadow: 0 22px 33px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 27px;
 }
 
 .noRegister-text {

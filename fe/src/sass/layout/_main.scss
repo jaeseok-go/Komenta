@@ -26,11 +26,14 @@
 
 .movie .poster {
   transform: translateZ(83px) !important;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .movie .info {
   transform: rotateY(90deg) translateZ(83px) !important;
   cursor: inherit !important;
+  border-radius: 10px;
 
   & .info-text {
     color: #000 !important;
@@ -53,10 +56,11 @@
 }
 
 .csstransforms3d .movie::after {
-  width: 170px !important;
+  width: 165px !important;
   height: 170px !important;
-  transform: rotateX(90deg) translateY(83px) !important;
+  transform: rotateX(90deg) translateY(80px) !important;
   box-shadow: 0 22px 33px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 27px;
 }
 
 .noRegister-text {
