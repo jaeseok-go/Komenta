@@ -13,7 +13,7 @@
         FROM (SELECT A.c_id, A.c_contents, A.c_playtime, A.c_upload_time, A.u_id, B.u_nickname
               FROM (select c_id, c_contents, c_playtime, c_upload_time, u_id
                     from comment_info
-                    where ve_id = 1) A
+                    where ve_id = #{ve_id}) A
                        left outer join member B
                                        on A.u_id = B.u_id) C
                  left outer join
