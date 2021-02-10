@@ -371,10 +371,10 @@ export default {
         },
         getPlaylistVodPoster(gdname,title){
             const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
-            return `http://i4b201.p.ssafy.io:7000/picture/poster/${gdId.gd_id}_${title}`
+            return `${process.env.VUE_APP_PICTURE}poster/${gdId.gd_id}_${title}`
         },
         getVodPoster(gdId,title){
-           return `http://i4b201.p.ssafy.io:7000/picture/poster/${gdId}_${title}`
+           return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
         },
         
         

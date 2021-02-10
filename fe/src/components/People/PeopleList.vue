@@ -34,7 +34,7 @@
                 <div class="at-column" v-for="(user,index) in this.top9" :key="index">
                     <div class="at-user">
                         <div class="at-user__avatar" :src="user.u_profile_pic"></div>
-                        <div class="at-user__name">{{uuser.u_nickname}}</div>
+                        <div class="at-user__name">{{user.u_nickname}}</div>
                         <div class="at-user__title">{{user.u_profile_pic}}</div>
                     </div>
                 </div>

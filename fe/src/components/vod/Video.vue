@@ -5,7 +5,7 @@
             <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
-
+            {{comments}}
            <div style="overflow:auto; width:400px; height:150px; white-space:pre-line;" id="comment_div">
             <div v-for="comment in comments" :key="comment.c_id">
                 <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
@@ -32,7 +32,7 @@ export default {
     props: { 
     // 변수 : 변수타입 
     // 기록을 해주는 이유는 데이터 타입을 알기 쉽게 위해서.
-    // comments: Array, 
+    comments: Array, 
     veId : Number,
     sendcommenttime:[String,Number],
     vodEpiInfo:Object,
@@ -46,7 +46,6 @@ export default {
             // showComment:false,
             selectedId:0,
             videoCurrentTime: 0,
-            comments : [],
             userComment:'',
             now: "00:00:00",
             pre_diffHeight :0,
@@ -65,9 +64,9 @@ export default {
       const res = await fetchEpiComment(epiId)
       console.log(res,'Comment??')
       this.comments = res.data
-    //   this.comments.sort(function (a,b) {
-    //         return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
-    //     })
+      this.comments.sort(function (a,b) {
+            return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+        })
         console.log(this.comments,'댓글?')
 
     } catch {
@@ -105,7 +104,7 @@ export default {
         },
         // 비디오 불러오기
         getVideo() {
-            const path =`http://i4b201.p.ssafy.io:7000/video/stream/mp4/${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
+            const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
             console.log(path,'동영상주소')
             return path
         },
@@ -168,10 +167,10 @@ export default {
         const watching = {
             // u_id: this.userInfo.u_id,
             ve_id: this.veId,
-            vh_watching_time: this.videoCurrentTime
+            vh_watching_time: this.$moment(this.videoCurrentTime).format('hh:mm:ss')
         }
         const end = endVodWatch(watching);
-        console.log('시청기록끝',end)
+        console.log('시청기록끝',end,this.videoCurrentTime,'->',this.$moment(Number(this.videoCurrentTime)).format('hh:mm:ss'))
 }
 }
 </script>

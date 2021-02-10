@@ -21,7 +21,10 @@ spring:
     url: jdbc:mysql://localhost:3306/komenta?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: b201root
-
+server:
+  port : 9999
+  servlet:
+    context-path: /api
 mybatis:
   type-aliases-package: com.komenta.be.mapper
   mapper-locations: mybatis/mapper/**/*.xml

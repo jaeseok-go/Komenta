@@ -48,7 +48,7 @@ function fetchGenreDetail(gId) {
 // 장르 대분류별 VOD선택 조회
 function fetchMainGenreVod(gId) {
     return instance.get('vod/list_genre',{
-        parmas: {
+        params: {
             g_id:gId
         }
     })
@@ -57,7 +57,7 @@ function fetchMainGenreVod(gId) {
 // 장르 대분류별 소분류 VOD선택 조회
 function fetchSubGenreVod(gdId) {
     return instance.get('vod/list_genre_detail', {
-        parmas: {
+        params: {
             gd_id: gdId
         }
     })
@@ -139,7 +139,7 @@ function searchVodlist() {
 
 // vod 시청시작
 function startVodWatch(veId){
-    return instance.post('vod/start_watching',veId)
+    return instance.post(`vod/start_watching/${veId}`)
 }
 
 // vod 시청 끝

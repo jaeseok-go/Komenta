@@ -84,10 +84,10 @@ export default {
     getPoster(index) {
       const poster = String(this.episodeList[index].gd_id+'_'+ this.episodeList[index].v_title);
       console.log("popular poster name : ",poster)
-      return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
+      return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
       //this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg' //포스터 이름
       //this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4' //vod 영상 이름
-      // return require(`http://i4b201.p.ssafy.io:7000/Picture/Poster/${poster}`);
+      // return require(`${process.env.VUE_APP_PICTURE}poster/${poster}`);
     },
     async fetchRPlayList(){
       const response = await fetchRecentPlaylist(this.userInfo.u_id);
