@@ -157,11 +157,10 @@ public class PlayListController {
             @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true)
     })
     @PostMapping("/like")
-    public int likePList(@RequestParam(name = "pl_id") String pl_id, HttpServletRequest request){
-        System.out.println("like error here :  "+pl_id);
-        int pl_idd = Integer.parseInt(pl_id);
+    public int likePList(@RequestBody PlayListGoodDTO dto, HttpServletRequest request){
+        System.out.println(dto);
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-        PlayListGoodDTO dto = new PlayListGoodDTO(pl_idd, u_id);
+        dto.setU_id(u_id);
         return playListService.likePList(dto);
 
     }
@@ -171,10 +170,9 @@ public class PlayListController {
             @ApiImplicitParam(name = "pl_id", value = "좋아요한 pl id", dataType = "int", required = true)
     })
     @PostMapping("/unlike")
-    public int unLikePList(@RequestParam(name = "pl_id") int pl_id, HttpServletRequest request){
-
+    public int unLikePList(@RequestBody PlayListGoodDTO dto, HttpServletRequest request){
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-        PlayListGoodDTO dto = new PlayListGoodDTO(pl_id, u_id);
+        dto.setU_id(u_id);
         return playListService.unLikePList(dto);
 
     }
