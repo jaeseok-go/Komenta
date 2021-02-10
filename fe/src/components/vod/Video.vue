@@ -5,10 +5,9 @@
             <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
-            {{comments}}
-           <div style="overflow:auto; width:400px; height:150px; white-space:pre-line;" id="comment_div">
-            <div v-for="comment in comments" :key="comment.c_id">
-                <p v-show="comment.c_playtime <= videoCurrentTime" class="testbtn">
+           <div style="overflow:auto; width:400px; height:300px; white-space:pre-line;" id="comment_div">
+            <div v-for="(comment,index) in comments" :key="index">
+                <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn">
                   <span class="comment__time" @click="goCommentTime(comment.c_playtime)"> {{comment.c_playtime}}</span> | {{comment.u_nickname}} : {{ comment.c_contents}} | {{comment.c_upload_time}} | 
                   <i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}    
                 </p>
@@ -45,7 +44,7 @@ export default {
         return {
             // showComment:false,
             selectedId:0,
-            videoCurrentTime: 0,
+            videoCurrentTime: '',
             userComment:'',
             now: "00:00:00",
             pre_diffHeight :0,
@@ -62,10 +61,10 @@ export default {
         const epiId = this.$route.params.id;
         console.log(epiId,this.veId,'ve_id')  
       const res = await fetchEpiComment(epiId)
-      console.log(res,'Comment??')
+      console.log(res.data,'Comment??')
       this.comments = res.data
       this.comments.sort(function (a,b) {
-            return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+            return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
         })
         console.log(this.comments,'댓글?')
 
@@ -137,7 +136,7 @@ export default {
             try {
                 const commentInfo = {
                     c_contents : this.userComment,
-                    c_playtime : this.videoCurrentTime,
+                    c_playtime : this.nowTime(this.videoCurrentTime),
                     u_id : this.userInfo.u_id,
                     ve_id : this.veId
                 }

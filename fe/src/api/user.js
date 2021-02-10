@@ -163,6 +163,11 @@ function likePlaylist(plId){
     return instance.post('playlist/like', plId)
 }
 
+//플레이리스트 좋아요 취소
+function unlikePlaylist(plId) {
+    return instance.post('playlist/unlike', plId)
+}
+
 // 플레이리스트 좋아요 취소
 function removePlaylist(playlistInfo){
     return instance.put('playlist/plist_update', playlistInfo)
@@ -243,6 +248,7 @@ export {
     fetchRecentPlaylist,
     fetchLikePlaylist,
     likePlaylist,
+    unlikePlaylist,
     addPlaylist,
     addPlaylistVod,
     deletePlaylist,
