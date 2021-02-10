@@ -25,16 +25,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="playlist in playlists" :key="playlist.pl_id">
+            <tr v-for="(playlist,index) in playlists" :key="index">
               <td>{{ playlist.g_name }}/{{ playlist.gd_name }}</td>
               <td>{{ playlist.v_title }} {{ playlist.ve_episode_num }}회</td>
               <td v-if="showMyRecent()">
                 <input
                   type="text"
-                  v-on:input="updateInput"
+                  v-on:input.prevent="updateInput"
                   :placeholder="playlist.vh_comment"
                   @keydown.enter="addComment(playlist.plc_id)"
-                />
+                /> 
               </td>
               <td v-else>{{ playlist.vh_comment }}</td>
             </tr>
@@ -93,16 +93,19 @@ export default {
       const res = await fetchPlayListDetail(plId);
       this.playlists = res.data;
       this.userProfile = this.playlists[0];
-      console.log(this.playlists, 'dd');
+      console.log(this.playlists, '플레이리스트 갱신');
     },
     getUserProfile() {
       console.log(this.userProfile.u_profile_pic)
-      const split = this.userProfile.u_profile_pic.split('.');
-      let profile = split[0];
-      console.log(
-        `${process.env.VUE_APP_PICTURE}profile/${profile}`
-      );
-      return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+      if (this.userProfile.u_profile_pic) {
+        const split = this.userProfile.u_profile_pic.split('.');
+        let profile = split[0];
+        console.log(
+          `${process.env.VUE_APP_PICTURE}profile/${profile}`
+        );
+        return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+      }
+      return false
     },
   },
   created() {
