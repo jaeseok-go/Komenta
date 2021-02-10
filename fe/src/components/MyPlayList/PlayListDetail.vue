@@ -96,9 +96,9 @@ export default {
       const split = this.userProfile.u_profile_pic.split('.');
       let profile = split[0];
       console.log(
-        `http://i4b201.p.ssafy.io:7000/picture/profile/${profile}`
+        `${process.env.VUE_APP_PICTURE}profile/${profile}`
       );
-      return `http://i4b201.p.ssafy.io:7000/picture/profile/${profile}`;
+      return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
     },
   },
   created() {

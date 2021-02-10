@@ -83,13 +83,13 @@ export default {
     getPoster(index) {
       var poster = this.popularPlaylist[index].pldetail[0].v_poster;
       console.log("comment poster name : ",poster)
-      return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
+      return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     getUserPic(index) {
       const profile = this.popularPlaylist[index].pldetail[0].u_profile_pic.split('.');
       let picName = profile[0];
       console.log("picname : ",picName);
-      return `http://i4b201.p.ssafy.io:7000/picture/profile/${picName}`;
+      return `${process.env.VUE_APP_PICTURE}profile/${picName}`;
     },
   },
   computed: {
