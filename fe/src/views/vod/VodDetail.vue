@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- 사이드바는 hidden -->
-    <!-- <Asidebar></Asidebar> -->
-    <Header></Header>
-    <!-- vod -->
     <div id="appBody">
         <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :comments="comments"></Video>
         <hr>
@@ -28,8 +24,6 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header';
-// import Asidebar from '@/components/common/Asidebar';
 import Comments from '@/views/vod/Comments';
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
 import { fetchEpiComment } from '@/api/comment'
@@ -38,8 +32,6 @@ import VodAllEpi from '@/components/vod/VodAllEpi'
 
 export default {
 components: { 
-  Header,
-  // Asidebar, 
   Comments,
   Video,
   VodAllEpi

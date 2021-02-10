@@ -31,7 +31,7 @@
               <td v-if="showMyRecent()">
                 <input
                   type="text"
-                  v-model="review"
+                  v-on:input="updateInput"
                   :placeholder="playlist.vh_comment"
                   @keydown.enter="addComment(playlist.plc_id)"
                 />
@@ -59,6 +59,10 @@ export default {
     };
   },
   methods: {
+    updateInput: function(event) {
+      const updatedText = event.target.value;
+      this.review = updatedText;
+    },
     gotoFeed(userId) {
       this.$router.push(`/feed/${userId}`)
     },
