@@ -139,7 +139,7 @@ function searchVodlist() {
 
 // vod 시청시작
 function startVodWatch(veId){
-    return instance.post('vod/start_watching',veId)
+    return instance.post(`vod/start_watching/${veId}`)
 }
 
 // vod 시청 끝

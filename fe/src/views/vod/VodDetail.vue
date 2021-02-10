@@ -5,7 +5,7 @@
     <Header></Header>
     <!-- vod -->
     <div id="appBody">
-        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id"></Video>
+        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :comments="comments"></Video>
         <hr>
         <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
         <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
@@ -61,7 +61,8 @@ created(){
   this.getEpiComment();
   
   // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
-  const res = startVodWatch(this.$route.params.id);
+  const edID = Number(this.$route.params.id)
+  const res = startVodWatch(edID);
   console.log('시청기록 시작',res,this.$route.params.id)
   
 },
@@ -79,7 +80,7 @@ methods : {
   },
   async getVodEpi() {
     try {
-      const epiId = this.$route.params.id;
+      const epiId = Number(this.$route.params.id);
       console.log(epiId)  
       const res = await fetchVodEpiDetail(epiId)
       console.log(res.data,'DETAIL???')
@@ -100,17 +101,28 @@ methods : {
       console.log('vod episode 에러')
     }
   },
+  date_ascending(a, b) {
+    const dateA = new Date(a.c_playtime).getTime();
+    const dateB = new Date(b.c_playtime).getTime();
+    return dateA > dateB ? 1 : -1;
+    },
     async getEpiComment() {
       try {
-        const epiId = this.$route.params.id;
-        console.log(epiId,'에피소드id')  
-        const res = await fetchEpiComment(epiId)
-    console.log(res.data,'Comment??')
-    this.comments = res.data
-    // this.comments.sort(function (a,b) {
-    //       return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
-    //   })
+      const epiId = Number(this.$route.params.id);
+      console.log(epiId,'에피소드id')  
+      const res = await fetchEpiComment(epiId)
+      console.log(res.data,'Comment??')
+      this.comments = res.data
       console.log(this.comments)
+    //   console.log(this.comments.sort(date_ascending(a, b) {
+    // const dateA = new Date(a.c_playtime).getTime();
+    // const dateB = new Date(b.c_playtime).getTime();
+    // return dateA > dateB ? 1 : -1;
+    // }))
+
+      // this.comments.sort(function (a,b) {
+      //       return parseFloat(a.c_playtime) < parseFloat(b.c_playtime) ? -1 : parseFloat(a.c_playtime) > parseFloat(b.c_playtime) ? 1:0;
+      //   })
 
   } catch {
     console.log('epicomment 에러!!')
@@ -124,6 +136,7 @@ methods : {
 
 <style scoped>
   #appBody {
+      overflow-y: scroll;
       display: inline-block;
       position: fixed;
       top: 100px;
