@@ -13,6 +13,10 @@
   margin: 30px 25px 10px 25px !important;
 }
 
+.main .scene {
+  margin: 30px 40px 10px 40px !important;
+}
+
 .movie {
   width: 170px !important;
   height: 280px !important;
@@ -76,9 +80,13 @@
 .btn-cover .page-btn {
   width: 3rem !important;
   height: 2rem !important;
+}
+
+.main .btn-cover .page-btn {
   letter-spacing: 0.5px !important;
   color: $komenta-color;
 }
+
 .btn-cover .page-count {
   padding: 0 1rem !important;
 }
@@ -111,16 +119,16 @@
       border-radius: 50%;
       margin: 0 auto;
       transition: all ease 6s;
-      cursor: pointer;
 
       & img {
         width: 100%;
+        height: 100%;
       }
 
       & .posterCD {
         position: absolute;
-        top: 27%;
-        left: 25%;
+        top: 25%;
+        left: 24%;
         width: 100px;
         height: 100px;
         border-radius: 50%;
@@ -142,16 +150,32 @@
         font-weight: 700;
       }
     }
-
-    & .poster:hover {
-      transform: rotate(720deg);
-    }
   }
+}
+
+.nowPlaying.isShow {
+  & .poster {
+    cursor: pointer;
+  }
+
+  & .poster:hover {
+    transform: rotate(720deg);
+  }
+}
+
+.nonNowPlaying-text {
+  margin-top: 1rem;
+}
+
+//광고 배너
+.ad-space {
+  margin-bottom: 3rem;
 }
 
 //인기 유저 플레이리스트
 .playList {
   display: inline-block;
+  cursor: pointer;
 
   &-Form {
     width: 230px;

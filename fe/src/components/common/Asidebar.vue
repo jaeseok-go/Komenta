@@ -69,7 +69,7 @@
             <router-link :to="{ name: 'MyPage'}">
               <span class="sidebar-scrollable-title">
                 <span class="sidebar-scrollable-title-icon icon-bg5">
-                  <font-awesome-icon :icon="['fas', 'user-cog']" :style="{ color: '#495057' }"/>
+                  <font-awesome-icon :icon="['fas', 'user-cog']" :style="{ color: '#fa233b' }"/>
                 </span>
                 <span class="sidebar-scrollable-title-text">My Page</span>
               </span>

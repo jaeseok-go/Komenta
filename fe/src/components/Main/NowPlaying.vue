@@ -1,7 +1,18 @@
 <template>
   <div>
       <h4>Now playing</h4>
-      <div class="nowPlaying">
+      <div class="nowPlaying nonShow" v-if="nowPlayingVOD.ve_id == undefined">
+        <div class="poster-form">
+          <div class="poster">
+            <img :src="require(`@/assets/images/nonNowPlaying.png`)" />
+            <div class="posterCD">
+              <div class="posterCD-middle"></div>
+            </div>
+          </div>
+          <p class="nonNowPlaying-text">시청 중인 VOD가 없습니다.</p>
+        </div>
+      </div>
+      <div class="nowPlaying isShow" v-else>
         <div class="poster-form">
           <div class="poster" @click="goVOD(nowPlayingVOD.ve_id)">
             <img :src="getPoster()" />
@@ -9,7 +20,7 @@
               <div class="posterCD-middle"></div>
             </div>
           </div>
-          <h3>{{nowPlayingVOD.v_title}} {{nowPlayingVOD.ve_episode_num}}화</h3>
+          <h4>{{nowPlayingVOD.v_title}} {{nowPlayingVOD.ve_episode_num}}화</h4>
         </div>
       </div>
   </div>
