@@ -1,5 +1,5 @@
 <template>
-  <b-col>
+  <b-col class="vodSort-form">
     <div class="btn-cover">
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
         <font-awesome-icon :icon="['fas', 'angle-left']"/>
