@@ -8,7 +8,7 @@
     <div class="container__info">
       <h1 class="container__info__name">{{ userProfile.pl_name }}</h1>
       <h3 class="container__info__comment ">{{ userProfile.pl_comment }}</h3>
-      <button class="container__info__button" @click="gotoFeed(userInfo.u_id)">{{userProfile.u_nickname }}</button>
+      <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">{{userProfile.u_nickname }}</button>
       <v-simple-table fixed-header height="300px">
         <template v-slot:default>
           <thead>
