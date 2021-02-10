@@ -185,6 +185,11 @@ function addReviewPlaylist(playlistInfo){
     return instance.put('playlist/add_contents_review', playlistInfo)
 }
 
+// 나의 팔로잉들의 최근 갱신 플레이리스트
+function updateFollowPlaylist() {
+    return instance.get('playlist/recent_update_follow_playlist')
+}
+
 // 팔로잉 조회 
 function fetchfollowinglist(userId) {
     return instance.get('follow/following_list', {
@@ -258,6 +263,7 @@ export {
     fetchfollowerlist,
     modifyfollow,
     fetchunfollowinglist,
+    updateFollowPlaylist,
     modifyunfollow,
     removePlaylist,
     addReviewPlaylist,

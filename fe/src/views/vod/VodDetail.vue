@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="appBody">
-        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :comments="comments"></Video>
+        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :comments="comments"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
         <hr>
         <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
         <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
@@ -17,7 +17,7 @@
         <router-view></router-view> -->
         <VodAllEpi :vodInfo="vodInfo"></VodAllEpi>
         <!-- router children 등록 VodAllEpi, VodEpiComment -->
-        <Comments :comments="comments" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments>
+        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments>
        
     </div>
   </div>
@@ -26,7 +26,7 @@
 <script>
 import Comments from '@/views/vod/Comments';
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
-import { fetchEpiComment } from '@/api/comment'
+import { fetchEpiComment, userLikeComment, userUnlikeComment } from '@/api/comment'
 import Video from '@/components/vod/Video'
 import VodAllEpi from '@/components/vod/VodAllEpi'
 
@@ -43,7 +43,7 @@ data(){
     vodEpiInfo :{},
     // vod 세부정보
     vodInfo : [],
-    comments:[],
+    commentsList:[],
     sendcommenttime:"",
   }
 },
@@ -99,8 +99,8 @@ methods : {
       console.log(epiId,'에피소드id')  
       const res = await fetchEpiComment(epiId)
       console.log(res.data,'Comment??')
-      this.comments = res.data
-      console.log(this.comments)
+      this.commentsList = res.data
+      console.log(this.commentsList)
       // this.comments.sort(function (a,b) {
       //       return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
       //   })
@@ -108,6 +108,14 @@ methods : {
   } catch {
     console.log('epicomment 에러!!')
     }
+  },
+    likeComment(commentInfo){
+      userLikeComment(commentInfo)
+      this.getEpiComment();
+  },
+  unlikeComment(commentInfo){
+      userUnlikeComment(commentInfo)
+      this.getEpiComment();
   },
 
 },

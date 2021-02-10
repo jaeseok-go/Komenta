@@ -26,9 +26,22 @@ function fetchUserComment(uId){
     })
 }
 
+// 댓글 좋아요
+function userLikeComment(cInfo){
+    return instance.post('comment/comment_good',cInfo)
+}
+
+// 댓글 좋아요
+function userUnlikeComment(cInfo) {
+    return instance.post('comment/comment_good_cancel', cInfo)
+}
+
+
 export {
     fetchBestComment,
     commentInsert,
     fetchEpiComment,
-    fetchUserComment
+    fetchUserComment,
+    userLikeComment,
+    userUnlikeComment
 }
