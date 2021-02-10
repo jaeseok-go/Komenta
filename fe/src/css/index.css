@@ -782,7 +782,7 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   margin-left: 1rem;
 }
 
-.col {
+.main .col {
   bottom: 48px !important;
 }
 
@@ -1398,47 +1398,17 @@ select {
 }
 
 .container .userprofile {
-  margin-bottom: 2rem;
-  padding: 1rem 7.5rem 11rem;
-  border-radius: 30px;
+  padding: 1rem 2rem 1rem;
   font-size: 2rem;
   color: #fff;
-  background: -webkit-gradient(linear, left top, right top, from(#eb3349), to(#f45c43));
-  background: linear-gradient(to right, #eb3349, #f45c43);
+  background: -webkit-gradient(linear, left top, right top, from(#feac5e), color-stop(#c779d0), to(#4bc0c8));
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
   text-align: center;
   font-family: "Lato", sans-serif;
   -webkit-box-shadow: 0 1px 15px -7.5px #000000;
           box-shadow: 0 1px 15px -7.5px #000000;
   /* position relative for the pseudo element(s) */
   position: relative;
-  /* with the :after pseudo element add the name of the character */
-}
-
-.container .userprofile:before {
-  content: "";
-  position: absolute;
-  top: 9rem;
-  left: 2%;
-  width: 96%;
-  height: 9rem;
-  background: #fff;
-  /* border-radius mathing the .tag container */
-  border-radius: 0 0 30px 30px;
-}
-
-.container .userprofile:after {
-  content: "Peter Parker";
-  position: absolute;
-  top: 11.25rem;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-family: "Rock Salt", cursive;
-  font-size: 2rem;
-  letter-spacing: 0.25rem;
-  font-weight: 300;
-  font-weight: bold;
-  color: #000;
 }
 
 .container .userprofile__pic {
@@ -1461,21 +1431,23 @@ select {
 }
 
 .drop-zone {
-  background: -webkit-gradient(linear, left top, right top, from(#eb3349), to(#f45c43));
-  background: linear-gradient(to right, #eb3349, #f45c43);
-  height: 250px;
+  height: 180px;
   border-radius: 20px;
   -webkit-box-shadow: 0 1px 15px -7.5px #000000;
           box-shadow: 0 1px 15px -7.5px #000000;
+  border: double 2px transparent;
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(white)), radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
+  background-image: linear-gradient(white, white), radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
 
 .drop-zone__inner {
   width: 98%;
   height: 90%;
-  background-color: #F9F9F9;
   margin-top: 8px;
   display: inline-block;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
   margin: 10px;
   padding: 1rem;
 }
@@ -1484,7 +1456,7 @@ select {
   /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
   margin: 5px;
   display: inline-block;
-  width: 10rem;
+  width: 80px;
   height: 100%;
   /* border: 1px solid blue; */
 }
