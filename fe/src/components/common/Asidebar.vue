@@ -1,9 +1,11 @@
 <template>
   <div class="web-navigation">
     <div class="web-navigation__header">
-      <span class="web-navigation__logo">
-        <img src="@/assets/images/KOMENTA_logo.png" alt="" />
-      </span>
+      <router-link :to="{ name: 'Main' }">
+        <span class="web-navigation__logo">
+          <img src="@/assets/images/KOMENTA_logo.png" alt="" />
+        </span>
+      </router-link>
     </div>
     <div class="web-navigation__scrollable">
       <ul class="web-navigation__nav-list">
@@ -63,6 +65,16 @@
               </span>
             </router-link>
           </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'MyPage'}">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5">
+                  <font-awesome-icon :icon="['fas', 'user-cog']" :style="{ color: '#495057' }"/>
+                </span>
+                <span class="sidebar-scrollable-title-text">My Page</span>
+              </span>
+            </router-link>
+          </li>
         </div>
 
         <div class="web-navigation__nav">
@@ -103,7 +115,6 @@ export default {
   methods: {
     reload(id) {
       this.$router.push(`/playlist/${id}`);
-      window.location.reload();
     },
     logout() {
       if (confirm('로그아웃 하시겠습니까?')) {

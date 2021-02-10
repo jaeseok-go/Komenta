@@ -1,5 +1,5 @@
 <template>
-  <b-col>
+  <div>
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
@@ -134,7 +134,7 @@
       <!-- 멤버십 관리 -->
       <membership-setting></membership-setting>
     </div>
-  </b-col>
+  </div>
 </template>
 
 <script>
@@ -195,7 +195,7 @@ export default {
     }
   },
   created() {
-    // this.getUserInfo();
+    this.getUserInfo();
     this.fetchVODList();
   },
   computed: {
