@@ -148,13 +148,12 @@
 
         @ApiOperation(value = "VOD 시청 시작", notes = "VOD 시청 시작할 때 시청기록이 있으면 그냥 시작, 없으면 시청기록 만들어서 결과 반환")
         @ApiImplicitParams({
-                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true),
+                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true)
         })
         @PostMapping("/start_watching")
         public int startWatching(@RequestParam int ve_id, HttpServletRequest request){
-            // String token = request.getHeader("auth_token");
-            // int u_id = (int) jwtService.get(token).get("u_id");
-            int u_id = 1;
+            String token = request.getHeader("auth_token");
+            int u_id = (int) jwtService.get(token).get("u_id");
             int result = 0;
 
             VodHistorySetDTO history = new VodHistorySetDTO(u_id, ve_id);
