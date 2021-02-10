@@ -869,29 +869,66 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .nowPlaying {
-  text-align: center;
+  display: table;
+  width: 250px;
+  height: 300px;
+  margin: auto auto;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  border-radius: 10px;
+  background-color: #f6faffd1;
 }
 
-.nowPlaying .poster img {
+.nowPlaying .poster-form {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.nowPlaying .poster-form .poster {
+  position: relative;
+  overflow: hidden;
   width: 200px;
   height: 200px;
   border: 1px solid rgba(206, 206, 206, 0.555);
   border-radius: 50%;
+  margin: 0 auto;
+  -webkit-transition: all ease 6s;
+  transition: all ease 6s;
+  cursor: pointer;
 }
 
-.nowPlaying .poster .posterCD {
-  position: relative;
-  bottom: 203px;
-  left: 88px;
-  width: 120px;
-  height: 120px;
+.nowPlaying .poster-form .poster img {
+  width: 100%;
+}
+
+.nowPlaying .poster-form .poster .posterCD {
+  position: absolute;
+  top: 27%;
+  left: 25%;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 1px solid #000;
-  background-color: #fff;
+  border: 8px solid #fff;
 }
 
-.nowPlaying .poster h3 {
-  font-weight: 600;
+.nowPlaying .poster-form .poster .posterCD .posterCD-middle {
+  position: absolute;
+  top: 11%;
+  left: 10%;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+}
+
+.nowPlaying .poster-form .poster h3 {
+  font-weight: 700;
+}
+
+.nowPlaying .poster-form .poster:hover {
+  -webkit-transform: rotate(720deg);
+          transform: rotate(720deg);
 }
 
 .playList {
@@ -1566,58 +1603,3 @@ select {
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
 }
-
-.container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-
-.container__profile {
-  width: 33.3%;
-}
-
-.container__profile .cotainer__profileimg {
-  width: 80%;
-  -webkit-box-shadow: 10px 10px 5px #ccc;
-  border-radius: 1rem;
-}
-
-.container__info {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 66.7%;
-}
-
-.container__info__name {
-  margin-top: 0;
-  margin-bottom: 5%;
-  font-weight: 550;
-}
-
-.container__info__comment {
-  margin-top: 0;
-  margin-bottom: 4%;
-  color: rgba(60, 60, 67, 0.6);
-}
-
-.container__info__button {
-  margin-bottom: 3%;
-  background-color: #fa233b;
-  width: 100px;
-  height: 30px;
-  border-radius: 0.5rem;
-  color: white;
-}
-/*# sourceMappingURL=index.css.map */

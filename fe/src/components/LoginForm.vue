@@ -9,8 +9,10 @@
       </div>
     </div>
     <b-container class="container-setting">
-      <GoogleLogin/>
-      <kakao/>
+      <b-col>
+        <GoogleLogin/>
+        <kakao/>
+      </b-col>
       <hr class="inContent or"/>
       <b-col class="bcol-login">
         <b-form @submit.prevent="loginComplete">
