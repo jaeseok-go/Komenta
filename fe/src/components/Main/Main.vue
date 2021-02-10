@@ -2,11 +2,12 @@
   <div class="main">
     <!-- 인기순, 댓글순, 최신순 정렬 탭 -->
     <VODSections></VODSections>
-    <!-- 실시간 인기 댓글 유저 -->
-    <BestCommentRank class="col-md-6 half-card"></BestCommentRank>
-
-    <!-- 보고 있는 VOD -->
-    <NowPlaying class="col-md-6 half-card"></NowPlaying>
+    <b-col class="card2">
+      <!-- 실시간 인기 댓글 유저 -->
+      <BestCommentRank class="col-md-6 half-card"></BestCommentRank>
+      <!-- 보고 있는 VOD -->
+      <NowPlaying class="col-md-6 half-card Now-Playing"></NowPlaying>
+    </b-col>
     <banner-ad class="ad-space"></banner-ad>
     <!-- 인기있는 플레이 리스트 -->
     <PopularPlayList></PopularPlayList>

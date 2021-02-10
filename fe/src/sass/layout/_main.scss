@@ -7,6 +7,13 @@
   bottom: 48px !important;
 }
 
+.vodSort-form .stage.clearfix {
+  padding-bottom: 1rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(206, 206, 206, 0.555);
+  border-bottom: 1px solid rgba(206, 206, 206, 0.555);
+}
+
 .scene {
   width: 170px !important;
   height: 280px !important;
@@ -14,7 +21,7 @@
 }
 
 .main .scene {
-  margin: 30px 40px 10px 40px !important;
+  margin: 10px 40px 10px 40px !important;
 }
 
 .movie {
@@ -91,15 +98,56 @@
   padding: 0 1rem !important;
 }
 
+//베스트댓글 유저
+.card2 {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.best-comm-form {
+  padding: 0;
+
+  & table {
+    width: 500px;
+  }
+}
+
+.commRank-num {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+  margin-right: 0.3rem;
+}
+
+.commRank-num.red {
+  color: #fc3c44;
+}
+
+.commRank-num.nonHighLight {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.userPic img {
+  width: 25px;
+  border-radius: 50%;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  background-color: white;
+}
+
 //main - now playing
 .half-card {
   display: inline-table;
 }
 
+.half-card.Now-Playing {
+  text-align: center;
+}
+
 .nowPlaying {
   display: table;
-  width: 250px;
-  height: 300px;
+  width: 300px;
+  height: 386px;
   margin: auto auto;
   border: 1px solid rgba(206, 206, 206, 0.555);
   border-radius: 10px;
@@ -113,8 +161,8 @@
     & .poster {
       position: relative;
       overflow: hidden;
-      width: 200px;
-      height: 200px;
+      width: 240px;
+      height: 240px;
       border: 1px solid rgba(206, 206, 206, 0.555);
       border-radius: 50%;
       margin: 0 auto;
@@ -129,17 +177,17 @@
         position: absolute;
         top: 25%;
         left: 24%;
-        width: 100px;
-        height: 100px;
+        width: 125px;
+        height: 125px;
         border-radius: 50%;
-        border: 8px solid #fff;
+        border: 10px solid #fff;
 
         & .posterCD-middle {
           position: absolute;
-          top: 11%;
+          top: 10%;
           left: 10%;
-          width: 66px;
-          height: 66px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           background-color: #fff;
           border: 1px solid rgba(206, 206, 206, 0.555);
