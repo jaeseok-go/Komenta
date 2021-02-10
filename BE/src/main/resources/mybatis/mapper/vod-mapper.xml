@@ -108,8 +108,8 @@
     <select id="getVodHistoryByUAndVe" parameterType="com.komenta.be.model.vod.VodHistorySetDTO" resultType="int">
         SELECT COUNT(*)
         FROM vod_history
-        WHERE u_id =
-        AND ve_id = 1
+        WHERE u_id = #{u_id}
+        AND ve_id = #{ve_id}
     </select>
 
     <insert id="insertVodHistory" parameterType="com.komenta.be.model.vod.VodHistorySetDTO">
