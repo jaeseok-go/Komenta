@@ -1,9 +1,6 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.comment.CommentInfoDTO;
-import com.komenta.be.model.comment.CommentRankDTO;
-import com.komenta.be.model.comment.MyCommentDTO;
-import com.komenta.be.model.comment.VodEpisodeCommentDTO;
+import com.komenta.be.model.comment.*;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.CommentService;
@@ -38,7 +35,8 @@ public class CommentController {
 
     @Autowired
     CommentService cservice;
-
+    @Autowired
+    JwtService jwtService;
 
     @ApiOperation(value = "댓글 입력", notes = "댓글을 입력하면 해당 댓글을 DB에 저장하고 이를 반환")
     @ApiImplicitParams({
@@ -76,4 +74,28 @@ public class CommentController {
         return cservice.getMyComment(u_id);
     }
 
+
+    @ApiOperation(value = "댓글 좋아요", notes = "댓글 번호를 입력받고 현재 사용자의 u_id를 통해 댓글 좋아요수 +1")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "c_id", value = "c_id (댓글 아이디)", dataType = "int", required = true)
+    })
+    @PostMapping("/comment_good")
+    public int addLikeComment(@RequestBody CommentGoodDTO dto, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        dto.setU_id(u_id);
+        return cservice.addLikeComment(dto);
+    }
+
+
+
+    @ApiOperation(value = "댓글 좋아요 취소", notes = "댓글 번호를 입력받고 현재 사용자의 u_id를 통해 댓글 좋아요수 -1")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "c_id", value = "c_id (댓글 아이디)", dataType = "int", required = true)
+    })
+    @PostMapping("/comment_good_cancel")
+    public int cancelLikeComment(@RequestBody CommentGoodDTO dto, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        dto.setU_id(u_id);
+        return cservice.cancelLikeComment(dto);
+    }
 }

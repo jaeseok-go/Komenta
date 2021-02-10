@@ -2,10 +2,7 @@ package com.komenta.be.service;
 
 import com.komenta.be.mapper.CommentMapper;
 import com.komenta.be.mapper.GenreMapper;
-import com.komenta.be.model.comment.CommentInfoDTO;
-import com.komenta.be.model.comment.CommentRankDTO;
-import com.komenta.be.model.comment.MyCommentDTO;
-import com.komenta.be.model.comment.VodEpisodeCommentDTO;
+import com.komenta.be.model.comment.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +34,15 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<MyCommentDTO> getMyComment(int u_id) {
         return sqlSession.getMapper(CommentMapper.class).getMyComment(u_id);
+    }
+
+    @Override
+    public int addLikeComment(CommentGoodDTO dto) {
+        return sqlSession.getMapper(CommentMapper.class).addLikeComment(dto);
+    }
+
+    @Override
+    public int cancelLikeComment(CommentGoodDTO dto) {
+        return sqlSession.getMapper(CommentMapper.class).cancelLikeComment(dto);
     }
 }

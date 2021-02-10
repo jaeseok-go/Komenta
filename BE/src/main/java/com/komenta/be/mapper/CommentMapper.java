@@ -1,9 +1,6 @@
 package com.komenta.be.mapper;
 
-import com.komenta.be.model.comment.CommentInfoDTO;
-import com.komenta.be.model.comment.CommentRankDTO;
-import com.komenta.be.model.comment.MyCommentDTO;
-import com.komenta.be.model.comment.VodEpisodeCommentDTO;
+import com.komenta.be.model.comment.*;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -15,4 +12,6 @@ public interface CommentMapper {
     public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id);
     public List<CommentRankDTO> getCommentRankList();
     public List<MyCommentDTO> getMyComment(int u_id);
+    public int addLikeComment(CommentGoodDTO dto);
+    public int cancelLikeComment(CommentGoodDTO dto);
 }
