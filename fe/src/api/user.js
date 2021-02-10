@@ -160,7 +160,7 @@ function deletePlaylist(plId){
 
 //플레이리스트 좋아요 추가
 function likePlaylist(plId){
-    return instance.post('playlist/like',plId)
+    return instance.post('playlist/like', plId)
 }
 
 // 플레이리스트 좋아요 취소

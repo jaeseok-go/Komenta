@@ -47,7 +47,7 @@
                 >
                 </i></span>
                 </h4>
-                <p slot="body">
+                <p slot="body" @keydown.enter="createPlaylist">
                 <input class="input-group" type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." > <br>
                 <input class="input-group" type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요."> <br>
                 <button @click="createPlaylist">제출</button>
@@ -88,18 +88,21 @@
             v-for='(playlist,index) in playlists' 
             :key='index'
             >
-            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
-                <div class='plylist-zone'
+            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="likeUserPlaylist(playlist[0].pl_id)"><i class="far fa-star"></i></span> </h3>  
+                <div class='drop-zone'
         
                 >
                 <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
                 <!-- startDrag -1이면  -->
+                <div class="drop-zone__inner">
+
                 <div
                 v-for='(vod,index) in playlist' 
                 :key='index' 
                 class='drag-el'
                 > 
                     <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
+                </div>
                 </div>
                 </div>
         </div>
@@ -260,12 +263,13 @@ export default {
         onDrop (evt, plId) {
         const vodID = evt.dataTransfer.getData('vodID')
         const vod = this.myrecentlists.historyList.find(vod => vod.ve_id == vodID)
+        console.log(vod,'뭐가 선택됐는가')
         this.dragIndex = this.myrecentlists.historyList.indexOf(vod,0)
         // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
-        console.log(this.dragIndex)
+        console.log(this.dragIndex,'드래그인덱스임')
         // 해당 vod를 플레이리스트에 추가
-        this.myrecentlists.episodeList.pop(this.dragIndex)
-        this.myrecentlists.historyList.pop(this.dragIndex)
+        // this.myrecentlists.episodeList.pop(this.dragIndex)
+        // this.myrecentlists.historyList.pop(this.dragIndex)
         // 플레이리스트추가api(vod.ve_id,plId)
         // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
         const epiInfo = {
@@ -317,8 +321,9 @@ export default {
                 await addPlaylist(playlistinfo)
                 this.showModal = false
                 this.getUserPlayList();
-                
                 this.$store.dispatch('FETCH_MYPLAYLIST',this.userInfo.u_id)
+                this.plName = '';
+                this.plComment='';
             } catch {
                 console.log('플레이리스트 생성 실패')
             }
@@ -351,7 +356,7 @@ export default {
         }
         },
         likeUserPlaylist(plId){
-            likePlaylist(plId);
+            likePlaylist({pl_id:plId});
             alert('플레이리스트 좋아요 함')
         },
         async deleteUserPlaylist(plId){
@@ -392,14 +397,3 @@ export default {
 
 }
 </script>
-
-
-<style scoped>
-
-.plylist-zone {
-  background-color: #c1dfc4; 
-  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
-  height: 200px;
-}
-
-</style>
