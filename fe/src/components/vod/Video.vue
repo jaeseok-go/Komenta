@@ -93,8 +93,8 @@ export default {
             // }
 
         },
-        nowTime(){
-            let myNum = parseInt(this, 10);
+        nowTime(num){
+            let myNum = parseInt(num, 10);
             let hours   = Math.floor(myNum / 3600);
             let minutes = Math.floor((myNum - (hours * 3600)) / 60);
             let seconds = myNum - (hours * 3600) - (minutes * 60);
@@ -173,10 +173,10 @@ export default {
         const watching = {
             // u_id: this.userInfo.u_id,
             ve_id: this.veId,
-            // vh_watching_time: this.$moment(this.videoCurrentTime).format('hh:mm:ss')
+            vh_watching_time: this.nowTime(this.videoCurrentTime)
         }
         const end = endVodWatch(watching);
-        console.log('시청기록끝',end,this.videoCurrentTime,'->')
+        console.log('시청기록끝',end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
 }
 }
 </script>
