@@ -31,7 +31,7 @@ export default {
     props: { 
     // 변수 : 변수타입 
     // 기록을 해주는 이유는 데이터 타입을 알기 쉽게 위해서.
-    comments: Array, 
+    commentsList: Array, 
     veId : Number,
     sendcommenttime:[String,Number],
     vodEpiInfo:Object,
@@ -49,6 +49,7 @@ export default {
             now: "00:00:00",
             pre_diffHeight :0,
             bottom_flag : true,
+            comments:[]
         }
     },
     created() {
