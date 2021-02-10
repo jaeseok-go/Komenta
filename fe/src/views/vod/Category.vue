@@ -58,7 +58,7 @@ export default {
             this.$router.push(`/voddetail/${res.data[0].ve_id}`)
         },
         getPoster(path){
-            return `http://i4b201.p.ssafy.io:7000/picture/poster/${path}`
+            return `${process.env.VUE_APP_PICTURE}poster/${path}`
         }
     },
     watch:{

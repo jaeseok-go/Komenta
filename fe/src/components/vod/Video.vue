@@ -104,7 +104,7 @@ export default {
         },
         // 비디오 불러오기
         getVideo() {
-            const path =`http://i4b201.p.ssafy.io:7000/stream/video/stream/mp4/${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
+            const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
             console.log(path,'동영상주소')
             return path
         },

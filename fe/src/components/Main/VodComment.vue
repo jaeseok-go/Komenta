@@ -73,7 +73,7 @@ export default {
         for (let i = 0; i < this.allVODInfo.length; i++) {
             if(this.allVODInfo[i].v_id === index) {
                 const poster = this.allVODInfo[i].v_poster;
-                return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
+                return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
             }
         }
     },

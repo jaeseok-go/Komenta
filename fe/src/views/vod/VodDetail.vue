@@ -73,7 +73,7 @@ watch: {
 },
 methods : {
   getVodPoster(poster){
-    return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`
+    return `${process.env.VUE_APP_PICTURE}poster/${poster}`
   },
   goCommentTime(time) {
     this.sendcommenttime = time

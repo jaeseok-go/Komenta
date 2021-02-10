@@ -44,7 +44,7 @@ export default {
     },
     getPoster(){
       const poster = this.nowPlayingVOD.v_poster;
-      return `http://i4b201.p.ssafy.io:7000/picture/poster/${poster}`;
+      return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     goVOD(ve_id){
       this.$router.push(`voddetail/${ve_id}`)
