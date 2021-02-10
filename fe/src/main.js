@@ -14,11 +14,7 @@ import '@/css/index.css'
 import '@/assets/ionic.css'
 // google 로그인
 import GAuth from 'vue-google-oauth2'
-import VueMoment from 'vue-moment'
-import moment from 'moment'
-Vue.use(VueMoment, {
-  moment,
-})
+
 
 
 Vue.config.productionTip = false;

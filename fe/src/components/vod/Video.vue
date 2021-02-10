@@ -94,10 +94,16 @@ export default {
 
         },
         nowTime(){
-            const date = new Date();
-            this.nowTime = date.getHours() + ":" + date.getMinutes()
-            + ':' + date.getSeconds()
-            },
+            let myNum = parseInt(this, 10);
+            let hours   = Math.floor(myNum / 3600);
+            let minutes = Math.floor((myNum - (hours * 3600)) / 60);
+            let seconds = myNum - (hours * 3600) - (minutes * 60);
+
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            return hours+':'+minutes+':'+seconds;
+        },
         getCurTime() { 
             const vod = document.getElementById("videotag");
             alert(vod.currentTime,'현재시간?');
@@ -167,10 +173,10 @@ export default {
         const watching = {
             // u_id: this.userInfo.u_id,
             ve_id: this.veId,
-            vh_watching_time: this.$moment(this.videoCurrentTime).format('hh:mm:ss')
+            // vh_watching_time: this.$moment(this.videoCurrentTime).format('hh:mm:ss')
         }
         const end = endVodWatch(watching);
-        console.log('시청기록끝',end,this.videoCurrentTime,'->',this.$moment(Number(this.videoCurrentTime)).format('hh:mm:ss'))
+        console.log('시청기록끝',end,this.videoCurrentTime,'->')
 }
 }
 </script>
