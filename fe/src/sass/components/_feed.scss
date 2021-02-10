@@ -1,33 +1,117 @@
-.userprofile {
-    background-color: antiquewhite;
-    height: 10rem;
-    text-align: center;
-    vertical-align:middle;
-
-
-
-  &__pic {
-    font-size: 5rem;
-
-  }
-
-  &__name {
-    font-size: 1rem;
-
-  }
-
-  &__button {
-    background: linear-gradient(to right, #cb2d3e, #ef473a);
-    display: inline-block;
-    font-size: 16px;
-    color: #fff;
-    // text-shadow: 0 1px 1px rgb(30 31 68 / 50%);
-    padding: 10px 30px;
-    border-radius: 50px;
-    position: relative;
-  }
+.container {
   
+    .userprofile {
+        margin-bottom: 2rem;
+        padding: 1rem 7.5rem 11rem;
+        border-radius: 30px;
+        font-size: 2rem;
+        color: #fff;
+        background: linear-gradient(to right, #eb3349, #f45c43); 
+        text-align: center;
+        font-family: "Lato", sans-serif;
+        box-shadow: 0 1px 15px -7.5px #000000;
+        /* position relative for the pseudo element(s) */
+        position: relative;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 9rem;
+          left: 2%;
+          width: 96%;
+          height: 9rem;
+          background: #fff;
+          /* border-radius mathing the .tag container */
+          border-radius: 0 0 30px 30px;
+        }
+        /* with the :after pseudo element add the name of the character */
+        &:after {
+          content: "Peter Parker";
+          position: absolute;
+          top: 11.25rem;
+          left: 0;
+          width: 100%;
+          text-align: center;
+          font-family: "Rock Salt", cursive;
+          font-size: 2rem;
+          letter-spacing: 0.25rem;
+          font-weight: 300;
+          font-weight: bold;
+          color: #000;
+        }
 
 
+
+        // background-color: antiquewhite;
+        // height: 23rem;
+        // text-align:center;
+        // vertical-align:middle;
+        // border-radius: 15px;
+        // padding:10px;
+
+        // &__inner {
+        //   margin-top: 8px;
+        //   width: 95%;
+        //   background-color: white;
+        //   display: inline-block;
+        //   border-radius: 10px;
+        //   height: 93%;
+        //   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+
+        // }
+    
+    
+    
+      &__pic {
+        font-size: 5rem;
+    
+      }
+    
+      &__name {
+        font-size: 1rem;
+    
+      }
+    
+      &__button {
+        background: linear-gradient(to right, #cb2d3e, #ef473a);
+        display: inline-block;
+        font-size: 16px;
+        color: #fff;
+        // text-shadow: 0 1px 1px rgb(30 31 68 / 50%);
+        padding: 10px 30px;
+        border-radius: 50px;
+        position: relative;
+      }
+      
+    }
+}
+
+.drop-zone {
+  background: linear-gradient(to right, #eb3349, #f45c43); 
+  height: 250px;
+  border-radius: 20px;
+  box-shadow: 0 1px 15px -7.5px #000000;
+
+  &__inner {
+    width: 98%;
+    height: 90%;
+    background-color: #F9F9F9;
+    margin-top: 8px;
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    margin: 10px;
+    padding: 1rem;
+  }
+
+}
+
+
+.drag-el {
+  /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
+    margin:5px;
+    display: inline-block;
+    width: 10rem;
+    height: 100%;
+      /* border: 1px solid blue; */
 }
 

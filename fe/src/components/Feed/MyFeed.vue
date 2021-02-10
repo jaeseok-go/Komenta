@@ -2,103 +2,110 @@
   <div>
       <!-- asidebar에서 내피드를 클릭했을때 feed/f_id로 오게 함 -->
       <!-- f_id로 정보 받아서 처리 -->
-    <section>
-        <div class="userprofile">
-            <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
-            <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-            <div v-if="!showMyRecent()">
-                <button class="userprofile__button" @click="followUser">FOLLOW</button>
-            </div>
-        </div>
-    
+    <div class="container">
 
-    <template v-if="showMyRecent()">
-        <div>
-        <!-- 최근 본 VOD div -->
-          <button @click="showModalForm"><h4>플레이리스트 생성 <i class="fas fa-plus"></i></h4></button>
-            <h3>나의 최근 시청목록보기</h3>
+        <section>
+            <div class="userprofile">
+                    <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
+                    <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
+                    <div v-if="!showMyRecent()">
+                        <button class="userprofile__button" @click="followUser">FOLLOW</button>
+                    </div>
+            </div>
+        
+
+        <template v-if="showMyRecent()">
+            <div>
+            <!-- 최근 본 VOD div -->
+            <button @click="showModalForm"><h4>플레이리스트 생성 <i class="fas fa-plus"></i></h4></button>
+                <h3>나의 최근 시청목록보기</h3>
+                    <div class='drop-zone'
+                    @dragover.prevent
+                    @dragenter.prevent
+                    >
+                <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
+                    <div class="drop-zone__inner">
+                        <div 
+                        v-for='(vod,index) in myrecentlists.episodeList' 
+                        :key='index'
+                        class='drag-el'
+                        draggable
+                        @dragstart='startDrag($event, vod)'
+                        >
+                        <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <Modal v-if="showModal" @close="showModal=false">
+                <h4 slot="header">
+                나만의 스트리밍 리스트를 만들어보세요
+                <span @click="showModal = false"><i class="closeModalBtn fa fa-times"
+                aria-hidden="true"
+                >
+                </i></span>
+                </h4>
+                <p slot="body">
+                <input class="input-group" type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." > <br>
+                <input class="input-group" type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요."> <br>
+                <button @click="createPlaylist">제출</button>
+                </p>
+
+            </Modal>
+                    <!-- 플레이리스트 수만큼 drop-zon v-for -->
+            <div 
+            v-for='(playlist,index) in playlists' 
+            :key='index'
+            >
+            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
                 <div class='drop-zone'
+                @drop='onDrop($event, playlist[0].pl_id)'
                 @dragover.prevent
                 @dragenter.prevent
                 >
-            <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
-                    <div 
-                    v-for='vod in myrecentlists.episodeList' 
-                    :key='vod.ve_id' 
+                <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
+                <!-- startDrag -1이면  -->
+                <div class="drop-zone__inner">
+                    <div
+                    v-for='(vod,index) in playlist' 
+                    :key='index' 
                     class='drag-el'
                     draggable
-                    @dragstart='startDrag($event, vod)'
-                    >
-                    <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
+                    
+                    > 
+                        <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
                     </div>
                 </div>
+            </div>
         </div>
-
-        
-        <Modal v-if="showModal" @close="showModal=false">
-            <h4 slot="header">
-            나만의 스트리밍 리스트를 만들어보세요
-            <span @click="showModal = false"><i class="closeModalBtn fa fa-times"
-            aria-hidden="true"
-            >
-            </i></span>
-            </h4>
-            <p slot="body">
-            <input class="input-group" type="text" v-model="plName" placeholder="플레이리스트 제목을 적어주세요." > <br>
-            <input class="input-group" type="text" v-model="plComment" placeholder="플레이리스트 내용을 적어주세요."> <br>
-            <button @click="createPlaylist">제출</button>
-            </p>
-
-        </Modal>
-                <!-- 플레이리스트 수만큼 drop-zon v-for -->
-        <div 
-        v-for='playlist in playlists' 
-        :key='playlist[0].pl_id'
-        >
-        <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
-            <div class='plylist-zone'
-            @drop='onDrop($event, playlist[0].pl_id)'
-            @dragover.prevent
-            @dragenter.prevent
-            >
-            <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
-            <!-- startDrag -1이면  -->
-            <div
-            v-for='vod in playlist' 
-            :key='vod.ve_id' 
-            class='drag-el'
-            draggable
             
-            > 
-                <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
-            </div>
-            </div>
-    </div>
-        
-    </template>
+        </template>
 
-    <template v-else>
-        <div 
-        v-for='playlist in playlists' 
-        :key='playlist[0].pl_id'
-        >
-        <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
-            <div class='plylist-zone'
-    
+        <template v-else>
+            <div 
+            v-for='(playlist,index) in playlists' 
+            :key='index'
             >
-            <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
-            <!-- startDrag -1이면  -->
-            <div
-            v-for='vod in playlist' 
-            :key='vod.ve_id' 
-            class='drag-el'
-            > 
-                <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
-            </div>
-            </div>
+            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
+                <div class='plylist-zone'
+        
+                >
+                <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
+                <!-- startDrag -1이면  -->
+                <div
+                v-for='(vod,index) in playlist' 
+                :key='index' 
+                class='drag-el'
+                > 
+                    <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)" height="190px"></span>
+                </div>
+                </div>
+        </div>
+        </template>
+        </section>
     </div>
-    </template>
-    </section>
 
     
 
@@ -388,20 +395,6 @@ export default {
 
 
 <style scoped>
-.drop-zone {
-  background-color: #eee;
-  background-image: linear-gradient(60deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%);
-  height: 200px;
-}
-
-.drag-el {
-  /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
-  margin:5px;
-    display: inline-block;
-    width: 10rem;
-    height: 100%;
-    /* border: 1px solid blue; */
-}
 
 .plylist-zone {
   background-color: #c1dfc4; 

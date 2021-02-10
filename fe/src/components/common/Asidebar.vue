@@ -103,7 +103,6 @@ export default {
   methods: {
     reload(id) {
       this.$router.push(`/playlist/${id}`);
-      window.location.reload();
     },
     logout() {
       if (confirm('로그아웃 하시겠습니까?')) {

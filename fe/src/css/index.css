@@ -1356,22 +1356,59 @@ select {
   color: black;
 }
 
-.userprofile {
-  background-color: antiquewhite;
-  height: 10rem;
+.container .userprofile {
+  margin-bottom: 2rem;
+  padding: 1rem 7.5rem 11rem;
+  border-radius: 30px;
+  font-size: 2rem;
+  color: #fff;
+  background: -webkit-gradient(linear, left top, right top, from(#eb3349), to(#f45c43));
+  background: linear-gradient(to right, #eb3349, #f45c43);
   text-align: center;
-  vertical-align: middle;
+  font-family: "Lato", sans-serif;
+  -webkit-box-shadow: 0 1px 15px -7.5px #000000;
+          box-shadow: 0 1px 15px -7.5px #000000;
+  /* position relative for the pseudo element(s) */
+  position: relative;
+  /* with the :after pseudo element add the name of the character */
 }
 
-.userprofile__pic {
+.container .userprofile:before {
+  content: "";
+  position: absolute;
+  top: 9rem;
+  left: 2%;
+  width: 96%;
+  height: 9rem;
+  background: #fff;
+  /* border-radius mathing the .tag container */
+  border-radius: 0 0 30px 30px;
+}
+
+.container .userprofile:after {
+  content: "Peter Parker";
+  position: absolute;
+  top: 11.25rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: "Rock Salt", cursive;
+  font-size: 2rem;
+  letter-spacing: 0.25rem;
+  font-weight: 300;
+  font-weight: bold;
+  color: #000;
+}
+
+.container .userprofile__pic {
   font-size: 5rem;
 }
 
-.userprofile__name {
+.container .userprofile__name {
   font-size: 1rem;
 }
 
-.userprofile__button {
+.container .userprofile__button {
   background: -webkit-gradient(linear, left top, right top, from(#cb2d3e), to(#ef473a));
   background: linear-gradient(to right, #cb2d3e, #ef473a);
   display: inline-block;
@@ -1380,6 +1417,35 @@ select {
   padding: 10px 30px;
   border-radius: 50px;
   position: relative;
+}
+
+.drop-zone {
+  background: -webkit-gradient(linear, left top, right top, from(#eb3349), to(#f45c43));
+  background: linear-gradient(to right, #eb3349, #f45c43);
+  height: 250px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 1px 15px -7.5px #000000;
+          box-shadow: 0 1px 15px -7.5px #000000;
+}
+
+.drop-zone__inner {
+  width: 98%;
+  height: 90%;
+  background-color: #F9F9F9;
+  margin-top: 8px;
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  margin: 10px;
+  padding: 1rem;
+}
+
+.drag-el {
+  /* background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); */
+  margin: 5px;
+  display: inline-block;
+  width: 10rem;
+  height: 100%;
+  /* border: 1px solid blue; */
 }
 
 .rPlayList-Form img,
@@ -1565,59 +1631,5 @@ select {
           transform-origin: 50px 50px;
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
-}
-
-.container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-
-.container__profile {
-  width: 33.3%;
-}
-
-.container__profile .cotainer__profileimg {
-  width: 80%;
-  -webkit-box-shadow: 10px 10px 5px #ccc;
-  border-radius: 1rem;
-}
-
-.container__info {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 66.7%;
-}
-
-.container__info__name {
-  margin-top: 0;
-  margin-bottom: 5%;
-  font-weight: 550;
-}
-
-.container__info__comment {
-  margin-top: 0;
-  margin-bottom: 4%;
-  color: rgba(60, 60, 67, 0.6);
-}
-
-.container__info__button {
-  margin-bottom: 3%;
-  background-color: #fa233b;
-  width: 100px;
-  height: 30px;
-  border-radius: 0.5rem;
-  color: white;
 }
 /*# sourceMappingURL=index.css.map */
