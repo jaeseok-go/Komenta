@@ -7,7 +7,7 @@
         select vh_id, vh_watching_time, ve_id, vh_score, vh_good
         from vod_history
         where u_id = #{u_id}
-        order by vh_watching_time desc;
+        order by vh_last_watched_time desc;
     </select>
 
 
