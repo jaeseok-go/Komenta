@@ -6,7 +6,9 @@
 
         <section>
             <div class="userprofile">
-                    <div class="userprofile__pic"><i class="fad fa-user-circle"></i></div>
+                    <div class="userprofile__picbox">
+                        <div class="userprofile__picbox__content"><img :src="getProfile()"></div>
+                    </div>
                     <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
                     <div v-if="!showMyRecent()">
                         <button class="userprofile__button" @click="followUser">FOLLOW</button>
@@ -15,10 +17,11 @@
         
 
         <template v-if="showMyRecent()">
-            <div>
+            <div class="container__recentSection">
             <!-- 최근 본 VOD div -->
-            <button @click="showModalForm"><h4>플레이리스트 생성 <i class="fas fa-plus"></i></h4></button>
-                <h3>나의 최근 시청목록보기</h3>
+            <h3 class="container__recentSection__recentList">Recently Watched </h3>
+            <button class="container__recentSection__createPlaylistButton" @click="showModalForm"><h4 class="container__recentSection__createPlaylistTitle">새로운 플레이리스트 만들기</h4></button>
+            </div>
                     <div class='drop-zone'
                     @dragover.prevent
                     @dragenter.prevent
@@ -36,7 +39,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
             
             <Modal v-if="showModal" @close="showModal=false">
@@ -252,6 +254,10 @@ export default {
         this.getRecentPlayList();
     },
     methods: {        
+        getProfile() {
+            const profile = this.feedUserInfo.u_profile_pic.split('.')[0]
+            return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+        },
         // drag and drop 메소드
         // drag 시작한 vod
         startDrag: (evt, vod) => {
