@@ -14,14 +14,14 @@
           <form @submit.prevent="modifyUserInfo">
             <div class="profile-form">
               <div class="img">
-                <v-img v-if="userProfilePic" :src="require(`@/assets/images/${userProfilePic}`)" width="90px"/>
+                <v-img v-if="userProfilePic" :src="getUserProfile(userProfilePic)" width="90px"/>
                 <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
                 <!-- {{userProfilePic}} -->
               </div>
               <div class="file-input">
                 <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
                 <!-- <button>프로필 사진 변경</button> -->
-                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages()" required accept="image/jpeg">
+                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages()" required accept="image/jpeg,image/jpg">
                 <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
                 {{userProfilePic}}
               </div>
@@ -250,6 +250,10 @@ export default {
     }
   },
   methods: {
+    getUserProfile(profile){
+      const picName = profile.split('.')
+      return `${process.env.VUE_APP_PICTURE}profile/${picName[0]}`
+    },
     closeUserInfoModal() {
       this.showUserInfoModal = false;
       console.log('들어와라,,')
@@ -308,6 +312,24 @@ export default {
         return;
       }
       try {
+        let profilePic = new FormData();
+        let pic = this.userProfilePic.split('.');
+        // console.log(pic,'잘렸니?')
+        profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
+
+        // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
+        await uploadProfile(profilePic)
+        .then((response) => {
+          console.log("프로필 사진 잘 들어감",response.data);
+          this.closeUserInfoModal();
+          
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+          return false;
+        });
         const userData = {
           u_id:this.uId,
           u_email:this.userId,
@@ -323,22 +345,6 @@ export default {
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
         
-        let profilePic = new FormData();
-        let pic = this.userProfilePic.split('.');
-        profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
-
-        // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
-        await uploadProfile(profilePic)
-        .then((response) => {
-          console.log("프로필 사진 잘 들어감",response.data);
-          this.closeUserInfoModal();
-          // window.location.reload();
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
-          return false;
-        });
 
       }catch(err) {
         console.log("수정 에러")

@@ -91,7 +91,7 @@ function membership() {
 // 프로필 사진 file 업로드 
 function uploadProfile(profile) {
     console.log('프로필 마지막 확인 : ',profile.get('profile'))
-    return axios.post('http://i4b201.p.ssafy.io:8080/member/profile_upload',profile, { 
+    return axios.post(`${process.env.VUE_APP_URL}member/profile_upload`,profile, { 
         headers: {
            'Content-Type': 'multipart/form-data',
            'auth-token': store.state.token
