@@ -20,7 +20,6 @@
           <!-- 특정 글자 수 넘으면 ...처리 -->
           <td>댓글 내용</td>
           <td>좋아요</td>
-          <td>대댓글</td>
           <td>날짜</td>
           <!-- <td :style="{display:editDisplay}">삭제</td> -->
         </tr>
@@ -29,10 +28,9 @@
         </tr>
         <!-- DB에 저장된 값 불러오기 기능 -->
         <tr v-for="(comm, index) in paginatedData" :key="index" v-else>
-          <td>{{comm.v_title}} {{comm.ve_episode_num}}화</td>
+          <td @click="goVod(comm.ve_id)">{{comm.v_title}} {{comm.ve_episode_num}}화</td>
           <td>{{comm.c_contents}}</td>
-          <td>{{comm.comment_good_count}}개</td>
-          <td>{{comm.re_comment_count}}개</td>
+          <td>{{comm.c_good_count}}개</td>
           <td>{{comm.c_upload_time}}</td>
           <!-- <td :style="{display:editDisplay}"><input type="checkbox" :id="index" :vlaue="index" :v-model="deleteList"></td> -->
         </tr>
@@ -56,7 +54,7 @@
 </template>
 
 <script>
-import { fetchMyComment } from '@/api/user';
+import { fetchUserComment } from '@/api/comment';
 import { mapState } from 'vuex';
 export default {
   data() {
@@ -77,6 +75,9 @@ export default {
       required: false,
       default: 5
     }
+  },
+  created(){
+    this.getMyComment();
   },
   computed: {
     ...mapState({
@@ -99,9 +100,13 @@ export default {
     }
   },
   methods: {
-    async fetchMyComment(){
-      const response = await fetchMyComment(this.userInfo.u_id);
-      console.log("내 댓글 : ",response)
+    goVod(veId){
+      this.$router.push(`/voddetail/${veId}`)
+    },
+    async getMyComment(){
+      const response = await fetchUserComment(this.userInfo.u_id);
+      this.commentContents = response.data
+      console.log("내 댓글 : ",response.data)
     },
     commentDelete() {
       if(this.editDisplay == 'none'){

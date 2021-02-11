@@ -1,97 +1,61 @@
 <template>
   <b-col>
-    <h4>시청 VOD 관리</h4>
-    <hr>
-    <div class="btn-right">
-      <button @click="showModalForm">더보기</button>
-    </div>
-    <!-- vueper Slides 이용 -->
-    <div class="VODCard">
-      <div class="watchedVOD" v-for="(vod, index) in watchedVODList" :key="index">
-        <!-- 원형으로 포스터 표시 -->
-        <div class="watchedVODImg">
-          <img :src="require(`@/assets/images/${vod.v_poster}.png`)" width="153px">
-        </div>
-        <div class="watchedVODText">
-          {{vod.v_name}} {{vod.v_ep_num}}화<br>
-          일시 º {{vod.watched_date}}
-          <!-- VOD명 + 회차 정보 -->
-          <!-- 최근 시청 날짜 -->
-        </div>
-      </div>
-    </div>
-  <!-- 
-    1. 이미지(포스터...?)<br>
-    2. VOD 명 + 회차 정보<br>
-    3. 최근 시청 날짜<br>
-    4. 편집 버튼 클릭 시, 시청 기록 삭제 가능<br> 
-  -->
+    <!-- <div class="container__recentSection"> -->
+            <!-- 최근 본 VOD div -->
+            <h3 class="container__recentSection__recentList">Recently Watched </h3>
+    <!-- </div> -->
+              <div class='drop-zone'>
+            <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
+                <div class="drop-zone__inner">
+                    <div 
+                    v-for='(vod,index) in recentlyPlayLists.episodeList' 
+                    :key='index'
+                    class='drag-el'
+                    >
+                    <span @click="goVod(vod.ve_id)">
+                    <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
+                    </span>
+                    </div>
+                </div>
+            </div>
+      
+
   </b-col>
 </template>
 
 <script>
-// import {VueperSlides, VueperSlide } from 'vueperslides'
-// import 'vueperslides/dist/vueperslides.css'
-// import {fetchRecentPlaylist} from '@/api/user';
+import {fetchRecentPlaylist} from '@/api/user';
+
+
 export default {
-  // components:{
-  //   VueperSlides,
-  //   VueperSlide
-  // },
   props:['getUserId'],
   data() {
     return {
-      watchedVODList: [
-        {
-          v_name:'사랑의 불시착',
-          v_ep_num:'21',
-          v_poster:'test',
-          watched_date:'2021-01-20'
-        },
-        {
-          v_name:'사랑의 불시착',
-          v_ep_num:'21',
-          v_poster:'test',
-          watched_date:'2021-01-20'
-        },
-        {
-          v_name:'사랑의 불시착',
-          v_ep_num:'21',
-          v_poster:'test',
-          watched_date:'2021-01-20'
-        },
-        {
-          v_name:'사랑의 불시착',
-          v_ep_num:'21',
-          v_poster:'test',
-          watched_date:'2021-01-20'
-        },
-        {
-          v_name:'사랑의 불시착',
-          v_ep_num:'21',
-          v_poster:'test',
-          watched_date:'2021-01-20'
-        }
-      ],
-      recentlyPlayList:[]
+      recentlyPlayLists:{
+        // episodeList:[],
+        // historyList:[]
+      }
     }
   },
   created() {
-    // this.getVODList();
+    this.getRecentPlayList();
   },
   methods: {
-    showModalForm() {
-      this.$emit('showVODForm')
+    goVod(veId){
+      this.$router.push(`/voddetail/${veId}`)
     },
-    getVODList(){
-      // console.log(this.getUserId);
-      // this.watchedVODList = this.$store.state.recentPlaylist;
-      // this.watchedVODList = response.data;
-      //최근 시청 VOD 5개만 표출
-      // for (let index = 0; index < 5; index++) {
-      //   this.recentlyPlayList.concat(this.watchedVODList[index]);
-      // }
+    async getRecentPlayList() {
+    try {
+        const res = await fetchRecentPlaylist()
+        this.recentlyPlayLists = res.data
+        console.log('나의 최신vod목록:',this.recentlyPlayLists)
+    } catch {
+        console.log('최신vod에러')
     }
+    },
+    getVodPoster(gdId,title){
+        return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
+    },
   },
 }
 </script>
