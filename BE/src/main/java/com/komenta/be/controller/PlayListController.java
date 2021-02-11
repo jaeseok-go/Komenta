@@ -133,10 +133,10 @@ public class PlayListController {
     @GetMapping("/recent_update_follow_playlist")
     public ResponseEntity<List<List<PlayListGetAllDTO>>> recentUpdatedPlayList(HttpServletRequest request){
         HttpStatus status = null;
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth_token"));
+        System.out.println(u_id);
         List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
         try {
-            int u_id = jwtService.getUidFromJwt(request.getHeader("auth_token"));
-
             List<Integer> pl_id = playListService.select_follower_pl_id(u_id);
             System.out.println("여기서는 pl_id");
             for (int a : pl_id) {
