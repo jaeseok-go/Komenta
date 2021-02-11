@@ -6,25 +6,18 @@
         <!-- {{this.updateFollowPlaylist}} -->
             <div class="container__following__Profle">
                 <!-- 버튼 누르기 -->
-                <!-- <div class="btn-cover">
+                <div class="btn-cover">
                     <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
                         <font-awesome-icon :icon="['fas', 'angle-left']"/>
                     </button>
-                    <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
-                        <font-awesome-icon :icon="['fas', 'angle-right']"/>
-                    </button>
-                </div> -->
-                <div v-for="(user,index) in this.following_list" :key="index">
+                </div>
+                <div v-for="(user,index) in paginatedData" :key="index">
                     <div @click="gotoFeed(user.f_id)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img"></div>
                 </div>
             </div>
-            <!-- 팔로잉들의 최신플레이리스트 목록 -->
-            <div>
-                {{this.updateFollowPlaylist}}
-
-            </div>
-        
-            
+            <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+                <font-awesome-icon :icon="['fas', 'angle-right']"/>
+            </button>
             <div class="at-section">
                 <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
                 <span class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span>
@@ -59,150 +52,47 @@
 </template>
 
 <script>
-import { top9followers,fetchfollowinglist,updateFollowPlaylist} from '@/api/user'
+import { top9followers,fetchfollowinglist,updateFollowPlaylist } from '@/api/user'
 // import { mapState } from 'vuex'
 import store from '@/stores/modules/user'
 
 export default {
     data() {
         return {
-            // pageNum:0,
+            pageNum:0,
             following_list:[],
             top9:[],
             updateFollowPlaylist:[],
             // pageSize:5,
-                        genreDetails:[
-            {
-                "gd_id": 1,
-                "gd_name": "멜로",
-                "g_id": 1
-            },
-            {
-                "gd_id": 2,
-                "gd_name": "스릴러",
-                "g_id": 1
-            },
-            {
-                "gd_id": 3,
-                "gd_name": "코미디",
-                "g_id": 1
-            },
-            {
-                "gd_id": 4,
-                "gd_name": "액션",
-                "g_id": 1
-            }
-            ,
-            {
-                "gd_id": 5,
-                "gd_name": "음악",
-                "g_id": 2
-            },
-            {
-                "gd_id": 6,
-                "gd_name": "버라이어티",
-                "g_id": 2
-            },
-            {
-                "gd_id": 7,
-                "gd_name": "토크",
-                "g_id": 2
-            },
-            {
-                "gd_id": 8,
-                "gd_name": "요리",
-                "g_id": 2
-            }
-            ,
-
-            {
-                "gd_id": 9,
-                "gd_name": "환경",
-                "g_id": 3
-            },
-            {
-                "gd_id": 10,
-                "gd_name": "역사",
-                "g_id": 3
-            },
-            {
-                "gd_id": 11,
-                "gd_name": "휴먼",
-                "g_id": 3
-            }
-            ,
-
-            {
-                "gd_id": 12,
-                "gd_name": "축구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 13,
-                "gd_name": "농구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 14,
-                "gd_name": "배구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 15,
-                "gd_name": "야구",
-                "g_id": 4
-            }
-            ,
-            {
-                "gd_id": 16,
-                "gd_name": "로맨스/순정",
-                "g_id": 5
-            },
-            {
-                "gd_id": 17,
-                "gd_name": "스포츠",
-                "g_id": 5
-            },
-            {
-                "gd_id": 18,
-                "gd_name": "액션/추리",
-                "g_id": 5
-            },
-            {
-                "gd_id": 19,
-                "gd_name": "코미디",
-                "g_id": 5
-            }
-
-            ]
-    }},
+        }
+    },
     props: {
         pageSize: {
-        type: Number,
-        required: false,
-        default: 5
+            type: Number,
+            required: false,
+            default: 3
         }
     },
     computed: {
         userInfo() {
             return store.state.userInfo;
         },
-        // pageCount() {
-        //     let listLeng = this.following_list.length;
-        //     console.log(listLeng,'리스트렝,,,')
-        //     listSize = this.pageSize;
-        //     page = Math.floor(listLeng / listSize);
+        pageCount() {
+            let listLeng = this.following_list.length,
+            listSize = this.pageSize,
+            page = Math.floor(listLeng / listSize);
 
-        //     if(listLeng % listSize > 0) page += 1;
+            if(listLeng % listSize > 0) page += 1;
 
-        //     return page;
-        // },
-        // paginatedData() {
-        //     const start = this.pageNum * this.pageSize;
-        //     end = start + this.pageSize;
+            return page;
+        },
+        paginatedData() {
+            const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
 
-        //     return this.following_list.slice(start,end);
-        // }
+            return this.following_list.slice(start, end);
+            
+        },
     },
     created() {
         this.getFollowing()
@@ -210,42 +100,36 @@ export default {
         this.getUpdateFollowPlaylist()
     },
     methods: {
-      gotoFeed(userId) {
-          this.$router.push(`/feed/${userId}`)
-      },
-      nextPage() {
-          this.pageNum +=1;
-      },
-      prevPage() {
-          this.pageNum -=1;
-      },
-      getProfile(index) {
-        //   console.log(index)
-          const profile = this.following_list[index].u_profile_pic.split('.')[0]
-          console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
-          return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
-      },
-      async getUpdateFollowPlaylist() {
-          const response = await updateFollowPlaylist()
-          console.log(response.data,'리스펀스 데이타 ㅋㅋㅋ')
-          this.updateFollowPlaylist = response.data
-      },
-      async getFollowing() {
-        const userId = store.state.userInfo.u_id
-        const response = await fetchfollowinglist(userId)
-        this.following_list = response.data
-      },
-      async getTopInfluencer() {
-          const response = await top9followers()
-          this.top9 = response.data
-      },
-      getPlaylistVodPoster(gdname,title){
-            const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
-            return `${process.env.VUE_APP_PICTURE}poster/${gdId.gd_id}_${title}`
+        gotoFeed(userId) {
+            this.$router.push(`/feed/${userId}`)
+        },
+        nextPage() {
+            this.pageNum += 1;
+        },
+        prevPage() {
+            this.pageNum -= 1;
+        },
+        getProfile(index) {
+            //   console.log(index)
+            const profile = this.following_list[index].u_profile_pic.split('.')[0]
+            console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
+            return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+        },
+        async getUpdateFollowPlaylist() {
+            const response = await updateFollowPlaylist()
+            console.log(response.data,'리스펀스 데이타 ㅋㅋㅋ')
+            this.updateFollowPlaylist = response.data
+        },
+        async getFollowing() {
+            const userId = store.state.userInfo.u_id
+            const response = await fetchfollowinglist(userId)
+            this.following_list = response.data
+        },
+        async getTopInfluencer() {
+            const response = await top9followers()
+            this.top9 = response.data
         },
     },
-
-
 }
 </script>
 

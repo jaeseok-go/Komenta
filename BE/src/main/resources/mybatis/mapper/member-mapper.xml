@@ -48,7 +48,7 @@
             u_is_admin = #{u_is_admin},
             u_is_blocked = #{u_is_blocked},
             u_expire_member = #{u_expire_member},
-            u_profile_pic = #{u_id_blocekd}
+            u_profile_pic = #{u_profile_pic}
         where u_id = #{u_id}
     </update>
 
