@@ -135,14 +135,20 @@ public class PlayListController {
         HttpStatus status = null;
         List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
         try {
-            String token = request.getHeader("auth_token");
-            int u_id = (int) jwtService.get(token).get("u_id");
+            int u_id = jwtService.getUidFromJwt(request.getHeader("auth_token"));
 
             List<Integer> pl_id = playListService.select_follower_pl_id(u_id);
+            System.out.println("여기서는 pl_id");
             for (int a : pl_id) {
+                System.out.println(a);
                 dtolist.add(playListService.playlist_info(a));
             }
-
+            System.out.println("여기서부터는 리스트");
+            for(List<PlayListGetAllDTO> dto : dtolist){
+                for(PlayListGetAllDTO ddto : dto) {
+                    System.out.println(ddto);
+                }
+            }
             status = HttpStatus.OK;
         }
         catch(RuntimeException e){
