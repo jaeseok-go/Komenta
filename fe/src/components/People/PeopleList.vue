@@ -18,6 +18,11 @@
                     <div @click="gotoFeed(user.f_id)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img"></div>
                 </div>
             </div>
+            <!-- 팔로잉들의 최신플레이리스트 목록 -->
+            <div>
+                {{this.updateFollowPlaylist}}
+
+            </div>
         
             
             <div class="at-section">
@@ -66,6 +71,110 @@ export default {
             top9:[],
             updateFollowPlaylist:[],
             // pageSize:5,
+                        genreDetails:[
+            {
+                "gd_id": 1,
+                "gd_name": "멜로",
+                "g_id": 1
+            },
+            {
+                "gd_id": 2,
+                "gd_name": "스릴러",
+                "g_id": 1
+            },
+            {
+                "gd_id": 3,
+                "gd_name": "코미디",
+                "g_id": 1
+            },
+            {
+                "gd_id": 4,
+                "gd_name": "액션",
+                "g_id": 1
+            }
+            ,
+            {
+                "gd_id": 5,
+                "gd_name": "음악",
+                "g_id": 2
+            },
+            {
+                "gd_id": 6,
+                "gd_name": "버라이어티",
+                "g_id": 2
+            },
+            {
+                "gd_id": 7,
+                "gd_name": "토크",
+                "g_id": 2
+            },
+            {
+                "gd_id": 8,
+                "gd_name": "요리",
+                "g_id": 2
+            }
+            ,
+
+            {
+                "gd_id": 9,
+                "gd_name": "환경",
+                "g_id": 3
+            },
+            {
+                "gd_id": 10,
+                "gd_name": "역사",
+                "g_id": 3
+            },
+            {
+                "gd_id": 11,
+                "gd_name": "휴먼",
+                "g_id": 3
+            }
+            ,
+
+            {
+                "gd_id": 12,
+                "gd_name": "축구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 13,
+                "gd_name": "농구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 14,
+                "gd_name": "배구",
+                "g_id": 4
+            },
+            {
+                "gd_id": 15,
+                "gd_name": "야구",
+                "g_id": 4
+            }
+            ,
+            {
+                "gd_id": 16,
+                "gd_name": "로맨스/순정",
+                "g_id": 5
+            },
+            {
+                "gd_id": 17,
+                "gd_name": "스포츠",
+                "g_id": 5
+            },
+            {
+                "gd_id": 18,
+                "gd_name": "액션/추리",
+                "g_id": 5
+            },
+            {
+                "gd_id": 19,
+                "gd_name": "코미디",
+                "g_id": 5
+            }
+
+            ]
     }},
     props: {
         pageSize: {
@@ -130,6 +239,10 @@ export default {
           const response = await top9followers()
           this.top9 = response.data
       },
+      getPlaylistVodPoster(gdname,title){
+            const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
+            return `${process.env.VUE_APP_PICTURE}poster/${gdId.gd_id}_${title}`
+        },
     },
 
 
