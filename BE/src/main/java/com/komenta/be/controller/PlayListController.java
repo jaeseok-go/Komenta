@@ -129,30 +129,20 @@ public class PlayListController {
 
     @ApiOperation(value = "나의 팔로잉들의 최근 갱신 플레이리스트", notes = "내 팔로잉들의 최근 갱신된 플레이리스트")
     @GetMapping("/recent_update_follow_playlist")
-    public ResponseEntity<List<List<PlayListGetAllDTO>>> recentUpdatedPlayList(HttpServletRequest request){
-        HttpStatus status = null;
+    public List<List<PlayListGetAllDTO>> recentUpdatedPlayList(HttpServletRequest request){
+
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth_token"));
-        System.out.println(u_id);
-        List<List<PlayListGetAllDTO>> dtolist = new ArrayList<>();
-        try {
-            List<Integer> pl_id = playListService.select_follower_pl_id(u_id);
-            System.out.println("여기서는 pl_id");
-            for (int a : pl_id) {
-                System.out.println(a);
-                dtolist.add(playListService.playlist_info(a));
-            }
-            System.out.println("여기서부터는 리스트");
-            for(List<PlayListGetAllDTO> dto : dtolist){
-                for(PlayListGetAllDTO ddto : dto) {
-                    System.out.println(ddto);
-                }
-            }
-            status = HttpStatus.OK;
+        System.out.println("u_id 받아보기 : " + u_id);
+
+        List<List<PlayListGetAllDTO>> playlist = new ArrayList<>();
+        List<Integer> plId_list = playListService.select_follower_pl_id(u_id);
+
+        for (int pl_id : plId_list) {
+            System.out.println("pl_id 받아보기 : " + pl_id);
+            playlist.add(playListService.playlist_info(pl_id));
         }
-        catch(RuntimeException e){
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<List<List<PlayListGetAllDTO>>>(dtolist, status);
+
+        return playlist;
     }
 
 
