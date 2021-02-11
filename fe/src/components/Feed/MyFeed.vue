@@ -10,7 +10,7 @@
                         <div class="userprofile__picbox__content"><img :src="getProfile()"></div>
                     </div>
                     <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-                    <div v-if="!showMyRecent()">
+                    <div v-if="!showMyRecent() && !isFollowed()">
                         <button class="userprofile__button" @click="followUser">FOLLOW</button>
                     </div>
             </div>
@@ -120,7 +120,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { fetchMyInfo, fetchRecentPlaylist, unlikePlaylist,likePlaylist,deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod } from '@/api/user'
+import { fetchMyInfo, fetchRecentPlaylist, unlikePlaylist,likePlaylist,deletePlaylist, addReviewPlaylist,fetchMyPlaylist,addPlaylist, modifyfollow, addPlaylistVod, fetchfollowinglist } from '@/api/user'
 import Modal from '@/components/common/Modal';
 
 
@@ -131,6 +131,7 @@ export default {
     },
     data(){
         return {
+            myFollowing:[],
             feedUserInfo:{},
             myrecentlists :{},
             playlists : [],
@@ -252,6 +253,8 @@ export default {
         this.getFeedInfo();
        this.getUserPlayList();
         this.getRecentPlayList();
+        this.getFollowinglist();
+        // this.isFollowed();
     },
     methods: {        
         getProfile() {
@@ -290,23 +293,39 @@ export default {
         },
         showMyRecent() {
             if (this.userInfo.u_id == this.feedUserInfo.u_id) {
-            
+                console.log('아임...유저....')
                 return true
             }
             return false
         },
+        async isFollowed() {
+            //내 팔로워목록에 이미 니가 있으면 false, 없으면 true
+            for (let index = 0; index < this.myFollowing.length; index++) {
+                const element = this.myFollowing[index];
+                console.log(element.f_id,this.feedUserInfo.u_id,'엘리먼트 ㅋㅋ')
+                if (element.f_id === this.feedUserInfo.u_id) {
+                    console.log('들어오지마 ㅋ')
+                    return true
+                } 
+            } return false
+        },
+        async getFollowinglist() {
+            const response = await fetchfollowinglist(this.userInfo.u_id)
+            this.myFollowing = response.data
+            console.log(this.myFollowing,'팔로잉아 들어왕,,')
+        },
         //팔로우하는 로직 추가 구현
         followUser() {
             const your_id = this.$route.params.id;
-            console.log(your_id,'유어')
             const my_id = this.userInfo.u_id
-            console.log(my_id,'마이')
-
-            const bothId = { u_id : my_id, f_id :your_id }
+            const bothId = { u_id : my_id, f_id : your_id }
             const response = modifyfollow(bothId)
             console.log(response,'됐다')
+            this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
+
 
         },
+
         async addComment(plId){
             try {
                 const commentInfo = {
@@ -391,15 +410,37 @@ export default {
         getVodPoster(gdId,title){
            return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
         },
-        
-        
+        // showFollowButton() {
+        //     if (this.userInfo.u_id == this.feedUserInfo.u_id) {
 
+        //         if () {
+
+        //         }
+        //         return true
+        //     } return false
+        // },
+        // const myfeed = this.showMyRecent();
+        // const followed = this.isFollowed();
+        // console.log(myfeed,followed,'뭐냐')
+        // if ( !myfeed && !followed) {
+        //     return true
+        // } else {
+        //     return false
+        // }
     },
-
     computed: {
         ...mapState({
         userInfo: state => state.user.userInfo,
     }),
+    // showFollowButton() {
+    //     const myfeed = this.showRecent();
+    //     const followed = this.isFollowed();
+    //     if ( !myfeed && !followed) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
 
   },
 
