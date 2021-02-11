@@ -20,7 +20,7 @@
     </select>
 
     <select id="getFollowerList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">
-        SELECT A.f_id, B.u_nickname, B.u_profile_pic
+        SELECT B.u_id, B.u_nickname, B.u_profile_pic
         FROM (SELECT f_id, u_id
               FROM follow
               WHERE f_id = #{u_id}) A LEFT OUTER JOIN member B
