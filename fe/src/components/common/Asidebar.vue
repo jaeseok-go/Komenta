@@ -136,8 +136,8 @@ export default {
   created() {
     const userId = this.userInfo.u_id;
     this.$store.dispatch('FETCH_MYPLAYLIST', userId);
-    console.log(this.myPlayList, '아아아아아ㅏ');
-    console.log(this.userInfo, '유저ㅏ인포???????');
+    // console.log(this.myPlayList, '아아아아아ㅏ');
+    // console.log(this.userInfo, '유저ㅏ인포???????');
   },
 };
 </script>

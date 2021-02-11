@@ -51,7 +51,7 @@ export default {
     pageSize: {
       type: Number,
       required: false,
-      default: 6
+      default: 5
     }
   },
   computed: {
