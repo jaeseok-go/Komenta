@@ -1,5 +1,5 @@
 $prefix: at;
-$totalColumns: 9;
+$totalColumns: 7;
 
 .container {
   display: flex;
@@ -13,13 +13,14 @@ $totalColumns: 9;
   // transform: scale(0.8);
 
   &__following {
-    width: 100%;
+    width: 1000px;
 
 
     .container__following__Profle {
       display: flex;
 
       &__background {
+        
         margin: 10px 10px;
         box-shadow: 0 1px 15px -7.5px #000000;
         border: double 2px transparent;
@@ -30,10 +31,18 @@ $totalColumns: 9;
         margin-bottom: 35px;
         white-space:nowrap;
         overflow: hidden;
+        cursor: pointer;
+
+        &:hover {
+          z-index: 1;
+          box-shadow: 0 8px 50px rgba(#000, 0.2);
+          transform: scale(1.1);
+        }
       }
 
       &__img {
         border-radius: 50%;
+      
       }
 
     }
@@ -48,7 +57,7 @@ $totalColumns: 9;
   &-section {
     margin-top: 4rem;
     &__title {
-      margin: 0 0 40px;
+      margin: 0 0 30px;
       color: #000;
       font-family: 'Roboto', sans-serif;
       font-size: 2rem;
@@ -57,19 +66,38 @@ $totalColumns: 9;
       // text-align: center;
     }
 
+    &__subtitleButton {
+        display: inline-block;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        // width: 70%;
+        padding: 5px 2px;
+        border-radius: 24px;
+        // background-color: #D3D3D3;
+
+    }
+
     &__subtitle {
-      display: inline-block;
-      background: #f2f2f7;
-      color: #696969;
-      margin-bottom: 25px;
-      font-size: 1.2rem;
-      font-weight: 300;
-      border-radius: 20px;
-      border-width: 22rem;
+        text-align: center;
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+          // color: black;
+          background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+    }
+
+    &__icon {
+      color: lightsalmon;
+      width: 1rem;
+      height: 1.5rem;
+
+
     }
 
     &__nickname {
-      background: linear-gradient(to right, #fbcac9, #8ca6ce);
+      background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-size: 3.5rem;
@@ -79,21 +107,17 @@ $totalColumns: 9;
   
   &-grid {
       
-      width: 1000px;
+      width: 2500px;
       display: flex;
-      // flex-wrap: wrap;
-      overflow-x: scroll;
-      overflow-y:hidden;
+      flex-wrap: wrap;
       grid-auto-flow: column;
-      overflow-x: auto;
-      overflow-y: hidden;
+
 
 
   }
   
   &-column {
     background-color: beige;
-      // background: linear-gradient(to right, #de6262, #ffb88c);
     flex: 0 0 20%;
     position: relative;
     background: #FFF;
@@ -104,7 +128,6 @@ $totalColumns: 9;
                 transform 0.2s ease;
     
     &:before {
-      //  background: linear-gradient(to right, #de6262, #ffb88c);
       content: "";
       display: block;
       padding-top: 100%;
@@ -131,32 +154,22 @@ $totalColumns: 9;
     transform: translate(0, -50%);
     text-align: center;
     
-    &__avatar {
-      height: 98px;
-      border-radius: 100%;
-      margin: 0 auto 20px;
-      overflow: hidden;
-      
-      img {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-    
     &__name {
       color: #313435;
       font-family: 'Roboto', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 500;
       line-height: 2.625rem;
+      margin-bottom: 2rem;
     }
     
-    &__title {
-      color: #6F808A;
-      font-family: 'Roboto', sans-serif;
-      font-size: 0.875rem;
-      line-height: 2.375rem;
+    &__profile {
+      border-radius: 50%;
+      overflow: hidden;
+
+      &__img {
+        border-radius: 50%;
+      }
     }
   }
   
@@ -189,3 +202,23 @@ $totalColumns: 9;
     background: #ffffff;
   }
 }
+
+
+.btn-cover_people {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  text-align: right !important;
+  font-size: 20px;
+  margin-right: 1rem;
+  right: 2rem;
+
+  .page-btn_people {
+    margin-top: 3rem;
+    width: 3rem !important;
+    height: 2rem !important;
+    color: #787878;
+  }
+}
+
+// .

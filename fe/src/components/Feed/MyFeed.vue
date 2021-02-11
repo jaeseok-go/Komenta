@@ -304,7 +304,7 @@ export default {
 
             const bothId = { u_id : my_id, f_id :your_id }
             const response = modifyfollow(bothId)
-            console.log(response)
+            console.log(response,'됐다')
 
         },
         async addComment(plId){
