@@ -1,18 +1,18 @@
 <template>
     <div>
-        <RecentlyPlayList></RecentlyPlayList>
+        <!-- <RecentlyPlayList></RecentlyPlayList> -->
         <MyLikePlayList></MyLikePlayList>
     </div>
 </template>
 
 <script>
-import RecentlyPlayList from '@/components/MyPlayList/RecentlyPlayedList'
+// import RecentlyPlayList from '@/components/MyPlayList/RecentlyPlayedList'
 import MyLikePlayList from '@/components/MyPlayList/MyLikePlayList'
 
-
 export default {
+
     components: {
-        RecentlyPlayList,
+        // RecentlyPlayList,
         MyLikePlayList,
     },
 
