@@ -1,52 +1,67 @@
 <template>
     <div class="container">
         <div class="container__following">
-        <!-- 프로필 팔로잉 사진 목록 -->
-        <!-- {{this.following_list}} -->
-        <!-- {{this.updateFollowPlaylist}} -->
+            <!-- 버튼 누르기 -->
+            <div class="btn-cover_people">
+                <button :disabled="pageNum === 0" @click="prevPage" class="page-btn_people">
+                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                </button>
+            <!-- 프로필 팔로잉 사진 목록 -->
             <div class="container__following__Profle">
-                <!-- 버튼 누르기 -->
-                <div class="btn-cover">
-                    <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
-                        <font-awesome-icon :icon="['fas', 'angle-left']"/>
-                    </button>
-                </div>
                 <div v-for="(user,index) in paginatedData" :key="index">
-                    <div @click="gotoFeed(user.f_id)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img"></div>
+                    <div @click="gotoFeed(user.f_id)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img" width="100px" height="100px"></div>
                 </div>
             </div>
-            <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+            <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn_people">
                 <font-awesome-icon :icon="['fas', 'angle-right']"/>
             </button>
+            </div>
+            
+            <!-- 친구 카드 프로필 닉네임 같이 보여주면서 바로가기 -->
             <div class="at-section">
                 <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
-                <span class="at-section__subtitle">친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span>
+                <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
             </div>
+            <div class="btn-cover_people">
+                <button :disabled="pageNum_2 === 0" @click="prevPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                </button>
             <div class="at-grid basic-scroll">
-                <div class="at-column" v-for="(user,index) in this.following_list" :key="index">
-                    <div class="at-user">
-                        <div class="at-user__avatar" :src="user.u_profile_pic"></div>
+                <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
+                    <div class="at-user"  @click="gotoFeed(user.f_id)">
                         <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__title"><img :src="getProfile(index)" width="100" height="100"></div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div class="container__influencer">
+            <button :disabled="pageNum_2 >= pageCount_2 -1" @click="nextPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                <font-awesome-icon :icon="['fas', 'angle-right']"/>
+            </button>
+            </div>
+            
+            
+            
             <div class="at-section">
                 <div class="at-section__title popular-title at-section__nickname">KOMENTA TOP9 DJ</div>
                 <span class="at-section__subtitle">{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</span>
             </div>
+            <div class="btn-cover_people">
+                <button :disabled="pageNum_2 === 0"  class="page-btn_people" style="margin: 4.5rem 2rem">
+                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                </button>
             <div class="at-grid basic-scroll">
                 <div class="at-column" v-for="(user,index) in this.top9" :key="index">
                     <div class="at-user">
-                        <div class="at-user__avatar" :src="user.u_profile_pic"></div>
                         <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__title">{{user.u_profile_pic}}</div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
-        </div> -->
+            <button :disabled="pageNum_2 >= pageCount_2 -1" class="page-btn_people" style="margin: 4.5rem 2rem">
+                <font-awesome-icon :icon="['fas', 'angle-right']"/>
+            </button>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -60,6 +75,7 @@ export default {
     data() {
         return {
             pageNum:0,
+            pageNum_2:0,
             following_list:[],
             top9:[],
             updateFollowPlaylist:[],
@@ -70,7 +86,12 @@ export default {
         pageSize: {
             type: Number,
             required: false,
-            default: 3
+            default: 7
+        },
+        pageSize_2: {
+            type: Number,
+            required: false,
+            default: 5
         }
     },
     computed: {
@@ -93,6 +114,14 @@ export default {
             return this.following_list.slice(start, end);
             
         },
+        paginatedData_people() {
+            const start_2 = this.pageNum_2 * this.pageSize_2,
+            end_2 = start_2 + this.pageSize_2;
+
+            return this.following_list.slice(start_2, end_2);
+            
+        },
+        
     },
     created() {
         this.getFollowing()
@@ -109,8 +138,13 @@ export default {
         prevPage() {
             this.pageNum -= 1;
         },
+        nextPage_2() {
+            this.pageNum_2 += 1;
+        },
+        prevPage_2() {
+            this.pageNum_2 -=1;
+        },
         getProfile(index) {
-            //   console.log(index)
             const profile = this.following_list[index].u_profile_pic.split('.')[0]
             console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
