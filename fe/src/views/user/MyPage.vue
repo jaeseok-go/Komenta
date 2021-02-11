@@ -85,45 +85,7 @@
       <my-comment></my-comment>
 
       <!-- 시청 VOD 관리 -->
-      <watched-vod @showVODForm="showVODForm" :getUserId="uId"></watched-vod>
-      <Modal v-if="showVODModal">
-        <div slot="header">
-            <h3 class="findIdPw__title">시청 VOD 관리</h3>
-            <span id="closeModalBtn" @click="closeVODModal">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </span>
-            <hr>                                                                                                      
-          </div>
-          <div slot="body">
-            <table>
-              <tr>
-                <td>POSTER</td>
-                <td>VOD명</td>
-                <td>회차</td>
-                <td>본 날짜</td>
-              </tr>
-              <tr v-if="VODList.length == 0">
-                <td colspan="4">
-                  최근 시청한 VOD가 없습니다.
-                </td>
-              </tr>
-              <tr v-for="(vod,index) in paginatedData" :key="index" v-else>
-                <td>{{vod.v_poster}}</td>
-                <td>{{vod.v_title}}</td>
-                <td>{{vod.v_episode_num}}</td>
-                <td>{{vod.vh_watching_time}}</td>
-              </tr>
-            </table>
-            <div class="btn-cover">
-              <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
-              <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
-              <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
-            </div>
-          </div>
-      </Modal>
-
-      <!-- 관심 리스트 관리 -->
-      <interest-play-list></interest-play-list>
+      <watched-vod :getUserId="uId"></watched-vod>
 
       <!-- 팔로우 관리 -->
       <follow :getUserId="uId"></follow>
@@ -141,7 +103,6 @@
 import UserInfo from '@/components/user/myPage/UserInfo'
 import MyComment from '@/components/user/myPage/MyComment';
 import WatchedVod from '@/components/user/myPage/WatchedVOD'
-import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
@@ -159,7 +120,6 @@ export default {
     UserInfo,
     MyComment,
     WatchedVod,
-    InterestPlayList,
     Follow,
     UnFollow,
     MembershipSetting,
@@ -180,28 +140,17 @@ export default {
       userIsAdmin:0,
       modiForm:'none',
       showUserInfoModal:false,
-      showVODModal:false,
       phoneNumForm:true,
       authPhoneNumForm: false,
-      pageNum:0,
-      VODList:[]
-    }
-  },
-  props:{
-    pageSize: {
-      type: Number,
-      required: false,
-      default: 5
+
     }
   },
   created() {
     this.getUserInfo();
-    this.fetchVODList();
   },
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo,
-      watchedVODList: state => state.watchedVODList
     }),
     isUserNickNameEmpty() {
       if(!this.userNickName || (this.userNickName == this.userInfo.u_nickname)) {
@@ -233,21 +182,7 @@ export default {
       }
       return true;
     },
-    pageCount() {
-      let listLeng = this.VODList.length,
-          listSize = this.pageSize,
-          page = Math.floor(listLeng / listSize);
 
-      if(listLeng % listSize > 0) page += 1;
-
-      return page;
-    },
-    paginatedData() {
-      const start = this.pageNum * this.pageSize,
-            end = start + this.pageSize;
-
-      return this.VODList.slice(start, end);
-    }
   },
   methods: {
     getUserProfile(profile){
@@ -258,15 +193,8 @@ export default {
       this.showUserInfoModal = false;
       console.log('들어와라,,')
     },
-    closeVODModal() {
-      this.showVODModal = false;
-      console.log('들어와라,,')
-    },
     showUserInfoForm() {
       this.showUserInfoModal = true;
-    },
-    showVODForm() {
-      this.showVODModal = true;
     },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
@@ -323,7 +251,7 @@ export default {
           console.log("프로필 사진 잘 들어감",response.data);
           this.closeUserInfoModal();
           
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -360,21 +288,12 @@ export default {
           console.log('회원탈퇴 진행',this.uId);
           const response = await deleteMyInfo(this.uId);
           console.log("회원탈퇴...",response);
+          alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
         }
-        alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
         this.$route.push({name:'Login'});
       }catch(err){
         console.log(err)
       }
-    },
-    nextPage() {
-      this.pageNum += 1;
-    },
-    prevPage() {
-      this.pageNum -= 1;
-    },
-    fetchVODList(){
-      this.VODList = this.watchedVODList;
     },
   },
 }
