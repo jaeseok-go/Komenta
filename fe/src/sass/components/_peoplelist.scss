@@ -1,27 +1,44 @@
 $prefix: at;
 $totalColumns: 9;
 
-.basic-scroll {
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 3.5px;
-    background-color: #ced4da;
+.container {
+  display: flex;
+  // max-width: 1200px;
+  // height: 50rem;
+  // width: 100%;
+  // margin: 100px asuto;
+  // padding: 0;
+  // box-sizing: border-box;
+  // transform-origin: 50px 50px;
+  // transform: scale(0.8);
 
-    &:hover {
-      background-color: #adb5bd;
+  &__following {
+    width: 100%;
+
+
+    .container__following__Profle {
+      display: flex;
+
+      &__background {
+        margin: 10px 10px;
+        box-shadow: 0 1px 15px -7.5px #000000;
+        border: double 2px transparent;
+        border-radius: 50%;
+        background-image: linear-gradient(white, white), radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        margin-bottom: 35px;
+        white-space:nowrap;
+        overflow: hidden;
+      }
+
+      &__img {
+        border-radius: 50%;
+      }
+
     }
   }
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
-}
-
-.container {
-  // width: 100%;
+  // left: 0;
 }
 
 // Custom Prefix
@@ -145,22 +162,30 @@ $totalColumns: 9;
   
 
 // Demo Purpose
-body {
-  background: #FFF;
-  font-family: 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+// body {
+//   background: #FFF;
+//   font-family: 'Roboto', sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
+
 }
 
-.container {
-  max-width: 1200px;
-  height: 50rem;
-  width: 100%;
-  margin: 100px asuto;
-  padding: 0;
-  box-sizing: border-box;
-  transform-origin: 50px 50px;
-  transform: scale(0.8);
-  // left: 0;
-}
+.basic-scroll {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3.5px;
+    background-color: #ced4da;
+
+    &:hover {
+      background-color: #adb5bd;
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
 }
