@@ -63,10 +63,10 @@ public class JwtServiceImpl implements JwtService {
 
 //		signature 설정
         jwtBuilder.signWith(SignatureAlgorithm.HS256, signature.getBytes());
-        System.out.println(jwtBuilder.toString());
+//        System.out.println(jwtBuilder.toString());
 //		마지막 직렬화 처리
         String jwt = jwtBuilder.compact();
-        logger.info("jwt : {}", jwt);
+//        logger.info("jwt : {}", jwt);
 
         return jwt;
     }

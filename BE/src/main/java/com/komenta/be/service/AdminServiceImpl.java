@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService{
     public int registVod(VodDTO vod) {
         int a = sqlSession.getMapper(AdminMapper.class).registVod(vod);
         a = vod.getV_id();
-        System.out.println("auto increment : "+a);
+//        System.out.println("auto increment : "+a);
         return a;
     }
 

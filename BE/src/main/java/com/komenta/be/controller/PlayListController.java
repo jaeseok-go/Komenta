@@ -65,7 +65,6 @@ public class PlayListController {
     })
     @PutMapping("/plist_update")
     public int updatePlayList(@RequestBody PlayListDTO playlist, HttpServletRequest request){
-        // 1. 입력 받은 플레이리스트 컨텐츠 dto로 변경
         return playListService.playlist_info_modify(playlist);
     }
 
@@ -77,7 +76,6 @@ public class PlayListController {
     })
     @DeleteMapping("/plist_delete")
     public int deletePlayList(@RequestParam("pl_id") int pl_id, HttpServletRequest request){
-        // 1. u_id, pl_id 로 플레이 리스트 굿에서 지우기
         return playListService.playlist_delete(pl_id);
     }
 
@@ -164,7 +162,6 @@ public class PlayListController {
     })
     @PostMapping("/like")
     public int likePList(@RequestBody PlayListGoodDTO dto, HttpServletRequest request){
-        System.out.println(dto);
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
         dto.setU_id(u_id);
         return playListService.likePList(dto);
