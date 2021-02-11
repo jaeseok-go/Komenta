@@ -224,6 +224,7 @@ public class MemberController{
         boolean is_admin = (boolean) jwtService.get(token1).get("is_admin");
         member.setU_is_admin(is_admin);
         member.setU_is_blocked(is_blocked);
+
         System.out.println("수정 할 정보 :  "+member);
         try{
             int result = mservice.updateMember(member);
