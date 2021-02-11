@@ -39,28 +39,50 @@
             </button>
             </div>
             
+            <!-- 여기는 최근 올린 유저들 영상 칸 -->
+            <!-- <div class="at-section">
+                <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 새로운 소식을 확인해보세요</div>
+                <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
+            </div>
+            <div class="btn-cover_people">
+                <button :disabled="pageNum_2 === 0" @click="prevPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                </button>
+            <div class="at-grid basic-scroll">
+                <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
+                    <div class="at-user"  @click="gotoFeed(user.f_id)">
+                        <div class="at-user__name">{{user.u_nickname}}</div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
+                    </div>
+                </div>
+            </div>
+            <button :disabled="pageNum_2 >= pageCount_2 -1" @click="nextPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                <font-awesome-icon :icon="['fas', 'angle-right']"/>
+            </button>
+            </div> -->
             
             
-            <div class="at-section">
+            <!-- <div class="at-section">
                 <div class="at-section__title popular-title at-section__nickname">KOMENTA TOP9 DJ</div>
                 <span class="at-section__subtitle">{{userInfo.u_nickname }}님의 취향에 맞는 스트리밍DJ를 팔로우해보세요!</span>
             </div>
             <div class="btn-cover_people">
-                <button :disabled="pageNum_2 === 0"  class="page-btn_people" style="margin: 4.5rem 2rem">
+                <button class="page-btn_people" style="margin: 4.5rem 2rem">
                     <font-awesome-icon :icon="['fas', 'angle-left']"/>
                 </button>
             <div class="at-grid basic-scroll">
-                <div class="at-column" v-for="(user,index) in this.top9" :key="index">
+                <h1>{{top9}}</h1>
+                <div class="at-column" v-for="(user,index) in top9" :key="index">
                     <div class="at-user">
                         <div class="at-user__name">{{user.u_nickname}}</div>
                         <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
-            <button :disabled="pageNum_2 >= pageCount_2 -1" class="page-btn_people" style="margin: 4.5rem 2rem">
+            <button class="page-btn_people" style="margin: 4.5rem 2rem">
                 <font-awesome-icon :icon="['fas', 'angle-right']"/>
             </button>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -107,6 +129,15 @@ export default {
 
             return page;
         },
+        pageCount_2() {
+            let listLeng_2 = this.following_list.length,
+            listSize_2 = this.pageSize_2,
+            page_2 = Math.floor(listLeng_2 / listSize_2);
+
+            if(listLeng_2 % listSize_2 > 0) page_2 += 1;
+
+            return page_2;
+        },
         paginatedData() {
             const start = this.pageNum * this.pageSize,
             end = start + this.pageSize;
@@ -124,9 +155,10 @@ export default {
         
     },
     created() {
-        this.getFollowing()
         this.getTopInfluencer()
-        this.getUpdateFollowPlaylist()
+        this.getFollowing()
+        // this.getUpdateFollowPlaylist()
+       
     },
     methods: {
         gotoFeed(userId) {
@@ -161,7 +193,10 @@ export default {
         },
         async getTopInfluencer() {
             const response = await top9followers()
+            console.log(response,'리스펀스,,?')
+            console.log(response.data,'들어오잖아?')
             this.top9 = response.data
+            console.log(this.top9,'탑나인 내놔')
         },
     },
 }
