@@ -131,7 +131,7 @@ public class PlayListController {
     @GetMapping("/recent_update_follow_playlist")
     public List<List<PlayListGetAllDTO>> recentUpdatedPlayList(HttpServletRequest request){
 
-        int u_id = jwtService.getUidFromJwt(request.getHeader("auth_token"));
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
         System.out.println("u_id 받아보기 : " + u_id);
 
         List<List<PlayListGetAllDTO>> playlist = new ArrayList<>();
