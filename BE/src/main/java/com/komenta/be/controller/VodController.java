@@ -59,7 +59,7 @@
                             resultMap.put("vh_id", dt.getVh_id());
                             resultMap.put("vh_watching_time", dt.getVh_watching_time());
                             resultMap.put("episodeInfo", episode);
-                            System.out.println(episode);
+//                            System.out.println(episode);
                             // episode에 대한 정보를 모두 받아옴
                             break;
                         }
@@ -83,7 +83,7 @@
         public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
             // jwt 토큰의 uid 를 받는다는 가정하에
             String token = request.getHeader("auth-token");
-            System.out.println("여기는 토큰 : "+token);
+//            System.out.println("여기는 토큰 : "+token);
             int u_id = (int) jwtService.getUidFromJwt(token);
             HttpStatus status = null;
             Map<String, Object> resultMap = new HashMap<>();

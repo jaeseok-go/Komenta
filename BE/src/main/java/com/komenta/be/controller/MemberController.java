@@ -191,7 +191,7 @@ public class MemberController{
                 resultMap.put("data", getMember);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-                System.out.println(response.getHeader("auth-token"));
+//                System.out.println(response.getHeader("auth-token"));
             }
             else{
                 System.out.println("아디 비번 다름");
@@ -235,7 +235,7 @@ public class MemberController{
                 resultMap.put("data", result);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-                System.out.println(response.getHeader("auth-token"));
+//                System.out.println(response.getHeader("auth-token"));
             }
             else{
                 resultMap.put("status", false);

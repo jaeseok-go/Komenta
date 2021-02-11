@@ -71,7 +71,7 @@ public class AdminController {
     })
     @PostMapping("/vod_regist")
     public int registVod(@RequestBody VodEpisodeAllDTO vod_all, HttpServletRequest request) {
-        System.out.println("여기 들어옴???");
+//        System.out.println("여기 들어옴???");
 
         System.out.println(vod_all);
         VodDTO vod = new VodDTO();
@@ -118,7 +118,7 @@ public class AdminController {
 //        video.replace(" ", "_");
 
         File targetFile = new File(poster);
-        System.out.println(targetFile);
+//        System.out.println(targetFile);
 
         try {
             InputStream fileStream = posterfile.getInputStream();
@@ -137,14 +137,14 @@ public class AdminController {
     })
     @PostMapping("/video_upload")
     public int registVideo(@RequestParam("file") MultipartFile videofile, HttpServletRequest request) {
-        System.out.println(request.getHeader("auth-token"));
+//        System.out.println(request.getHeader("auth-token"));
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
             String video = "/home/ubuntu/Video/" + videofile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);
-        System.out.println(targetFile);
+//        System.out.println(targetFile);
 
         try {
             InputStream fileStream = videofile.getInputStream();
