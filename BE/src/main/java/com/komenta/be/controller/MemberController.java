@@ -230,7 +230,7 @@ public class MemberController{
             int result = mservice.updateMember(member);
             if(result == 1) {
                 String token = jwtService.create(member);
-
+                System.out.println("수정 성공");
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
                 resultMap.put("data", result);
