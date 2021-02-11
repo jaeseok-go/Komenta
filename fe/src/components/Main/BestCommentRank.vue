@@ -13,12 +13,12 @@
             <td class="commRank-num" :class="{red: index < 3, nonHighLight: index >= 3}">{{index+1}}</td> 
             <!-- :class="{red:fetchBestComment(index)}" -->
             <td class="userPic">
-              <div>
-                <img :src="getProfile(index)" alt="" />
+              <div @click="goUserFeed(user.u_id)">
+                <img :src="getProfile(index)" alt="" v-if="user.u_profile_pic"/>
               </div>
             </td>
-            <td>{{user.u_nickname}}</td>
-            <td>{{user.v_title}} {{user.ve_episode_num}}화</td>
+            <td @click="goUserFeed(user.u_id)">{{user.u_nickname}}</td>
+            <td @click="goVodEpi(user.ve_id)">{{user.v_title}} {{user.ve_episode_num}}화</td>
             <td>
               <font-awesome-icon :icon="['fas', 'thumbs-up']" :style="{ color: '#fc3c44'}"/>
               {{user.c_good_count}}
@@ -30,83 +30,12 @@
 </template>
 
 <script>
-// import { fetchBestComment } from '@/api/comment'
+import { fetchBestComment } from '@/api/comment'
 
 export default {
   data() {
     return {
-      bestComment:[
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        },
-        {
-          u_profile_pic:'default_profile.png',
-          u_nickname:'테스트 중이지롱',
-          v_title:'너에게 닿기를 시즌 1',
-          ve_episode_num:1,
-          c_good_count:1325
-        }
-      ],
+      bestComment:[],
     }
   },
   created() {
@@ -115,13 +44,20 @@ export default {
   methods: {
     async getBestComment() {
       //getBestComment api만들어야함
-      // const response = await fetchBestComment();
-      // this.bestComment = response.data;
+      const response = await fetchBestComment();
+      this.bestComment = response.data.slice(0,10);
+      // console.log(this.bestComment)
     },
     getProfile(index) {
       let profile = this.bestComment[index].u_profile_pic.split('.');
       let picName = profile[0]
        return `${process.env.VUE_APP_PICTURE}profile/${picName}`;
+    },
+    goUserFeed(uId){
+      this.$router.push(`/feed/${uId}`)
+    },
+    goVodEpi(veId){
+      this.$router.push(`/voddetail/${veId}`)
     },
   },
   
