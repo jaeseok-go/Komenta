@@ -9,7 +9,7 @@
                     v-for='(follow,index) in followers' 
                     :key='index'
                     class='drag-el'
-                    > {{follow}}
+                    >
                     <span @click="goFeed(follow.f_id)">
                     <img :src="getProfile(follow.u_profile_pic)" width="100%">
                     <p>{{ follow.u_nickname }}</p>
