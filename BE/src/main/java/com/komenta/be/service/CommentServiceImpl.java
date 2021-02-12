@@ -22,8 +22,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id) {
-        return sqlSession.getMapper(CommentMapper.class).getVodEpisodeComment(ve_id);
+    public List<VodEpisodeCommentDTO> getVodEpisodeComment(CommentListByVeIdDTO comment_info) {
+        return sqlSession.getMapper(CommentMapper.class).getVodEpisodeComment(comment_info);
     }
 
     @Override
