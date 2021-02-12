@@ -173,6 +173,28 @@
   cursor: pointer;
 }
 
+//팔로우 관리
+.follow-setting {
+  & .inline-block {
+    display: inline-block;
+  }
+
+  & .follow-card {
+    height: 100px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  & .follow-card::-webkit-scrollbar {
+    display: none;
+  }
+
+  & .followForm {
+    width: 50%;
+  }
+}
+
 //멤버십 관리
 .membership-state {
   width: 75px;
