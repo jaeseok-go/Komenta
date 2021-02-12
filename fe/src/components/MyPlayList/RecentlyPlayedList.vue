@@ -86,7 +86,8 @@ export default {
       this.pageNum -= 1;
     },
     getPoster(index) {
-      const poster = String(this.episodeList[index].gd_id+'_'+ this.episodeList[index].v_title);
+      const idx = (index + ((this.pageNum*this.pageSize)));
+      const poster = String(this.episodeList[idx].gd_id+'_'+ this.episodeList[idx].v_title);
       // console.log("popular poster name : ",poster)
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
       //this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg' //포스터 이름

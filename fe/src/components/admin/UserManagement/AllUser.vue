@@ -1,6 +1,6 @@
 <template>
   <b-col>
-    <table>
+    <table class="table-border-style">
       <tr>
         <td>회원번호</td>
         <td>아이디</td>
@@ -122,57 +122,5 @@ export default {
 </script>
 
 <style>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-table th {
-  font-size: 1.2rem;
-}
-table tr {
-  height: 2rem;
-  text-align: center;
-  border-bottom: 1px solid #505050;
-}
-table tr:first-of-type {
-  border-top: 2px solid #404040;
-}
-table tr td {
-  padding: 0.7rem 0;
-  font-size: 1rem;
-}
 
-.btn-cover {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-.btn-cover .page-btn {
-  width: 5rem;
-  height: 2rem;
-  letter-spacing: 0.5px;
-}
-.btn-cover .page-count {
-  padding: 0 1rem;
-}
-
-.btn-label {
-  border-radius: 20px;
-  color: white;
-  font-size:14px;
-}
-
-.btn-label.관리자 {
-  background-color: rgb(88, 88, 88);
-  cursor: default;
-}
-
-.btn-label.일반회원 {
-  background-color: rgb(22, 185, 22);
-  cursor: pointer;
-}
-
-.btn-label.제한회원 {
-  background-color: rgb(204, 33, 33);
-  cursor: pointer;
-}
 </style>

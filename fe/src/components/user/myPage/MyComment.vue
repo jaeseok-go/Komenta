@@ -14,7 +14,7 @@
         <p class="inline-block" :style="{display:editInlineDisplay}">삭제</p>
         <button @click="commentDelete">{{editBtnText}}</button>
       </div>
-      <table>
+      <table class="table-border-style">
         <tr>
           <td>VOD 명</td>
           <!-- 특정 글자 수 넘으면 ...처리 -->
@@ -137,39 +137,6 @@ export default {
 </script>
 
 <style>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  table th {
-    font-size: 1.2rem;
-  }
-  table tr {
-    height: 2rem;
-    text-align: center;
-    border-bottom: 1px solid #505050;
-  }
-  table tr:first-of-type {
-    border-top: 2px solid #404040;
-  }
-  table tr td {
-    padding: 0.7rem 0;
-    font-size: 1rem;
-  }
-
-  .btn-cover {
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  .btn-cover .page-btn {
-    width: 5rem;
-    height: 2rem;
-    letter-spacing: 0.5px;
-  }
-  .btn-cover .page-count {
-    padding: 0 1rem;
-  }
-
   .btn-right {
     text-align: right;
   }
@@ -178,39 +145,3 @@ export default {
     margin: 0 5px;
   }
 </style>
-//   {
-//     c_num : '441331',
-//     c_name : '사랑의 불시착',
-//     c_ep_num : '12',
-//     c_contents: '그래서 리정혁같은 남자 어디서 만나는데...',
-//     c_liek_num : '1325',
-//     c_reply_num : '55',
-//     c_register_data: '2021-01-02'
-//   },
-//   {
-//     c_num : '441330',
-//     c_name : '경이로운 소문',
-//     c_ep_num : '7',
-//     c_contents: '우리 소문이ㅠㅠㅠㅠ죽지마ㅜㅜㅜ',
-//     c_liek_num : '552',
-//     c_reply_num : '13',
-//     c_register_data: '2020-07-11'
-//   },
-//   {
-//     c_num : '441001',
-//     c_name : '사랑의 불시착',
-//     c_ep_num : '10',
-//     c_contents: '세리언니 그냥 나랑 살아',
-//     c_liek_num : '15',
-//     c_reply_num : '5',
-//     c_register_data: '2020-03-25'
-//   },
-//   {
-//     c_num : '413552',
-//     c_name : '아는형님',
-//     c_ep_num : '325',
-//     c_contents: '이용진 겁나 웃기넼ㅋㅋㅋㅋㅋ',
-//     c_liek_num : '100',
-//     c_reply_num : '41',
-//     c_register_data: '2019-05-24'
-//   }

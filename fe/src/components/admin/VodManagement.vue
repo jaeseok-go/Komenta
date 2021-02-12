@@ -4,28 +4,28 @@
     <div class="btn-right">
       <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
     </div>
-    <table style="text-align:center;">
-      <thead>
-        <th>등록번호</th>
-        <th>제목</th>
-        <th>종류/장르</th>
-        <th>등록일</th>
-        <th>담당자</th>
-        <th>설정</th>
-      </thead>
-      <tbody v-if="vodList.length == 0">
+    <table class="table-border-style" style="text-align:center;">
+      <tr>
+        <td>등록번호</td>
+        <td>제목</td>
+        <td>종류/장르</td>
+        <td>등록일</td>
+        <td>담당자</td>
+        <td>설정</td>
+      </tr>
+      <tr v-if="vodList.length == 0">
         <td colspan="6">
           등록된 VOD가 없습니다.
         </td>
-      </tbody>
-      <tbody v-for="(vod, index) in paginatedData" :key="index" v-else>
+      </tr>
+      <tr v-for="(vod, index) in paginatedData" :key="index" v-else>
         <td>{{vod.ve_id}}</td>
         <td><p @click="goVod(vod.ve_id)">{{vod.v_title}}</p></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
         <td>{{vod.ve_upload_date}}</td>
         <td>{{vod.ve_admin}}</td>
         <td>수정 / 삭제</td>
-      </tbody>
+      </tr>
     </table>
     <div class="btn-cover">
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
