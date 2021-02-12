@@ -86,7 +86,7 @@
             @click="reload(my[0].pl_id)"
           >
             <router-link
-              :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id } }"
+              :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id } }" 
             >
               <span class="sidebar-scrollable-title">
                 <span class="sidebar-scrollable-title-icon icon-bg5"

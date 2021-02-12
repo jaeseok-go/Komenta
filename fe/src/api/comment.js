@@ -26,13 +26,10 @@ function fetchUserComment(uId){
     })
 }
 
-// 댓글 좋아요
-function userLikeComment(cInfo){
-    return instance.post('comment/comment_good',cInfo)
-}
 
-// 댓글 좋아요
-function userUnlikeComment(cInfo) {
+
+// 댓글 좋아요 추가/ 취소
+function userlikeComment(cInfo) {
     return instance.post('comment/comment_good_cancel', cInfo)
 }
 
@@ -42,6 +39,5 @@ export {
     commentInsert,
     fetchEpiComment,
     fetchUserComment,
-    userLikeComment,
-    userUnlikeComment
+    userlikeComment,
 }

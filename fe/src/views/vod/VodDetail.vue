@@ -4,14 +4,15 @@
         <!-- <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video> -->
          <div>
             <!-- <button @click="getCurTime">현재시간?</button> -->
-            <video @loadstart="goLastVod" height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
+            <video @loadstart="goLastVod" height="400px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
-           <div style="overflow:auto; width:400px; height:300px; white-space:pre-line;" id="comment_div">
-            <div v-for="(comment,index) in commentsList" :key="index">
+           <div style="overflow:auto; width:500px; height:400px; white-space:pre-line;" id="comment_div">
+            <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class="userFollowing(comment.u_id)">
-                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | <span @click="goFeed(comment.u_id)">{{comment.u_nickname}} </span>: {{ comment.c_contents}} | {{comment.c_upload_time}} | 
-                  <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}</span>    
+                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | <span @click="goFeed(comment.u_id)">{{comment.u_nickname}} </span>: {{ comment.c_contents}}  
+                  <!-- @click="likeComment(comment)" {commet__like :comment.is_like_comment}  -->
+                  <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span></span>    
                 </p>
             </div>
             </div>
@@ -22,32 +23,26 @@
 
         </div>
         <hr>
-        <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
-        <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
-        <span><img :src="getVodPoster(vodEpiInfo.episodeInfo.v_poster)" alt="" width="200px"></span>
-        <div>{{vodEpiInfo.episodeInfo.v_summary}}</div>
-        <h4>개요 : {{vodEpiInfo.episodeInfo.g_name}}/{{vodEpiInfo.episodeInfo.gd_name}}</h4>
-        <h4>출연 : {{vodEpiInfo.episodeInfo.v_actors}}</h4>
-        <h4>연출 : {{vodEpiInfo.episodeInfo.v_director}}</h4>
+        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3> <br>
+        <p>{{vodEpiInfo.ve_upload_date}}</p>
+        <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
+        <div>{{vodEpiInfo.v_summary}}</div>
+        <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
+        <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
+        <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         <hr>
-        <div>베스트 댓글</div>
-        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments>
-      
-        <!-- <router-link :to="{name:'VodAllEpi'}">전체회차</router-link> | <router-link :to="{name:'VodEpiComment'}">Best댓글</router-link>
-        <router-view></router-view> -->
-        <!-- <VodAllEpi :vodInfo="vodInfo"></VodAllEpi> -->
-        <!-- router children 등록 VodAllEpi, VodEpiComment -->
+        <router-link :to="{name:'BestComments', params: { commentsList: commentsList, veId: vodEpiInfo.ve_id}}"  >베스트 댓글</router-link> | 
+        <router-link :to="{name:'AllComments', params: { commentsList: commentsList, veId: vodEpiInfo.ve_id}}">전체 댓글</router-link>
+        <router-view  @goCommentTime="goCommentTime"></router-view>
+       
        
     </div>
   </div>
 </template>
 
 <script>
-import Comments from '@/views/vod/Comments';
-// import {fetchfollowinglist} from '@/api/user';
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch} from '@/api/vod'
-import { fetchEpiComment, userLikeComment, userUnlikeComment, commentInsert } from '@/api/comment'
-// import Video from '@/components/vod/Video'
+import { fetchEpiComment, userlikeComment, commentInsert } from '@/api/comment'
 import {mapState} from 'vuex';
 // import VodAllEpi from '@/components/vod/VodAllEpi'
 
@@ -56,7 +51,7 @@ import {mapState} from 'vuex';
 
 export default {
 components: { 
-  Comments,
+  // Comments,
   // Video,
   // VodAllEpi
 },
@@ -81,21 +76,23 @@ created(){
   this.getVodEpi();
   // this.getVodDetail();
   this.getEpiComment();
-  console.log(this.userInfo.u_id,'유저아이디')
   this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
 
-  // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
-  const edID = Number(this.$route.params.id)
-  const res = startVodWatch(edID);
-  console.log('시청기록 시작',res,this.$route.params.id)
+  this.startWatchTime();
+  
   
 },
 methods : {
+  startWatchTime(){
+    const edID = Number(this.$route.params.id)
+    const res = startVodWatch(edID);
+    console.log('시청기록 시작',res,this.$route.params.id)
+  },
   goLastVod(){
     const endtime = document.getElementById("videotag");
     if (this.vodEpiInfo.vh_watching_time) {
       endtime.currentTime = this.timeToSec(this.vodEpiInfo.vh_watching_time)
-      console.log('이게되나?',this.vodEpiInfo.vh_watching_time)
+      console.log('시청기록시간부터 시작?',this.vodEpiInfo.vh_watching_time)
     }
   },
   goFeed(uId){
@@ -119,8 +116,8 @@ methods : {
    
   async getVodDetail() {
     try {
-      console.log(this.vodEpiInfo.episodeInfo.v_id,'vod아이디')
-      const res = await fetchVodDetail(this.vodEpiInfo.episodeInfo.v_id)
+      console.log(this.vodEpiInfo.v_id,'vod아이디')
+      const res = await fetchVodDetail(this.vodEpiInfo.v_id)
       this.vodInfo = res.data
       console.log(this.vodInfo,'?????')
     } catch {
@@ -131,7 +128,6 @@ methods : {
     try {
         const epiId = this.$route.params.id; 
       const res = await fetchEpiComment(epiId)
-  console.log(this.myFollowingList,'나의 팔로잉')
       this.commentsList = res.data
       this.commentsList.sort(function (a,b) {
             return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
@@ -142,6 +138,9 @@ methods : {
       console.log('epicomment 에러!!')
     }
   },
+        stopScroll() {
+
+         },
          onscroll() {
             const objDiv = document.getElementById("comment_div");
 
@@ -190,7 +189,7 @@ methods : {
         },
         // 비디오 불러오기
         getVideo() {
-            const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
+            const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.gd_id}_${this.vodEpiInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.ve_episode_num}화`
             console.log(path,'동영상주소')
             return path
         },
@@ -208,7 +207,7 @@ methods : {
         async createComment() {
             try {
                 const vod = document.getElementById("videotag");
-                console.log(vod.currentTime,'????댓글시간등록')
+                console.log(vod.currentTime,'댓글시간등록')
                 const commentInfo = {
                     c_contents : this.userComment,
                     c_playtime : this.nowTime(vod.currentTime),
@@ -226,21 +225,6 @@ methods : {
 
 
 
-  },
-  likeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
-      }
-      userLikeComment(commentInfo)
-      
-  },
-  unlikeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
-      }
-      userUnlikeComment(commentInfo)
   },
   scrollEvent (){
     window.__scrollPosition = document.documentElement.scrollTop || 0;
@@ -268,6 +252,36 @@ methods : {
         }
         
       },
+        likeComment(com){
+      const commentInfo = {
+        c_id : com.c_id,
+        u_id : this.userInfo.u_id
+      }
+      const res = userlikeComment(commentInfo)
+      // if (com.is_like_comment) {
+
+      // }
+      console.log(res,'좋아요 응답')
+  },
+  //유저 댓글 좋아요 class추가/제거
+  commentLike(comment){
+    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+    const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+    // likeBtn.style.color = comment.is_like_comment ? '#fc3c44' : 'black'
+    if (comment.is_like_comment) {
+      likeCount.innerText = comment.comment_good_count - 1
+      likeBtn.style.color ='black'
+      console.log(likeCount.innerText,'넌 뭐니')
+      } else {
+      likeCount.innerText = comment.comment_good_count + 1
+        likeBtn.style.color = '#fc3c44'
+      }
+      const commentInfo = {
+      c_id : comment.c_id,
+      u_id : this.userInfo.u_id
+    }
+    userlikeComment(commentInfo)
+  }
 
 
 },
@@ -289,11 +303,11 @@ methods : {
     beforeDestroy(){
       const watching = {
           // u_id: this.userInfo.u_id,
-          ve_id: this.veId,
+          ve_id: this.vodEpiInfo.ve_id,
           vh_watching_time: this.nowTime(this.videoCurrentTime)
       }
       const end = endVodWatch(watching);
-      console.log('시청기록끝',end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
+      console.log('시청기록끝',watching,end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
 }
 };
 </script>
@@ -324,5 +338,8 @@ methods : {
 }
 .comment__highlight{
   background-color: yellow;
+}
+.commet__like{
+  color :#fc3c44;
 }
 </style>
