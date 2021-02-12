@@ -10,6 +10,7 @@
             <div class="container__following__Profle">
                 <div v-for="(user,index) in paginatedData" :key="index">
                     <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img" width="100px" height="100px"></div>
+                    <div class="container__following__Profle__NEW">NEW!</div>
                 </div>
             </div>
             <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn_people">

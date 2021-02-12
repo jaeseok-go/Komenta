@@ -28,7 +28,7 @@ $totalColumns: 7;
         background-image: linear-gradient(white, white), radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
         background-origin: border-box;
         background-clip: content-box, border-box;
-        margin-bottom: 35px;
+        margin-bottom: 10px;
         white-space:nowrap;
         overflow: hidden;
         cursor: pointer;
@@ -42,8 +42,18 @@ $totalColumns: 7;
 
       &__img {
         border-radius: 50%;
-      
       }
+
+      &__NEW {
+        display: flex;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: $apple-color;
+        
+      }
+
+
 
     }
   }
