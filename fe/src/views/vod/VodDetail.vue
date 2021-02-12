@@ -1,15 +1,15 @@
 <template>
   <div>
     <div id="appBody">
-        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
+        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
         <hr>
-        <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
-        <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
-        <span><img :src="getVodPoster(vodEpiInfo.episodeInfo.v_poster)" alt="" width="200px"></span>
-        <div>{{vodEpiInfo.episodeInfo.v_summary}}</div>
-        <h4>개요 : {{vodEpiInfo.episodeInfo.g_name}}/{{vodEpiInfo.episodeInfo.gd_name}}</h4>
-        <h4>출연 : {{vodEpiInfo.episodeInfo.v_actors}}</h4>
-        <h4>연출 : {{vodEpiInfo.episodeInfo.v_director}}</h4>
+        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3> <br>
+        <p>{{vodEpiInfo.ve_upload_date}}</p>
+        <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
+        <div>{{vodEpiInfo.v_summary}}</div>
+        <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
+        <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
+        <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         <hr>
         <div>vod전체 내용</div>
       
@@ -17,24 +17,24 @@
         <router-view></router-view> -->
         <VodAllEpi :vodInfo="vodInfo"></VodAllEpi>
         <!-- router children 등록 VodAllEpi, VodEpiComment -->
-        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments>
+        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.ve_id"></Comments>
        
     </div>
   </div>
 </template>
 
 <script>
-import Comments from '@/views/vod/Comments';
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
 import { fetchEpiComment, userLikeComment, userUnlikeComment } from '@/api/comment'
 import Video from '@/components/vod/Video'
-import VodAllEpi from '@/components/vod/VodAllEpi'
+// import VodAllEpi from '@/components/vod/VodAllEpi'
+// import Comments from '@/views/vod/Comments';
 
 export default {
 components: { 
-  Comments,
   Video,
-  VodAllEpi
+  // VodAllEpi
+  // Comments,
 },
 name: 'VodDetail',
 data(){
@@ -76,7 +76,7 @@ methods : {
       const epiId = Number(this.$route.params.id);
       console.log(epiId)  
       const res = await fetchVodEpiDetail(epiId)
-      console.log(res.data,'DETAIL???')
+      console.log(res.data,'vod detail info')
       this.vodEpiInfo = res.data;
       console.log("vod epi info : ",this.vodEpiInfo);
       this.getVodDetail();
