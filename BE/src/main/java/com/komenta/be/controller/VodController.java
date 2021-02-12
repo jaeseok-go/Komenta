@@ -32,40 +32,16 @@
 
 
 
-        @ApiOperation(value = "해당 회차 VOD 보기", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
+        @ApiOperation(value = "해당 회차 VOD 상세정보", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
         @ApiImplicitParams({
                 @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true)
         })
         @GetMapping("/vodnum/{ve_id}")
-        public Map<String, Object> selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
-
+        public VodDetailDTO selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
             int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-            Map<String, Object> resultMap = new HashMap<>();
+            VodHistorySetDTO history_info = new VodHistorySetDTO(u_id, ve_id);
 
-            // 회원이 해당 vod 회차를 봤던 기록이 있는지 없는지 보기 위해 DTO로 받아온다.
-            List<VodHistoryDTO> historys = vodService.selectHistoryById(u_id);
-
-            // 본 기록이 없으면 episode info만 반환한다.
-            if(historys.isEmpty()){
-                VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
-                resultMap.put("episodeInfo", episode);
-            }
-
-            // 본 기록이 있으면 vh_id랑 vh_watching_time도 같이 반환한다.
-            else{
-                for(VodHistoryDTO history : historys){
-                    if(history.getVe_id() == ve_id){
-                        VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
-                        resultMap.put("vh_id", history.getVh_id());
-                        resultMap.put("vh_watching_time", history.getVh_watching_time());
-                        resultMap.put("episodeInfo", episode);
-
-                        // episode에 대한 정보를 모두 받아옴
-                        break;
-                    }
-                }
-            }
-            return resultMap;
+            return vodService.getVodDetail(history_info);
         }
 
 

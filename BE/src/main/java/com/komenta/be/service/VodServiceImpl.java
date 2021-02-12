@@ -71,4 +71,9 @@ public class VodServiceImpl implements VodService{
     public int updateTime(VodUpdateTimeDTO history) {
         return sqlSession.getMapper(VodMapper.class).updateTime(history);
     }
+
+    @Override
+    public VodDetailDTO getVodDetail(VodHistorySetDTO history_info) {
+        return sqlSession.getMapper(VodMapper.class).getVodDetail(history_info);
+    }
 }
