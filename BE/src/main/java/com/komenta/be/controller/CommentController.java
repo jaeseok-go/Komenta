@@ -81,7 +81,7 @@ public class CommentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "comment_good", value = "c_id (댓글 아이디)", dataType = "CommentGoodDTO", required = true)
     })
-    @PostMapping("/comment_good_cancle")
+    @PostMapping("/comment_good_cancel")
     public int cancelLikeComment(@RequestBody CommentGoodDTO comment_good, HttpServletRequest request){
         // DTO 채워준다. (u_id)
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));

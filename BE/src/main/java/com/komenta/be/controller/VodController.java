@@ -34,44 +34,38 @@
 
         @ApiOperation(value = "해당 회차 VOD 보기", notes = "ve_id랑 u_id 값으로 한 에피소드에 대한 모든 정보 받기")
         @ApiImplicitParams({
-                @ApiImplicitParam(name = "ve_id", value = "ve 번호", dataType = "int", required = true),
+                @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int", required = true)
         })
         @GetMapping("/vodnum/{ve_id}")
-        public ResponseEntity<Map<String, Object>> selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
-            // 회원 정보를 받는다.
-            // 1. jwt에서 u_id값을 받아오는 방법
-            String token = request.getHeader("auth-token");
-            int u_id = jwtService.getUidFromJwt(token);
-            // 회원이 봤던거 인지 아닌지
-            // 봤으면 시청 시간을 같이 response해주어야함.
-            HttpStatus status = null;
+        public Map<String, Object> selectOneEpisode(@PathVariable int ve_id, HttpServletRequest request){
+
+            int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
             Map<String, Object> resultMap = new HashMap<>();
-            try {
-                List<VodHistoryDTO> history = vodService.selectHistoryById(u_id);
-                if(history.isEmpty()){
-                    VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
-                    resultMap.put("episodeInfo", episode);
-                }
-                else{
-                    for(VodHistoryDTO dt : history){
-                        if(dt.getVe_id() == ve_id){
-                            VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
-                            resultMap.put("vh_id", dt.getVh_id());
-                            resultMap.put("vh_watching_time", dt.getVh_watching_time());
-                            resultMap.put("episodeInfo", episode);
-//                            System.out.println(episode);
-                            // episode에 대한 정보를 모두 받아옴
-                            break;
-                        }
+
+            // 회원이 해당 vod 회차를 봤던 기록이 있는지 없는지 보기 위해 DTO로 받아온다.
+            List<VodHistoryDTO> historys = vodService.selectHistoryById(u_id);
+
+            // 본 기록이 없으면 episode info만 반환한다.
+            if(historys.isEmpty()){
+                VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
+                resultMap.put("episodeInfo", episode);
+            }
+
+            // 본 기록이 있으면 vh_id랑 vh_watching_time도 같이 반환한다.
+            else{
+                for(VodHistoryDTO history : historys){
+                    if(history.getVe_id() == ve_id){
+                        VodEpisodeAllDTO episode = vodService.selectEpisodeById(ve_id);
+                        resultMap.put("vh_id", history.getVh_id());
+                        resultMap.put("vh_watching_time", history.getVh_watching_time());
+                        resultMap.put("episodeInfo", episode);
+
+                        // episode에 대한 정보를 모두 받아옴
+                        break;
                     }
                 }
-                status = HttpStatus.OK;
             }
-            catch(RuntimeException e){
-                resultMap.put("message", e.getMessage());
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return new ResponseEntity<Map<String, Object>>(resultMap,status);
+            return resultMap;
         }
 
 
@@ -154,14 +148,12 @@
         public int startWatching(@PathVariable("ve_id") int ve_id, HttpServletRequest request){
             String token = request.getHeader("auth-token");
             int u_id = (int) jwtService.get(token).get("u_id");
-            int result = 0;
 
             VodHistorySetDTO history = new VodHistorySetDTO(u_id, ve_id);
             if(vodService.getVodHistoryByUAndVe(history) == 0) {
-                result = vodService.insertVodHistory(history);
+                return vodService.insertVodHistory(history);
             }
-
-            return result;
+            return 0;
         }
 
 
@@ -172,8 +164,7 @@
         })
         @PutMapping("/end_watching")
         public int endWatching(@RequestBody VodUpdateTimeDTO history, HttpServletRequest request){
-            String token = request.getHeader("auth-token");
-            int u_id = (int) jwtService.get(token).get("u_id");
+            int u_id = (int) jwtService.getUidFromJwt(request.getHeader("auth-token"));
             history.setU_id(u_id);
 
             return vodService.updateTime(history);
