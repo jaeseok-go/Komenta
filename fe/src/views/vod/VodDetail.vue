@@ -54,6 +54,7 @@ created(){
   
   // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
   const edID = Number(this.$route.params.id)
+  console.log("edID : ",edID)
   const res = startVodWatch(edID);
   console.log('시청기록 시작',res,this.$route.params.id)
   
@@ -76,7 +77,8 @@ methods : {
       console.log(epiId)  
       const res = await fetchVodEpiDetail(epiId)
       console.log(res.data,'DETAIL???')
-      this.vodEpiInfo = res.data
+      this.vodEpiInfo = res.data;
+      console.log("vod epi info : ",this.vodEpiInfo);
       this.getVodDetail();
     } catch {
       console.log('vod epi detail에러!!')
@@ -85,22 +87,23 @@ methods : {
    
   async getVodDetail() {
     try {
-      console.log(this.vodEpiInfo.episodeInfo.v_id,'vod아이디')
-      const res = await fetchVodDetail(this.vodEpiInfo.episodeInfo.v_id)
+      console.log(this.vodEpiInfo.v_id,'vod아이디')
+      const res = await fetchVodDetail(this.vodEpiInfo.v_id)
       this.vodInfo = res.data
-      console.log(this.vodInfo,'?????')
+      console.log(this.vodInfo,'vodInfo')
     } catch {
       console.log('vod episode 에러')
     }
   },
     async getEpiComment() {
+      // console.log("epiId : ",this.$route.params.id)
       try {
       const epiId = Number(this.$route.params.id);
       console.log(epiId,'에피소드id')  
       const res = await fetchEpiComment(epiId)
       console.log(res.data,'Comment??')
       this.commentsList = res.data
-      console.log(this.commentsList)
+      console.log("comments list : ",this.commentsList)
       // this.comments.sort(function (a,b) {
       //       return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
       //   })
