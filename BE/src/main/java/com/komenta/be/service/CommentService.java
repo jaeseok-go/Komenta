@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     public int insertComment(CommentInfoDTO comment_info);
 
-    public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id);
+    public List<VodEpisodeCommentDTO> getVodEpisodeComment(CommentListByVeIdDTO comment_info);
 
     public List<CommentRankDTO> getCommentRankList();
 

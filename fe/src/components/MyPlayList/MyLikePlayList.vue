@@ -1,18 +1,23 @@
 <template>
-  <div v-if="likeUserPlaylists.length">
-    <!-- <h4>내가 좋아요 누른 play list</h4> -->
-    <div v-for="(playlist,pindex) in likeUserPlaylists" :key="pindex">
-      <h2><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}}</span></h2>
-      <div class='drop-zone'>
-        <div class="drop-zone__inner">
-      <div 
-      v-for="(vod,vindex) in playlist" :key="vindex"
-      class='drag-el'
-      >
-        <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPoster(vod.gd_name,vod.v_title)"></span>
+  <div>
+    <h4>내가 좋아요 누른 play list</h4>
+    <div v-if="likeUserPlaylists.length">
+      <div v-for="(playlist,pindex) in likeUserPlaylists" :key="pindex">
+        <h2><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}}</span></h2>
+        <div class='drop-zone'>
+          <div class="drop-zone__inner">
+        <div 
+        v-for="(vod,vindex) in playlist" :key="vindex"
+        class='drag-el'
+        >
+          <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPoster(vod.gd_name,vod.v_title)"></span>
+        </div>
+      </div>
+      </div>
       </div>
     </div>
-    </div>
+    <div v-else>
+      <p>좋아요 한 플레이 리스트가 없습니다. 마음에 드는 플레이 리스트를 담아보세요!</p>
     </div>
   </div>
 </template>

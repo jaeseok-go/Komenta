@@ -124,4 +124,20 @@
         WHERE u_id = #{u_id}
         AND ve_id = #{ve_id}
     </update>
+
+    <select id = "getVodDetail" parameterType="com.komenta.be.model.vod.VodHistorySetDTO" resultType="com.komenta.be.model.vod.VodDetailDTO">
+    SELECT C.*, H.v_title, H.v_summary, H.v_director, H.v_actors, H.v_age_grade, H.v_poster, H.gd_id, H.g_name, H.gd_name
+    FROM (SELECT A.*, B.vh_id, (case when B.vh_watching_time IS NULL then "00:00:00" ELSE B.vh_watching_time END) AS vh_watching_time
+		  FROM (SELECT ve_id, ve_episode_num, ve_contents, ve_admin, ve_upload_date, v_id
+				FROM vod_episode
+				WHERE ve_id = #{ve_id}) A LEFT OUTER JOIN (SELECT vh_id, vh_watching_time, ve_id
+														   FROM vod_history
+														   WHERE u_id = #{u_id}) B
+		  ON A.ve_id = B.ve_id) C LEFT OUTER JOIN (SELECT D.v_id, D.v_title, D.v_summary, D.v_director, D.v_actors, D.v_age_grade, D.v_poster, D.gd_id, G.g_name, G.gd_name
+												   FROM vod D LEFT OUTER JOIN (SELECT E.gd_id, F.g_name, E.gd_name
+									 										   FROM genre_detail E LEFT OUTER JOIN genre F
+									 										   ON E.g_id = F.g_id) G
+		                                           ON D.gd_id = G.gd_id) H
+    ON C.v_id = H.v_id
+    </select>
 </mapper>

@@ -29,6 +29,8 @@ public interface VodService {
 
     int updateTime(VodUpdateTimeDTO history);
 
+    VodDetailDTO getVodDetail(VodHistorySetDTO history_info);
+
 
 
 }

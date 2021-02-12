@@ -2,7 +2,6 @@ package com.komenta.be.service;
 
 import com.komenta.be.model.follow.FollowDTO;
 import com.komenta.be.model.follow.FollowSelectDTO;
-import com.komenta.be.model.follow.FollowerRankingDTO;
 import com.komenta.be.model.follow.UnFollowDTO;
 
 import java.util.List;
@@ -29,6 +28,5 @@ public interface FollowService {
 
     public int unFollowSub(UnFollowDTO unfollow_info);
 
-    public List<FollowerRankingDTO> getFollowerRankingList();
 
 }
