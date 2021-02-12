@@ -12,6 +12,7 @@ public interface CommentMapper {
     public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id);
     public List<CommentRankDTO> getCommentRankList();
     public List<MyCommentDTO> getMyComment(int u_id);
-    public int addLikeComment(CommentGoodDTO dto);
-    public int cancelLikeComment(CommentGoodDTO dto);
+    public int isCommentGood(CommentGoodDTO comment_good);
+    public int addLikeComment(CommentGoodDTO comment_good);
+    public int cancelLikeComment(CommentGoodDTO comment_good);
 }
