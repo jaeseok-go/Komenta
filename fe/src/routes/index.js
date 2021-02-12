@@ -147,7 +147,7 @@ export default new Router({
       name: 'VodDetail',
       component: () => import('@/views/vod/VodDetail.vue'),
       props: true,
-      // redirect:'/voddetail/:id/bestcomments',
+      redirect:'/voddetail/:id/bestcomments',
       children: [
         {
           path: 'bestcomments',

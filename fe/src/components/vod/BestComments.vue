@@ -1,21 +1,26 @@
 <template>
   <div>
+    <h2>베스트 댓글</h2>
     <div v-for="comment in commentsList" :key="comment.c_id">
       <h3>{{comment.u_nickname}}</h3>
       <h4>{{ comment.c_contents}} </h4>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
       <span> {{comment.c_upload_time}} </span>
-      <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }} </span>
+      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <hr>
     </div>
   </div>
 </template>
 
 <script>
+import {userlikeComment,fetchEpiComment } from '@/api/comment'
+
 import {mapState} from 'vuex'
 export default {
-  props :{
-    commentsList:Array,
-    veId : Number,
+  data(){
+    return {
+      commentsList:[]
+    }
   },
    computed:{
       ...mapState({
@@ -23,13 +28,23 @@ export default {
     }),
     },
   created() {
-        // comments 좋아요순으로 정렬, parseFloat(문자열 실수로 크기비교)
-        this.commentsList.sort(function (a,b) {
-            return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
-        })
-        console.log(this.commentsList)
+  this.getEpiComment();
     },
     methods : {
+         async getEpiComment() {
+    try {
+        const epiId = this.$route.params.id; 
+      const res = await fetchEpiComment(epiId)
+      this.commentsList = res.data.slice(0,10)
+      this.commentsList.sort(function (a,b) {
+             return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
+        })
+        console.log(this.commentsList,'댓글?')
+
+    } catch {
+      console.log('epicomment 에러!!')
+    }
+  },
       goCommentTime(time){
         this.$emit('goCommentTime',time)
       },
@@ -44,14 +59,28 @@ export default {
         }
         return changeTime
         },
-      likeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
+ commentLike(comment){
+   const commentInfo = {
+     c_id : comment.c_id,
+   u_id : this.userInfo.u_id
+ }
+   userlikeComment(commentInfo)
+
+    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+    const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+
+    // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
+    if (comment.is_like_comment) {
+      likeCount.innerText = comment.comment_good_count - 1
+      likeBtn.style.color ='black'
+      console.log(likeBtn,likeCount)
+      } else {
+        likeCount.innerText = comment.comment_good_count + 1
+        likeBtn.style.color = '#fc3c44'
       }
-      this.$emit('likeComment',commentInfo)
-      
+
   }
+
       
     }
 }
@@ -62,5 +91,8 @@ export default {
   color: blue;
   cursor: pointer;
   text-decoration: none;
+}
+.commet__like{
+  color :#fc3c44;
 }
 </style>
