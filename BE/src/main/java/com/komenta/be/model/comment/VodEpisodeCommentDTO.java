@@ -9,11 +9,13 @@ public class VodEpisodeCommentDTO {
     private int u_id;
     private String u_nickname;
     private int comment_good_count;
+    private boolean is_like_comment;
 
     public VodEpisodeCommentDTO() {
     }
 
-    public VodEpisodeCommentDTO(int c_id, String c_contents, String c_playtime, String c_upload_time, int u_id, String u_nickname, int comment_good_count) {
+    public VodEpisodeCommentDTO(int c_id, String c_contents, String c_playtime,
+                                String c_upload_time, int u_id, String u_nickname, int comment_good_count, boolean is_like_comment) {
         this.c_id = c_id;
         this.c_contents = c_contents;
         this.c_playtime = c_playtime;
@@ -21,6 +23,7 @@ public class VodEpisodeCommentDTO {
         this.u_id = u_id;
         this.u_nickname = u_nickname;
         this.comment_good_count = comment_good_count;
+        this.is_like_comment = is_like_comment;
     }
 
     public int getC_id() {
@@ -79,6 +82,14 @@ public class VodEpisodeCommentDTO {
         this.comment_good_count = comment_good_count;
     }
 
+    public boolean isIs_like_comment() {
+        return is_like_comment;
+    }
+
+    public void setIs_like_comment(boolean is_like_comment) {
+        this.is_like_comment = is_like_comment;
+    }
+
     @Override
     public String toString() {
         return "VodEpisodeCommentDTO{" +
@@ -89,6 +100,7 @@ public class VodEpisodeCommentDTO {
                 ", u_id=" + u_id +
                 ", u_nickname='" + u_nickname + '\'' +
                 ", comment_good_count=" + comment_good_count +
+                ", is_like_comment=" + is_like_comment +
                 '}';
     }
 }
