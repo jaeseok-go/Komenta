@@ -1,9 +1,7 @@
 <template>
   <div>
     <div id="appBody">
-        <!-- <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video> -->
          <div>
-            <!-- <button @click="getCurTime">현재시간?</button> -->
             <video @loadstart="goLastVod" height="400px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
@@ -11,7 +9,6 @@
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class="userFollowing(comment.u_id)">
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | <span @click="goFeed(comment.u_id)">{{comment.u_nickname}} </span>: {{ comment.c_contents}}  
-                  <!-- @click="likeComment(comment)" {commet__like :comment.is_like_comment}  -->
                   <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span></span>    
                 </p>
             </div>
