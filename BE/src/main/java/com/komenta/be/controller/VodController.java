@@ -142,7 +142,9 @@
         public int endWatching(@RequestBody VodUpdateTimeDTO history, HttpServletRequest request){
             int u_id = (int) jwtService.getUidFromJwt(request.getHeader("auth-token"));
             history.setU_id(u_id);
-
+            System.out.println("##################################");
+            System.out.println(history.toString());
+            System.out.println("##################################");
             return vodService.updateTime(history);
         }
 
