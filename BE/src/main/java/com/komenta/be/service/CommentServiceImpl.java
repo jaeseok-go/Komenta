@@ -37,12 +37,17 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public int addLikeComment(CommentGoodDTO dto) {
-        return sqlSession.getMapper(CommentMapper.class).addLikeComment(dto);
+    public int isCommentGood(CommentGoodDTO comment_good) {
+        return sqlSession.getMapper(CommentMapper.class).isCommentGood(comment_good);
     }
 
     @Override
-    public int cancelLikeComment(CommentGoodDTO dto) {
-        return sqlSession.getMapper(CommentMapper.class).cancelLikeComment(dto);
+    public int addLikeComment(CommentGoodDTO comment_good) {
+        return sqlSession.getMapper(CommentMapper.class).addLikeComment(comment_good);
+    }
+
+    @Override
+    public int cancelLikeComment(CommentGoodDTO comment_good) {
+        return sqlSession.getMapper(CommentMapper.class).cancelLikeComment(comment_good);
     }
 }
