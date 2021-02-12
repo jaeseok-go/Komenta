@@ -30,4 +30,6 @@ public interface VodMapper {
     int insertVodHistory(VodHistorySetDTO history);
 
     int updateTime(VodUpdateTimeDTO history);
+
+    VodDetailDTO getVodDetail(VodHistorySetDTO history_info);
 }
