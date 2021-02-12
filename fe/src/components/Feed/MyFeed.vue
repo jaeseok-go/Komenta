@@ -10,7 +10,7 @@
                         <div class="userprofile__picbox__content"><img :src="getProfile()"></div>
                     </div>
                     <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-                    <div v-if="!showMyRecent() && !isFollowed()">
+                    <div v-if="!showMyRecent() && isFollowed()">
                         <button class="userprofile__button" @click="followUser">FOLLOW</button>
                     </div>
             </div>
