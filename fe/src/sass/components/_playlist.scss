@@ -24,3 +24,57 @@
     width: 100%;
   }
 }
+
+.playlist {
+    width: 1200px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin-left: -1rem;
+
+
+  .playlist__box {
+    width: 306px;
+    height: 316px;
+    background-color: transparent;
+    border: 3.8px solid #C8C8C8;
+    display: inline-block;
+    // border-radius: 1rem;
+    margin: 1rem;
+  
+    &__img {
+      width: 100%;
+      height: 180px;
+      // border-radius: 1rem;
+    }
+  
+    &__info {
+      // border: 2px solid #C8C8C8;
+      // background-color: #F5F5F5;
+      height: 6rem;
+      /* text-align: center; */
+      margin: 20px 10px;
+  
+      &__plname {
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+  
+      &__nickname {
+        margin-bottom: 3%;
+        background-color: #fa233b;
+        // width: 45%;
+        padding: 3px 1px;
+        border-radius: 0.5rem;
+        color: white;
+  
+      }
+  
+      &__comment {
+  
+      }
+  
+    }
+  }
+
+}
