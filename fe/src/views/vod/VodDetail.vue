@@ -28,16 +28,15 @@
             </div>
             </div>
         </div>
-        <hr>
-        <div class="videoepi">
-        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3> <br>
-        <p>{{vodEpiInfo.ve_upload_date}}</p>
+        <!-- <hr> -->
+        <!-- <div class="videoepi">
+        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3>
         <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
         <div>{{vodEpiInfo.v_summary}}</div>
         <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
         <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
         <h4>연출 : {{vodEpiInfo.v_director}}</h4>
-        </div>
+        </div> -->
         <hr>
         <router-link :to="{name:'BestComments'}"  >베스트 댓글</router-link> | 
         <router-link :to="{name:'AllComments'}">전체 댓글</router-link>
