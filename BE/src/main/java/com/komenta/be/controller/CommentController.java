@@ -75,27 +75,21 @@ public class CommentController {
     }
 
 
-    @ApiOperation(value = "댓글 좋아요", notes = "댓글 번호를 입력받고 현재 사용자의 u_id를 통해 댓글 좋아요수 +1")
+    @ApiOperation(value = "댓글 좋아요 추가/취소", notes = "해당 유저가 좋아요한 댓글은 취소, 아닌 댓글은 좋아요 추가")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "c_id", value = "c_id (댓글 아이디)", dataType = "int", required = true)
+            @ApiImplicitParam(name = "comment_good", value = "c_id (댓글 아이디)", dataType = "CommentGoodDTO", required = true)
     })
-    @PostMapping("/comment_good")
-    public int addLikeComment(@RequestBody CommentGoodDTO dto, HttpServletRequest request){
+    @PostMapping("/comment_good_cancle")
+    public int cancelLikeComment(@RequestBody CommentGoodDTO comment_good, HttpServletRequest request){
+        // DTO 채워준다. (u_id)
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-        dto.setU_id(u_id);
-        return cservice.addLikeComment(dto);
-    }
+        comment_good.setU_id(u_id);
 
-
-
-    @ApiOperation(value = "댓글 좋아요 취소", notes = "댓글 번호를 입력받고 현재 사용자의 u_id를 통해 댓글 좋아요수 -1")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "c_id", value = "c_id (댓글 아이디)", dataType = "int", required = true)
-    })
-    @PostMapping("/comment_good_cancel")
-    public int cancelLikeComment(@RequestBody CommentGoodDTO dto, HttpServletRequest request){
-        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-        dto.setU_id(u_id);
-        return cservice.cancelLikeComment(dto);
+        // 만약에 내가 이 댓글을 좋아요한 상태가 아니면 좋아요 추가하고 리턴
+        // 좋아요 한 상태면 좋아요 삭제하고 리턴
+        if(cservice.isCommentGood(comment_good) == 0) {
+            return cservice.addLikeComment(comment_good);
+        }
+        return cservice.cancelLikeComment(comment_good);
     }
 }

@@ -13,6 +13,8 @@ public interface CommentService {
 
     public List<MyCommentDTO> getMyComment(int u_id);
 
-    public int addLikeComment(CommentGoodDTO dto);
-    public int cancelLikeComment(CommentGoodDTO dto);
+    public int isCommentGood(CommentGoodDTO comment_good);
+    public int addLikeComment(CommentGoodDTO comment_good);
+    public int cancelLikeComment(CommentGoodDTO comment_good);
+
 }

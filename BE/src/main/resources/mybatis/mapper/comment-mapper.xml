@@ -8,15 +8,21 @@
         values (#{c_contents}, #{c_playtime}, #{u_id}, #{ve_id})
     </insert>
 
+    <select id="isCommentGood" parameterType="com.komenta.be.model.comment.CommentGoodDTO" resultType="int">
+        SELECT COUNT(*) AS count
+        FROM comment_good
+        WHERE u_id = #{u_id}
+        AND c_id = #{c_id};
+    </select>
 
     <insert id="addLikeComment" parameterType="com.komenta.be.model.comment.CommentGoodDTO">
         insert into comment_good(c_id, u_id)
         values (#{c_id}, #{u_id})
     </insert>
+
     <delete id="cancelLikeComment" parameterType="com.komenta.be.model.comment.CommentGoodDTO">
         delete from comment_good
         where c_id = #{c_id} and u_id = #{u_id}
-
     </delete>
 
     <select id = "getVodEpisodeComment" parameterType="int" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
