@@ -36,6 +36,10 @@ export default {
         const epiId = this.$route.params.id; 
       const res = await fetchEpiComment(epiId)
       this.commentsList = res.data
+      // this.commentsList.sort(function (a,b) {
+      //        return parseFloat(a.c_upload_time) > parseFloat(b.c_upload_time) ? -1 : parseFloat(a.c_upload_time) < parseFloat(b.c_upload_time) ? 1:0;
+      //   })
+      //   console.log(this.commentsList,'댓글?')
 
     } catch {
       console.log('epicomment 에러!!')
