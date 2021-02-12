@@ -94,7 +94,7 @@
       <un-follow></un-follow>
 
       <!-- 멤버십 관리 -->
-      <membership-setting></membership-setting>
+      <membership-setting :userInfo="this.userInfo"></membership-setting>
     </div>
   </div>
 </template>

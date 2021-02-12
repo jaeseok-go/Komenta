@@ -7,19 +7,6 @@
     border: none;
     background-color: #fff;
   }
-  // &.kakao {
-  //   position: relative;
-  //   margin-right: auto;
-  //   margin-left: auto;
-  //   width: 60px;
-  //   height: 60px;
-  //   background-color: rgb(255, 235, 59);
-
-  //   & svg {
-  //     position: relative;
-  //     top: 5px;
-  //   }
-  // }
 }
 
 .sign-setting {
@@ -184,4 +171,23 @@
 .btn-label.제한회원 {
   background-color: rgb(204, 33, 33);
   cursor: pointer;
+}
+
+//멤버십 관리
+.membership-state {
+  width: 75px;
+  color: white;
+  background-color: rgb(192, 0, 0);
+  margin: 0 auto !important;
+  padding: 0.1rem 0;
+  font-size: 13px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.goJoinMember {
+  cursor: pointer;
+  color: $komenta-color;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
