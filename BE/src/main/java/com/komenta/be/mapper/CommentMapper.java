@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommentMapper {
 
     public int insertComment(CommentInfoDTO comment_info);
-    public List<VodEpisodeCommentDTO> getVodEpisodeComment(int ve_id);
+    public List<VodEpisodeCommentDTO> getVodEpisodeComment(CommentListByVeIdDTO comment_info);
     public List<CommentRankDTO> getCommentRankList();
     public List<MyCommentDTO> getMyComment(int u_id);
     public int isCommentGood(CommentGoodDTO comment_good);

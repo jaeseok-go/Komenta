@@ -55,8 +55,10 @@ public class CommentController {
             @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int",required = true)
     })
     @GetMapping("/ve_c_list/{ve_id}")
-    public List<VodEpisodeCommentDTO> getVodEpisodeComment(@PathVariable("ve_id") int ve_id){
-        return cservice.getVodEpisodeComment(ve_id);
+    public List<VodEpisodeCommentDTO> getVodEpisodeComment(@PathVariable("ve_id") int ve_id, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        CommentListByVeIdDTO comment_info = new CommentListByVeIdDTO(ve_id, u_id);
+        return cservice.getVodEpisodeComment(comment_info);
     }
 
 
