@@ -1,8 +1,10 @@
 <template>
   <div>
-
     <div v-for="comment in commentsList" :key="comment.c_id">
-      <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> | {{comment.c_upload_time}} | {{comment.u_nickname}} : {{ comment.c_contents}} | 
+      <h3>{{comment.u_nickname}}</h3>
+      <h4>{{ comment.c_contents}} </h4>
+      <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
+      <span> {{comment.c_upload_time}} </span>
       <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }} </span>
     </div>
   </div>
@@ -49,14 +51,7 @@ export default {
       }
       this.$emit('likeComment',commentInfo)
       
-  },
-  unlikeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
-      }
-      this.$emit('unlikeComment',commentInfo)
-  },
+  }
       
     }
 }
