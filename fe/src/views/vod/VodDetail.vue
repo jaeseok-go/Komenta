@@ -11,7 +11,12 @@
         <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
         <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         <hr>
+<<<<<<< HEAD
         <div>베스트 댓글</div>
+=======
+        <div>vod전체 내용</div>
+
+>>>>>>> FE/feature/myPage
         <!-- <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments> -->
       
         <!-- <router-link :to="{name:'VodAllEpi'}">전체회차</router-link> | <router-link :to="{name:'VodEpiComment'}">Best댓글</router-link>
@@ -25,16 +30,24 @@
 </template>
 
 <script>
-import { startVodWatch, fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
-import { fetchEpiComment, userLikeComment, userUnlikeComment } from '@/api/comment'
+import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch } from '@/api/vod'
+import { fetchEpiComment, userLikeComment, userUnlikeComment, commentInsert } from '@/api/comment'
 import Video from '@/components/vod/Video'
 import VodAllEpi from '@/components/vod/VodAllEpi'
 import Comments from '@/views/vod/Comments';
+<<<<<<< HEAD
+=======
+import {mapState} from 'vuex'
+>>>>>>> FE/feature/myPage
 
 export default {
 components: { 
   Video,
+<<<<<<< HEAD
   VodAllEpi
+=======
+  VodAllEpi,
+>>>>>>> FE/feature/myPage
   Comments,
 },
 name: 'VodDetail',
@@ -148,6 +161,7 @@ methods : {
             let hours   = Math.floor(myNum / 3600);
             let minutes = Math.floor((myNum - (hours * 3600)) / 60);
             let seconds = myNum - (hours * 3600) - (minutes * 60);
+<<<<<<< HEAD
 
             if (hours   < 10) {hours   = "0"+hours;}
             if (minutes < 10) {minutes = "0"+minutes;}
@@ -205,6 +219,65 @@ methods : {
                 
             }
 
+=======
+
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            return hours+':'+minutes+':'+seconds;
+        },
+        timeToSec(time){
+            let splitTime = time.split(':')
+            // console.log(splitTime)
+            let changeTime = Number(splitTime[splitTime.length-1])
+            for (let i = splitTime.length-2; i >= 0; i--) {
+                let element = Number(splitTime[i]);
+                changeTime += element*(60**(splitTime.length-i-1))
+                // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
+            }
+            return changeTime
+        },
+            getCurTime() { 
+            const vod = document.getElementById("videotag");
+            alert(vod.currentTime,'현재시간?');
+        },
+        // 비디오 불러오기
+        getVideo() {
+            const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.episodeInfo.gd_id}_${this.vodEpiInfo.episodeInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.episodeInfo.ve_episode_num}화`
+            console.log(path,'동영상주소')
+            return path
+        },
+        // 해당시간으로 댓글 이동
+        goCommentTime(time){
+            const vod = document.getElementById("videotag");
+            vod.currentTime = time;
+    
+        },
+        // 비디오 시간과 currentTIme 일치시킴
+        onTimeUpdate(){
+            const vod = document.getElementById("videotag");
+            this.videoCurrentTime = vod.currentTime;
+        },
+        async createComment() {
+            try {
+                const vod = document.getElementById("videotag");
+                console.log(vod.currentTime,'????댓글시간등록')
+                const commentInfo = {
+                    c_contents : this.userComment,
+                    c_playtime : this.nowTime(vod.currentTime),
+                    u_id : this.userInfo.u_id,
+                    ve_id : this.$route.params.id
+                }
+            const res = await commentInsert(commentInfo)
+            console.log(res,'댓글써졌니?')
+            this.getEpiComment();
+            this.userComment=""
+            } catch {
+                console.log('댓글썼는데 실패함')
+                
+            }
+
+>>>>>>> FE/feature/myPage
 
 
   },
@@ -261,11 +334,18 @@ methods : {
         
     },
     computed:{
+<<<<<<< HEAD
       
          ...mapState({
       userInfo: state => state.user.userInfo,
       myFollowingList: state => state.user.myFollowingList
     }),
+=======
+      ...mapState({
+        userInfo: state => state.user.userInfo,
+        myFollowingList: state => state.user.myFollowingList
+      }),
+>>>>>>> FE/feature/myPage
     },
     beforeDestroy(){
       const watching = {
