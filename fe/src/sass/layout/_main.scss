@@ -128,11 +128,15 @@
   font-weight: 600;
 }
 
-.userPic img {
-  width: 25px;
-  border-radius: 50%;
-  border: 1px solid rgba(206, 206, 206, 0.555);
-  background-color: white;
+.userPic {
+  margin-left: 0.3rem;
+  & img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid rgba(206, 206, 206, 0.555);
+    background-color: white;
+  }
 }
 
 //main - now playing
@@ -184,8 +188,8 @@
 
         & .posterCD-middle {
           position: absolute;
-          top: 10%;
-          left: 10%;
+          top: 11%;
+          left: 12%;
           width: 80px;
           height: 80px;
           border-radius: 50%;

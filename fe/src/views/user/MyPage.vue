@@ -344,38 +344,5 @@ export default {
     border: 1px solid black;
     padding: 0.1rem 5.7em;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  table th {
-    font-size: 1.2rem;
-  }
-  table tr {
-    height: 2rem;
-    text-align: center;
-    border-bottom: 1px solid #505050;
-  }
-  table tr:first-of-type {
-    border-top: 2px solid #404040;
-  }
-  table tr td {
-    padding: 0.7rem 0;
-    font-size: 1rem;
-  }
-
-  .btn-cover {
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  .btn-cover .page-btn {
-    width: 5rem;
-    height: 2rem;
-    letter-spacing: 0.5px;
-  }
-  .btn-cover .page-count {
-    padding: 0 1rem;
-  }
 
 </style>
