@@ -131,15 +131,10 @@ methods : {
         })
         console.log(this.commentsList,'댓글?')
 
-    // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
-    const edID = Number(this.$route.params.id);
-    console.log('edID : ', edID);
-    const res = startVodWatch(edID);
-    console.log('시청기록 시작', res, this.$route.params.id);
+    } catch {
+      console.log('epicomment 에러!!')
+    }
   },
-        stopScroll() {
-
-         },
          onscroll() {
             const objDiv = document.getElementById("comment_div");
 
@@ -222,27 +217,7 @@ methods : {
                 
             }
 
-      if (objDiv.scrollTop + objDiv.clientHeight == objDiv.scrollHeight) {
-        // 채팅창 전체높이 + 스크롤높이가 스크롤 전체높이와 같다면
-        // 이는 스크롤이 바닥을 향해있다는것이므로
-        // 스크롤 바닥을 유지하도록 플래그 설정
-        this.bottom_flag = true;
-      }
 
-      if (this.pre_diffHeight > objDiv.scrollTop + objDiv.clientHeight) {
-        // 스크롤이 한번이라도 바닥이 아닌 위로 상승하는 액션이 발생할 경우
-        // 스크롤 바닥유지 플래그 해제
-        this.bottom_flag = false;
-      }
-      //
-      // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
-      // }
-    },
-    nowTime(num) {
-      let myNum = parseInt(num, 10);
-      let hours = Math.floor(myNum / 3600);
-      let minutes = Math.floor((myNum - hours * 3600) / 60);
-      let seconds = myNum - hours * 3600 - minutes * 60;
 
   },
   scrollEvent (){
@@ -252,17 +227,22 @@ methods : {
       let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
       console.log(_direction); // 콘솔창에 스크롤 방향을 출력
 
-        window.__scrollPosition = _documentY; // Update scrollY
-      });
-    },
-    // 팔로잉들 댓글 강조
-    userFollowing(uId) {
-      for (let i = 0; i < this.myFollowingList.length; i++) {
+      window.__scrollPosition = _documentY; // Update scrollY
+});
+  },
+  // 팔로잉들 댓글 강조
+  userFollowing(uId){
+        for (let i = 0; i < this.myFollowingList.length; i++) {
         const following = this.myFollowingList[i];
         if (following.f_id == uId) {
-          return {
-            comment__highlight: true,
-          };
+           return {
+             comment__highlight: true
+            }        
+        
+          }
+        }
+        return {
+          comment__highlight: false
         }
         
       },
@@ -281,20 +261,21 @@ methods : {
   commentLike(comment){
     const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
     const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-    // likeBtn.style.color = comment.is_like_comment ? '#fc3c44' : 'black'
+
+    // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
     if (comment.is_like_comment) {
       likeCount.innerText = comment.comment_good_count - 1
       likeBtn.style.color ='black'
-      console.log(likeCount.innerText,'넌 뭐니')
       } else {
-      likeCount.innerText = comment.comment_good_count + 1
+        likeCount.innerText = comment.comment_good_count + 1
         likeBtn.style.color = '#fc3c44'
       }
       const commentInfo = {
-      c_id : comment.c_id,
+        c_id : comment.c_id,
       u_id : this.userInfo.u_id
     }
-    userlikeComment(commentInfo)
+      userlikeComment(commentInfo)
+
   }
 
 
@@ -307,12 +288,12 @@ methods : {
         },
         
     },
-  },
-  watch: {
-    // 비디오 시간을 보며 스크롤 자동으로 내리기
-    videoCurrentTime: function() {
-      const scrollDiv = document.getElementById('comment_div');
-      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    computed:{
+      
+         ...mapState({
+      userInfo: state => state.user.userInfo,
+      myFollowingList: state => state.user.myFollowingList
+    }),
     },
     beforeDestroy(){
       const watching = {
@@ -327,22 +308,22 @@ methods : {
 </script>
 
 <style scoped>
-#appBody {
-  overflow-y: scroll;
-  display: inline-block;
-  position: fixed;
-  top: 100px;
-  /* background-color: red; */
-  width: 100%;
-}
-
+  #appBody {
+      overflow-y: scroll;
+      display: inline-block;
+      position: fixed;
+      top: 100px;
+      /* background-color: red; */
+      width: 100%;
+  }
+  
 #comment_div {
-  white-space: pre;
-  overflow-y: scroll;
-  width: 500px;
-  height: 200px;
-  border: 1px solid black;
-  display: inline-block;
+    white-space: pre;
+    overflow-y: scroll;
+    width:500px;
+    height:200px;
+    border: 1px solid black;
+    display: inline-block;
 }
 
 .comment__time {
@@ -350,7 +331,7 @@ methods : {
   cursor: pointer;
   text-decoration: none;
 }
-.comment__highlight {
+.comment__highlight{
   background-color: yellow;
 }
 .commet__like{
