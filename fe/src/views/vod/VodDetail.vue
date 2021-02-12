@@ -1,25 +1,35 @@
 <template>
   <div>
     <div id="appBody">
-         <div>
-            <video @loadstart="goLastVod" height="400px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
+         <div class="video">
+            <video @loadstart="goLastVod" height="500px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
-           <div style="overflow:auto; width:500px; height:400px; white-space:pre-line;" id="comment_div">
-            <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll">
+            
+           <div id="comment_div">
+             <div class="comment__scroll" id="comment__scroll">
+            <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class="userFollowing(comment.u_id)">
-                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | <span @click="goFeed(comment.u_id)">{{comment.u_nickname}} </span>: {{ comment.c_contents}}  
-                  <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span></span>    
+                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname">{{comment.u_nickname}} </span> {{ comment.c_contents}}  
+                                                                                                                   <!-- "[isActive ? activeClass : '', errorClass]" -->
+                  <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
+                  <!-- <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> -->
+                  </span>    
                 </p>
             </div>
             </div>
-            <div>
-            <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤" @keydown.enter="createComment()"/>
-            <button @click="createComment()">create</button>
+            <div class="video__comment">
+              <div class="video__comment__box"><img :src="getPoster()" alt="" class="video__comment__profile"></div>
+              <div class="video__comment__inner">
+                <span class="video__comment__inner__nickname">{{userInfo.u_nickname}}</span> <br>
+                <div><input type='text' class="video__comment__input" id=msg v-model="userComment" placeholder="댓글을 입력하세요" @keydown.enter="createComment()"/>
+                <span @click="createComment()"><i class="far fa-paper-plane"></i></span></div>
+              </div>
             </div>
-
+            </div>
         </div>
         <hr>
+        <div class="videoepi">
         <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3> <br>
         <p>{{vodEpiInfo.ve_upload_date}}</p>
         <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
@@ -27,9 +37,10 @@
         <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
         <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
         <h4>연출 : {{vodEpiInfo.v_director}}</h4>
+        </div>
         <hr>
-        <router-link :to="{name:'BestComments', params: { commentsList: commentsList, veId: vodEpiInfo.ve_id}}"  >베스트 댓글</router-link> | 
-        <router-link :to="{name:'AllComments', params: { commentsList: commentsList, veId: vodEpiInfo.ve_id}}">전체 댓글</router-link>
+        <router-link :to="{name:'BestComments'}"  >베스트 댓글</router-link> | 
+        <router-link :to="{name:'AllComments'}">전체 댓글</router-link>
         <router-view  @goCommentTime="goCommentTime"></router-view>
        
        
@@ -80,6 +91,10 @@ created(){
   
 },
 methods : {
+  getPoster(){
+    const profile = this.userInfo.u_profile_pic.split('.')
+    return `${process.env.VUE_APP_PICTURE}profile/${profile[0]}`
+  },
   startWatchTime(){
     const edID = Number(this.$route.params.id)
     const res = startVodWatch(edID);
@@ -246,33 +261,23 @@ methods : {
         }
         
       },
-        likeComment(com){
-      const commentInfo = {
-        c_id : com.c_id,
-        u_id : this.userInfo.u_id
-      }
-      const res = userlikeComment(commentInfo)
-      // if (com.is_like_comment) {
 
-      // }
-      console.log(res,'좋아요 응답')
-  },
   //유저 댓글 좋아요 class추가/제거
   commentLike(comment){
     const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
-    const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
 
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
     if (comment.is_like_comment) {
-      likeCount.innerText = comment.comment_good_count - 1
-      likeBtn.style.color ='black'
+      // likeCount.innerText = comment.comment_good_count - 1
+      likeBtn.style.color ='grey'
       } else {
-        likeCount.innerText = comment.comment_good_count + 1
+        // likeCount.innerText = comment.comment_good_count + 1
         likeBtn.style.color = '#fc3c44'
       }
       const commentInfo = {
         c_id : comment.c_id,
-      u_id : this.userInfo.u_id
+        u_id : this.userInfo.u_id
     }
       userlikeComment(commentInfo)
 
@@ -283,13 +288,12 @@ methods : {
    watch : {
         // 비디오 시간을 보며 스크롤 자동으로 내리기
         videoCurrentTime :function (){
-            const scrollDiv = document.getElementById('comment_div');
+            const scrollDiv = document.getElementById('comment__scroll');
             scrollDiv.scrollTop = scrollDiv.scrollHeight;
         },
         
     },
     computed:{
-      
          ...mapState({
       userInfo: state => state.user.userInfo,
       myFollowingList: state => state.user.myFollowingList
@@ -308,33 +312,111 @@ methods : {
 </script>
 
 <style scoped>
+.comment__scroll::-webkit-scrollbar {
+    width: 15px;
+    height: 18px;
+  }
+
+   .comment__scroll::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  .comment__scroll::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  .comment__scroll::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    -webkit-border-radius: 100px;
+    background-color:rgb(194, 190, 190);
+  }
+  .comment__scroll {
+  overflow: auto;
+  white-space: pre-line;
+  width: 400px;
+  height: 425px;
+  /* height: 100%; */
+  }
   #appBody {
-      overflow-y: scroll;
-      display: inline-block;
-      position: fixed;
-      top: 100px;
-      /* background-color: red; */
       width: 100%;
   }
   
 #comment_div {
-    white-space: pre;
-    overflow-y: scroll;
-    width:500px;
-    height:200px;
-    border: 1px solid black;
+    /* width: 400px;
+    height: 500px; */
+    /* position: relative; */
+    /* border: 1px solid rgb(179, 173, 173); */
     display: inline-block;
+    background-color: #eee;
 }
-
+.video{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+.video__comment{
+  padding-left: 5%;
+  display: inline-block;
+  /* position: absolute; */
+  /* position: sticky; */
+  width: 100%;
+  height: 80px;
+  background-color: white;
+}
+.video__comment__box{
+    margin-top:25px;
+    display: inline-block;
+    width: 50px;
+    height: 50px; 
+    border-radius: 50%;
+    overflow: hidden;
+}
+.video__comment__profile{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.video__comment__inner {
+  padding-left: 5%;
+  width: 85%;
+  display: inline-block;
+}
+.video__comment__inner__nickname{
+  color:	#C0C0C0;
+  font-weight: bold;
+}
 .comment__time {
-  color: blue;
+  color: darkgray;
   cursor: pointer;
   text-decoration: none;
 }
 .comment__highlight{
-  background-color: yellow;
+  /* background-color: yellow; */
+  color: #fc3c44;
+  font-weight: bold;
 }
 .commet__like{
   color :#fc3c44;
+
+}
+.comment__unlike{
+  color: gray;
+}
+.video__comment__input{
+  width: 80%;
+  background-color: white;
+  border-left-width:0;
+  border-right-width:0;
+  border-top-width:0;
+  border-bottom:black 1px solid;
+  
+}
+.comment__text{
+
+}
+.comment__nickname{
+  color: gray;
+  cursor: pointer;
 }
 </style>
