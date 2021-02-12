@@ -35,7 +35,7 @@ export default {
       userInfo:state => state.user.userInfo
     }),
     isLogin() {
-      console.log(this.userInfo.u_id)
+      console.log("유저 정보 : ",this.userInfo)
       if(this.userInfo.u_id === null) return false;
       else return true;
     }

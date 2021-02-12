@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h4>최근 시청한 VOD 목록</h4>
+    <h4>Recently Played</h4>
     <!-- vod 목록 보여줄 전체 폼 -->
     <div class="rPlayList-Form">
       <!-- 시청중인 VOD가 없을 때 -->
       <div v-if="historyList.length == 0">
-        <p>시청중인 VOD가 없습니다.</p>
+        <p>시청한 VOD가 없습니다.</p>
       </div>
       <!-- 시청중인 VOD가 있을 때 -->
       <div v-else>
@@ -14,13 +14,12 @@
           <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">&lt;</button>
         </div>
         <div v-for="(vod,index) in paginatedData" :key="vod.v_id">
-          <!-- <div>
-            {{vod}}
-          </div> -->
           <!-- vod poster -->
-          <div class="vodListPoster">
-            <img :src="getPoster(index)" @click="goVodDetail(vod.ve_id)">
-            <!-- vod 개요(mouseon) -->
+          <div class="vodPoster">
+            <img :src="getPoster(index)" @click="goVodDetail(vod.ve_id)"> <!--  @mouseover="showOnInfo" -->
+            <!-- <div class="recent-play-vodInfo" :style="{display:rVodInfo}">
+              test
+            </div> -->
           </div>
         </div>
         <!-- 다음 버튼 -->
@@ -41,7 +40,8 @@ export default {
       pageNum:0,
       historyList:[],
       episodeList:[],
-      playlists:[]
+      playlists:[],
+      rVodInfo:'none',
     }
   },
   created() {
@@ -98,6 +98,11 @@ export default {
       // console.log("최근 시청 VOD 정보 : ",response);
       this.historyList = response.data.historyList;
       this.episodeList = response.data.episodeList;
+    },
+    showOnInfo() {
+      if(this.rVodInfo == 'none') {
+        this.rVodInfo = 'inline';
+      }
     },
   },
 }

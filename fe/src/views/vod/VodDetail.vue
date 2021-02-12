@@ -1,64 +1,41 @@
 <template>
   <div>
     <div id="appBody">
-        <!-- <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.episodeInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video> -->
-         <div>
-            <!-- <button @click="getCurTime">현재시간?</button> -->
-            <video @loadstart="goLastVod" height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
-                <source :src="getVideo()" id="player" type='video/mp4'/>
-            </video>
-           <div style="overflow:auto; width:400px; height:300px; white-space:pre-line;" id="comment_div">
-            <div v-for="(comment,index) in commentsList" :key="index">
-                <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class="userFollowing(comment.u_id)">
-                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span> | <span @click="goFeed(comment.u_id)">{{comment.u_nickname}} </span>: {{ comment.c_contents}} | {{comment.c_upload_time}} | 
-                  <span @click="likeComment(comment.c_id)"><i class="far fa-thumbs-up"></i>{{ comment.comment_good_count }}</span>    
-                </p>
-            </div>
-            </div>
-            <div>
-            <input type='text' id=msg v-model="userComment" placeholder="댓글을 입력하세욤" @keydown.enter="createComment()"/>
-            <button @click="createComment()">create</button>
-            </div>
-
-        </div>
+        <Video :vodEpiInfo="vodEpiInfo" :sendcommenttime="sendcommenttime" :veId="vodEpiInfo.ve_id" :commentsList="commentsList"  @likeComment="likeComment" @unlikeComment="unlikeComment"></Video>
         <hr>
-        <h3>{{vodEpiInfo.episodeInfo.v_title}} {{vodEpiInfo.episodeInfo.ve_episode_num}}회 </h3> <br>
-        <p>{{vodEpiInfo.episodeInfo.ve_upload_date}}</p>
-        <span><img :src="getVodPoster(vodEpiInfo.episodeInfo.v_poster)" alt="" width="200px"></span>
-        <div>{{vodEpiInfo.episodeInfo.v_summary}}</div>
-        <h4>개요 : {{vodEpiInfo.episodeInfo.g_name}}/{{vodEpiInfo.episodeInfo.gd_name}}</h4>
-        <h4>출연 : {{vodEpiInfo.episodeInfo.v_actors}}</h4>
-        <h4>연출 : {{vodEpiInfo.episodeInfo.v_director}}</h4>
+        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3> <br>
+        <p>{{vodEpiInfo.ve_upload_date}}</p>
+        <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
+        <div>{{vodEpiInfo.v_summary}}</div>
+        <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
+        <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
+        <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         <hr>
         <div>베스트 댓글</div>
-        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments>
+        <!-- <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.episodeInfo.ve_id"></Comments> -->
       
         <!-- <router-link :to="{name:'VodAllEpi'}">전체회차</router-link> | <router-link :to="{name:'VodEpiComment'}">Best댓글</router-link>
         <router-view></router-view> -->
         <!-- <VodAllEpi :vodInfo="vodInfo"></VodAllEpi> -->
         <!-- router children 등록 VodAllEpi, VodEpiComment -->
+        <Comments :commentsList="commentsList" @goCommentTime="goCommentTime" :veId="vodEpiInfo.ve_id"></Comments>
        
     </div>
   </div>
 </template>
 
 <script>
+import { startVodWatch, fetchVodEpiDetail, fetchVodDetail } from '@/api/vod'
+import { fetchEpiComment, userLikeComment, userUnlikeComment } from '@/api/comment'
+import Video from '@/components/vod/Video'
+import VodAllEpi from '@/components/vod/VodAllEpi'
 import Comments from '@/views/vod/Comments';
-// import {fetchfollowinglist} from '@/api/user';
-import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch} from '@/api/vod'
-import { fetchEpiComment, userLikeComment, userUnlikeComment, commentInsert } from '@/api/comment'
-// import Video from '@/components/vod/Video'
-import {mapState} from 'vuex';
-// import VodAllEpi from '@/components/vod/VodAllEpi'
-
-
-
 
 export default {
 components: { 
+  Video,
+  VodAllEpi
   Comments,
-  // Video,
-  // VodAllEpi
 },
 name: 'VodDetail',
 data(){
@@ -86,6 +63,7 @@ created(){
 
   // 시청기록 있으면 그냥 시작 없으면, 시청기록 만들어서 반환??
   const edID = Number(this.$route.params.id)
+  console.log("edID : ",edID)
   const res = startVodWatch(edID);
   console.log('시청기록 시작',res,this.$route.params.id)
   
@@ -109,9 +87,10 @@ methods : {
       const epiId = Number(this.$route.params.id);
       console.log(epiId)  
       const res = await fetchVodEpiDetail(epiId)
-      this.vodEpiInfo = res.data
-      console.log('VODEPI 상세 정보',this.vodEpiInfo)
-      // this.getVodDetail();
+      console.log(res.data,'vod detail info')
+      this.vodEpiInfo = res.data;
+      console.log("vod epi info : ",this.vodEpiInfo);
+      this.getVodDetail();
     } catch {
       console.log('vod epi detail에러!!')
     }
@@ -119,24 +98,26 @@ methods : {
    
   async getVodDetail() {
     try {
-      console.log(this.vodEpiInfo.episodeInfo.v_id,'vod아이디')
-      const res = await fetchVodDetail(this.vodEpiInfo.episodeInfo.v_id)
+      console.log(this.vodEpiInfo.v_id,'vod아이디')
+      const res = await fetchVodDetail(this.vodEpiInfo.v_id)
       this.vodInfo = res.data
-      console.log(this.vodInfo,'?????')
+      console.log(this.vodInfo,'vodInfo')
     } catch {
       console.log('vod episode 에러')
     }
   },
     async getEpiComment() {
-    try {
-        const epiId = this.$route.params.id; 
+      // console.log("epiId : ",this.$route.params.id)
+      try {
+      const epiId = Number(this.$route.params.id);
+      console.log(epiId,'에피소드id')  
       const res = await fetchEpiComment(epiId)
   console.log(this.myFollowingList,'나의 팔로잉')
       this.commentsList = res.data
-      this.commentsList.sort(function (a,b) {
-            return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
-        })
-        console.log(this.commentsList,'댓글?')
+      console.log("comments list : ",this.commentsList)
+      // this.comments.sort(function (a,b) {
+      //       return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
+      //   })
 
     } catch {
       console.log('epicomment 에러!!')
