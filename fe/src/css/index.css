@@ -531,6 +531,12 @@ a:hover {
   font-family: inherit;
 }
 
+.form-control:focus {
+  border-color: #fc3c44;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 35, 59, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(250, 35, 59, 0.25);
+}
+
 .form-control-plaintext.form-control-lg,
 .form-control-plaintext.form-control-sm {
   padding-right: 0;
@@ -681,9 +687,9 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .input-group:focus-within {
   color: #495057;
   background-color: #fff;
-  border-color: #80bdff;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: #fc3c44;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(250, 35, 59, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(250, 35, 59, 0.25);
   outline: 0;
 }
 
@@ -1214,6 +1220,21 @@ select {
 
 .container-setting {
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .col-setting {
@@ -1328,7 +1349,6 @@ select {
   margin-left: 0.3rem;
   margin-bottom: 2.85rem;
   font-weight: 700;
-  text-align: left;
 }
 
 .sns-login-logo {
@@ -1747,6 +1767,7 @@ select {
   color: white;
   padding: 0.3rem;
   border-radius: 7px;
+  margin-left: 0.5rem;
   cursor: pointer;
 }
 
@@ -1804,7 +1825,7 @@ select {
   width: 306px;
   height: 316px;
   background-color: transparent;
-  border: 3.8px solid #C8C8C8;
+  border: 3.8px solid #c8c8c8;
   display: inline-block;
   margin: 1rem;
 }
@@ -2152,8 +2173,8 @@ select {
 .container__info__button {
   margin-bottom: 3%;
   background-color: #fa233b;
-  width: 100px;
   height: 30px;
+  padding: 0 0.3rem;
   border-radius: 0.5rem;
   color: white;
 }
