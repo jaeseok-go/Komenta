@@ -1,13 +1,21 @@
 <template>
-  <div class="wrapper">
-    <button @click="gotoLogin">LOGIN</button>
-    <input type="checkbox">
-    <div class="video">
-      <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video>
+  <div>
+    <!-- 클릭 => 영상 나오기 -->
+    <div class="wrapper">
+      <button @click="gotoLogin">LOGIN</button>
+      <input type="checkbox">
+      <div class="video">
+        <!-- <video src="@/assets/videos/about.mp4" loop muted autoplay></video> -->
+        <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video>
+      </div>
+      <div class="text">
+        <span data-text="ABOUT KOMENTA"></span>
+      </div>
     </div>
-    <div class="text">
-      <span data-text="ABOUT KOMENTA"></span>
-    </div>
+
+    <!-- 2 -->
+
+
   </div>
 
 </template>
