@@ -15,6 +15,8 @@ import '@/assets/ionic.css'
 // google 로그인
 import GAuth from 'vue-google-oauth2'
 
+// import '@/assets/js/main'
+
 
 
 Vue.config.productionTip = false;
