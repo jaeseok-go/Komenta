@@ -1,11 +1,12 @@
 <template>
   <div>
     <div v-for="(comment,index) in paginatedData" :key="index">
-      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> <br>
+      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> <span @click="blockUser(comment.u_id)" class="comment__block">차단하기</span> <br>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
       <span>{{ comment.c_contents}} </span> <br>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
-      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <!-- :class="{commet__like :comment.is_like_comment}"  -->
+      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       <hr>
     </div>
     <div class="btn-cover">
@@ -18,6 +19,7 @@
 
 <script>
 import {userlikeComment,fetchEpiComment } from '@/api/comment'
+import {modifyunfollow} from '@/api/user'
 
 import {mapState} from 'vuex'
 export default {
@@ -58,6 +60,14 @@ export default {
   this.getEpiComment();
   },
   methods : {
+  blockUser(uId) {
+    const blockInfo = {
+      u_id : this.userInfo.u_id,
+      uf_id : uId
+    }
+    modifyunfollow(blockInfo)
+    
+  },
   nextPage() {
       this.pageNum += 1;
   },

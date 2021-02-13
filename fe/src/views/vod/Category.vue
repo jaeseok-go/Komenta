@@ -1,23 +1,33 @@
 <template>
-    <div>
-    <label for="mainGenre">장르</label>
-    <select v-model="selectedGenre" id="mainGenre">
-        <option disabled value="">--장르선택--</option>
-        <option v-for="genre in allGenres" :key="genre.g_id" :value="`${genre.g_id}`">{{genre.g_name}}</option>
-    </select>
-    <label for="subGenre">세부장르</label>
-    <select v-model="selectedGenreDetail" id="subGenre">
-        <option disabled value="">--세부 장르선택--</option>
-        <option v-for="genrdetail in subGenres" :key="genrdetail.gd_id" :value="`${genrdetail.gd_id}`">{{genrdetail.gd_name}}</option>
-    </select>
-    <div v-for='vod in vodlists' :key="vod.v_id">
-    <span @click="goVodDetail(vod.v_id)"><img :src="getPoster(vod.v_poster)" alt="" height="200px"></span>
-    </div>
+    <div class="category">
+        <div class="category-select">
+            <div class="__select-form">
+                <!-- <label for="mainGenre">장르</label> -->
+                <select v-model="selectedGenre" id="mainGenre">
+                    <option disabled value="">장르 전체</option>
+                    <option v-for="genre in allGenres" :key="genre.g_id" :value="`${genre.g_id}`">{{genre.g_name}}</option>
+                </select>
+            </div>
+            <div class="__select-form">
+                <!-- <label for="subGenre">세부장르</label> -->
+                <select v-model="selectedGenreDetail" id="subGenre">
+                    <option disabled value=""> 세부 장르 선택 </option>
+                    <option v-for="genrdetail in subGenres" :key="genrdetail.gd_id" :value="`${genrdetail.gd_id}`">{{genrdetail.gd_name}}</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="category-img-form" v-for='vod in vodlists' :key="vod.v_id">
+            <span @click="goVodDetail(vod.v_id)">
+                <img :src="getPoster(vod.v_poster)">
+            </span>
+            <span class="category-title">{{getTitle(vod.v_title)}}</span>
+        </div>
     </div>
 </template>
 
 <script>
-import {fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
+import {fetchVodList,fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
 
 export default {
     name: 'Category',
@@ -31,9 +41,16 @@ export default {
         };
     },
     created(){
+        this.getAllVOD();
         this.getMainGenre();
+        //default 모든 VOD 조회
     },
     methods: {
+        async getAllVOD(){
+            const response = await fetchVodList();
+            console.log("all vod : ",response);
+            this.vodlists = response.data;
+        },
         async getMainGenre() {
             const genres = await fetchAllGenre();
             this.allGenres = genres.data
@@ -59,6 +76,10 @@ export default {
         },
         getPoster(path){
             return `${process.env.VUE_APP_PICTURE}poster/${path}`
+        },
+        getTitle(title) {
+            if(title.length >= 11) return title.substring(0,11)+'...';
+            else return title;
         }
     },
     watch:{
