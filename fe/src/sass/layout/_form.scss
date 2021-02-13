@@ -16,6 +16,11 @@
   overflow: visible;
   margin: 0;
   font-family: inherit;
+
+  &:focus {
+        border-color: $komenta-color;
+    box-shadow: 0 0 0 0.2rem rgba(	250	,35,	59, 0.25);
+  }
 }
 
 .form-control-plaintext.form-control-lg,
