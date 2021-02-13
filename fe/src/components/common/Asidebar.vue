@@ -1,7 +1,7 @@
 <template>
   <div class="web-navigation">
     <div class="web-navigation__header">
-      <router-link :to="{ name: 'Main' }">
+      <router-link to="/main/vodpopular">
         <span class="web-navigation__logo">
           <img src="@/assets/images/KOMENTA_logo.png" alt="" />
         </span>
@@ -11,7 +11,7 @@
       <ul class="web-navigation__nav-list">
         <div class="web-navigation__nav">
           <li class="web-navigation__nav-list-item">
-            <router-link :to="{ name: 'Main' }">
+            <router-link to="/main/vodpopular">
               <span class="sidebar-scrollable-title">
                 <span class="sidebar-scrollable-title-icon icon-bg5"
                   ><i class="fas fa-home"></i

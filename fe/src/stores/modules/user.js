@@ -177,6 +177,7 @@ const actions = {
 };
 
 const getters = {
+    
     fetchedUserInfo(state) {
         return state.userInfo
     },

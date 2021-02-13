@@ -8,12 +8,7 @@
         <router-view id="page-view" :class="{asideOn: isLogin}"></router-view>
         <!--  :key="$route.fullPath" -->
       </section>
-      <!-- <nav class="bottomNav">
-        바닥 고정 네비게이션
-      </nav> -->
-
     </div>
-
 </template>
 
 <script>
@@ -38,6 +33,11 @@ export default {
       console.log("유저 정보 : ",this.userInfo)
       if(this.userInfo.u_id === null) return false;
       else return true;
+    },
+    //로그인되있으면 어바웃 페이지 안보여줌
+    dontshowAboutPage() {
+      if (this.userInfo.u_id) return false;
+      else return true
     }
   },
 }
