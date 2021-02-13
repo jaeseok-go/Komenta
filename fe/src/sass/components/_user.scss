@@ -142,6 +142,7 @@
   padding: 3rem;
 }
 
+//mypage - admin
 .table-border-style {
   width: 100%;
   border-collapse: collapse;
@@ -190,6 +191,62 @@
   cursor: pointer;
 }
 
+//회원 정보
+.modify-btn {
+  text-align: right;
+}
+
+.displayinline {
+  display: inline-block;
+}
+
+.userInfo-form {
+  margin-left: 1rem;
+}
+
+.showUserInfo-form {
+  position: relative;
+  vertical-align: middle;
+  margin-left: 1rem;
+}
+
+//회원 정보 수정
+.btn-upload {
+  background-color: $komenta-color !important;
+  border-color: $komenta-color !important;
+  margin-top: 0.2rem;
+}
+
+.v-btn__content {
+  color: white;
+}
+
+.fa-upload {
+  margin-right: 0.2rem;
+}
+
+.rowHR {
+  display: inline-block;
+  position: relative;
+  height: 350px;
+  width: 0;
+  border-left: 1px solid black;
+}
+
+.user-modi-form {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+
+.userModi-btn {
+  text-align: right;
+  & p {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+
 //팔로우 관리
 .follow-setting {
   & .inline-block {
@@ -229,4 +286,58 @@
   color: $komenta-color;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+//mypage
+.myInfo-modi-modal {
+  & input {
+    border: 1px solid black;
+  }
+  & .modal-header {
+    border-bottom: none;
+  }
+
+  & .modal-body-form {
+    position: relative;
+  }
+
+  & .modi-form {
+    display: inline-block;
+  }
+  & .form-text {
+    text-align: right;
+  }
+
+  & .profile-form {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-right: 1rem;
+    & .img {
+      /* background-color: blueviolet; */
+      border: 1px solid black;
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  & .profile-form div {
+    display: block;
+    // text-align: center;
+  }
+
+  & .profile-form input[type='file'] {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  & .profile-form .file-input {
+    position: relative;
+    // margin-top: 0.5rem;
+  }
+
+  & .profile-form .v-btn {
+    border: 1px solid black;
+    padding: 0.1rem 0.7em;
+  }
 }
