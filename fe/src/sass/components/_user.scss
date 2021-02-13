@@ -9,6 +9,15 @@
   }
 }
 
+.login-form {
+  display: block !important;
+  text-align: center;
+}
+
+.sns-login-form {
+  display: block !important;
+}
+
 .sign-setting {
   height: 8rem;
   margin: 2rem;
@@ -95,6 +104,10 @@
 
   a {
     color: black;
+  }
+
+  .find-idpw {
+    display: block !important;
   }
 
   .findIdPw__contents {

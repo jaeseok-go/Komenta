@@ -8,8 +8,8 @@
         <strong>아이디 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</strong>
       </div>
     </div>
-    <b-container class="container-setting">
-      <b-col>
+    <b-container class="login-form">
+      <b-col class="sns-login-form">
         <GoogleLogin/>
         <kakao/>
       </b-col>
@@ -134,7 +134,7 @@ export default {
         //   return
         // }
         this.initForm()
-        this.$router.push('/');
+        this.$router.push('/main/vodpopular');
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
         if(error.status === 500) {

@@ -18,7 +18,7 @@
         </div>
         <hr>
         <div class="category-img-form" v-for='vod in vodlists' :key="vod.v_id">
-            <span @click="goVodDetail(vod.v_id)">
+            <span class="category-img" @click="goVodDetail(vod.v_id)">
                 <img :src="getPoster(vod.v_poster)">
             </span>
             <span class="category-title">{{getTitle(vod.v_title)}}</span>
