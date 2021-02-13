@@ -19,8 +19,8 @@
           <div class="reprePoster">
             <img :src="getPoster(index)" width="210px" height="150px">
           </div>
-          <div class="userPic">
-            <img :src="getUserPic(index)" width="40px">
+          <div class="userPic-popList">
+            <img :src="getUserPic(index)">
           </div>
           <div class="plInfo">
             <p>

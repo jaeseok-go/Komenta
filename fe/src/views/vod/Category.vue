@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
+import {fetchVodList,fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
 
 export default {
     name: 'Category',
@@ -31,9 +31,16 @@ export default {
         };
     },
     created(){
+        this.getAllVOD();
         this.getMainGenre();
+        //default 모든 VOD 조회
     },
     methods: {
+        async getAllVOD(){
+            const response = await fetchVodList();
+            console.log("all vod : ",response);
+            this.vodlists = response.data;
+        },
         async getMainGenre() {
             const genres = await fetchAllGenre();
             this.allGenres = genres.data

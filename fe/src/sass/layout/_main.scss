@@ -139,6 +139,21 @@
   }
 }
 
+.userPic-popList {
+  margin-left: 0.3rem;
+  position: relative;
+  bottom: 10px;
+  right: 15px;
+  text-align: right;
+  & img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(206, 206, 206, 0.555);
+    background-color: white;
+  }
+}
+
 //main - now playing
 .half-card {
   display: inline-table;
