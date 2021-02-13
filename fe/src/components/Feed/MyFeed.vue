@@ -104,7 +104,7 @@
                 :key='index' 
                 class='drag-el'
                 > 
-                    <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)"></span>
+                    <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.v_poster)"></span>
                 </div>
                 </div>
                 </div>
