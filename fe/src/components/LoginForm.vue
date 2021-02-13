@@ -2,7 +2,7 @@
   <div class="temp-bc login">
     <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true" @click="closeError">×</span>
       </button>
       <div class="alert-message">
         <strong>아이디 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요.</strong>
@@ -138,9 +138,7 @@ export default {
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
         if(error.status === 500) {
-          alert('등록되지 않은 계정입니다.')
-        this.$router.push('/member/join');
-
+          this.loginError();
         }
       }
     },
@@ -151,7 +149,9 @@ export default {
     loginError() {
       this.display = 'block';
     },
-
+    closeError(){
+      this.display = 'none';
+    }
   }
 };
 </script>
