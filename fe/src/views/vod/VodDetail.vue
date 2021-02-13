@@ -11,7 +11,6 @@
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class=" {comment__highlight:userFollowing(comment.u_id),comment__hidden:userBlocking(comment.u_id)}">
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname">{{comment.u_nickname}} </span> {{ comment.c_contents}}  
-                                                                                                                   <!-- "[isActive ? activeClass : '', errorClass]" -->
                   <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
                   <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span>
                   </span>    
@@ -28,16 +27,24 @@
             </div>
             </div>
         </div>
-        <!-- <hr> -->
-        <!-- <div class="videoepi">
-        <h3>{{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회 </h3>
-        <span><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></span>
-        <div>{{vodEpiInfo.v_summary}}</div>
-        <h4>개요 : {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}}</h4>
-        <h4>출연 : {{vodEpiInfo.v_actors}}</h4>
-        <h4>연출 : {{vodEpiInfo.v_director}}</h4>
-        </div> -->
         <hr>
+        <div v-show="!showEpiDetail" @click="showEpi()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>추가 정보 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
+        <div v-show="showEpiDetail">
+        <div class="vodepi">
+        <div class="vodepi__img"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></div>
+        <div class="vodepi__detail">
+        <h3> <strong> {{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회</strong> </h3>
+        {{vodEpiInfo.v_summary}} <br>
+        <p></p>
+        <strong>개요</strong> {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}} <br>
+        <strong>출연</strong> {{vodEpiInfo.v_actors}} <br>
+        <strong>감독</strong> {{vodEpiInfo.v_director}}
+       </div>
+        </div>
+        <br>
+        <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div>
+        <hr>
+        </div>
         <div class="comments__container"> 
         <router-link :to="{name:'BestComments'}" active-class="comments__menu">
           <i class="fas fa-check"></i> BEST </router-link>
@@ -80,6 +87,7 @@ data(){
     pre_diffHeight :0,
     bottom_flag : true,
     // followingComment:false
+    showEpiDetail:true
   }
 },
 created(){
@@ -94,6 +102,13 @@ created(){
   
 },
 methods : {
+  showEpi(){
+    if (this.showEpiDetail) {
+      this.showEpiDetail = false
+    } else {
+      this.showEpiDetail = true
+    }
+  },
   getPoster(){
     const profile = this.userInfo.u_profile_pic.split('.')
     return `${process.env.VUE_APP_PICTURE}profile/${profile[0]}`

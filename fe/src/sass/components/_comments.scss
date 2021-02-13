@@ -149,3 +149,30 @@
   color: darkgray;
   font-weight: bold;
 }
+.vodepi{
+  display: flex;
+  margin-left: 10px;
+  &__img {
+   display: inline-block;
+  }
+  &__detail {
+    width: 80%;
+    display: inline-block; 
+    margin: auto;
+  }
+}
+.vodepi__button {
+  cursor: pointer;
+    background-position: right 5px;
+    background-repeat: no-repeat;
+    background-size: 9px auto;
+    background-color: transparent;
+    border: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    // color: #dedede;
+    font-size: 1rem;
+    line-height: .875rem!important;
+    display: block;
+    float: right;
+}

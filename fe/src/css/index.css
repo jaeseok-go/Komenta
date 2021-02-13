@@ -930,6 +930,22 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   background-color: white;
 }
 
+.userPic-popList {
+  margin-left: 0.3rem;
+  position: relative;
+  bottom: 10px;
+  right: 15px;
+  text-align: right;
+}
+
+.userPic-popList img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  background-color: white;
+}
+
 .half-card {
   display: inline-table;
 }
@@ -2334,6 +2350,50 @@ select {
   margin-left: 5px;
 }
 
+.comment__hidden {
+  display: none;
+  background-color: yellow;
+}
+
+.comment__block {
+  font-size: x-small;
+  cursor: pointer;
+  color: darkgray;
+  font-weight: bold;
+}
+
+.vodepi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+}
+
+.vodepi__img {
+  display: inline-block;
+}
+
+.vodepi__detail {
+  width: 80%;
+  display: inline-block;
+  margin: auto;
+}
+
+.vodepi__button {
+  cursor: pointer;
+  background-position: right 5px;
+  background-repeat: no-repeat;
+  background-size: 9px auto;
+  background-color: transparent;
+  border: 0;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 0.875rem !important;
+  display: block;
+  float: right;
+}
+
 .wrapper_about {
   --color: #fa233b;
   --color-invert: #fa233b;
@@ -2514,5 +2574,52 @@ select {
 .wrapper_about .input_about:checked ~ .text > span::after {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
+}
+
+.category:disabled(.category-select) {
+  text-align: center;
+}
+
+.category .__select-form {
+  display: inline-block;
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.category .__select-form select {
+  width: 151px;
+  padding: 5px;
+  border: 1px solid #999;
+  font-family: 'Nanumgothic';
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.category .__select-form select::-ms-expand {
+  display: none;
+}
+
+.category .__select-form select:focus {
+  outline: none;
+}
+
+.category .category-img-form {
+  width: 180px;
+  height: 250px;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.category .category-img-form img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=index.css.map */
