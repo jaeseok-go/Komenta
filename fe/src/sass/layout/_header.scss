@@ -6,6 +6,10 @@
   display: grid;
 }
 
+.header-form {
+  position: relative;
+}
+
 /* 인풋박스 이용 */
 .search-box {
   border: 1px solid rgb(158, 158, 158);
@@ -37,6 +41,32 @@
 
   & label {
     margin-left: auto;
+  }
+}
+
+.search-result-box {
+  width: 17rem;
+  border: 1px solid #b9b9b9;
+  border-radius: 3px;
+  background-color: white;
+  position: absolute;
+  right: 8px;
+  top: 50px;
+  z-index: 3;
+
+  & .selectedResult:hover {
+    cursor: pointer;
+    background-color: #d3e6fdd1;
+  }
+
+  & .selectedResult,
+  .strongText {
+    margin: 0.1rem 0 0.1rem 0.3rem;
+  }
+
+  & .strongText {
+    font-size: 17px;
+    font-weight: 700;
   }
 }
 
