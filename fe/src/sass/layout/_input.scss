@@ -22,7 +22,7 @@ input {
     color: #495057;
     background-color: #fff;
     border-color: $komenta-color;
-    box-shadow: 0 0 0 0.2rem rgba(	250	,35,	59, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(250, 35, 59, 0.25);
     outline: 0;
   }
 }
@@ -91,6 +91,8 @@ input {
   margin-right: auto;
   margin-left: auto;
   width: 30%;
+  display: block;
+
   &:after {
     content: '또는';
     box-sizing: border-box;
