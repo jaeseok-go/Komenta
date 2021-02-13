@@ -2,7 +2,7 @@
   <div>
     <div id="appBody">
          <div class="video">
-            <video @loadstart="goLastVod" height="500px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
+            <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
             
@@ -38,10 +38,13 @@
         <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         </div> -->
         <hr>
-        <router-link :to="{name:'BestComments'}"  >베스트 댓글</router-link> | 
-        <router-link :to="{name:'AllComments'}">전체 댓글</router-link>
+        <div class="comments__container"> 
+        <router-link :to="{name:'BestComments'}" active-class="comments__menu">
+          <i class="fas fa-check"></i> BEST </router-link>
+        <router-link :to="{name:'AllComments'}" active-class="comments__menu">
+        <i class="fas fa-check"></i> 전체 댓글 </router-link>
         <router-view  @goCommentTime="goCommentTime"></router-view>
-       
+       </div>
        
     </div>
   </div>
@@ -311,111 +314,5 @@ methods : {
 </script>
 
 <style scoped>
-.comment__scroll::-webkit-scrollbar {
-    width: 15px;
-    height: 18px;
-  }
 
-   .comment__scroll::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none;
-  }
-
-  .comment__scroll::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-  .comment__scroll::-webkit-scrollbar-thumb {
-    height: 6px;
-    border: 4px solid transparent;
-    background-clip: padding-box;
-    -webkit-border-radius: 100px;
-    background-color:rgb(194, 190, 190);
-  }
-  .comment__scroll {
-  overflow: auto;
-  white-space: pre-line;
-  width: 400px;
-  height: 425px;
-  /* height: 100%; */
-  }
-  #appBody {
-      width: 100%;
-  }
-  
-#comment_div {
-    /* width: 400px;
-    height: 500px; */
-    /* position: relative; */
-    /* border: 1px solid rgb(179, 173, 173); */
-    display: inline-block;
-    background-color: #eee;
-}
-.video{
-  font-family:Georgia, 'Times New Roman', Times, serif;
-}
-.video__comment{
-  padding-left: 5%;
-  display: inline-block;
-  /* position: absolute; */
-  /* position: sticky; */
-  width: 100%;
-  height: 80px;
-  background-color: white;
-}
-.video__comment__box{
-    margin-top:25px;
-    display: inline-block;
-    width: 50px;
-    height: 50px; 
-    border-radius: 50%;
-    overflow: hidden;
-}
-.video__comment__profile{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.video__comment__inner {
-  padding-left: 5%;
-  width: 85%;
-  display: inline-block;
-}
-.video__comment__inner__nickname{
-  color:	#C0C0C0;
-  font-weight: bold;
-}
-.comment__time {
-  color: darkgray;
-  cursor: pointer;
-  text-decoration: none;
-}
-.comment__highlight{
-  /* background-color: yellow; */
-  color: #fc3c44;
-  font-weight: bold;
-}
-.commet__like{
-  color :#fc3c44;
-
-}
-.comment__unlike{
-  color: gray;
-}
-.video__comment__input{
-  width: 80%;
-  background-color: white;
-  border-left-width:0;
-  border-right-width:0;
-  border-top-width:0;
-  border-bottom:black 1px solid;
-  
-}
-.comment__text{
-
-}
-.comment__nickname{
-  color: gray;
-  cursor: pointer;
-}
 </style>

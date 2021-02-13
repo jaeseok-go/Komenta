@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h2>베스트 댓글</h2>
-    <div v-for="comment in commentsList" :key="comment.c_id">
-      <h3>{{comment.u_nickname}}</h3>
-      <h4>{{ comment.c_contents}} </h4>
+    <div v-for="(comment,index) in commentsList" :key="comment.c_id">
+      <div class="comment__rank">{{index+1}} </div>
+      <div class="comment__commentbox">
+      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> <br>
+      <div class="comment__best">BEST</div>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
-      <span> {{comment.c_upload_time}} </span>
-      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span>{{ comment.c_contents}} </span> <br>
+      <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
+      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      </div>
       <hr>
     </div>
   </div>
@@ -30,7 +33,10 @@ export default {
   created() {
   this.getEpiComment();
     },
-    methods : {
+  methods : {
+    goFeed(uId){
+      this.$router.push(`/feed/${uId}`)
+    },
          async getEpiComment() {
     try {
         const epiId = this.$route.params.id; 
@@ -87,12 +93,5 @@ export default {
 </script>
 
 <style scoped>
-.comment__time {
-  color: blue;
-  cursor: pointer;
-  text-decoration: none;
-}
-.commet__like{
-  color :#fc3c44;
-}
+
 </style>
