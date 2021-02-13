@@ -8,7 +8,8 @@
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
       <span>{{ comment.c_contents}} </span> <br>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
-      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <!-- :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" -->
+      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       </div>
       <hr>
     </div>
@@ -66,13 +67,8 @@ export default {
         return changeTime
         },
  commentLike(comment){
-   const commentInfo = {
-     c_id : comment.c_id,
-   u_id : this.userInfo.u_id
- }
-   userlikeComment(commentInfo)
-
-    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+   
+   const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
     const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
 
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
@@ -84,6 +80,11 @@ export default {
         likeCount.innerText = comment.comment_good_count + 1
         likeBtn.style.color = '#fc3c44'
       }
+        const commentInfo = {
+          c_id : comment.c_id,
+        u_id : this.userInfo.u_id
+      }
+        userlikeComment(commentInfo)
 
   }
 
