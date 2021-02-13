@@ -4,7 +4,10 @@
       <div class="comment__rank">{{index+1}} </div>
       <div class="comment__commentbox">
       <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
-      <span @click="blockUser(comment.u_id)" class="comment__block" v-if="isBlockUser(comment.u_id)">차단하기</span> <br>
+      <span @click="blockUser(comment.u_id)" class="comment__block">
+        <span v-if="isBlockUser(comment.u_id)"> 차단취소</span>
+        <span v-else> 차단하기</span>
+        </span> <br>
       <div class="comment__best">BEST</div>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
       <span>{{ comment.c_contents}} </span> <br>
@@ -30,6 +33,7 @@ export default {
    computed:{
       ...mapState({
       userInfo: state => state.user.userInfo,
+      myUnFollowingList: state => state.user.myUnFollowingList,
     }),
     },
   created() {
@@ -37,6 +41,12 @@ export default {
     },
   methods : {
     isBlockUser(uId){
+      for (let i = 0; i < this.myUnFollowingList.length; i++) {
+        const unfollowuser = this.myUnFollowingList[i];
+        if (unfollowuser.u_id == uId) {
+          return true
+        }
+      }
       console.log(uId)
     },
     goFeed(uId){

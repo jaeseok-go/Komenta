@@ -2362,6 +2362,38 @@ select {
   font-weight: bold;
 }
 
+.vodepi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+}
+
+.vodepi__img {
+  display: inline-block;
+}
+
+.vodepi__detail {
+  width: 80%;
+  display: inline-block;
+  margin: auto;
+}
+
+.vodepi__button {
+  cursor: pointer;
+  background-position: right 5px;
+  background-repeat: no-repeat;
+  background-size: 9px auto;
+  background-color: transparent;
+  border: 0;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 0.875rem !important;
+  display: block;
+  float: right;
+}
+
 .wrapper_about {
   --color: #fa233b;
   --color-invert: #fa233b;
