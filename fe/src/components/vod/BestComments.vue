@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h2>베스트 댓글</h2>
-    <div v-for="comment in commentsList" :key="comment.c_id">
-      <h3>{{comment.u_nickname}}</h3>
-      <h4>{{ comment.c_contents}} </h4>
+    <div v-for="(comment,index) in commentsList" :key="comment.c_id">
+      <div class="comment__rank">{{index+1}} </div>
+      <div class="comment__commentbox">
+      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
+      <span @click="blockUser(comment.u_id)" class="comment__block" v-if="isBlockUser(comment.u_id)">차단하기</span> <br>
+      <div class="comment__best">BEST</div>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
-      <span> {{comment.c_upload_time}} </span>
-      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="{commet__like :comment.is_like_comment}"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span>{{ comment.c_contents}} </span> <br>
+      <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
+      <!-- :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" -->
+      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      </div>
       <hr>
     </div>
   </div>
@@ -30,7 +35,13 @@ export default {
   created() {
   this.getEpiComment();
     },
-    methods : {
+  methods : {
+    isBlockUser(uId){
+      console.log(uId)
+    },
+    goFeed(uId){
+      this.$router.push(`/feed/${uId}`)
+    },
          async getEpiComment() {
     try {
         const epiId = this.$route.params.id; 
@@ -60,13 +71,8 @@ export default {
         return changeTime
         },
  commentLike(comment){
-   const commentInfo = {
-     c_id : comment.c_id,
-   u_id : this.userInfo.u_id
- }
-   userlikeComment(commentInfo)
-
-    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+   
+   const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
     const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
 
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
@@ -78,6 +84,11 @@ export default {
         likeCount.innerText = comment.comment_good_count + 1
         likeBtn.style.color = '#fc3c44'
       }
+        const commentInfo = {
+          c_id : comment.c_id,
+        u_id : this.userInfo.u_id
+      }
+        userlikeComment(commentInfo)
 
   }
 
@@ -87,12 +98,5 @@ export default {
 </script>
 
 <style scoped>
-.comment__time {
-  color: blue;
-  cursor: pointer;
-  text-decoration: none;
-}
-.commet__like{
-  color :#fc3c44;
-}
+
 </style>

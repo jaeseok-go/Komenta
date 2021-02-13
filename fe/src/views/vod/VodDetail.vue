@@ -2,18 +2,18 @@
   <div>
     <div id="appBody">
          <div class="video">
-            <video @loadstart="goLastVod" height="500px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
+            <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
             
            <div id="comment_div">
              <div class="comment__scroll" id="comment__scroll">
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
-                <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class="userFollowing(comment.u_id)">
+                <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class=" {comment__highlight:userFollowing(comment.u_id),comment__hidden:userBlocking(comment.u_id)}">
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname">{{comment.u_nickname}} </span> {{ comment.c_contents}}  
                                                                                                                    <!-- "[isActive ? activeClass : '', errorClass]" -->
                   <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
-                  <!-- <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> -->
+                  <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span>
                   </span>    
                 </p>
             </div>
@@ -38,10 +38,13 @@
         <h4>연출 : {{vodEpiInfo.v_director}}</h4>
         </div> -->
         <hr>
-        <router-link :to="{name:'BestComments'}"  >베스트 댓글</router-link> | 
-        <router-link :to="{name:'AllComments'}">전체 댓글</router-link>
+        <div class="comments__container"> 
+        <router-link :to="{name:'BestComments'}" active-class="comments__menu">
+          <i class="fas fa-check"></i> BEST </router-link>
+        <router-link :to="{name:'AllComments'}" active-class="comments__menu">
+        <i class="fas fa-check"></i> 전체 댓글 </router-link>
         <router-view  @goCommentTime="goCommentTime"></router-view>
-       
+       </div>
        
     </div>
   </div>
@@ -84,6 +87,7 @@ created(){
   // this.getVodDetail();
   this.getEpiComment();
   this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
+  this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
 
   this.startWatchTime();
   
@@ -249,29 +253,50 @@ methods : {
         for (let i = 0; i < this.myFollowingList.length; i++) {
         const following = this.myFollowingList[i];
         if (following.f_id == uId) {
-           return {
-             comment__highlight: true
-            }        
+          //  return {
+          //    comment__highlight: true
+          //   }        
+        
+        return true
+          }
+        }
+        // return {
+        //   comment__highlight: false
+        // }
+        return false
+        
+      },
+    // 차단한 댓글 강조
+  userBlocking(uId){
+    // console.log(this.myUnFollowingList,'언팔리스트')
+     for (let i = 0; i < this.myUnFollowingList.length; i++) {
+        const blocking = this.myUnFollowingList[i];
+        if (blocking.f_id == uId) {
+          //  return {
+          //    comment__hidden: true
+          //   }        
+          return true
         
           }
         }
-        return {
-          comment__highlight: false
-        }
+        // return {
+        //   comment__hidden: false
+        // }
+        return false
         
-      },
+  },
 
   //유저 댓글 좋아요 class추가/제거
   commentLike(comment){
     const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
-    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+    const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
 
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
     if (comment.is_like_comment) {
-      // likeCount.innerText = comment.comment_good_count - 1
+      likeCount.innerText = comment.comment_good_count - 1
       likeBtn.style.color ='grey'
       } else {
-        // likeCount.innerText = comment.comment_good_count + 1
+        likeCount.innerText = comment.comment_good_count + 1
         likeBtn.style.color = '#fc3c44'
       }
       const commentInfo = {
@@ -295,7 +320,8 @@ methods : {
     computed:{
          ...mapState({
       userInfo: state => state.user.userInfo,
-      myFollowingList: state => state.user.myFollowingList
+      myFollowingList: state => state.user.myFollowingList,
+      myUnFollowingList: state => state.user.myUnFollowingList,
     }),
     },
     beforeDestroy(){
@@ -311,111 +337,4 @@ methods : {
 </script>
 
 <style scoped>
-.comment__scroll::-webkit-scrollbar {
-    width: 15px;
-    height: 18px;
-  }
-
-   .comment__scroll::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-    display: none;
-  }
-
-  .comment__scroll::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-  .comment__scroll::-webkit-scrollbar-thumb {
-    height: 6px;
-    border: 4px solid transparent;
-    background-clip: padding-box;
-    -webkit-border-radius: 100px;
-    background-color:rgb(194, 190, 190);
-  }
-  .comment__scroll {
-  overflow: auto;
-  white-space: pre-line;
-  width: 400px;
-  height: 425px;
-  /* height: 100%; */
-  }
-  #appBody {
-      width: 100%;
-  }
-  
-#comment_div {
-    /* width: 400px;
-    height: 500px; */
-    /* position: relative; */
-    /* border: 1px solid rgb(179, 173, 173); */
-    display: inline-block;
-    background-color: #eee;
-}
-.video{
-  font-family:Georgia, 'Times New Roman', Times, serif;
-}
-.video__comment{
-  padding-left: 5%;
-  display: inline-block;
-  /* position: absolute; */
-  /* position: sticky; */
-  width: 100%;
-  height: 80px;
-  background-color: white;
-}
-.video__comment__box{
-    margin-top:25px;
-    display: inline-block;
-    width: 50px;
-    height: 50px; 
-    border-radius: 50%;
-    overflow: hidden;
-}
-.video__comment__profile{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.video__comment__inner {
-  padding-left: 5%;
-  width: 85%;
-  display: inline-block;
-}
-.video__comment__inner__nickname{
-  color:	#C0C0C0;
-  font-weight: bold;
-}
-.comment__time {
-  color: darkgray;
-  cursor: pointer;
-  text-decoration: none;
-}
-.comment__highlight{
-  /* background-color: yellow; */
-  color: #fc3c44;
-  font-weight: bold;
-}
-.commet__like{
-  color :#fc3c44;
-
-}
-.comment__unlike{
-  color: gray;
-}
-.video__comment__input{
-  width: 80%;
-  background-color: white;
-  border-left-width:0;
-  border-right-width:0;
-  border-top-width:0;
-  border-bottom:black 1px solid;
-  
-}
-.comment__text{
-
-}
-.comment__nickname{
-  color: gray;
-  cursor: pointer;
-}
 </style>

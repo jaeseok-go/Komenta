@@ -12,11 +12,11 @@
     </select>
 
     <select id = "getUnFollowingList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">
-        SELECT A.uf_id, B.u_nickname, B.u_profile_pic
-        FROM (SELECT uf_id, u_id
+        SELECT A.f_id, B.u_nickname, B.u_profile_pic
+        FROM (SELECT uf_id f_id, u_id
               FROM un_follow
               WHERE u_id = #{u_id}) A LEFT OUTER JOIN member B
-        ON A.uf_id = B.u_id
+        ON A.f_id = B.u_id
     </select>
 
     <select id="getFollowerList" parameterType="int" resultType="com.komenta.be.model.follow.FollowSelectDTO">

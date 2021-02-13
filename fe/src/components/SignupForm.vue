@@ -1,10 +1,10 @@
 <template>
   <b-container class="container-setting">
 
-    <b-form @submit.prevent="submitSignup">
-      <b-row>
+    <b-form @submit.prevent="submitSignup" style="margin-left:7rem">
+      <b-row style="width:40rem">
         <b-col class="col-setting">
-          <h2 class="title-text">회원가입하기</h2>
+          <h2 class="title-text">WELCOME TO KOMENTA</h2>
             <div>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -118,16 +118,20 @@
             <label for="allTerm">전체 동의</label>
           </div>
         </b-col>
-        <b-col>
+        <!-- <b-col> -->
           <!-- DB에서 받아와서 가장 최신 등록된 VOD 포스터를 광고로 띄우면 될듯(구현예정) -->
-          <img src="@/assets/images/test.png" alt="테스트용">
-        </b-col>
+          <!-- <img src="@/assets/images/test.png" alt="테스트용">
+        </b-col> -->
       </b-row>
       <button
         class="btn btn-normal btn-middle"
         :disabled="isSignupDisabled"
         type="submit"
         @click="signupComplete"
+        style="margin-left: -12rem; width: 262.31px; height: 40.4px; 
+    font-size: 1.075rem; 
+    padding: 0.4rem 5.3rem;
+    cursor: pointer;"
       >
         가입하기
       </button>
@@ -389,3 +393,12 @@ export default {
 };
 </script>
 
+
+<style scoped>
+  .title-text {
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.3rem;
+  }
+</style>
