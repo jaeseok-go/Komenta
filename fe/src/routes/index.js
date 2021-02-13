@@ -194,6 +194,5 @@ export default new Router({
       component: () => import('@/components/MyPlayList/PlayListDetail')
     },
 
-
   ],
 });

@@ -13,7 +13,7 @@
 // import { IonSearchbar, IonToolbar } from '@ionic/vue';
 // import { defineComponent } from 'vue';
 import {searchVodlist} from '@/api/vod';
-import {searchUserlist} from '@/api/user';
+// import {searchUserlist} from '@/api/user';
 
 export default {
   data() {
@@ -30,8 +30,9 @@ export default {
    async getAllVodandUser(){
      const vods = await searchVodlist();
      this.vodlists = vods.data
-     const users = await searchUserlist();
-     this.userlists = users.data
+     console.log(this.vodlists,'???')
+    //  const users = await searchUserlist();
+    //  this.userlists = users.data
    },
       searchTemplate() {
         this.getAllVodandUser();
@@ -39,6 +40,7 @@ export default {
           vod.indexOf(this.keyword)
           this.searchlists.push(vod)
         })
+      console.log(this.searchlists,'검색!!!')
         
       if (this.keyword) {
         this.$router.push(`/search/${this.keyword}`)
@@ -52,6 +54,7 @@ export default {
         this.searchBox='1.3px solid rgb(158, 158, 158)';
         return;
       }else {
+        this.getAllVodandUser();
         this.searchTemplate();
       }
     }

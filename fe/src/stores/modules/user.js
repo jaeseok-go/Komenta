@@ -1,6 +1,6 @@
 import { loginUser, 
     updateMyInfo,
-    fetchLikePlaylist, fetchfollowinglist, fetchMyPlaylist, fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
+    fetchLikePlaylist, fetchfollowinglist, fetchunfollowinglist, fetchMyPlaylist, fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
 
 
@@ -162,6 +162,11 @@ const actions = {
     async FETCH_FOLLOWING({ commit }, userId) {
         const followingList = await fetchfollowinglist(userId)
         commit('setMyfollowingList', followingList.data )
+    },
+    //팔로잉 조회
+    async FETCH_UNFOLLOWING({ commit }, userId) {
+        const unfollowingList = await fetchunfollowinglist(userId)
+        commit('setMyUnfollowingList', unfollowingList.data)
     },
     async FETCH_MYPLAYLIST({ commit }, userId){
         const myPlayList = await fetchMyPlaylist(userId)

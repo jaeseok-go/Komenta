@@ -3,7 +3,8 @@
     <div v-for="(comment,index) in commentsList" :key="comment.c_id">
       <div class="comment__rank">{{index+1}} </div>
       <div class="comment__commentbox">
-      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> <br>
+      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
+      <span @click="blockUser(comment.u_id)" class="comment__block" v-if="isBlockUser(comment.u_id)">차단하기</span> <br>
       <div class="comment__best">BEST</div>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
       <span>{{ comment.c_contents}} </span> <br>
@@ -35,6 +36,9 @@ export default {
   this.getEpiComment();
     },
   methods : {
+    isBlockUser(uId){
+      console.log(uId)
+    },
     goFeed(uId){
       this.$router.push(`/feed/${uId}`)
     },
