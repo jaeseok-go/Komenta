@@ -35,7 +35,8 @@
                         draggable
                         @dragstart='startDrag($event, vod)'
                         >
-                        <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
+                        <img :src="getVodPoster(vod.v_poster)" width="100%">
+                        {{vod.v_poster}}
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                     draggable
                     
                     > 
-                        <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.gd_name,vod.v_title)"></span>
+                        <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"><img :src="getPlaylistVodPoster(vod.v_poster)"></span>
                     </div>
                 </div>
             </div>
@@ -143,110 +144,6 @@ export default {
             plComment:'',
             epiComment:'',     
             selectedId:[],
-            genreDetails:[
-            {
-                "gd_id": 1,
-                "gd_name": "멜로",
-                "g_id": 1
-            },
-            {
-                "gd_id": 2,
-                "gd_name": "스릴러",
-                "g_id": 1
-            },
-            {
-                "gd_id": 3,
-                "gd_name": "코미디",
-                "g_id": 1
-            },
-            {
-                "gd_id": 4,
-                "gd_name": "액션",
-                "g_id": 1
-            }
-            ,
-            {
-                "gd_id": 5,
-                "gd_name": "음악",
-                "g_id": 2
-            },
-            {
-                "gd_id": 6,
-                "gd_name": "버라이어티",
-                "g_id": 2
-            },
-            {
-                "gd_id": 7,
-                "gd_name": "토크",
-                "g_id": 2
-            },
-            {
-                "gd_id": 8,
-                "gd_name": "요리",
-                "g_id": 2
-            }
-            ,
-
-            {
-                "gd_id": 9,
-                "gd_name": "환경",
-                "g_id": 3
-            },
-            {
-                "gd_id": 10,
-                "gd_name": "역사",
-                "g_id": 3
-            },
-            {
-                "gd_id": 11,
-                "gd_name": "휴먼",
-                "g_id": 3
-            }
-            ,
-
-            {
-                "gd_id": 12,
-                "gd_name": "축구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 13,
-                "gd_name": "농구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 14,
-                "gd_name": "배구",
-                "g_id": 4
-            },
-            {
-                "gd_id": 15,
-                "gd_name": "야구",
-                "g_id": 4
-            }
-            ,
-            {
-                "gd_id": 16,
-                "gd_name": "로맨스/순정",
-                "g_id": 5
-            },
-            {
-                "gd_id": 17,
-                "gd_name": "스포츠",
-                "g_id": 5
-            },
-            {
-                "gd_id": 18,
-                "gd_name": "액션/추리",
-                "g_id": 5
-            },
-            {
-                "gd_id": 19,
-                "gd_name": "코미디",
-                "g_id": 5
-            }
-
-            ]
         }
     },
     created(){
@@ -403,12 +300,12 @@ export default {
                 console.log('피드목록 에러', this.$route.params.id)
             }
         },
-        getPlaylistVodPoster(gdname,title){
-            const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
-            return `${process.env.VUE_APP_PICTURE}poster/${gdId.gd_id}_${title}`
+        getPlaylistVodPoster(poster){
+            // const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
+            return `${process.env.VUE_APP_PICTURE}poster/${poster}`
         },
-        getVodPoster(gdId,title){
-           return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
+        getVodPoster(poster){
+           return `${process.env.VUE_APP_PICTURE}poster/${poster}`
         },
         // showFollowButton() {
         //     if (this.userInfo.u_id == this.feedUserInfo.u_id) {
