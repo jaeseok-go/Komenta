@@ -2333,4 +2333,186 @@ select {
   display: inline-block;
   margin-left: 5px;
 }
+
+.wrapper_about {
+  --color: #fa233b;
+  --color-invert: #fa233b;
+  --clip-path: circle(100px at left);
+  --clip-path-hover: circle(130px at left);
+  --clip-path-clicked: circle(100vw at left);
+  --duration: .4s;
+  --timing-function: ease;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.wrapper_about .video2_about {
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 15px;
+  -webkit-clip-path: var(--clip-path);
+          clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+}
+
+.wrapper_about .video2_about video {
+  position: fixed;
+  background: #c4cbde;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.wrapper_about .text_about {
+  position: relative;
+  text-transform: uppercase;
+  font-size: 5rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  opacity: var(--opacity, 1);
+  -webkit-transition: opacity 0.3s var(--timing-function) 0.2s;
+  transition: opacity 0.3s var(--timing-function) 0.2s;
+}
+
+.wrapper_about .text_about::before, .wrapper_about .text_about::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  right: 25px;
+  height: 0;
+}
+
+.wrapper_about .text_about::before {
+  -webkit-box-shadow: 26px 0 0 1px var(--color);
+          box-shadow: 26px 0 0 1px var(--color);
+  right: var(--r, 100%);
+  opacity: var(--opacity, 0);
+  -webkit-transition: right .5s ease-in, opacity .1s linear;
+  transition: right .5s ease-in, opacity .1s linear;
+}
+
+.wrapper_about .text_about::after {
+  -webkit-box-shadow: 26px 0 0 1px var(--color-invert);
+          box-shadow: 26px 0 0 1px var(--color-invert);
+  -webkit-clip-path: var(--clip-path);
+          clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+}
+
+.wrapper_about .text_about > span::before, .wrapper_about .text_about > span::after {
+  content: attr(data-text);
+  padding-left: 26px;
+}
+
+.wrapper_about .text_about > span::before {
+  color: var(--color);
+}
+
+.wrapper_about .text_about > span::after {
+  color: var(--color-invert);
+  -webkit-clip-path: var(--clip-path);
+          clip-path: var(--clip-path);
+  -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: -webkit-clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function);
+  transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
+  position: absolute;
+  left: 0;
+}
+
+.wrapper_about .input_about {
+  width: 220px;
+  height: 40px;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 40px;
+  z-index: 2;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+}
+
+.wrapper_about .input_about:focus {
+  outline: 0;
+}
+
+.wrapper_about .input_about:hover ~ .video {
+  -webkit-clip-path: var(--clip-path-hover);
+          clip-path: var(--clip-path-hover);
+}
+
+.wrapper_about .input_about:hover ~ .text::before {
+  --r: 25px;
+  --opacity: 1;
+}
+
+.wrapper_about .input_about:hover ~ .text::after {
+  -webkit-clip-path: var(--clip-path-hover);
+          clip-path: var(--clip-path-hover);
+}
+
+.wrapper_about .input_about:hover ~ .text > span::after {
+  -webkit-clip-path: var(--clip-path-hover);
+          clip-path: var(--clip-path-hover);
+}
+
+.wrapper_about .input_about:checked {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.wrapper_about .input_about:checked ~ .video {
+  -webkit-clip-path: var(--clip-path-clicked);
+          clip-path: var(--clip-path-clicked);
+}
+
+.wrapper_about .input_about:checked ~ .text {
+  --opacity: 0;
+  -webkit-transition: opacity 0.3s var(--timing-function);
+  transition: opacity 0.3s var(--timing-function);
+}
+
+.wrapper_about .input_about:checked ~ .text::after {
+  -webkit-clip-path: var(--clip-path-clicked);
+          clip-path: var(--clip-path-clicked);
+}
+
+.wrapper_about .input_about:checked ~ .text > span::after {
+  -webkit-clip-path: var(--clip-path-clicked);
+          clip-path: var(--clip-path-clicked);
+}
 /*# sourceMappingURL=index.css.map */
