@@ -131,6 +131,7 @@ button {
 
 .wrapper .text > span::before {
   color: var(--color);
+  font-weight: 700;
 }
 
 .wrapper .text > span::after {
