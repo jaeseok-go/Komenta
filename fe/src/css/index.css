@@ -2333,4 +2333,16 @@ select {
   display: inline-block;
   margin-left: 5px;
 }
+
+.comment__hidden {
+  display: none;
+  background-color: yellow;
+}
+
+.comment__block {
+  font-size: x-small;
+  cursor: pointer;
+  color: darkgray;
+  font-weight: bold;
+}
 /*# sourceMappingURL=index.css.map */
