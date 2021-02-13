@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" class="header-form">
     <!-- Searchbar with a placeholder -->
     <!-- <ion-searchbar placeholder="검색어를 입력하세요"></ion-searchbar> -->
     <form
       class="search-box"
-      @submit.prevent="searchTemplate"
+      @submit.prevent="close"
       :style="{ border: searchBox }"
     >
       <input
@@ -14,19 +14,23 @@
         v-model="keyword"
         v-if="isView"
         @input="handleSearchInput"
+        autocomplete="off"
       />
       <label for="search" @click="viewSearchBox"
         ><i class="fas fa-search icon-color"
       /></label>
     </form>
-      <div class="search-result-box">
-        <div v-for="(item, index) in searchLists.vodSList" :key="`V-${index}`">
-          <div>{{item.v_title}}</div>
-        </div>
-        <div v-for="(item, index) in searchLists.userSList" :key="`U-${index}`">
-          <div>{{item.u_nickname}}</div>
-        </div>
+    <div class="search-result-box" v-if="searchLists.vodSList != undefined && (searchLists.vodSList.length > 0 || searchLists.userSList.length > 0)">
+      <div class="strongText" v-if="searchLists.vodSList.length > 0">VOD</div>
+      <div v-for="(item, index) in searchLists.vodSList" :key="`V-${index}`">
+        <div class="selectedResult" @click="goVodDetail(item.ve_id)">{{item.v_title}}</div>
       </div>
+      <hr v-if="searchLists.vodSList.length > 0 && searchLists.userSList.length > 0">
+      <div class="strongText" v-if="searchLists.userSList.length > 0">User</div>
+      <div v-for="(item, index) in searchLists.userSList" :key="`U-${index}`">
+        <div class="selectedResult" @click="geUserFeed(item.u_id)" v-text="fetchUser(item.u_nickname, item.u_email)"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,30 +90,29 @@ export default {
        this.userLists = users.data;
        console.log('검색 - user lsit : ',this.userLists);
     },
-    // searchTemplate() {
-    //   this.getAllVodandUser();
-    //   this.vodlists.forEach((vod) => {
-    //     vod.indexOf(this.keyword);
-    //     this.searchlists.push(vod);
-    //   });
-    //   console.log(this.searchlists, '검색!!!');
-
-    //   if (this.keyword) {
-    //     this.$router.push(`/search/${this.keyword}`);
-    //   } else {
-    //     alert('키워드를 입력해주세요.');
-    //   }
-    // },
+    goVodDetail(veId){
+      this.keyword = '';
+      window.location.href = `/voddetail/${veId}`;
+    },
+    geUserFeed(uId){
+      this.keyword = '';
+      window.location.href = `/feed/${uId}`;
+    },
+    fetchUser(nickname, email) {
+      const text = nickname+"("+email+")";
+      if(text.length > 23) return text.substring(0,24)+'...';
+      else return text;
+    },
     viewSearchBox() {
       if (!this.isView) {
         this.isView = true;
         this.searchBox = '1.3px solid rgb(158, 158, 158)';
         return;
-      } 
-      // else {
-      //   this.getAllVodandUser();
-      //   this.searchTemplate();
-      // }
+      }else {
+        this.isView = false;
+        this.searchBox = 'none';
+        return;
+      }
     },
   },
 };
