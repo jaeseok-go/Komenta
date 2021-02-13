@@ -5,15 +5,14 @@
     <div class="modify-btn">
       <button @click="showModalForm">내 정보 수정</button>
     </div>
-    <span><img :src="getUserProfile(userProfile)"  width="100px" alt="">
-
-    <div class="displayinline">
-    아이디 : {{userId}} <br>
-    닉네임 : {{userNickName}}<br>
-    휴대폰 번호 : {{userPhoneNumber}}
-
-    </div>
-    <hr>
+    <span class="userInfo-form">
+      <img :src="getUserProfile(userProfile)"  width="100px" alt="">
+      <div class="displayinline showUserInfo-form">
+        아이디 : {{userId}} <br>
+        닉네임 : {{userNickName}}<br>
+        휴대폰 번호 : {{userPhoneNumber}}
+      </div>
+      <hr>
     </span>
     
 <!--
@@ -103,10 +102,4 @@ export default {
 </script>
 
 <style>
-  .modify-btn {
-    text-align: right;
-  }
-  .displayinline{
-    display: inline-block;
-  }
 </style>

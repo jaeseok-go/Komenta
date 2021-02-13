@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="myPage">
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
-    <Modal v-if="showUserInfoModal">
+    <Modal v-if="showUserInfoModal" class="myInfo-modi-modal">
         <div slot="header">
           <h3 class="findIdPw__title">내 정보 수정</h3>
           <span id="closeModalBtn" @click="closeUserInfoModal">
@@ -10,66 +10,70 @@
           </span>
           <hr>                                                                                                      
         </div>
-        <div slot="body">
+        <div slot="body" class="modal-body-form">
           <form @submit.prevent="modifyUserInfo">
             <div class="profile-form">
               <div class="img">
-                <v-img v-if="userProfilePic" :src="getUserProfile(userProfilePic)" width="90px"/>
+                <v-img v-if="showProfile" :src="showProfile" width="90px"/>
                 <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
                 <!-- {{userProfilePic}} -->
               </div>
               <div class="file-input">
                 <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
                 <!-- <button>프로필 사진 변경</button> -->
-                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages()" required accept="image/jpeg,image/jpg">
-                <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
-                {{userProfilePic}}
+                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages" required accept="image/jpeg,image/jpg">
+                <v-btn type="button" @click="onClickImageUpload" class="btn-upload">
+                  <font-awesome-icon :icon="['fas', 'upload']" :style="{ color: '#ffffff' }"/>
+                  upload
+                </v-btn>
+                <!-- {{userProfilePic}} -->
               </div>
-              
-              <!-- <img :src="require(`../../assets/images/${userProfilePic}`)"> -->
             </div>
-            <hr>
-            <div class="modi-form form-text">
-              아이디 : <br>
-              비밀번호 : <br>
-              비밀번호 확인 : <br>
-              닉네임 : <br>
-              휴대폰 번호 : <br>
-            </div>
-            <div class="modi-form">
-              <input type="text" v-model="userId" disabled><br>
-              <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
-              <input type="password" v-model="userPassword"><br>
-              <p class="warning-form warning-signup">
-                <span class="warning-text" v-if="!isPasswordValid">
-                  password를 8자 이상 입력하세요.
-                </span>
-              </p>
-              <!-- 비밀번호 일치 여부 확인 -->
-              <input type="password" v-model="confirmPW"><br>
-              <p class="warning-form warning-signup">
-                <span class="warning-text" v-if="!isPasswordConfirmValid">
-                  password가 일치하지 않습니다.
-                </span>
-              </p>
-              <!-- 닉네임 중복 여부 확인 -->
-              <input type="text" v-model="userNickName">
-              <!-- 중복 닉네임이 아닐 때 표출 -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
-                <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
-              </p>
-              <!-- 중복 닉네임일 때 표출 -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
-                <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
-              </p>
-              <br>
+            <!-- <hr class="rowHR"> -->
+            <div class="rowHR"></div>
+            <div class="user-modi-form">
+              <div class="modi-form form-text">
+                아이디 : <br>
+                비밀번호 : <br>
+                비밀번호 확인 : <br>
+                닉네임 : <br>
+                휴대폰 번호 : <br>
+              </div>
+              <div class="modi-form">
+                <input type="text" v-model="userId" disabled><br>
+                <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
+                <input type="password" v-model="userPassword"><br>
+                <p class="warning-form warning-signup">
+                  <span class="warning-text" v-if="!isPasswordValid">
+                    password를 8자 이상 입력하세요.
+                  </span>
+                </p>
+                <!-- 비밀번호 일치 여부 확인 -->
+                <input type="password" v-model="confirmPW"><br>
+                <p class="warning-form warning-signup">
+                  <span class="warning-text" v-if="!isPasswordConfirmValid">
+                    password가 일치하지 않습니다.
+                  </span>
+                </p>
+                <!-- 닉네임 중복 여부 확인 -->
+                <input type="text" v-model="userNickName">
+                <!-- 중복 닉네임이 아닐 때 표출 -->
+                <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
+                  <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
+                </p>
+                <!-- 중복 닉네임일 때 표출 -->
+                <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
+                  <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
+                </p>
+                <br>
 
-              <!-- 변경하기 클릭 시,  -->
-              <input type="text" v-model="userPhoneNumber" v-if="phoneNumForm" disabled>
-              <button @click="changePhoneNumber" v-if="phoneNumForm">변경하기</button><br v-if="phoneNumForm">
-              <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
+                <!-- 변경하기 클릭 시,  -->
+                <input type="text" v-model="userPhoneNumber" v-if="phoneNumForm" disabled>
+                <button @click="changePhoneNumber" v-if="phoneNumForm">변경하기</button><br v-if="phoneNumForm">
+                <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
+              </div>
             </div>
-            <div>
+            <div class="userModi-btn">
               <p @click="unSubscribe">회원탈퇴</p>
               <button>수정완료</button>
             </div>
@@ -142,11 +146,12 @@ export default {
       showUserInfoModal:false,
       phoneNumForm:true,
       authPhoneNumForm: false,
-
+      showProfile:'',
     }
   },
   created() {
     this.getUserInfo();
+    this.getUserProfile(this.userInfo.u_profile_pic)
   },
   computed: {
     ...mapState({
@@ -187,7 +192,7 @@ export default {
   methods: {
     getUserProfile(profile){
       const picName = profile.split('.')
-      return `${process.env.VUE_APP_PICTURE}profile/${picName[0]}`
+      this.showProfile = `${process.env.VUE_APP_PICTURE}profile/${picName[0]}`;
     },
     closeUserInfoModal() {
       this.showUserInfoModal = false;
@@ -216,11 +221,13 @@ export default {
     onClickImageUpload() {
       this.$refs.imageInput.click();
     },
-    onChangeImages() {
+    onChangeImages(e) {
       this.userProfilePic = this.$refs.imageInput.files[0].name;
       this.profilePicFile = this.$refs.imageInput.files[0];
       console.log("user pic : ",this.userProfilePic)
       console.log("user pic Info : ",this.profilePicFile)
+      this.showProfile =  URL.createObjectURL(e.target.files[0]);
+      console.log('바뀐 이미지 경로 : ',this.showProfile)
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
@@ -251,7 +258,7 @@ export default {
           console.log("프로필 사진 잘 들어감",response.data);
           this.closeUserInfoModal();
           
-          // window.location.reload();
+          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -290,7 +297,7 @@ export default {
           console.log("회원탈퇴...",response);
           alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
         }
-        this.$route.push({name:'Login'});
+        window.location.href='/';
       }catch(err){
         console.log(err)
       }
@@ -303,46 +310,6 @@ export default {
   h4 {
     font-weight: 700;
     margin-top: 2rem;
-  }
-  input {
-    border:1px solid black;
-  }
-  .modal-header {
-    border-bottom: none;
-  }
-  .modi-form {
-    display: inline-block;
-  }
-  .form-text {
-    text-align: right;
-  }
-
-  .profile-form .img {
-    /* background-color: blueviolet; */
-    border: 1px solid black;
-    width: 100px;
-    height: 100px;
-  }
-
-  .profile-form div {
-    display: inline-block;
-    text-align: center;
-  }
-
-  .profile-form input[type="file"] {
-    display: block;
-    margin-bottom: 1rem;
-  }
-
-  .profile-form .file-input{
-    position: relative;
-    bottom: 40px;
-    margin-left: 1rem;
-  }
-
-  .profile-form .v-btn {
-    border: 1px solid black;
-    padding: 0.1rem 5.7em;
   }
 
 </style>
