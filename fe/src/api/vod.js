@@ -134,7 +134,7 @@ function fetchPlaylistContent(plcId){
 
 // vod검색
 function searchVodlist() {
- return instance.get('search/list_vod')
+ return instance.get(`search/list_vod`)
 }
 
 // vod 시청시작
