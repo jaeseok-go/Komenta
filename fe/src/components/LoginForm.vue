@@ -1,5 +1,5 @@
 <template>
-  <div class="temp-bc">
+  <div class="temp-bc login">
     <div class="alert alert-danger alert-dismissible" role="alert" :style="{ display: display }">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>
