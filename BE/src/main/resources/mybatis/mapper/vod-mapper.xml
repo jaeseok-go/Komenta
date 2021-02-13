@@ -99,7 +99,7 @@
 
     <select id="getAllVod" resultType="com.komenta.be.model.vod.VodSearchInfoDTO">
         SELECT B.v_id, B.v_title, A.ve_episode_num, A.ve_id, B.gd_id FROM vod B INNER JOIN
-                      (SELECT v_id, ve_id, MAX(ve_episode_num) as ve_episode_num,
+                      (SELECT v_id, ve_id, MAX(ve_episode_num) as ve_episode_num
                        FROM vod_episode
                        GROUP BY v_id) A
                       ON A.v_id = B.v_id;

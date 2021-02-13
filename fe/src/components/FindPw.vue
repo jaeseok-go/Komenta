@@ -1,5 +1,5 @@
 <template> 
-    <b-container class="container-setting">
+    <b-container class="container-setting find-idpw">
         <template v-if="showCertiForm">
           <div class="form-sort id-chk">
               아이디: <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/>

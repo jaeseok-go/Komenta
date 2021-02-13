@@ -2529,49 +2529,49 @@ select {
   outline: 0;
 }
 
-.wrapper_about .input_about:hover ~ .video {
+.wrapper_about .input_about .input_about:hover ~ .video {
   -webkit-clip-path: var(--clip-path-hover);
           clip-path: var(--clip-path-hover);
 }
 
-.wrapper_about .input_about:hover ~ .text::before {
+.wrapper_about .input_about .input_about:hover ~ .text::before {
   --r: 25px;
   --opacity: 1;
 }
 
-.wrapper_about .input_about:hover ~ .text::after {
+.wrapper_about .input_about .input_about:hover ~ .text::after {
   -webkit-clip-path: var(--clip-path-hover);
           clip-path: var(--clip-path-hover);
 }
 
-.wrapper_about .input_about:hover ~ .text > span::after {
+.wrapper_about .input_about .input_about:hover ~ .text > span::after {
   -webkit-clip-path: var(--clip-path-hover);
           clip-path: var(--clip-path-hover);
 }
 
-.wrapper_about .input_about:checked {
+.wrapper_about .input_about .input_about:checked {
   width: 100%;
   height: 100%;
   border-radius: 0;
 }
 
-.wrapper_about .input_about:checked ~ .video {
+.wrapper_about .input_about .input_about:checked ~ .video {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
 }
 
-.wrapper_about .input_about:checked ~ .text {
+.wrapper_about .input_about .input_about:checked ~ .text {
   --opacity: 0;
   -webkit-transition: opacity 0.3s var(--timing-function);
   transition: opacity 0.3s var(--timing-function);
 }
 
-.wrapper_about .input_about:checked ~ .text::after {
+.wrapper_about .input_about .input_about:checked ~ .text::after {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
 }
 
-.wrapper_about .input_about:checked ~ .text > span::after {
+.wrapper_about .input_about .input_about:checked ~ .text > span::after {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
 }
