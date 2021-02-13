@@ -770,6 +770,7 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   margin-right: auto;
   margin-left: auto;
   width: 30%;
+  display: block;
 }
 
 .inContent.or:after {
@@ -1379,6 +1380,19 @@ select {
   background-color: #fff;
 }
 
+.temp-bc.login {
+  margin-top: 0 !important;
+}
+
+.login-form {
+  display: block !important;
+  text-align: center;
+}
+
+.sns-login-form {
+  display: block !important;
+}
+
 .sign-setting {
   height: 8rem;
   margin: 2rem;
@@ -1459,6 +1473,10 @@ select {
 
 .modal-header a {
   color: black;
+}
+
+.modal-header .find-idpw {
+  display: block !important;
 }
 
 .modal-header .findIdPw__contents {
@@ -2394,6 +2412,11 @@ select {
   float: right;
 }
 
+.comment__block__content {
+  color: #fc3c44;
+  font-style: italic;
+}
+
 .wrapper_about {
   --color: #fa233b;
   --color-invert: #fa233b;
@@ -2580,6 +2603,10 @@ select {
   text-align: center;
 }
 
+.category {
+  font-family: 'Roboto', sans-serif;
+}
+
 .category .__select-form {
   display: inline-block;
   margin: 0 1rem;
@@ -2591,7 +2618,7 @@ select {
   padding: 5px;
   border: 1px solid #999;
   font-family: 'Nanumgothic';
-  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  background: url("../assets/images/arrow-down.png") no-repeat 90% 50%;
   border-radius: 3px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2604,6 +2631,9 @@ select {
 
 .category .__select-form select:focus {
   outline: none;
+  padding: 5px;
+  border: 1px solid #999;
+  font-family: 'Nanumgothic';
 }
 
 .category .category-img-form {
@@ -2611,7 +2641,7 @@ select {
   height: 250px;
   border-radius: 10px;
   display: inline-block;
-  margin: 1rem;
+  margin: 1rem 1rem 3rem 1rem;
   text-align: center;
   cursor: pointer;
 }
@@ -2621,5 +2651,20 @@ select {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+}
+
+.category .category-img-form .category-title {
+  position: relative;
+  margin-top: 1rem;
+  top: 5px;
+  color: #5a5a5a;
+}
+
+.category .category-img-form:hover {
+  width: 180.5px;
+  height: 250.5px;
+  -webkit-box-shadow: 5px 5px 10px #a8a8a8;
+          box-shadow: 5px 5px 10px #a8a8a8;
+  font-weight: 600;
 }
 /*# sourceMappingURL=index.css.map */

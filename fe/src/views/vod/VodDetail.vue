@@ -11,7 +11,7 @@
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
                 <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class=" {comment__highlight:userFollowing(comment.u_id),comment__hidden:userBlocking(comment.u_id)}">
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname">{{comment.u_nickname}} </span> {{ comment.c_contents}}  
-                  <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
+                  <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
                   <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span>
                   </span>    
                 </p>
@@ -302,18 +302,25 @@ methods : {
   },
 
   //유저 댓글 좋아요 class추가/제거
-  commentLike(comment){
+  commentLike(index,comment){
     const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
-    const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-
+    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+     this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-    if (comment.is_like_comment) {
-      likeCount.innerText = comment.comment_good_count - 1
+    // if (comment.is_like_comment) {
+    //   likeCount.innerText = comment.comment_good_count - 1
+    //   likeBtn.style.color ='grey'
+    //   } else {
+    //     likeCount.innerText = comment.comment_good_count + 1
+    //     likeBtn.style.color = '#fc3c44'
+    //   }
+    if (this.commentsList[index].is_like_comment){
+      this.commentsList[index].comment_good_count += 1
+      likeBtn.style.color = '#fc3c44'
+    } else {
+      this.commentsList[index].comment_good_count -=1
       likeBtn.style.color ='grey'
-      } else {
-        likeCount.innerText = comment.comment_good_count + 1
-        likeBtn.style.color = '#fc3c44'
-      }
+    }
       const commentInfo = {
         c_id : comment.c_id,
         u_id : this.userInfo.u_id
@@ -321,7 +328,6 @@ methods : {
       userlikeComment(commentInfo)
 
   }
-
 
 },
    watch : {

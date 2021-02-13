@@ -1,12 +1,26 @@
 <template>
   <div>
     <div v-for="(comment,index) in paginatedData" :key="index">
-      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> <span @click="blockUser(comment.u_id)" class="comment__block">차단하기</span> <br>
+      <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
+      <template v-if="isBlockUser(comment.u_id)">
+      <span @click="blockUser(comment.u_id)" class="comment__block">
+      차단취소</span>
+      </template>
+      <template v-else>
+      <span @click="blockUser(comment.u_id)" class="comment__block">
+      차단하기</span>
+      </template>
+     <br>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
+      <template v-if="isBlockUser(comment.u_id)">
+      <span class="comment__block__content">차단한 댓글입니다. </span> <br>
+      </template>
+      <template v-else>
       <span>{{ comment.c_contents}} </span> <br>
+      </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
       <!-- :class="{commet__like :comment.is_like_comment}"  -->
-      <span @click="commentLike(comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       <hr>
     </div>
     <div class="btn-cover">
@@ -39,6 +53,7 @@ export default {
   computed:{
       ...mapState({
       userInfo: state => state.user.userInfo,
+      myUnFollowingList: state => state.user.myUnFollowingList,
     }),
     pageCount() {
       let listLeng = this.commentsList.length,
@@ -60,6 +75,17 @@ export default {
   this.getEpiComment();
   },
   methods : {
+    isBlockUser(uId){
+      console.log(this.myUnFollowingList,'언팔')
+      for (let i = 0; i < this.myUnFollowingList.length; i++) {
+        const unfollowuser = this.myUnFollowingList[i];
+        if (unfollowuser.f_id == uId) {
+          return true
+        }
+      }
+      console.log(uId)
+      return false
+    },
   blockUser(uId) {
     const blockInfo = {
       u_id : this.userInfo.u_id,
@@ -97,25 +123,30 @@ export default {
     }
     return changeTime
     },
- commentLike(comment){
-   const commentInfo = {
-     c_id : comment.c_id,
-   u_id : this.userInfo.u_id
- }
-userlikeComment(commentInfo)
-
-const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
-const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-
-// likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-if (comment.is_like_comment) {
-  likeCount.innerText = comment.comment_good_count - 1
-  likeBtn.style.color ='black'
-  console.log(likeBtn,likeCount)
-  } else {
-    likeCount.innerText = comment.comment_good_count + 1
-    likeBtn.style.color = '#fc3c44'
-  }
+   commentLike(index,comment){
+    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
+     this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
+    // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
+    // if (comment.is_like_comment) {
+    //   likeCount.innerText = comment.comment_good_count - 1
+    //   likeBtn.style.color ='grey'
+    //   } else {
+    //     likeCount.innerText = comment.comment_good_count + 1
+    //     likeBtn.style.color = '#fc3c44'
+    //   }
+    if (this.commentsList[index].is_like_comment){
+      this.commentsList[index].comment_good_count += 1
+      likeBtn.style.color = '#fc3c44'
+    } else {
+      this.commentsList[index].comment_good_count -=1
+      likeBtn.style.color ='grey'
+    }
+      const commentInfo = {
+        c_id : comment.c_id,
+        u_id : this.userInfo.u_id
+    }
+      userlikeComment(commentInfo)
 
   }
 
