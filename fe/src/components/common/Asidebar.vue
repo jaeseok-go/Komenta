@@ -119,10 +119,10 @@ export default {
     logout() {
       if (confirm('로그아웃 하시겠습니까?')) {
         this.$store.commit('logout');
-        if (this.$route.path !== '/') {
-          this.$router.push('/');
-          window.location.reload();
-        }
+        // if (this.$route.path !== '/') {
+          // window.location.reload();
+          window.location.href = '/';
+        // }
       }
     },
   },
