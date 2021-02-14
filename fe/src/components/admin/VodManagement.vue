@@ -27,10 +27,14 @@
         <td>수정 / 삭제</td>
       </tr>
     </table>
-    <div class="btn-cover">
-      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
+    <div class="admin-btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+      </button>
       <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
-      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-right']"/>
+      </button>
     </div>
   </b-col>
 </template>

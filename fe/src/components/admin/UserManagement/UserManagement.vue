@@ -1,9 +1,15 @@
 <template>
-  <b-col>
-    <div>
-      <router-link :to="{name:'AllUser', params: {allUserList:userList}}">전체 회원</router-link> |
-      <router-link :to="{name:'BlockedUser', params: {blockedList:blockedUserList}}">제한 회원</router-link> |
-      <router-link :to="{name:'AdminUser', params: {adminList:adminList}}">관리자 회원</router-link>
+  <b-col class="userTab">
+    <div class="user-tab-form">
+      <p class="user-tab-item">
+        <router-link :to="{name:'AllUser', params: {allUserList:userList}}">전체 회원</router-link>
+      </p>
+      <p class="user-tab-item">
+        <router-link :to="{name:'BlockedUser', params: {blockedList:blockedUserList}}">제한 회원</router-link>
+      </p>
+      <p class="user-tab-item">
+        <router-link :to="{name:'AdminUser', params: {adminList:adminList}}">관리자 회원</router-link>
+      </p>
     </div>
     <router-view></router-view>
   </b-col>

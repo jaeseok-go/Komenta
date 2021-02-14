@@ -1,10 +1,14 @@
 <template>
-  <b-col>
-    <nav>
-      <router-link :to="{name:'UserManage'}">회원 관리</router-link> |
-      <router-link :to="{name:'VodManage'}">VOD관리</router-link>
+  <b-col class="adminTab">
+    <nav class="admin-tab-form">
+      <div class="admin-tab-item">
+        <router-link :to="{name:'UserManage'}">회원 관리</router-link>
+      </div>
+      <div class="admin-tab-item">
+        <router-link :to="{name:'VodManage'}">VOD관리</router-link>
+      </div>
     </nav>
-    <div>
+    <div class="admin-tab-view">
       <router-view></router-view>
     </div>
   </b-col>

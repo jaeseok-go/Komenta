@@ -14,14 +14,14 @@
           <form @submit.prevent="modifyUserInfo">
             <div class="profile-form">
               <div class="img">
-                <v-img v-if="showProfile" :src="showProfile" width="90px"/>
+                <v-img v-if="showProfile" :src="showProfile" width="100%"/>
                 <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
                 <!-- {{userProfilePic}} -->
               </div>
               <div class="file-input">
                 <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
                 <!-- <button>프로필 사진 변경</button> -->
-                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages" required accept="image/jpeg,image/jpg">
+                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages" :v-model="userProfilePic" accept="image/jpeg,image/jpg">
                 <v-btn type="button" @click="onClickImageUpload" class="btn-upload">
                   <font-awesome-icon :icon="['fas', 'upload']" :style="{ color: '#ffffff' }"/>
                   upload
@@ -32,50 +32,59 @@
             <!-- <hr class="rowHR"> -->
             <div class="rowHR"></div>
             <div class="user-modi-form">
-              <div class="modi-form form-text">
-                아이디 : <br>
-                비밀번호 : <br>
-                비밀번호 확인 : <br>
-                닉네임 : <br>
-                휴대폰 번호 : <br>
-              </div>
               <div class="modi-form">
-                <input type="text" v-model="userId" disabled><br>
-                <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
-                <input type="password" v-model="userPassword"><br>
-                <p class="warning-form warning-signup">
-                  <span class="warning-text" v-if="!isPasswordValid">
-                    password를 8자 이상 입력하세요.
-                  </span>
-                </p>
-                <!-- 비밀번호 일치 여부 확인 -->
-                <input type="password" v-model="confirmPW"><br>
-                <p class="warning-form warning-signup">
-                  <span class="warning-text" v-if="!isPasswordConfirmValid">
-                    password가 일치하지 않습니다.
-                  </span>
-                </p>
-                <!-- 닉네임 중복 여부 확인 -->
-                <input type="text" v-model="userNickName">
-                <!-- 중복 닉네임이 아닐 때 표출 -->
-                <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
-                  <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
-                </p>
-                <!-- 중복 닉네임일 때 표출 -->
-                <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
-                  <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
-                </p>
-                <br>
-
-                <!-- 변경하기 클릭 시,  -->
-                <input type="text" v-model="userPhoneNumber" v-if="phoneNumForm" disabled>
-                <button @click="changePhoneNumber" v-if="phoneNumForm">변경하기</button><br v-if="phoneNumForm">
-                <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
+                <div class="modi-form-uemail">
+                  <label for="modi-u-email">아이디</label>
+                  <input type="text" id="modi-u-email" class="form-control form-control-lg" v-model="userId" disabled>
+                </div>
+                <div>
+                  <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
+                  <label for="modi-u-password">비밀번호</label>
+                  <input type="password" id="modi-u-password" class="form-control form-control-lg" v-model="userPassword"><br>
+                  <p class="warning-form warning-signup">
+                    <span class="warning-text" v-if="!isPasswordValid">
+                      password를 8자 이상 입력하세요.
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <!-- 비밀번호 일치 여부 확인 -->
+                  <label for="modi-u-pwConfirm">비밀번호 확인</label>
+                  <input type="password" id="modi-u-pwConfirm" class="form-control form-control-lg" v-model="confirmPW"><br>
+                  <p class="warning-form warning-signup">
+                    <span class="warning-text" v-if="!isPasswordConfirmValid">
+                      password가 일치하지 않습니다.
+                    </span>
+                  </p>
+                </div>
+                <div class="modi-form-nickname">
+                  <!-- 닉네임 중복 여부 확인 -->
+                  <label for="modi-u-nickname">닉네임</label>
+                  <input type="text" id="modi-u-nickname" class="form-control form-control-lg" v-model="userNickName">
+                  <div class="icon-inline-block icon-form">
+                    <!-- 중복 닉네임이 아닐 때 표출 -->
+                    <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !nickCheck">
+                      <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
+                    </p>
+                    <!-- 중복 닉네임일 때 표출 -->
+                    <p class="icon-inline-block" v-show="!isUserNickNameEmpty && nickCheck">
+                      <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
+                    </p>
+                  </div>
+                </div>
+                <div class="modi-form-phoneNum">
+                  <!-- 변경하기 클릭 시,  -->
+                  <label for="modi-u-phone">휴대폰 번호</label>
+                  <input type="text" id="modi-u-phone" class="form-control form-control-lg" v-model="userPhoneNumber" :disabled="phoneChange">
+                  <button class="phoneNumChange" @click.stop.prevent="changePhoneNumber" v-text="phoneText"></button>
+                  <!-- <br v-if="phoneNumForm"> -->
+                  <!-- <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification> -->
+                </div>
               </div>
             </div>
             <div class="userModi-btn">
               <p @click="unSubscribe">회원탈퇴</p>
-              <button>수정완료</button>
+              <input type="submit" value="수정완료">
             </div>
           </form>
         </div>
@@ -112,10 +121,10 @@ import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
 import AdminPage from '@/components/user/myPage/adminPage.vue';
 import Modal from '@/components/common/Modal';
-import PhoneCertification from '@/components/user/PhoneCertification.vue';
+// import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
-import { deleteMyInfo, uploadProfile } from '@/api/user';
+import { deleteMyInfo, uploadProfile, dupNickNameChk } from '@/api/user';
 import { mapState } from 'vuex';
 
 
@@ -129,7 +138,7 @@ export default {
     MembershipSetting,
     AdminPage,
     Modal,
-    PhoneCertification,
+    // PhoneCertification,
   },
   data() {
     return {
@@ -144,9 +153,10 @@ export default {
       userIsAdmin:0,
       modiForm:'none',
       showUserInfoModal:false,
-      phoneNumForm:true,
-      authPhoneNumForm: false,
+      phoneChange:true,
+      phoneText:'변경하기',
       showProfile:'',
+      nickCheck:false,
     }
   },
   created() {
@@ -158,7 +168,7 @@ export default {
       userInfo: state => state.user.userInfo,
     }),
     isUserNickNameEmpty() {
-      if(!this.userNickName || (this.userNickName == this.userInfo.u_nickname)) {
+      if(!this.userNickName) {
         return true;
       }
       return false;
@@ -189,7 +199,24 @@ export default {
     },
 
   },
+  watch: {
+    userNickName : function () {
+      if(this.userInfo.u_nickname != this.userNickName){
+        this.isDupNickNameCheck()
+      }
+    }
+  },
   methods: {
+    async isDupNickNameCheck() {
+      try{
+        const result = await dupNickNameChk(this.userNickName);
+        this.nickCheck = result.data;
+      }catch(err) {
+        console.log(err);
+      }
+      return false;
+      
+    },
     getUserProfile(profile){
       const picName = profile.split('.')
       this.showProfile = `${process.env.VUE_APP_PICTURE}profile/${picName[0]}`;
@@ -215,8 +242,15 @@ export default {
       this.modiForm = 'block';
     },
     changePhoneNumber() {
-      this.phoneNumForm =false;
-      this.authPhoneNumForm = true;
+      // this.phoneNumForm =false;
+      // this.authPhoneNumForm = true;
+      if(this.phoneChange) {
+        this.phoneChange = false;
+        this.phoneText = '변경완료';
+      }else {
+        this.phoneChange = true;
+        this.phoneText = '변경하기';
+      }
     },
     onClickImageUpload() {
       this.$refs.imageInput.click();
@@ -247,24 +281,22 @@ export default {
         return;
       }
       try {
-        let profilePic = new FormData();
-        let pic = this.userProfilePic.split('.');
-        // console.log(pic,'잘렸니?')
-        profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
-
-        // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
-        await uploadProfile(profilePic)
-        .then((response) => {
-          console.log("프로필 사진 잘 들어감",response.data);
-          this.closeUserInfoModal();
-          
-          window.location.reload();
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
-          return false;
-        });
+        if(this.profilePicFile) {
+          let profilePic = new FormData();
+          let pic = this.userProfilePic.split('.');
+          // console.log(pic,'잘렸니?')
+          profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
+          // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
+          await uploadProfile(profilePic)
+          .then((response) => {
+            console.log("프로필 사진 잘 들어감",response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+            return false;
+          });
+        }
         const userData = {
           u_id:this.uId,
           u_email:this.userId,
@@ -280,7 +312,8 @@ export default {
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
         
-
+        this.closeUserInfoModal();
+        window.location.reload();
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
