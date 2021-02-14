@@ -505,3 +505,102 @@
     padding: 0.1rem 0.7em;
   }
 }
+
+//membership 가입 페이지
+.membership-form {
+  margin-left: 1rem;
+  & h4 {
+    font-size: 20px;
+  }
+
+  & .membership-form-card {
+    display: inline-block;
+    padding: 2rem;
+    margin: 0 auto;
+    width: 500px;
+    border: 1px solid #b1b1b1;
+    border-radius: 4px;
+    background-color: #ffffff;
+
+    & .ms-best {
+      width: 0;
+      height: 0;
+      border-bottom: 80px solid transparent;
+      border-left: 80px solid #fc3c44;
+      position: absolute;
+      top: 78px;
+      left: 220px;
+
+      & p {
+        position: absolute;
+        width: 32px;
+        right: 38px;
+        top: 14px;
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }
+
+    & .ms-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-left: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    & .ms-title-sub {
+      font-size: 13.5px;
+      color: rgb(88, 88, 88);
+      margin-left: 0.7rem;
+    }
+  }
+
+  & .membership-form-card:hover {
+    border: 1px solid $komenta-color;
+    background-color: #fff8f8;
+    & button {
+      color: white;
+      background-color: $komenta-color;
+      border-color: rgba(255, 0, 0, 0.596);
+      background-color: $komenta-color;
+    }
+  }
+
+  & .membership-warning {
+    display: inline-block;
+    width: 550px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-size: 14px;
+  }
+
+  & .ms-content {
+    font-size: 14px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+
+    & li {
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    & .ms-content-img {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
+
+  & .ms-btn {
+    margin-top: 1rem;
+    text-align: center;
+
+    & button {
+      font-size: 20px;
+      color: #b1b1b1;
+      padding: 0.8rem 2rem;
+      border: 1px solid #b1b1b1;
+      border-radius: 5px;
+    }
+  }
+}
