@@ -4,6 +4,7 @@
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
         <font-awesome-icon :icon="['fas', 'angle-left']"/>
       </button>
+      <span class="page-count">{{pageNum+1}}/{{pageCount}} </span>
       <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
         <font-awesome-icon :icon="['fas', 'angle-right']"/>
       </button>

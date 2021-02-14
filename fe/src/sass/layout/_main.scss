@@ -1,4 +1,9 @@
 //main - 인기순, 댓글순, 최신순 정렬
+.popular-vod-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
 .selectTab {
   margin-left: 1rem;
 }
@@ -36,6 +41,7 @@
 }
 
 .movie .poster {
+  border: 1px solid #b8b5b5;
   transform: translateZ(83px) !important;
   border-radius: 10px;
   overflow: hidden;
@@ -60,8 +66,9 @@
     & button {
       background-color: $komenta-color;
       border-radius: 5px;
-      padding: 0.2rem 0.3rem;
+      padding: 0.4rem 0.8rem;
       color: white;
+      font-size: 15px;
     }
   }
 }
@@ -100,7 +107,7 @@
 
 //베스트댓글 유저
 .card2 {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -110,6 +117,10 @@
   & table {
     width: 500px;
   }
+}
+
+.comm-rank-item {
+  border-bottom: 1px solid rgba(206, 206, 206, 0.555);
 }
 
 .commRank-num {
@@ -126,17 +137,40 @@
 .commRank-num.nonHighLight {
   font-size: 25px;
   font-weight: 600;
+  padding: 0.3rem 0;
 }
 
 .userPic {
-  margin-left: 0.3rem;
-  & img {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border: 1px solid rgba(206, 206, 206, 0.555);
-    background-color: white;
+  & div {
+    margin-left: 0.6rem;
+    & img {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: 1px solid rgba(206, 206, 206, 0.555);
+      background-color: white;
+    }
   }
+}
+
+.comm-user-nickName {
+  &.name-highlight {
+    font-weight: 700;
+  }
+}
+
+.comm-vod-epi {
+  font-size: 13px;
+  color: rgb(100, 100, 100);
+}
+
+.comm-user-nickName:hover,
+.comm-vod-epi:hover {
+  text-decoration: underline;
+}
+
+.comm-good-cnt {
+  font-size: 13px;
 }
 
 .userPic-popList {
@@ -161,12 +195,13 @@
 
 .half-card.Now-Playing {
   text-align: center;
+  margin-left: 8rem;
 }
 
 .nowPlaying {
   display: table;
-  width: 300px;
-  height: 386px;
+  width: 350px;
+  height: 465px;
   margin: auto auto;
   border: 1px solid rgba(206, 206, 206, 0.555);
   border-radius: 10px;
@@ -180,8 +215,8 @@
     & .poster {
       position: relative;
       overflow: hidden;
-      width: 240px;
-      height: 240px;
+      width: 270px;
+      height: 270px;
       border: 1px solid rgba(206, 206, 206, 0.555);
       border-radius: 50%;
       margin: 0 auto;
@@ -196,26 +231,26 @@
         position: absolute;
         top: 25%;
         left: 24%;
-        width: 125px;
-        height: 125px;
+        width: 135px;
+        height: 135px;
         border-radius: 50%;
         border: 10px solid #fff;
 
         & .posterCD-middle {
           position: absolute;
-          top: 11%;
+          top: 12%;
           left: 12%;
-          width: 80px;
-          height: 80px;
+          width: 87px;
+          height: 87px;
           border-radius: 50%;
-          background-color: #fff;
+          background-color: #f6faff;
           border: 1px solid rgba(206, 206, 206, 0.555);
         }
       }
-
-      & h3 {
-        font-weight: 700;
-      }
+    }
+    & h3 {
+      margin-top: 2rem;
+      font-weight: 700;
     }
   }
 }
@@ -240,6 +275,30 @@
 }
 
 //인기 유저 플레이리스트
+.popular-list {
+  padding: 12px;
+
+  & .page-count {
+    font-size: smaller;
+    margin-bottom: 3px;
+  }
+}
+
+.popular-list-title {
+  position: relative;
+  z-index: -99;
+  top: 33px;
+}
+
+.play-list-form {
+  border-top: 1px solid rgba(206, 206, 206, 0.555);
+}
+
+.play-list {
+  width: 94%;
+  margin: 0 auto;
+}
+
 .playList {
   display: inline-block;
   cursor: pointer;

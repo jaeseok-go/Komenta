@@ -1,36 +1,41 @@
 <template>
-  <div>
-      <h4>골라보는 플레이리스트</h4>
+  <div class="popular-list">
+      <h4 class="page-title popular-list-title">골라보는 플레이리스트</h4>
       <!-- 플레이 리스트 타이틀, 플레이 리스트 좋아요 개수, 플레이 리스트 작성자, 플레이 리스트 안 컨텐츠 개수 -->
       <!-- pl_id, pl_name, 플레이 리스트 좋아요 개수, 플레이 리스트 작성자, 플레이 리스트 안 컨텐츠 개수-->
       <div class="btn-cover">
         <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
           <font-awesome-icon :icon="['fas', 'angle-left']"/>
         </button>
+        <span class="page-count">{{pageNum+1}}/{{pageCount}} </span>
         <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
           <font-awesome-icon :icon="['fas', 'angle-right']"/>
         </button>
       </div>
-      <div v-if="this.popularPlaylist.length == 0">
-        <div class="noRegister-text">등록된 플레이 리스트가 없습니다.</div>
-      </div>
-      <div class="playList" v-for="(playList, index) in paginatedData" :key="index" v-else>
-        <div class="playList-Form" @click="goPlayList(playList.plb_id)">
-          <div class="reprePoster">
-            <img :src="getPoster(index)" width="210px" height="150px">
-          </div>
-          <div class="userPic-popList">
-            <img :src="getUserPic(index)">
-          </div>
-          <div class="plInfo">
-            <p>
-              {{playList.pldetail[0].pl_name}} <br>
-              {{playList.pldetail[0].u_nickname}}'S PICK <br>
-            </p>
-            <p class="likeInfo">
-              <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
-              {{playList.plb_cnt}} | {{playList.pldetail.length}}개
-            </p>
+      <div class="play-list-form">
+        <div v-if="this.popularPlaylist.length == 0">
+          <div class="noRegister-text">등록된 플레이 리스트가 없습니다.</div>
+        </div>
+        <div class="play-list" v-else>
+          <div class="playList" v-for="(playList, index) in paginatedData" :key="index">
+            <div class="playList-Form" @click="goPlayList(playList.plb_id)">
+              <div class="reprePoster">
+                <img :src="getPoster(index)" width="210px" height="150px">
+              </div>
+              <div class="userPic-popList">
+                <img :src="getUserPic(index)">
+              </div>
+              <div class="plInfo">
+                <p>
+                  {{playList.pldetail[0].pl_name}} <br>
+                  {{playList.pldetail[0].u_nickname}}'S PICK <br>
+                </p>
+                <p class="likeInfo">
+                  <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
+                  {{playList.plb_cnt}} | {{playList.pldetail.length}}개
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

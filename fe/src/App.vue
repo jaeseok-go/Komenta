@@ -7,6 +7,9 @@
         <Header id="header-section" v-if="isLogin"></Header>
         <router-view id="page-view" :class="{asideOn: isLogin}"></router-view>
         <!--  :key="$route.fullPath" -->
+        <footer>
+          <Footer :class="{asideOn: isLogin}"></Footer>
+        </footer>
       </section>
     </div>
 </template>
@@ -15,6 +18,7 @@
 // import "@/css/index.css"
 import Asidebar from '@/components/common/Asidebar'
 import Header from '@/components/common/Header'
+import Footer from '@/components/common/Footer'
 // import store from '@/stores/modules/user'
 import { mapState } from 'vuex'
 // import Main from '@/components/Main/Main'
@@ -23,7 +27,8 @@ export default {
   name: 'App',
   components: {
     Asidebar,
-    Header
+    Header,
+    Footer
   },
   computed: {
     ...mapState({
@@ -44,39 +49,4 @@ export default {
 </script>
 
 <style>
-
-
-aside {
-  border-radius: 4%;
-  position: fixed;
-  min-width: 170px;
-  min-height: 100%;
-  height: 100vh;
-  z-index: 9999;
-}
-
-
-section {
-  height: 100vh;
-  /* padding-left: 220px; */
-  width: 100%;
-  
-
-}
-
-#page-view {
-  min-height: 50rem;
-  /* margin: 2rem; */
-  
-}
-
-.bottomNav {
-  bottom: 0; 
-  background:#111; 
-  transition:bottom .2s;}
-.bottomNav.show {
-  bottom: 0; 
-  background:#111;}
-
-
 </style>
