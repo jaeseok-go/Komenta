@@ -66,91 +66,8 @@
 				messageD_translateY_out: [0, -20, { start: 0.85, end: 0.9 }]
 			}
 		},
-		{
-			// 1
-			// 두번째는 sticky는 없음, 보통 스크롤
-			type: 'normal',
-			// heightNum: 5, // type normal에서는 필요 없음
-			scrollHeight: 0,
-			objs: {
-				container: document.querySelector('#scroll-section-1'),
-				content: document.querySelector('#scroll-section-1 .description')
-			}
-		},
-		{
-			// 2
-			type: 'sticky',
-			heightNum: 5,
-			scrollHeight: 0,
-			objs: {
-				container: document.querySelector('#scroll-section-2'),
-				messageA: document.querySelector('#scroll-section-2 .a'),
-				messageB: document.querySelector('#scroll-section-2 .b'),
-				messageC: document.querySelector('#scroll-section-2 .c'),
-				pinB: document.querySelector('#scroll-section-2 .b .pin'),
-				pinC: document.querySelector('#scroll-section-2 .c .pin'),
-				canvas: document.querySelector('#video-canvas-1'),
-				context: document.querySelector('#video-canvas-1').getContext('2d'),
-				videoImages: []
-			},
-			values: {
-				videoImageCount: 1034,
-				imageSequence: [0, 1033],
-				// 처음꺼는 시작부터 등장돼있기때문에 부드럽게 등장할 필요 없지만 이건 중간에 등장하기때문에 등장할때도 불투명도가 들어감!
-				canvas_opacity_in: [0, 1, { start: 0, end: 0.1 }],
-				canvas_opacity_out: [1, 0, { start: 0.95, end: 1 }],
-				messageA_translateY_in: [20, 0, { start: 0.15, end: 0.2 }],
-				messageB_translateY_in: [30, 0, { start: 0.6, end: 0.65 }],
-				messageC_translateY_in: [30, 0, { start: 0.87, end: 0.92 }],
-				messageA_opacity_in: [0, 1, { start: 0.25, end: 0.3 }],
-				messageB_opacity_in: [0, 1, { start: 0.6, end: 0.65 }],
-				messageC_opacity_in: [0, 1, { start: 0.87, end: 0.92 }],
-				messageA_translateY_out: [0, -20, { start: 0.4, end: 0.45 }],
-				messageB_translateY_out: [0, -20, { start: 0.68, end: 0.73 }],
-				messageC_translateY_out: [0, -20, { start: 0.95, end: 1 }],
-				messageA_opacity_out: [1, 0, { start: 0.4, end: 0.45 }],
-				messageB_opacity_out: [1, 0, { start: 0.68, end: 0.73 }],
-				messageC_opacity_out: [1, 0, { start: 0.95, end: 1 }],
-				pinB_scaleY: [0.5, 1, { start: 0.6, end: 0.65 }],
-				pinC_scaleY: [0.5, 1, { start: 0.87, end: 0.92 }]
-			}
-		},
-		{
-			// 3
-			type: 'sticky',
-			heightNum: 5,
-			scrollHeight: 0,
-			objs: {
-				container: document.querySelector('#scroll-section-3'),
-				canvasCaption: document.querySelector('.canvas-caption'),
-				// 이미지 블랜드 캔버스가져옴
-				canvas: document.querySelector('.image-blend-canvas'),
-				context: document.querySelector('.image-blend-canvas').getContext('2d'),
-				// 이미지경로
-				imagesPath: [
-					'./images/blend-image-1.png',
-					'./images/blend-image-2.jpg'
-				],
-				// 이미지를 담을 배열
-				images: []
-			},
-			values: {
-				// 흰사각형 2개의 x좌표, 0인 이유, 지금 알 수 없기때문에 계산한 뒤 그 값을 넣어야됨
-				// 종료시점도, 화면에 꽉찼을때 끝나야되기때문에 지금은 알 수 없음
-				rect1X: [ 0, 0, { start: 0, end: 0 } ],
-				rect2X: [ 0, 0, { start: 0, end: 0 } ],
-				// 블랜딩되는 다음 이미지 -> 아래에서 계산해준 값을 넣을거다
-				blendHeight: [ 0, 0, { start: 0, end: 0 } ],
-				// scale이 축소되는 value
-				canvas_scale: [ 0, 0, { start: 0, end: 0 } ],
-				// 마지막 문단 애니메이션(시작,끝시간은 나중에 처리해줘야됨)
-				canvasCaption_opacity: [ 0, 1, { start: 0, end: 0 } ],
-				canvasCaption_translateY: [ 20, 0, { start: 0, end: 0 } ],
-				// 여기에 나중에 Y값을 구한 뒤 첫 start값을 넣어줌!
-				rectStartY: 0
-			}
-		}
 	];
+	
 	// 이미지불러올 함수
 	function setCanvasImages() {
 		// 첫번째 씬이니까 [0]번째
@@ -164,31 +81,17 @@
 			// 배열에 넣음
 			sceneInfo[0].objs.videoImages.push(imgElem);
 		}
-		// 두번째 씬
-		let imgElem2;
-		for (let i = 0; i < sceneInfo[2].values.videoImageCount; i++) {
-			imgElem2 = new Image();
-			imgElem2.src = `./sweet/sweethome ${1001 + i}.JPG`;
-			sceneInfo[2].objs.videoImages.push(imgElem2);
-		}
-		// 세번째 씬
-		let imgElem3;
-		for (let i = 0; i < sceneInfo[3].objs.imagesPath.length; i++) {
-			imgElem3 = new Image();
-			imgElem3.src = sceneInfo[3].objs.imagesPath[i];
-			sceneInfo[3].objs.images.push(imgElem3);
-		}
 	}
 
-	function checkMenu() {
-		// 문서전체에서 스크롤된 정도를 담은 변수
-		// 첫번째 nav높이만큼(height가 44니까 44보다 크면 class붙임)
-		if (yOffset > 44) {
-			document.body.classList.add('local-nav-sticky');
-		} else {
-			document.body.classList.remove('local-nav-sticky');
-		}
-	}
+	// function checkMenu() {
+	// 	// 문서전체에서 스크롤된 정도를 담은 변수
+	// 	// 첫번째 nav높이만큼(height가 44니까 44보다 크면 class붙임)
+	// 	if (yOffset > 44) {
+	// 		document.body.classList.add('local-nav-sticky');
+	// 	} else {
+	// 		document.body.classList.remove('local-nav-sticky');
+	// 	}
+	// }
 
 	function setLayout() {
 		// 각 스크롤 섹션의 높이 세팅
