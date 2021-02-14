@@ -28,6 +28,10 @@ public class CommentInfoDTO {
         this.ve_id = ve_id;
     }
 
+    public void setC_id(int c_id) {
+        this.c_id = c_id;
+    }
+
     public int getC_id() {
         return c_id;
     }
