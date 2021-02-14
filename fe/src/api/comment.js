@@ -34,8 +34,13 @@ function userlikeComment(cInfo) {
 }
 
 // 댓글 삭제 기능
-function removeComment(cId) {
-    return instance.delete('comment/comment_delete', cId)
+function removeComment(cInfo) {
+    return instance.delete('comment/comment_delete', {
+        params: {
+            c_id: cInfo
+
+        }})
+    
 }
 
 export {

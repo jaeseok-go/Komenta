@@ -10,11 +10,11 @@
     <Modal v-if="showModal" @click="$emit('close')">
       <h3 slot="header">
         <div class="findIdPw__title">아이디 및 비밀번호 찾기</div>
-        <span id="closeModalBtn">
+        <span id="closeModalBtn" @click="showModal = false">
           <i
             class="fa fa-times"
             aria-hidden="true"
-            @click="showModal = false"
+            
           ></i>
         </span>
         <hr />

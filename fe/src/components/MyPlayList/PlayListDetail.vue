@@ -27,7 +27,7 @@
           <tbody>
             <tr v-for="(playlist,index) in playlists" :key="index">
               <td>{{ playlist.g_name }}/{{ playlist.gd_name }}</td>
-              <td>{{ playlist.v_title }} {{ playlist.ve_episode_num }}회</td>
+              <td @click="goVod(playlist.ve_id)" style="cursor:pointer">{{ playlist.v_title }} {{ playlist.ve_episode_num }}회</td>
               <td v-if="showMyRecent()">
                 <input
                   type="text"
@@ -59,6 +59,9 @@ export default {
     };
   },
   methods: {
+    goVod(veId){
+      this.$router.push(`/voddetail/${veId}`)
+    },
     updateInput: function(event) {
       const updatedText = event.target.value;
       this.review = updatedText;

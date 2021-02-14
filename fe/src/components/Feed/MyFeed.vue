@@ -56,30 +56,33 @@
               </div>
             </div>
           </div>
-
+        
           <Modal v-if="showModal" @close="showModal = false">
             <h4 slot="header">
-              나만의 스트리밍 리스트를 만들어보세요
-              <span @click="showModal = false"
+                <div class="modal_title">나만의 플레이 리스트를 만들어보세요</div>
+              
+              <div @click="showModal = false" class="modal_close_btn"
                 ><i class="closeModalBtn fa fa-times" aria-hidden="true"> </i
-              ></span>
+              ></div>
             </h4>
             <p slot="body" @keydown.enter="createPlaylist">
               <input
-                class="input-group"
+                class="modal-input"
                 type="text"
                 v-model="plName"
                 placeholder="플레이리스트 제목을 적어주세요."
               />
               <br />
               <input
-                class="input-group"
+                class="modal-textarea"
                 type="text"
                 v-model="plComment"
                 placeholder="플레이리스트 내용을 적어주세요."
               />
               <br />
-              <button @click="createPlaylist">제출</button>
+              <button class="userprofile__button modal_button" @click="createPlaylist">
+              SUBMIT
+            </button>
             </p>
           </Modal>
           <!-- 플레이리스트 수만큼 drop-zon v-for -->

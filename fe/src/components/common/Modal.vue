@@ -57,8 +57,8 @@ export default {
 }
 
 .modal-container {
-  width: 800px;
-  height: 500px;
+  width: 600px;
+  height: 400px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -74,9 +74,9 @@ export default {
   text-align: center;
 }
 
-.modal-body {
+/* .modal-body {
   margin: 20px 0;
-}
+} */
 
 .modal-default-button {
   float: right;

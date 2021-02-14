@@ -82,8 +82,8 @@ export default {
             }
             return false
       },
-    DeleteComment(cId){
-      removeComment(cId)
+    async DeleteComment(cId){
+    await removeComment(cId,'댓삭')
      this.getEpiComment();
     },
     isBlockUser(uId){
