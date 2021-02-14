@@ -326,6 +326,7 @@ methods : {
         u_id : this.userInfo.u_id
     }
       userlikeComment(commentInfo)
+      // this.getEpiComment();
 
   }
 

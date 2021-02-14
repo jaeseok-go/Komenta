@@ -103,7 +103,7 @@ export default {
   try {
   const epiId = this.$route.params.id; 
   const res = await fetchEpiComment(epiId)
-  this.commentsList = res.data
+  this.commentsList = res.data.reverse()
   } catch {
     console.log('epicomment 에러!!')
   }
@@ -127,13 +127,7 @@ export default {
     // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
      this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-    // if (comment.is_like_comment) {
-    //   likeCount.innerText = comment.comment_good_count - 1
-    //   likeBtn.style.color ='grey'
-    //   } else {
-    //     likeCount.innerText = comment.comment_good_count + 1
-    //     likeBtn.style.color = '#fc3c44'
-    //   }
+
     if (this.commentsList[index].is_like_comment){
       this.commentsList[index].comment_good_count += 1
       likeBtn.style.color = '#fc3c44'
@@ -146,11 +140,12 @@ export default {
         u_id : this.userInfo.u_id
     }
       userlikeComment(commentInfo)
+    // this.getEpiComment();
 
   }
 
       
-    }
+    },
 }
 </script>
 

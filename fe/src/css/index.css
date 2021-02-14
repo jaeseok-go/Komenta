@@ -241,6 +241,10 @@ hr {
   display: grid;
 }
 
+.header-form {
+  position: relative;
+}
+
 /* 인풋박스 이용 */
 .search-box {
   border: 1px solid #9e9e9e;
@@ -279,6 +283,32 @@ hr {
 
 .search-box label {
   margin-left: auto;
+}
+
+.search-result-box {
+  width: 17rem;
+  border: 1px solid #b9b9b9;
+  border-radius: 3px;
+  background-color: white;
+  position: absolute;
+  right: 8px;
+  top: 50px;
+  z-index: 3;
+}
+
+.search-result-box .selectedResult:hover {
+  cursor: pointer;
+  background-color: #d3e6fdd1;
+}
+
+.search-result-box .selectedResult,
+.search-result-box .strongText {
+  margin: 0.1rem 0 0.1rem 0.3rem;
+}
+
+.search-result-box .strongText {
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .icon-color {
@@ -1558,6 +1588,61 @@ select {
   cursor: pointer;
 }
 
+.modify-btn {
+  text-align: right;
+}
+
+.displayinline {
+  display: inline-block;
+}
+
+.userInfo-form {
+  margin-left: 1rem;
+}
+
+.showUserInfo-form {
+  position: relative;
+  vertical-align: middle;
+  margin-left: 1rem;
+}
+
+.btn-upload {
+  background-color: #fc3c44 !important;
+  border-color: #fc3c44 !important;
+  margin-top: 0.2rem;
+}
+
+.v-btn__content {
+  color: white;
+}
+
+.fa-upload {
+  margin-right: 0.2rem;
+}
+
+.rowHR {
+  display: inline-block;
+  position: relative;
+  height: 350px;
+  width: 0;
+  border-left: 1px solid black;
+}
+
+.user-modi-form {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+
+.userModi-btn {
+  text-align: right;
+}
+
+.userModi-btn p {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
 .follow-setting .inline-block {
   display: inline-block;
 }
@@ -1593,6 +1678,58 @@ select {
   color: #fc3c44;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.myInfo-modi-modal input {
+  border: 1px solid black;
+}
+
+.myInfo-modi-modal .modal-header {
+  border-bottom: none;
+}
+
+.myInfo-modi-modal .modal-body-form {
+  position: relative;
+}
+
+.myInfo-modi-modal .modi-form {
+  display: inline-block;
+}
+
+.myInfo-modi-modal .form-text {
+  text-align: right;
+}
+
+.myInfo-modi-modal .profile-form {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin-right: 1rem;
+}
+
+.myInfo-modi-modal .profile-form .img {
+  /* background-color: blueviolet; */
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+}
+
+.myInfo-modi-modal .profile-form div {
+  display: block;
+}
+
+.myInfo-modi-modal .profile-form input[type='file'] {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.myInfo-modi-modal .profile-form .file-input {
+  position: relative;
+}
+
+.myInfo-modi-modal .profile-form .v-btn {
+  border: 1px solid black;
+  padding: 0.1rem 0.7em;
 }
 
 .searchbar-container {
@@ -2258,6 +2395,7 @@ select {
 
 .video__height {
   height: 500px;
+  width: 860px;
 }
 
 .video__comment {
@@ -2291,7 +2429,7 @@ select {
 }
 
 .video__comment__inner__nickname {
-  color: #C0C0C0;
+  color: #c0c0c0;
   font-weight: bold;
 }
 
