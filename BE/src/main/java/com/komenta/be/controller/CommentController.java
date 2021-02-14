@@ -80,6 +80,7 @@ public class CommentController {
     @ApiOperation(value = "회원이 단 모든 댓글 삭제", notes = "c_id 입력 받고 해당 댓글 삭제")
     @DeleteMapping("/comment_delete")
     public int deleteMyComment(@RequestBody CommentInfoDTO dto, HttpServletRequest request){
+        System.out.println(dto);
         int u_id= jwtService.getUidFromJwt(request.getHeader("auth-token"));
         dto.setU_id(u_id);
         return cservice.deleteMyComment(dto);
