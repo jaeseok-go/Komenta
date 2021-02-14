@@ -10,9 +10,15 @@
                         <div class="userprofile__picbox__content"><img :src="getProfile()"></div>
                     </div>
                     <div class="userprofile__name">{{feedUserInfo.u_nickname}}</div>
-                    <div v-if="!showMyRecent() && isFollowed()">
+                    <template v-if="!showMyRecent() && showFollowBtn">
                         <button class="userprofile__button" @click="followUser">FOLLOW</button>
-                    </div>
+                    </template>
+                    <template v-else-if="!showMyRecent() && !showFollowBtn">
+                        <button class="userprofile__button" @click="followUser">UNFOLLOW</button>
+                    </template>
+                    <!-- <div v-if="!showMyRecent() && isFollowed()">
+                        <button class="userprofile__button" @click="followUser">FOLLOW</button>
+                    </div> -->
             </div>
         
 
@@ -144,14 +150,14 @@ export default {
             plComment:'',
             epiComment:'',     
             selectedId:[],
+            showFollowBtn:true,
         }
     },
     created(){
         this.getFeedInfo();
+        this.getFollowinglist();
        this.getUserPlayList();
         this.getRecentPlayList();
-        this.getFollowinglist();
-        // this.isFollowed();
     },
     methods: {        
         getProfile() {
@@ -195,21 +201,19 @@ export default {
             }
             return false
         },
-        async isFollowed() {
-            //내 팔로워목록에 이미 니가 있으면 false, 없으면 true
-            for (let index = 0; index < this.myFollowing.length; index++) {
-                const element = this.myFollowing[index];
-                console.log(element.f_id,this.feedUserInfo.u_id,'엘리먼트 ㅋㅋ')
-                if (element.f_id === this.feedUserInfo.u_id) {
-                    console.log('들어오지마 ㅋ')
-                    return true
-                } 
-            } return false
-        },
+        
         async getFollowinglist() {
             const response = await fetchfollowinglist(this.userInfo.u_id)
             this.myFollowing = response.data
-            console.log(this.myFollowing,'팔로잉아 들어왕,,')
+            for (let index = 0; index < this.myFollowing.length; index++) {
+                const element = this.myFollowing[index];
+                if (element.f_id === Number(this.$route.params.id)) {
+                    this.showFollowBtn = false
+                    return 
+                } 
+            } 
+            this.showFollowBtn = true
+            return
         },
         //팔로우하는 로직 추가 구현
         followUser() {
@@ -219,6 +223,8 @@ export default {
             const response = modifyfollow(bothId)
             console.log(response,'됐다')
             this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
+            console.log(this.showFollowBtn,'->',!this.showFollowBtn)
+            this.showFollowBtn = !this.showFollowBtn
 
 
         },
@@ -307,38 +313,12 @@ export default {
         getVodPoster(poster){
            return `${process.env.VUE_APP_PICTURE}poster/${poster}`
         },
-        // showFollowButton() {
-        //     if (this.userInfo.u_id == this.feedUserInfo.u_id) {
-
-        //         if () {
-
-        //         }
-        //         return true
-        //     } return false
-        // },
-        // const myfeed = this.showMyRecent();
-        // const followed = this.isFollowed();
-        // console.log(myfeed,followed,'뭐냐')
-        // if ( !myfeed && !followed) {
-        //     return true
-        // } else {
-        //     return false
-        // }
     },
     computed: {
         ...mapState({
         userInfo: state => state.user.userInfo,
+        myFollowingList:state =>state.user.myFollowingList
     }),
-    // showFollowButton() {
-    //     const myfeed = this.showRecent();
-    //     const followed = this.isFollowed();
-    //     if ( !myfeed && !followed) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
-
   },
 
 
