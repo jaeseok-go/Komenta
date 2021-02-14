@@ -3,11 +3,23 @@
     <div v-if="likeUserPlaylists.length">
       <span class="pl-comment"><b>{{userInfo.u_nickname}}</b>님이 좋아요를 누른 플레이 리스트를 확인하세요!</span>
       <div class="popular-play-list" v-for="(playlist, pindex) in likeUserPlaylists" :key="pindex" >
-        <h2 @click="goPlaylsitDetail(playlist[0].pl_id)" style="cursor:pointer">
-          <span class="list-title"> <!--  @click="goPlaylsitDetail(playlist[0].pl_id)" -->
+        <h2 style="cursor:pointer">
+          <span class="list-title"  @click="goPlaylsitDetail(playlist[0].pl_id)"> <!--  @click="goPlaylsitDetail(playlist[0].pl_id)" -->
             {{ playlist[0].pl_name }}
           </span>
-          <span class="byUser">
+          <template v-if="isLikePlaylist(playlist[0].pl_id)">
+            <span class="playlsit-icon-size" @click="addlikeUserPlaylist(playlist[0].pl_id)" width='20px'>
+                <!-- <i class="far fa-star"></i> -->
+                <font-awesome-icon :icon="['far', 'star' ]" />
+            </span>
+        </template>
+        <template v-else>
+            <span class="playlsit-icon-size" @click="cancellikePlaylist(playlist[0].pl_id)">
+                <!-- <i class="fas fa-star playlist__star"></i> -->
+                <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
+            </span>
+        </template>
+          <span class="byUser" @click="goFeed(playlist.u_id)">
             by. {{playlist.u_nickname}}
           </span>
         </h2>
@@ -29,10 +41,10 @@
       <p class="pl-comment"><b>{{userInfo.u_nickname}}</b>님이 좋아요 한 플레이 리스트가 없네요! 이런 플레이 리스트는 어떠신가요?</p>
       <div class="popular-play-list" v-for="(playlist, pindex) in popularPlayList" :key="pindex">
         <h2>
-          <span class="list-title">
+          <span class="list-title" style="cursor:pointer" @click="goPlaylsitDetail(playlist.pldetail[0].pl_id)">
             {{ playlist.pldetail[0].pl_name }}
           </span>
-          <span class="byUser" @click="goPlaylsitDetail(playlist.pldetail[0].pl_id)">
+          <span class="byUser" @click="goFeed(playlist.pldetail[0].u_id)">
             by. {{playlist.pldetail[0].u_nickname}}
           </span>
         </h2>
@@ -53,7 +65,7 @@
 <script>
 import { mapState } from 'vuex';
 import { fetchPopularPlayList } from '@/api/vod' //, fetchPlayListDetail
-import {searchUserlist} from '@/api/user'
+import {searchUserlist, unlikePlaylist, likePlaylist,} from '@/api/user'
 
 export default {
   data() {
@@ -75,6 +87,30 @@ export default {
     })
   },
   methods: {
+    goFeed(uId){
+      this.$router.push(`/feed/${uId}`)
+    },
+    isLikePlaylist(plId) {
+      for (let i = 0; i < this.likeUserPlaylists.length; i++) {
+        const playlist = this.likeUserPlaylists[i];
+        if (playlist[0].pl_id == plId) {
+            console.log('false')
+          return false;
+        }
+      }
+      console.log('true')
+      return true;
+    },
+    async addlikeUserPlaylist(plId) {
+      await likePlaylist({ pl_id: plId });
+      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      // alert('플레이리스트 좋아요 함')
+    },
+    async cancellikePlaylist(plId) {
+      await unlikePlaylist({ pl_id: plId });
+      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      // alert('플레이리스트 좋아요 취소함')
+    },
     goPlaylsitDetail(plId) {
       this.$router.push(`/playlist/${plId}`);
     },

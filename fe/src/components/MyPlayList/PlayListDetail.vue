@@ -7,6 +7,18 @@
 
     <div class="container__info">
       <h1 class="container__info__name">{{ userProfile.pl_name }}</h1>
+    <template v-if="isLikePlaylist()">
+        <span class="playlsit-icon playlsit-icon-size" @click="addlikeUserPlaylist()" width='20px'>
+            <!-- <i class="far fa-star"></i> -->
+            <font-awesome-icon :icon="['far', 'star' ]" />
+        </span>
+    </template>
+    <template v-else>
+        <span class="playlsit-icon playlsit-icon-size" @click="cancellikePlaylist()">
+            <!-- <i class="fas fa-star playlist__star"></i> -->
+            <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
+        </span>
+    </template>
       <h3 class="container__info__comment ">{{ userProfile.pl_comment }}</h3>
       <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">{{userProfile.u_nickname }}</button>
       <v-simple-table fixed-header height="300px">
@@ -48,7 +60,7 @@
 <script>
 import { fetchPlayListDetail } from '@/api/vod';
 import { mapState } from 'vuex';
-import { addReviewPlaylist } from '@/api/user';
+import { addReviewPlaylist,unlikePlaylist, likePlaylist, } from '@/api/user';
 
 export default {
   data() {
@@ -59,6 +71,30 @@ export default {
     };
   },
   methods: {
+    isLikePlaylist() {
+      const plId = this.$route.params.id;
+      for (let i = 0; i < this.likePlaylist.length; i++) {
+        const playlist = this.likePlaylist[i];
+        if (playlist[0].pl_id == plId) {
+            console.log('false')
+          return false;
+        }
+      }
+      console.log('true')
+      return true;
+    },
+    async addlikeUserPlaylist() {
+      const plId = this.$route.params.id;
+      await likePlaylist({ pl_id: plId });
+      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      // alert('플레이리스트 좋아요 함')
+    },
+    async cancellikePlaylist() {
+      const plId = this.$route.params.id;
+      await unlikePlaylist({ pl_id: plId });
+      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      // alert('플레이리스트 좋아요 취소함')
+    },
     goVod(veId){
       this.$router.push(`/voddetail/${veId}`)
     },
@@ -113,10 +149,13 @@ export default {
   },
   created() {
     this.getStreamingListDetail();
+    this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
+    
   },
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo,
+      likePlaylist: (state) => state.user.likePlaylist,
     }),
   },
 };
