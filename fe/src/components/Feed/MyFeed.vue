@@ -120,13 +120,13 @@
             <h3 style="cursor:pointer">
                 <span @click="goPlaylsitDetail(playlist[0].pl_id)">{{ playlist[0].pl_name }}</span>
                 <template v-if="isLikePlaylist(playlist[0].pl_id)">
-                    <span @click="addlikeUserPlaylist(playlist[0].pl_id)">
+                    <span class="playlsit-icon" @click="addlikeUserPlaylist(playlist[0].pl_id)">
                         <!-- <i class="far fa-star"></i> -->
                         <font-awesome-icon :icon="['far', 'star' ]" />
                     </span>
                 </template>
                 <template v-else>
-                    <span @click="cancellikePlaylist(playlist[0].pl_id)">
+                    <span class="playlsit-icon" @click="cancellikePlaylist(playlist[0].pl_id)">
                         <!-- <i class="fas fa-star playlist__star"></i> -->
                         <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
                     </span>
