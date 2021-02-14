@@ -2,7 +2,7 @@
   <div>
     <div id="appBody">
          <div class="video">
-            <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
+            <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" width="100%" height="100%">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
             
