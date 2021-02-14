@@ -2363,6 +2363,10 @@ select {
   -webkit-text-fill-color: transparent;
 }
 
+.modal__playlist {
+  margin-top: 35px;
+}
+
 .rPlayList-Form img,
 .rPlayList-Form div {
   display: inline-block;
