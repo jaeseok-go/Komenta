@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: /stream
+  port: 7000
