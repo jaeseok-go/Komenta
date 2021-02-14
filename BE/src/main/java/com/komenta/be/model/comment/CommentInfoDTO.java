@@ -11,6 +11,11 @@ public class CommentInfoDTO {
     public CommentInfoDTO() {
     }
 
+    public CommentInfoDTO(int c_id, int u_id) {
+        this.c_id = c_id;
+        this.u_id = u_id;
+    }
+
     public CommentInfoDTO(String c_contents, String c_playtime, String c_upload_time, int u_id, int ve_id) {
         this.c_contents = c_contents;
         this.c_playtime = c_playtime;
