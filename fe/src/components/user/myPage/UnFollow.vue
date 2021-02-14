@@ -1,19 +1,16 @@
 <template>
   <b-col>
-    <h4>언팔로우 관리(차단)</h4>
-    <hr>
-    <div class="inline-block">
-      <h4 class="inline-block">Unfollowing 관리</h4>
-      <div class="inline-block">
-        <input type="text">
-        <button>검색</button>
-      </div>
-      <div class="follow-card">
-        <div v-for="(follow, index) in unfollowings" :key="index">
-          <div class="inline-block">
-            <img :src=follow.f_img>
+    <div class="follow-form">
+      <h4>UnFollow 관리</h4>
+      <div class="drop-zone">
+        <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
+        <div class="drop-zone__inner">
+          <div v-for="(follow, index) in unfollowings" :key="index" class="f-drag-el">
+            <span> <!--  @click="goFeed(follow.f_id)" -->
+              <img :src="getProfile(follow.u_profile_pic)" width="100%" />
+              <p class="f-name">{{ follow.u_nickname }}</p>
+            </span>
           </div>
-          <div class="inline-block">{{follow.f_nickname}}</div>
         </div>
       </div>
     </div>
@@ -27,57 +24,28 @@
 </template>
 
 <script>
+import { fetchunfollowinglist } from '@/api/user'
 export default {
   data() {
     return {
-      unfollowings:[
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Kim SSAFY'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Park Deajeon'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Choi Seoul'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Kim SSAFY'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Park Deajeon'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Kim SSAFY'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Park Deajeon'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Choi Seoul'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Kim SSAFY'
-        // },
-        // {
-        //   f_img:'#',
-        //   f_nickname: 'Park Deajeon'
-        // },
-      ],
+      unfollowings:[],
     }
   },
+  props: ['getUserId'],
+  created() {
+    this.fetchUnFollowingList(this.getUserId);
+  },
   methods: {
-    fetchUnFollowingList(){
-      this.unfollowings = this.$store.state.myUnFollowingList;
-    }
+    async fetchUnFollowingList(userId){
+      const response = await fetchunfollowinglist(userId);
+      console.log('unfollowing list : ',response)
+      this.unfollowings = response.data;
+      console.log('나의 unfollowings', this.unfollowings);
+    },
+    getProfile(profile) {
+      const path = profile.split('.');
+      return `${process.env.VUE_APP_PICTURE}profile/${path[0]}`;
+    },
   },
 }
 </script>
@@ -87,14 +55,4 @@ export default {
     display: inline-block;
   }
 
-  .follow-card {
-    height: 100px;
-    overflow: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .follow-card::-webkit-scrollbar {
-    display: none;
-  }
 </style>

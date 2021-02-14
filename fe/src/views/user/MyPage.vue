@@ -104,7 +104,7 @@
       <follow :getUserId="uId"></follow>
 
       <!-- 언팔로우 관리 -->
-      <un-follow></un-follow>
+      <un-follow :getUserId="uId"></un-follow>
 
       <!-- 멤버십 관리 -->
       <membership-setting :userInfo="this.userInfo"></membership-setting>
