@@ -6,11 +6,11 @@
       <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
       <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
       <template v-else-if="isBlockUser(comment.u_id)">
-      <span @click="blockUser(index,comment.u_id)" class="comment__block">
+      <span @click="blockUser(comment.u_id)" class="comment__block">
       차단취소</span>
       </template>
       <template v-else>
-      <span @click="blockUser(index,comment.u_id)" class="comment__block">
+      <span @click="blockUser(comment.u_id)" class="comment__block">
       차단하기</span>
       </template>
      <br>
@@ -77,15 +77,14 @@ export default {
 
       return false
     },
-    async blockUser(index,uId) {
+    async blockUser(uId) {
     const blockInfo = {
       u_id : this.userInfo.u_id,
       uf_id : uId
     }
     await modifyunfollow(blockInfo)
     this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
-    
-    console.log(index)
+
   },
     goFeed(uId){
       this.$router.push(`/feed/${uId}`)
