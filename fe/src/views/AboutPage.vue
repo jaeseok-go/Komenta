@@ -5,8 +5,9 @@
       <button @click="gotoLogin">LOGIN</button>
       <input type="checkbox">
       <div class="video">
-        <!-- <video src="@/assets/videos/about.mp4" loop muted autoplay></video> -->
-        <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video>
+        <video src="@/assets/videos/about.mp4" loop muted autoplay></video>
+        <!-- <video src="@/assets/videos/about.mp4" width="40%" loop autoplay muted></video> -->
+        <!-- <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video> -->
       </div>
       <div class="text">
         <span data-text="ABOUT KOMENTA"></span>
@@ -19,10 +20,13 @@
   <div class="container">
     <input type="radio" name="tab" id="home"/>
     <section class="home">
-      <h1>Home</h1>
+      <h1></h1>
       <label for="home"></label>
-      <div>
-        
+      <div class="home__desc">
+        <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
+        <div class="home__desc__title">세상에 없었던 인터렉티브 VOD 서비스</div>
+        <div class="home__desc__subtitle">카드를 넘겨보면서 KOMENTA에 대해 더 알아보세요!</div>
+        <div class="home__desc__login">무료 체험하기</div>
       </div>
     </section>
     <input type="radio" name="tab" id="about"/>
@@ -50,7 +54,7 @@
     </div>
   </div>
 </form>
-  </div>
+</div>
 </template>
 
 <script>
@@ -291,19 +295,26 @@ input[type='radio']:checked + section {
 }
 
 .container section.home {
-	background: #2196f3;
+	/* background: #2196f3; */
+  background: white;
 }
 
 .container section.about {
-	background: #ffc107;
+	/* background: #ffc107; */
+  background: white;
+
 }
 
 .container section.work {
-	background: #4caf50;
+	/* background: #4caf50; */
+  background: white;
+
 }
 
 .container section.contact {
-	background: #f44336;
+	/* background: #f44336; */
+  background: white;
+
 }
 
 .container section h1 {
@@ -311,7 +322,8 @@ input[type='radio']:checked + section {
 	font-size: 64px;
 	transform: translate(0, 40vh);
 	text-align: center;
-	color: rgba(255,255,255,0.85);
+	/* color: rgba(255,255,255,0.85); */
+  color: black;
 	transition: transform 500ms;
 	transform-style: preserve-3d;
 }
@@ -481,5 +493,9 @@ input[type='radio']:checked + section {
 #menu:checked + .container section.contact:hover {
 	top: 8px;
 }
+
+
+/* 3 */
+
 </style>
 
