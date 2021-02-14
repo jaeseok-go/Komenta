@@ -12,7 +12,7 @@
       <li v-if="this.commentVODs.length == 0">
         <div class="noRegister-text">등록된 VOD가 없습니다.</div>
       </li>
-      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" v-else>
+      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" style="cursor:pointer" v-else>
         <div class="movie" onclick="return true">
           <div class="poster">
             <img :src="getPoster(vod.v_id)" height="100%" alt="" />
