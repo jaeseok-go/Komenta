@@ -76,22 +76,21 @@ export default {
   },
   methods : {
     isBlockUser(uId){
-      console.log(this.myUnFollowingList,'언팔')
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const unfollowuser = this.myUnFollowingList[i];
         if (unfollowuser.f_id == uId) {
           return true
         }
       }
-      console.log(uId)
       return false
     },
-  blockUser(uId) {
+  async blockUser(uId) {
     const blockInfo = {
       u_id : this.userInfo.u_id,
       uf_id : uId
     }
-    modifyunfollow(blockInfo)
+    await modifyunfollow(blockInfo)
+    this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
     
   },
   nextPage() {
