@@ -2,7 +2,7 @@
   <b-col>
     <h4>전체 VOD</h4>
     <div class="btn-right">
-      <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
+      <router-link class="vodInsertBtn" :to="{name:'VODInsert'}">VOD 추가</router-link>
     </div>
     <table class="table-border-style" style="text-align:center;">
       <tr>

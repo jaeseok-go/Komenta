@@ -12,7 +12,7 @@
         </div>
         <!-- 선택한 댓글 삭제 기능 -->
         <p class="inline-block" :style="{display:editInlineDisplay}">삭제</p>
-        <button @click="commentDelete">{{editBtnText}}</button>
+        <!-- <button @click="commentDelete">{{editBtnText}}</button> -->
       </div>
       <table class="table-border-style">
         <tr>
@@ -35,11 +35,15 @@
           <!-- <td :style="{display:editDisplay}"><input type="checkbox" :id="index" :vlaue="index" :v-model="deleteList"></td> -->
         </tr>
       </table>
-      <div class="btn-cover">
-        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
-        <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
-        <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
-      </div>
+      <div class="admin-btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+      </button>
+      <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-right']"/>
+      </button>
+    </div>
       <!-- {{deleteList}} -->
     </div>
     <!-- 

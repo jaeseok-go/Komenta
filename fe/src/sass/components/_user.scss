@@ -92,6 +92,7 @@
     & .user-tab-item:hover,
     & .user-tab-item:focus-within {
       border-bottom: 10px solid rgba(255, 0, 0, 0.596);
+      font-weight: 600;
     }
   }
 }
@@ -123,8 +124,10 @@
   }
 }
 
-.admin-tab-view {
-  // border: 1px solid rgba(107, 107, 107, 0.685);
+.vodInsertBtn:hover {
+  color: var(--ion-color-primary, #3880ff);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .userInfo-table-form {
@@ -349,6 +352,38 @@
   }
 }
 
+.f-drag-el {
+  // overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  margin: 5px;
+  display: inline-block;
+  width: 100px;
+  // height: 80px;
+  height: 100%;
+
+  & img {
+    position: absolute;
+    border-radius: 50%;
+    width: 95px;
+    height: 95px;
+  }
+
+  & img:hover {
+    width: 100px;
+    height: 100px;
+    box-shadow: 3px 3px 3px rgba(168, 168, 168, 0.589);
+  }
+
+  & .f-name {
+    position: relative;
+    top: 100px;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+}
+
 //멤버십 관리
 .membership-state {
   width: 75px;
@@ -393,6 +428,10 @@
 
     & .modi-form-uemail {
       margin-bottom: 1rem;
+    }
+
+    & .warning-form {
+      margin-left: 6rem;
     }
 
     & .modi-form-nickname {

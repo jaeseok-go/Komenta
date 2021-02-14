@@ -1,15 +1,14 @@
 <template>
   <b-col class="follow-setting">
-    <h3>팔로우 관리</h3>
     <div class="follow-form">
       <h4>Follower 관리</h4>
       <div class="drop-zone">
         <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
         <div class="drop-zone__inner">
-          <div v-for="(follow, index) in followers" :key="index" class="drag-el">
+          <div v-for="(follow, index) in followers" :key="index" class="f-drag-el">
             <span @click="goFeed(follow.f_id)">
               <img :src="getProfile(follow.u_profile_pic)" width="100%" />
-              <p>{{ follow.u_nickname }}</p>
+              <p class="f-name" v-text="fetchUserNicname(follow.u_nickname)"/>
             </span>
           </div>
         </div>
@@ -20,10 +19,10 @@
       <div class="drop-zone">
         <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
         <div class="drop-zone__inner">
-          <div v-for="(follow, index) in followings" :key="index" class="drag-el">
+          <div v-for="(follow, index) in followings" :key="index" class="f-drag-el">
             <span @click="goFeed(follow.f_id)">
               <img :src="getProfile(follow.u_profile_pic)" width="100%" />
-              <p>{{ follow.u_nickname }}</p>
+              <p class="f-name" v-text="fetchUserNicname(follow.u_nickname)" />
             </span>
           </div>
         </div>
@@ -65,6 +64,10 @@ export default {
       this.followers = response.data;
       console.log('나의 followers', this.followers);
     },
+    fetchUserNicname(uNickName) {
+      if(uNickName.length > 6) return uNickName.substring(0,5)+'...';
+      else return uNickName;
+    }
   },
 };
 </script>
