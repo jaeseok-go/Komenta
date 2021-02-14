@@ -17,4 +17,5 @@ public interface CommentService {
     public int addLikeComment(CommentGoodDTO comment_good);
     public int cancelLikeComment(CommentGoodDTO comment_good);
 
+    int deleteMyComment(CommentInfoDTO dto);
 }

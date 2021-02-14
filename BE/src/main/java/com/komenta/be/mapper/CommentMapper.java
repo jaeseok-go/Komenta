@@ -15,4 +15,5 @@ public interface CommentMapper {
     public int isCommentGood(CommentGoodDTO comment_good);
     public int addLikeComment(CommentGoodDTO comment_good);
     public int cancelLikeComment(CommentGoodDTO comment_good);
+    int deleteComment(CommentInfoDTO dto);
 }

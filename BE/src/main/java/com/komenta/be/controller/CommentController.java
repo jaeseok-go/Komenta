@@ -77,6 +77,16 @@ public class CommentController {
     }
 
 
+    @ApiOperation(value = "회원이 단 모든 댓글 삭제", notes = "c_id 입력 받고 해당 댓글 삭제")
+    @DeleteMapping("/comment_delete")
+    public int deleteMyComment(@RequestBody int c_id, HttpServletRequest request){
+        int u_id= jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        CommentInfoDTO dto = new CommentInfoDTO();
+        dto.setU_id(u_id);
+        dto.setC_id(c_id);
+        return cservice.deleteMyComment(dto);
+    }
+
     @ApiOperation(value = "댓글 좋아요 추가/취소", notes = "해당 유저가 좋아요한 댓글은 취소, 아닌 댓글은 좋아요 추가")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "comment_good", value = "c_id (댓글 아이디)", dataType = "CommentGoodDTO", required = true)

@@ -50,4 +50,9 @@ public class CommentServiceImpl implements CommentService{
     public int cancelLikeComment(CommentGoodDTO comment_good) {
         return sqlSession.getMapper(CommentMapper.class).cancelLikeComment(comment_good);
     }
+
+    @Override
+    public int deleteMyComment(CommentInfoDTO dto) {
+        return sqlSession.getMapper(CommentMapper.class).deleteComment(dto);
+    }
 }
