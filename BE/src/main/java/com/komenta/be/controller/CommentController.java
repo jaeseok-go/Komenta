@@ -72,18 +72,17 @@ public class CommentController {
 
     @ApiOperation(value = "회원이 단 모든 댓글 조회", notes = "입력받은 u_id가 달았던 모든 댓글 조회")
     @GetMapping("/comment_list")
-    public List<MyCommentDTO> getMyComment(int u_id, HttpServletRequest request){
+    public List<MyCommentDTO> getMyComment(int u_id){
         return cservice.getMyComment(u_id);
     }
 
 
     @ApiOperation(value = "회원이 단 모든 댓글 삭제", notes = "c_id 입력 받고 해당 댓글 삭제")
     @DeleteMapping("/comment_delete")
-    public int deleteMyComment(@RequestBody CommentInfoDTO dto){
-        System.out.println(dto);
-//        int u_id= jwtService.getUidFromJwt(request.getHeader("auth-token"));
-//        dto.setU_id(u_id);
-        return cservice.deleteMyComment(dto);
+    public int deleteMyComment(@RequestParam int c_id, HttpServletRequest request){
+        int u_id= jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        CommentInfoDTO comment_info = new CommentInfoDTO(c_id, u_id);
+        return cservice.deleteMyComment(comment_info);
     }
 
     @ApiOperation(value = "댓글 좋아요 추가/취소", notes = "해당 유저가 좋아요한 댓글은 취소, 아닌 댓글은 좋아요 추가")

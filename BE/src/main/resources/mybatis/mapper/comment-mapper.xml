@@ -22,12 +22,13 @@
 
     <delete id="cancelLikeComment" parameterType="com.komenta.be.model.comment.CommentGoodDTO">
         delete from comment_good
-        where c_id = #{c_id} and u_id = #{u_id}
+        where c_id = #{c_id}
+        and u_id = #{u_id}
     </delete>
     <delete id="deleteComment" parameterType="com.komenta.be.model.comment.CommentInfoDTO">
         delete from comment_info
-        where c_id = #{c_id} and u_id =#{u_id}
-
+        where c_id = #{c_id}
+        and u_id = #{u_id}
     </delete>
 
     <select id = "getVodEpisodeComment" parameterType="com.komenta.be.model.comment.CommentListByVeIdDTO" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">

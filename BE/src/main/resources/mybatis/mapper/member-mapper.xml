@@ -71,14 +71,15 @@
         where u_nickname = #{u_nickname}
     </select>
 
-    <select id="updateMembership" parameterType="int">
+    <update id="updateMembership" parameterType="int">
         UPDATE member
         SET u_expire_member = case
-        when (now() > u_expire_member) then date_add(now(), interval +1 MONTH)
-        ELSE NOW()
-        end
+                              when (now() > u_expire_member)
+                              then date_add(now(), interval +1 MONTH)
+                              ELSE NOW()
+                              end
         WHERE u_id = #{u_id}
-    </select>
+    </update>
     <select id="getAllMember" resultType="com.komenta.be.model.member.MemberSearchInfoDTO">
         SELECT u_id, u_email, u_nickname FROM member;
 
