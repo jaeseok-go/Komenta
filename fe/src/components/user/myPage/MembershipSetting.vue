@@ -53,20 +53,22 @@ export default {
         const result = window.confirm('멤버십을 해지하시겠습니까? \n 해지 시, 모든 VOD 시청 및 댓글 작성이 제한됩니다.')
         if(result) {
           console.log('해지 ㄱ')
-          // 500에러...
           const response = await membership();
           console.log("해지 결과 : ",response)
+          alert('멤버십이 정상적으로 해지되었습니다.')
+          window.location.reload();
         }
       }
     },
     async getMembershipInfo(){
-      // console.log("멤버십 가입 여부 : ",this.userInfo.u_expire_member)
-      if(this.userInfo.u_expire_member !== "0000-00-00 00:00:00") {
+      console.log("멤버십 가입 여부 : ",this.userInfo.u_expire_member)
+      var moment = require('moment');
+      if(this.userInfo.u_expire_member == "0000-00-00 00:00:00" || this.userInfo.u_expire_member < moment(new Date()).format('YYYY-MM-DD HH:MM:SS')) {
+        console.log('가입한 멤버십이 없거나 만료되었습니다.');
+      }else {
         // console.log("가입한 멤버십이 있습니다.")
-        var moment = require('moment');
-
         let m_use_date = moment(this.userInfo.u_expire_member);
-        this.membership.m_name = "1달 정기권";
+        this.membership.m_name = "Komenta 프리미엄";
         this.membership.m_use_date = m_use_date.format('YYYY-MM-DD');
         this.membership.m_expire_date = m_use_date.add(1,'days').format('YYYY-MM-DD');
         this.membership.m_state = '해지하기';

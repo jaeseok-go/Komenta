@@ -101,6 +101,10 @@ const mutations = {
     },
     setUserFeed(state, userFeed){
         state.userFeed = userFeed
+    },
+    setExpireMember(state, memDate) {
+        console.log("여기는 setExpireMember : ",memDate)
+        state.userInfo.u_expire_member = memDate;
     }
 }
 
@@ -172,6 +176,10 @@ const actions = {
         const myPlayList = await fetchMyPlaylist(userId)
         commit('setMyPlayList',myPlayList.data)
     },
+    FETCH_MEMBERSHIP({ commit }, memberDate) {
+        console.log('바뀐 날짜 잘 들어오나? ',memberDate)
+        commit('setExpireMember', memberDate);
+    }
 
 
 };

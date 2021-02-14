@@ -52,6 +52,7 @@ aside {
   min-width: 170px;
   min-height: 100%;
   height: 100vh;
+  z-index: 9999;
 }
 
 
