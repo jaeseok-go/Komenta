@@ -2026,6 +2026,10 @@ select {
   color: white;
 }
 
+.playlist__star {
+  color: #fa233b;
+}
+
 .container {
   display: -webkit-box;
   display: -ms-flexbox;

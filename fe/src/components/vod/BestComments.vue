@@ -4,7 +4,8 @@
       <div class="comment__rank">{{index+1}} </div>
       <div class="comment__commentbox">
       <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
-      <template v-if="isBlockUser(comment.u_id)">
+      <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
+      <template v-else-if="isBlockUser(comment.u_id)">
       <span @click="blockUser(index,comment.u_id)" class="comment__block">
       차단취소</span>
       </template>
@@ -23,7 +24,7 @@
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
       <!-- :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" -->
-      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer" ></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" style="cursor:pointer" ></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       </div>
       <hr>
     </div>
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import {userlikeComment,fetchEpiComment } from '@/api/comment'
+import {userlikeComment,fetchEpiComment, removeComment} from '@/api/comment'
 import {modifyunfollow} from '@/api/user'
 
 import {mapState} from 'vuex'
@@ -54,6 +55,16 @@ export default {
   // console.log(this.myUnFollowingList,'언팔유저')
     },
   methods : {
+      itsMe(uId) {
+            if (this.userInfo.u_id == uId) {
+                return true
+            }
+            return false
+      },
+    DeleteComment(cId){
+      removeComment({c_id:cId})
+     this.getEpiComment();
+    },
     isBlockUser(uId){
       // console.log(this.myUnFollowingList,'언팔')
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
@@ -106,7 +117,7 @@ export default {
         return changeTime
         },
    async commentLike(index,comment){
-    const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
+    // const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
     // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
   this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
@@ -114,13 +125,13 @@ export default {
     // likeBtn.classList.toggle('comment__like')
     // likeBtn.classList.toggle('comment__unlike')
     // console.log('버튼',likeBtn)
-if (this.commentsList[index].is_like_comment){
+// if (this.commentsList[index].is_like_comment){
       // this.commentsList[index].comment_good_count += 1
-      likeBtn.style.color = '#fc3c44'
-    } else {
+      // likeBtn.style.color = '#fc3c44'
+    // } else {
       // this.commentsList[index].comment_good_count -=1
-      likeBtn.style.color ='grey'
-    }
+      // likeBtn.style.color ='grey'
+    // }
       const commentInfo = {
         c_id : comment.c_id,
         u_id : this.userInfo.u_id

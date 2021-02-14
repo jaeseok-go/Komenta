@@ -33,6 +33,10 @@ function userlikeComment(cInfo) {
     return instance.post('comment/comment_good_cancel', cInfo)
 }
 
+// 댓글 삭제 기능
+function removeComment(cId) {
+    return instance.delete('comment/comment_delete', cId)
+}
 
 export {
     fetchBestComment,
@@ -40,4 +44,5 @@ export {
     fetchEpiComment,
     fetchUserComment,
     userlikeComment,
+    removeComment
 }

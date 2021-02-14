@@ -68,7 +68,7 @@
             v-for='(playlist,index) in playlists' 
             :key='index'
             >
-            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
+            <h3 style="cursor:pointer"><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="deleteUserPlaylist(playlist[0].pl_id)"><i class="far fa-trash-alt"></i> </span> </h3>  
                 <div class='drop-zone'
                 @drop='onDrop($event, playlist[0].pl_id)'
                 @dragover.prevent
@@ -97,7 +97,14 @@
             v-for='(playlist,index) in playlists' 
             :key='index'
             >
-            <h3><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span><span @click="likeUserPlaylist(playlist[0].pl_id)"><i class="far fa-star"></i></span> </h3>  
+            <h3 style="cursor:pointer"><span @click="goPlaylsitDetail(playlist[0].pl_id)">{{playlist[0].pl_name}} </span> 
+            <template v-if="isLikePlaylist(playlist[0].pl_id)">
+            <span @click="addlikeUserPlaylist(playlist[0].pl_id)"><i class="far fa-star"></i></span> 
+            </template>
+            <template v-else>
+            <span @click="cancellikePlaylist(playlist[0].pl_id)"><i class="fas fa-star playlist__star"></i></span> 
+            </template>
+            </h3> 
                 <div class='drop-zone'
         
                 >
@@ -155,6 +162,7 @@ export default {
     },
     created(){
         this.getFeedInfo();
+        this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
         this.getFollowinglist();
        this.getUserPlayList();
         this.getRecentPlayList();
@@ -283,13 +291,25 @@ export default {
             console.log('playlist목록에러')
         }
         },
-        likeUserPlaylist(plId){
-            likePlaylist({pl_id:plId});
-            alert('플레이리스트 좋아요 함')
+        isLikePlaylist(plId){
+            for (let i = 0; i < this.likePlaylist.length; i++) {
+                const playlist = this.likePlaylist[i];
+                if (playlist[0].pl_id == plId) {
+                    return false
+                }
+                
+            } 
+        return true
         },
-        unlikePlaylist(plId){
-            unlikePlaylist({pl_id:plId})
-            alert('플레이리스트 좋아요 취소함')
+        async addlikeUserPlaylist(plId){
+            await likePlaylist({pl_id:plId});
+            // this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+            // alert('플레이리스트 좋아요 함')
+        },
+        async cancellikePlaylist(plId){
+            await unlikePlaylist({pl_id:plId})
+            // this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+            // alert('플레이리스트 좋아요 취소함')
         },
         async deleteUserPlaylist(plId){
             const response = await deletePlaylist(plId);
@@ -317,7 +337,8 @@ export default {
     computed: {
         ...mapState({
         userInfo: state => state.user.userInfo,
-        myFollowingList:state =>state.user.myFollowingList
+        myFollowingList:state =>state.user.myFollowingList,
+        likePlaylist:state => state.user.likePlaylist,
     }),
   },
 

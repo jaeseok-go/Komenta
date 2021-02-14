@@ -12,7 +12,8 @@
       </template>
      <br>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
-      <template v-if="isBlockUser(comment.u_id)">
+      <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
+      <template v-else-if="isBlockUser(comment.u_id)">
       <span class="comment__block__content">차단한 댓글입니다. </span> <br>
       </template>
       <template v-else>
@@ -20,7 +21,7 @@
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
       <!-- :class="{commet__like :comment.is_like_comment}"  -->
-      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       <hr>
     </div>
     <div class="btn-cover">
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import {userlikeComment,fetchEpiComment } from '@/api/comment'
+import {userlikeComment,fetchEpiComment , removeComment} from '@/api/comment'
 import {modifyunfollow} from '@/api/user'
 
 import {mapState} from 'vuex'
@@ -75,6 +76,16 @@ export default {
   this.getEpiComment();
   },
   methods : {
+      itsMe(uId) {
+            if (this.userInfo.u_id == uId) {
+                return true
+            }
+            return false
+      },
+    DeleteComment(cId){
+      removeComment(cId)
+     this.getEpiComment();
+    },
     isBlockUser(uId){
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const unfollowuser = this.myUnFollowingList[i];
@@ -123,17 +134,17 @@ export default {
     return changeTime
     },
    commentLike(index,comment){
-    const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+    // const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
     // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
      this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
 
     if (this.commentsList[index].is_like_comment){
       this.commentsList[index].comment_good_count += 1
-      likeBtn.style.color = '#fc3c44'
+      // likeBtn.style.color = '#fc3c44'
     } else {
       this.commentsList[index].comment_good_count -=1
-      likeBtn.style.color ='grey'
+      // likeBtn.style.color ='grey'
     }
       const commentInfo = {
         c_id : comment.c_id,
