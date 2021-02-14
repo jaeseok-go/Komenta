@@ -168,11 +168,29 @@
   // color: #dedede;
   font-size: 1rem;
   line-height: 0.875rem !important;
-  display: block;
-  float: right;
+  // display: block;
+  text-align: right;
+  // float: right;
 }
 
 .comment__block__content{
   color: #fc3c44;
   font-style: italic;
+}
+.vod__detail{
+  display: flex;
+  margin-left: 10px;
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  &__title{
+    display: block;
+  }
+  &__img{
+    display: inline-block;
+    margin: 5px;
+  }
+  &__num{
+    text-align: center;
+  }
 }

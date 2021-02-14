@@ -45,6 +45,13 @@
         <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div>
         <hr>
         </div>
+        <div><h4><strong>전체회차</strong></h4></div>
+        <div class="vod__detail">
+        <div v-for="(vod,index) in vodInfo" :key="index">
+          <div class="vodepi__img vod__detail__img"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></div>
+          <div class="vod__detail__num">{{vod.ve_episode_num}}회</div>
+        </div>
+        </div>
         <div class="comments__container"> 
         <router-link :to="{name:'BestComments'}" active-class="comments__menu">
           <i class="fas fa-check"></i> BEST </router-link>
@@ -61,16 +68,12 @@
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch} from '@/api/vod'
 import { fetchEpiComment, userlikeComment, commentInsert } from '@/api/comment'
 import {mapState} from 'vuex';
-// import VodAllEpi from '@/components/vod/VodAllEpi'
-
-
 
 
 export default {
 components: { 
   // Comments,
   // Video,
-  // VodAllEpi
 },
 name: 'VodDetail',
 data(){
@@ -138,7 +141,7 @@ methods : {
       const res = await fetchVodEpiDetail(epiId)
       this.vodEpiInfo = res.data
       console.log('VODEPI 상세 정보',this.vodEpiInfo)
-      // this.getVodDetail();
+      this.getVodDetail();
     } catch {
       console.log('vod epi detail에러!!')
     }
@@ -149,7 +152,6 @@ methods : {
       console.log(this.vodEpiInfo.v_id,'vod아이디')
       const res = await fetchVodDetail(this.vodEpiInfo.v_id)
       this.vodInfo = res.data
-      console.log(this.vodInfo,'?????')
     } catch {
       console.log('vod episode 에러')
     }

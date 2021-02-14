@@ -1912,6 +1912,106 @@ select {
   padding: 0.1rem 0.7em;
 }
 
+.membership-form {
+  margin-left: 1rem;
+}
+
+.membership-form h4 {
+  font-size: 20px;
+}
+
+.membership-form .membership-form-card {
+  display: inline-block;
+  padding: 2rem;
+  margin: 0 auto;
+  width: 500px;
+  border: 1px solid #b1b1b1;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.membership-form .membership-form-card .ms-best {
+  width: 0;
+  height: 0;
+  border-bottom: 80px solid transparent;
+  border-left: 80px solid #fc3c44;
+  position: absolute;
+  top: 78px;
+  left: 220px;
+}
+
+.membership-form .membership-form-card .ms-best p {
+  position: absolute;
+  width: 32px;
+  right: 38px;
+  top: 14px;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.membership-form .membership-form-card .ms-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  margin-bottom: 0;
+}
+
+.membership-form .membership-form-card .ms-title-sub {
+  font-size: 13.5px;
+  color: #585858;
+  margin-left: 0.7rem;
+}
+
+.membership-form .membership-form-card:hover {
+  border: 1px solid #fc3c44;
+  background-color: #fff8f8;
+}
+
+.membership-form .membership-form-card:hover button {
+  color: white;
+  background-color: #fc3c44;
+  border-color: rgba(255, 0, 0, 0.596);
+  background-color: #fc3c44;
+}
+
+.membership-form .membership-warning {
+  display: inline-block;
+  width: 550px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-size: 14px;
+}
+
+.membership-form .ms-content {
+  font-size: 14px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.membership-form .ms-content li {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.membership-form .ms-content .ms-content-img {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.membership-form .ms-btn {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.membership-form .ms-btn button {
+  font-size: 20px;
+  color: #b1b1b1;
+  padding: 0.8rem 2rem;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+}
+
 .searchbar-container {
   position: relative;
   width: 100%;
@@ -2780,13 +2880,36 @@ select {
   margin-bottom: 10px;
   font-size: 1rem;
   line-height: 0.875rem !important;
-  display: block;
-  float: right;
+  text-align: right;
 }
 
 .comment__block__content {
   color: #fc3c44;
   font-style: italic;
+}
+
+.vod__detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+  background: -webkit-gradient(linear, left top, right top, from(#feac5e), color-stop(#c779d0), to(#4bc0c8));
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vod__detail__title {
+  display: block;
+}
+
+.vod__detail__img {
+  display: inline-block;
+  margin: 5px;
+}
+
+.vod__detail__num {
+  text-align: center;
 }
 
 .wrapper_about {

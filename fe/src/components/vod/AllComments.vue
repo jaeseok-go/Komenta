@@ -2,7 +2,8 @@
   <div>
     <div v-for="(comment,index) in paginatedData" :key="index">
       <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
-      <template v-if="isBlockUser(comment.u_id)">
+      <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
+      <template v-else-if="isBlockUser(comment.u_id)">
       <span @click="blockUser(comment.u_id)" class="comment__block">
       차단취소</span>
       </template>
@@ -12,8 +13,7 @@
       </template>
      <br>
       <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}} </span> 
-      <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
-      <template v-else-if="isBlockUser(comment.u_id)">
+      <template v-if="isBlockUser(comment.u_id)">
       <span class="comment__block__content">차단한 댓글입니다. </span> <br>
       </template>
       <template v-else>
