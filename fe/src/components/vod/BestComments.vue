@@ -38,7 +38,8 @@ import {mapState} from 'vuex'
 export default {
   data(){
     return {
-      commentsList:[]
+      commentsList:[],
+
     }
   },
    computed:{
@@ -58,18 +59,19 @@ export default {
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const unfollowuser = this.myUnFollowingList[i];
         if (unfollowuser.f_id == uId) {
+
           return true
         }
       }
-      console.log(uId)
+
       return false
     },
-    blockUser(index,uId) {
+    async blockUser(index,uId) {
     const blockInfo = {
       u_id : this.userInfo.u_id,
       uf_id : uId
     }
-    modifyunfollow(blockInfo)
+    await modifyunfollow(blockInfo)
     this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
     
     console.log(index)
@@ -84,9 +86,6 @@ export default {
       this.commentsList = res.data.sort(function (a,b) {
              return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
         }).slice(0,10)
-
-        // console.log(this.commentsList,'댓글?')
-
 
     } catch {
       console.log('epicomment 에러!!')
