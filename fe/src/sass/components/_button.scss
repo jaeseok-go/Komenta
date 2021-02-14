@@ -107,8 +107,8 @@ select {
 
   &:disabled {
     color: #fff;
-    background-color: #88888C;
-    border-color: #88888C;
+    background-color: #88888c;
+    border-color: #88888c;
     box-shadow: none;
     cursor: default;
   }
@@ -147,4 +147,19 @@ select {
 .btn-small {
   padding: 0.45rem 3.2rem;
   font-size: 0.875rem;
+}
+
+.admin-btn-cover {
+  text-align: center !important;
+  margin-top: 1rem;
+  font-size: 17px;
+
+  & .page-btn {
+    width: 3rem;
+    height: 2rem;
+  }
+
+  & .page-count {
+    padding: 0 1rem !important;
+  }
 }
