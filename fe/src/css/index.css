@@ -143,12 +143,71 @@
   src: url(/assets/fonts/Inter-BlackItalic.woff2) format("woff2"), url(/assets/fonts/Inter-BlackItalic.woff) format("woff");
 }
 
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix") format("embedded-opentype"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff") format("woff"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix") format("embedded-opentype"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff") format("woff"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 300;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix") format("embedded-opentype"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff") format("woff"), url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf") format("truetype");
+}
+
 *,
 ::after,
 ::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum, 'Apple SD Gothic Neo', MS PGothic, arial, sans-serif;
+}
+
+#page-view {
+  min-height: 50rem;
+  max-width: 1535px;
+}
+
+aside {
+  border-radius: 4%;
+  position: fixed;
+  min-width: 170px;
+  min-height: 100%;
+  height: 100vh;
+  z-index: 9999;
+}
+
+section {
+  height: 100vh;
+  width: 100%;
+}
+
+.bottomNav {
+  bottom: 0;
+  background: #111;
+  -webkit-transition: bottom 0.2s;
+  transition: bottom 0.2s;
+}
+
+.bottomNav.show {
+  bottom: 0;
+  background: #111;
+}
+
+.page-title {
+  font-weight: 700;
 }
 
 h1,
@@ -816,6 +875,11 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   font-size: 18px;
 }
 
+.popular-vod-sort {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
 .selectTab {
   margin-left: 1rem;
 }
@@ -853,6 +917,7 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .movie .poster {
+  border: 1px solid #b8b5b5;
   -webkit-transform: translateZ(83px) !important;
           transform: translateZ(83px) !important;
   border-radius: 10px;
@@ -881,8 +946,9 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .movie .info div button {
   background-color: #fc3c44;
   border-radius: 5px;
-  padding: 0.2rem 0.3rem;
+  padding: 0.4rem 0.8rem;
   color: white;
+  font-size: 15px;
 }
 
 .csstransforms3d .movie::after {
@@ -921,7 +987,7 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 }
 
 .card2 {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -931,6 +997,10 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 
 .best-comm-form table {
   width: 500px;
+}
+
+.comm-rank-item {
+  border-bottom: 1px solid rgba(206, 206, 206, 0.555);
 }
 
 .commRank-num {
@@ -947,18 +1017,37 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .commRank-num.nonHighLight {
   font-size: 25px;
   font-weight: 600;
+  padding: 0.3rem 0;
 }
 
-.userPic {
-  margin-left: 0.3rem;
+.userPic div {
+  margin-left: 0.6rem;
 }
 
-.userPic img {
+.userPic div img {
   width: 25px;
   height: 25px;
   border-radius: 50%;
   border: 1px solid rgba(206, 206, 206, 0.555);
   background-color: white;
+}
+
+.comm-user-nickName.name-highlight {
+  font-weight: 700;
+}
+
+.comm-vod-epi {
+  font-size: 13px;
+  color: #646464;
+}
+
+.comm-user-nickName:hover,
+.comm-vod-epi:hover {
+  text-decoration: underline;
+}
+
+.comm-good-cnt {
+  font-size: 13px;
 }
 
 .userPic-popList {
@@ -983,12 +1072,13 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 
 .half-card.Now-Playing {
   text-align: center;
+  margin-left: 8rem;
 }
 
 .nowPlaying {
   display: table;
-  width: 300px;
-  height: 386px;
+  width: 350px;
+  height: 465px;
   margin: auto auto;
   border: 1px solid rgba(206, 206, 206, 0.555);
   border-radius: 10px;
@@ -1004,8 +1094,8 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .nowPlaying .poster-form .poster {
   position: relative;
   overflow: hidden;
-  width: 240px;
-  height: 240px;
+  width: 270px;
+  height: 270px;
   border: 1px solid rgba(206, 206, 206, 0.555);
   border-radius: 50%;
   margin: 0 auto;
@@ -1022,24 +1112,25 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   position: absolute;
   top: 25%;
   left: 24%;
-  width: 125px;
-  height: 125px;
+  width: 135px;
+  height: 135px;
   border-radius: 50%;
   border: 10px solid #fff;
 }
 
 .nowPlaying .poster-form .poster .posterCD .posterCD-middle {
   position: absolute;
-  top: 11%;
+  top: 12%;
   left: 12%;
-  width: 80px;
-  height: 80px;
+  width: 87px;
+  height: 87px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: #f6faff;
   border: 1px solid rgba(206, 206, 206, 0.555);
 }
 
-.nowPlaying .poster-form .poster h3 {
+.nowPlaying .poster-form h3 {
+  margin-top: 2rem;
   font-weight: 700;
 }
 
@@ -1058,6 +1149,30 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 
 .ad-space {
   margin-bottom: 3rem;
+}
+
+.popular-list {
+  padding: 12px;
+}
+
+.popular-list .page-count {
+  font-size: smaller;
+  margin-bottom: 3px;
+}
+
+.popular-list-title {
+  position: relative;
+  z-index: -99;
+  top: 33px;
+}
+
+.play-list-form {
+  border-top: 1px solid rgba(206, 206, 206, 0.555);
+}
+
+.play-list {
+  width: 94%;
+  margin: 0 auto;
 }
 
 .playList {
@@ -1098,6 +1213,22 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
 .playList .likeInfo {
   position: relative;
   top: 15px;
+}
+
+.footer-form {
+  height: 13rem;
+  font-size: 13px;
+}
+
+.footer-form .footer-content {
+  border-top: 1px solid rgba(206, 206, 206, 0.555);
+  background-color: #fffdfd;
+  height: 100%;
+  padding: 1rem;
+}
+
+.footer-form .footer-content p {
+  margin-bottom: 0.1rem;
 }
 
 button {
@@ -2230,6 +2361,10 @@ select {
   background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.modal__playlist {
+  margin-top: 35px;
 }
 
 .rPlayList-Form img,

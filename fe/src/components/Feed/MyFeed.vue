@@ -66,14 +66,19 @@
               ></div>
             </h4>
             <p slot="body" @keydown.enter="createPlaylist">
+                
+                <label class="modal__playlist" for="playlist_name"><strong>Playlist Title</strong></label>
               <input
+                id="playlist_name"
                 class="modal-input"
                 type="text"
                 v-model="plName"
                 placeholder="플레이리스트 제목을 적어주세요."
               />
               <br />
+              <label class="modal__playlist" for="playlist_context"><strong>Context</strong></label>
               <input
+                id="playlist_context"
                 class="modal-textarea"
                 type="text"
                 v-model="plComment"
