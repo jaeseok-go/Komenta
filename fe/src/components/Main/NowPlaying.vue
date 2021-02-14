@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h4>Now playing</h4>
+      <h4 class="page-title">Now playing</h4>
       <div class="nowPlaying nonShow" v-if="nowPlayingVOD.ve_id == undefined">
         <div class="poster-form">
           <div class="poster">
@@ -20,7 +20,7 @@
               <div class="posterCD-middle"></div>
             </div>
           </div>
-          <h4>{{nowPlayingVOD.v_title}} {{nowPlayingVOD.ve_episode_num}}화</h4>
+          <h3>{{nowPlayingVOD.v_title}} {{nowPlayingVOD.ve_episode_num}}화</h3>
         </div>
       </div>
   </div>
