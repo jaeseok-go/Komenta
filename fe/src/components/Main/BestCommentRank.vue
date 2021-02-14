@@ -9,7 +9,7 @@
               가입한 회원이 없습니다.
             </td>
           </tr>
-          <tr v-for="(user,index) in bestComment" :key="index" v-else>
+          <tr v-for="(user,index) in bestComment" :key="index" v-else style="cursor:pointer">
             <td class="commRank-num" :class="{red: index < 3, nonHighLight: index >= 3}">{{index+1}}</td> 
             <!-- :class="{red:fetchBestComment(index)}" -->
             <td class="userPic">
