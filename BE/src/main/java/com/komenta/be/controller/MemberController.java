@@ -301,8 +301,7 @@ public class MemberController{
     @ApiOperation(value = "멤버십 가입/해지", notes = "회원 멤버십 가입 상태이면 해지, 해지 상태이면 가입")
     @PostMapping("/membership")
     public int updateMembership(HttpServletRequest request){
-        String token = request.getHeader("auth_token");
-        int u_id = (int) jwtService.get(token).get("u_id");
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
         return mservice.updateMembership(u_id);
     }
 }
