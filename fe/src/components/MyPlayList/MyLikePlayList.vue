@@ -3,11 +3,11 @@
     <div v-if="likeUserPlaylists.length">
       <span class="pl-comment"><b>{{userInfo.u_nickname}}</b>님이 좋아요를 누른 플레이 리스트를 확인하세요!</span>
       <div class="popular-play-list" v-for="(playlist, pindex) in likeUserPlaylists" :key="pindex" >
-        <h2>
+        <h2 @click="goPlaylsitDetail(playlist[0].pl_id)" style="cursor:pointer">
           <span class="list-title"> <!--  @click="goPlaylsitDetail(playlist[0].pl_id)" -->
             {{ playlist[0].pl_name }}
           </span>
-          <span class="byUser" @click="goPlaylsitDetail(playlist[0].pl_id)">
+          <span class="byUser">
             by. {{playlist.u_nickname}}
           </span>
         </h2>
