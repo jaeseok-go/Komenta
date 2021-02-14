@@ -162,10 +162,6 @@ function unlikePlaylist(plId) {
     return instance.post('playlist/unlike', plId)
 }
 
-// 플레이리스트 좋아요 취소
-function removePlaylist(playlistInfo){
-    return instance.put('playlist/plist_update', playlistInfo)
-}
 
 // 회원이 등록한 플레이리스트 목록 조회
 function fetchMyPlaylist(userId){
@@ -254,7 +250,6 @@ export {
     fetchunfollowinglist,
     updateFollowPlaylist,
     modifyunfollow,
-    removePlaylist,
     addReviewPlaylist,
     searchUserlist,
 
