@@ -14,13 +14,16 @@
     </div>
 
     <!-- 2 -->
-    <form>
-  <input type="radio" name="tab" id="menu"/>
+  <form>
+  <input type="radio" name="tab" id="menu" checked="checked"/>
   <div class="container">
-    <input type="radio" name="tab" checked="checked" id="home"/>
+    <input type="radio" name="tab" id="home"/>
     <section class="home">
       <h1>Home</h1>
       <label for="home"></label>
+      <div>
+        
+      </div>
     </section>
     <input type="radio" name="tab" id="about"/>
     <section class="about">
@@ -31,6 +34,8 @@
     <section class="work">
       <h1>Work</h1>
       <label for="work"></label>
+      <p>하이하이</p>
+      <video src="@/assets/videos/about.mp4" width="50%" loop autoplay muted></video>
     </section>
     <input type="radio" name="tab" id="contact"/>
     <section class="contact">
@@ -46,7 +51,6 @@
   </div>
 </form>
   </div>
-
 </template>
 
 <script>
