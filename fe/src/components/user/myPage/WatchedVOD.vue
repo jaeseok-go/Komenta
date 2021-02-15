@@ -14,6 +14,13 @@
                     >
                     <span @click="goVod(vod.ve_id)">
                     <img :src="getVodPoster(vod.gd_id,vod.v_title)" width="100%">
+                    <div class="vodInfo">
+                      <div class="vod-info-form">
+                        <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                        <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                        <button class="vod-info-btn">보러가기</button>
+                      </div>
+                    </div>
                     </span>
                     </div>
                 </div>
@@ -55,6 +62,21 @@ export default {
     },
     getVodPoster(gdId,title){
         return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
+    },
+    vodTitleReName(title, epi_num) {
+      //{{vod.v_title}} {{vod.ve_episode_num}}화
+      let name = String(title + ' ' + epi_num + '화');
+      // console.log('name : ',name)
+      let rename = '';
+      for (let i = 0; i < name.length; i++) {
+        if (i % 10 == 0) {
+          rename += `<br>` + name.charAt(i);
+        } else {
+          rename += name.charAt(i);
+        }
+      }
+      // console.log("rename : ",rename)
+      return rename;
     },
   },
 }
