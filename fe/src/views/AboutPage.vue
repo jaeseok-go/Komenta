@@ -2,7 +2,7 @@
   <div>
     <!-- 클릭 => 영상 나오기 -->
     <div class="wrapper">
-      <button @click="gotoLogin">LOGIN</button>
+      <button class="wrapper_button" @click="gotoLogin">LOGIN</button>
       <input type="checkbox">
       <div class="video">
         <video src="@/assets/videos/about.mp4" loop muted autoplay></video>
@@ -12,15 +12,16 @@
       <div class="text">
         <span data-text="ABOUT KOMENTA"></span>
       </div>
+      <a href="#section2"><div class="text__scroll"><i class="fas fa-chevron-down"></i></div></a>
     </div>
 
     <!-- 2 -->
-  <form>
+  <form id="section2">
   <input type="radio" name="tab" id="menu" checked="checked"/>
   <div class="container">
     <input type="radio" name="tab" id="home"/>
     <section class="home">
-      <h1></h1>
+      <h1>Click</h1>
       <label for="home"></label>
       <div class="home__desc">
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
@@ -62,6 +63,10 @@ export default {
   methods: {
     gotoLogin() {
       this.$router.push(`/member/login`)
+    },
+    gotoBack() {
+      const menu = document.getElementById('menu')
+      menu.checked = true;
     }
   }
   
@@ -192,7 +197,7 @@ button {
 }
 
 .wrapper input {
-  width: 220px;
+  width: 1000px;
   height: 40px;
   margin: auto;
   position: absolute;
@@ -247,6 +252,26 @@ button {
   transition: opacity 0.3s var(--timing-function);
 }
 
+.text__scroll {
+  color: black;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  font-size: 5rem;
+  left: 50%;
+  transform: translateX(-50px);
+  opacity: var(--opacity, 1);
+  -webkit-transition: opacity 0.3s ease 0.2s;
+  transition: opacity 0.3s ease 0.2s;
+
+}
+
+.wrapper input:checked ~  a > .text__scroll {
+  --opacity: 0;
+  -webkit-transition: opacity 0.3s var(--timing-function);
+  transition: opacity 0.3s var(--timing-function);
+}
+
 .wrapper input:checked ~ .text::after {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
@@ -257,6 +282,8 @@ button {
           clip-path: var(--clip-path-clicked);
 }
 /*# sourceMappingURL=index.css.map */
+
+/* section2 */
 
 body {
 	margin: 0;
@@ -295,24 +322,20 @@ input[type='radio']:checked + section {
 }
 
 .container section.home {
-	/* background: #2196f3; */
   background: white;
 }
 
 .container section.about {
-	/* background: #ffc107; */
   background: white;
 
 }
 
 .container section.work {
-	/* background: #4caf50; */
   background: white;
 
 }
 
 .container section.contact {
-	/* background: #f44336; */
   background: white;
 
 }
@@ -341,6 +364,9 @@ input[type='radio']:checked + section {
 	position: fixed;
 	top: 20px;
 	left: 25px;
+  /* 아래꺼 크게 해서 어쩌고하면 적용될듯 */
+  /* top: 50%; */
+  /* left: 50%; */
 	z-index: 1000;
 	transform: 0deg;
 	transition: all 200ms;
@@ -493,7 +519,6 @@ input[type='radio']:checked + section {
 #menu:checked + .container section.contact:hover {
 	top: 8px;
 }
-
 
 /* 3 */
 
