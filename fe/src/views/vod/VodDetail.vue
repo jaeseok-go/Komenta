@@ -143,7 +143,7 @@ created(){
 },
 methods : {
   async DeleteComment(cId){
-    await removeComment(cId,'댓삭')
+    await removeComment(cId)
      this.getEpiComment();
     },
   itsMe(uId) {
