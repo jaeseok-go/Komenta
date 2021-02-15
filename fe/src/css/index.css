@@ -291,6 +291,10 @@ hr {
   display: block !important;
 }
 
+.margin__left {
+  margin-left: 10%;
+}
+
 .header {
   background-color: #8e8e93;
 }
