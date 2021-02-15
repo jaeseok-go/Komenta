@@ -55,11 +55,17 @@
     </div>
   </div>
 </form>
+<AboutFooter class="footer__margin" :class="{asideOn: isLogin}"></AboutFooter>
 </div>
+      
 </template>
 
 <script>
+import AboutFooter from '@/components/common/AboutFooter'
 export default {
+  components:{
+    AboutFooter
+  },
   methods: {
     gotoLogin() {
       this.$router.push(`/member/login`)

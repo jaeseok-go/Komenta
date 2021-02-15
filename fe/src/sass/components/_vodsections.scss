@@ -1,0 +1,20 @@
+.vod-insert {
+  width: 70%;
+  margin: 0 auto;
+  & .vod-insert-form {
+    & input {
+      margin-bottom: 1rem;
+    }
+
+    & label {
+      margin-right: 0.5rem;
+    }
+  }
+
+  & .category-select {
+    margin-bottom: 2rem;
+    & .select-first {
+      margin-left: 0 !important;
+    }
+  }
+}

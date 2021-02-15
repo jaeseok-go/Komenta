@@ -21,7 +21,7 @@
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
       <!-- :class="{commet__like :comment.is_like_comment}"  -->
-      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`"  style="cursor:pointer"></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span @click="commentLike(index,comment)"><font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       <hr>
     </div>
     <div class="btn-cover">
@@ -134,18 +134,21 @@ export default {
     return changeTime
     },
    commentLike(index,comment){
-    // const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
+   const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
     // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-     this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-
-    if (this.commentsList[index].is_like_comment){
+  this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
+    
+    likeBtn.classList.toggle('comment__like')
+    likeBtn.classList.toggle('comment__unlike')
+if (this.commentsList[index].is_like_comment){
       this.commentsList[index].comment_good_count += 1
       // likeBtn.style.color = '#fc3c44'
     } else {
       this.commentsList[index].comment_good_count -=1
       // likeBtn.style.color ='grey'
     }
+
       const commentInfo = {
         c_id : comment.c_id,
         u_id : this.userInfo.u_id

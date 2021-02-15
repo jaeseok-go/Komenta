@@ -203,7 +203,7 @@ public class AdminController {
             @ApiImplicitParam(name = "v_id", value = "VOD 아이디", dataType = "int", required = true)
     })
     @DeleteMapping("/vod_delete")
-    public int deleteVod(@RequestBody int v_id){
+    public int deleteVod(@RequestParam int v_id){
         return adminService.deleteVod(v_id);
     }
 

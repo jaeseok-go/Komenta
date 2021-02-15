@@ -1,5 +1,5 @@
 <template>
-  <b-col>
+  <b-col class="vod-management">
     <h4>전체 VOD</h4>
     <div class="btn-right">
       <router-link class="vodInsertBtn" :to="{name:'VODInsert'}">VOD 추가</router-link>
@@ -20,11 +20,14 @@
       </tr>
       <tr v-for="(vod, index) in paginatedData" :key="index" v-else>
         <td>{{vod.ve_id}}</td>
-        <td><p @click="goVod(vod.ve_id)">{{vod.v_title}}</p></td>
+        <td><p @click="goVod(vod.ve_id)">{{vod.v_title}} {{vod.ve_episode_num}}화</p></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
         <td>{{vod.ve_upload_date}}</td>
         <td>{{vod.ve_admin}}</td>
-        <td>수정 / 삭제</td>
+        <td>
+          <p class="vod-setting vod-modify">수정</p> /<!--  @click="setVodModify(vod.ve_id)" -->
+          <p class="vod-setting vod-delete" @click="deleteVod(vod.v_id)">삭제</p>
+        </td>
       </tr>
     </table>
     <div class="admin-btn-cover">
@@ -40,7 +43,7 @@
 </template>
 
 <script>
-import {fetchAllEpi} from '@/api/vod';
+import { fetchAllEpi, deleteVOD } from '@/api/vod';
 export default {
   data() {
     return {
@@ -72,6 +75,18 @@ export default {
     },
     goVod(veId) {
       this.$router.push(`/voddetail/${veId}`);
+    },
+    // setVodModify(ve_id) {
+
+    // },
+    async deleteVod(v_id) {
+      console.log("현재 ve_id : ", v_id)
+      const response = await deleteVOD(v_id);
+      console.log('삭제 결과 : ', response)
+      if(response.data == 1) {
+        alert('성공적으로 삭제되었습니다.')
+        window.location.reload();
+      }
     }
   },
   computed: {

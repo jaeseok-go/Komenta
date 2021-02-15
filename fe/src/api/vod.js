@@ -91,7 +91,7 @@ function sendVODInfo(vodInfo) {
 //vod 영상 저장
 function insertVOD(vodForm) {
     // console.log("vod 영상 정보 : ",vodForm.get('file'))
-    return axios.post('http://i4b201.p.ssafy.io:8080/admin/video_upload',vodForm, { 
+    return axios.post('http://i4b201.p.ssafy.io:9999/api/admin/video_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
          'auth-token': store.state.token
@@ -101,11 +101,20 @@ function insertVOD(vodForm) {
 
 function insertVodPoster(vodForm) {
     // console.log("vod 포스터 정보 : ",vodForm.get('v_poster'))
-    return axios.post('http://i4b201.p.ssafy.io:8080/admin/poster_upload',vodForm, { 
+    return axios.post('http://i4b201.p.ssafy.io:9999/api/admin/poster_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
          'auth-token': store.state.token
      }
+    })
+}
+
+//vod 삭제(관리자 전용)
+function deleteVOD(vId) {
+    return instance.delete(`admin/vod_delete`, {
+        params :{
+            v_id: vId
+        }
     })
 }
 
@@ -163,6 +172,7 @@ export {
     sendVODInfo,
     insertVOD,
     insertVodPoster,
+    deleteVOD,
     fetchPlayListDetail,
     fetchPopularPlayList,
     fetchPlaylistContent,
