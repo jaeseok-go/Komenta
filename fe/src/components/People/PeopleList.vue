@@ -8,9 +8,8 @@
                 </button>
             <!-- 프로필 팔로잉 사진 목록 -->
             <div class="container__following__Profle">
-                <div v-for="(user,index) in paginatedData" :key="index">
-                    {{user}}
-                    <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img" width="100px" height="100px"></div>
+                <div v-for="(user,index) in paginatedData" :key="index"> {{user}}
+                    <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getUpdateProfile(user)" class="container__following__Profle__img" width="100px" height="100px"></div>
                     <div class="container__following__Profle__NEW">NEW!</div>
                 </div>
             </div>
@@ -117,7 +116,7 @@ export default {
         paginatedData() {
             const start = this.pageNum * this.pageSize,
             end = start + this.pageSize;
-
+            console.log(this.updateProfile,'너는 어떻닝')
             return this.updateProfile.slice(start, end);
             
         },
@@ -154,10 +153,20 @@ export default {
             this.pageNum_2 -=1;
         },
         getProfile(index) {
-            console.log(this.following_list,'넌뭐닝')
             const profile = this.following_list[index].u_profile_pic.split('.')[0]
             console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+        },
+        getUpdateProfile(userId) {
+            for (let i = 0; i < this.following_list.length; i++) {
+                console.log(userId,this.following_list[i].u_id,'프로필가져왓')
+               if (userId == this.following_list[i].u_id){
+                   const profile = this.following_list[i].u_profile_pic.split('.')[0]
+                //    console.log(profile,'??')
+                   return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
+               }
+            }
+            return 
         },
         getPoster(index) {
             const poster = this.updateFollowPlaylist[index][0].v_poster
@@ -165,31 +174,21 @@ export default {
         },
         // 이미 있는 updateFollowPlaylist로 nickname 배열 만들기
         async getNickname() {
-            console.log('찍기..',this.updateFollowPlaylist.length)
             for (let index = 0; index < this.updateFollowPlaylist.length; index++) {
-                console.log('안들어오냐?')
                 const element = this.updateFollowPlaylist[index][0].u_id;
-                console.log(element,'콘솔로그')
                 const response = await fetchMyInfo(element)
                 this.nickname_array.push(response.data.u_nickname)
             }
-            console.log(this.nickname_array,'닉네임어레이')
-            console.log(this.nickname_array[0])
         },
 
         async getUpdateFollowPlaylist() {
             const response = await updateFollowPlaylist()
-            console.log(response.data[0],'리스펀스 데이타 ..새로운api')
             this.updateFollowPlaylist = response.data
-            console.log(this.updateFollowPlaylist,'ㅋㅋㅋㅋㅋㅋㅋㅋ;;;')
-            console.log(this.updateFollowPlaylist[0][0],'힝구')
-
             for (let index = 0; index < this.updateFollowPlaylist.length; index++) {
                 const element = this.updateFollowPlaylist[index];
-
+                console.log(element,'????')
                 if (this.updateProfile.includes(element[0].u_id)) {
                     console.log(element[0].u_id,'오잉')
-                    console.log(this.updateProfile,'보기실헝,,,')
                 } else {
                     this.updateProfile.push(element[0].u_id)
                     console.log(this.updateProfile,'ㅋㅋ과연')
