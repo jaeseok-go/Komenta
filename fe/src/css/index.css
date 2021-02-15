@@ -888,6 +888,11 @@ input[type='date'], input[type='datetime-local'], input[type='month'], input[typ
   bottom: 48px !important;
 }
 
+.vodSort-form .page-count {
+  font-size: smaller;
+  margin-bottom: 3px;
+}
+
 .vodSort-form .stage.clearfix {
   padding-bottom: 1rem;
   margin-top: 0.5rem;
@@ -1871,7 +1876,7 @@ select {
 }
 
 .table-border-style th {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .table-border-style tr {
@@ -1886,7 +1891,7 @@ select {
 
 .table-border-style tr td {
   padding: 0.6rem 0;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
 }
 
 .table-border-style tr td p {
@@ -2227,8 +2232,14 @@ select {
   display: inline-block;
   width: 550px;
   margin-top: 1rem;
-  margin-left: 1rem;
+  margin-left: 3rem;
   font-size: 14px;
+  position: absolute;
+}
+
+.membership-form .membership-warning li {
+  font-size: 13px;
+  margin-left: 0.5rem;
 }
 
 .membership-form .ms-content {
@@ -2260,6 +2271,11 @@ select {
   border-radius: 5px;
 }
 
+.vod-management .vod-setting {
+  display: inline-block;
+  cursor: pointer;
+}
+
 .searchbar-container {
   position: relative;
   width: 100%;
@@ -2275,6 +2291,27 @@ select {
   height: 50px;
   padding-left: 50px;
   color: black;
+}
+
+.vod-insert {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.vod-insert .vod-insert-form input {
+  margin-bottom: 1rem;
+}
+
+.vod-insert .vod-insert-form label {
+  margin-right: 0.5rem;
+}
+
+.vod-insert .category-select {
+  margin-bottom: 2rem;
+}
+
+.vod-insert .category-select .select-first {
+  margin-left: 0 !important;
 }
 
 .container .userprofile {
@@ -3157,9 +3194,6 @@ select {
   display: -ms-flexbox;
   display: flex;
   height: 200px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  grid-auto-flow: column;
 }
 
 .vod__detail__column {
@@ -3183,7 +3217,6 @@ select {
 .vod__detail__column:before {
   content: "";
   display: block;
-  padding-top: 100%;
 }
 
 .vod__detail__column:hover {
@@ -3192,11 +3225,6 @@ select {
           box-shadow: 0 8px 50px rgba(0, 0, 0, 0.2);
   -webkit-transform: scale(1);
           transform: scale(1);
-}
-
-.vod__detail__column:hover .at-social {
-  margin: 16px 0 0;
-  opacity: 1;
 }
 
 .vod__detail__title {
@@ -3440,39 +3468,6 @@ select {
   text-align: center;
 }
 
-.category {
-  font-family: 'Roboto', sans-serif;
-}
-
-.category .__select-form {
-  display: inline-block;
-  margin: 0 1rem;
-  text-align: center;
-}
-
-.category .__select-form select {
-  width: 151px;
-  padding: 5px;
-  border: 1px solid #999;
-  font-family: 'Nanumgothic';
-  background: url("../assets/images/arrow-down.png") no-repeat 90% 50%;
-  border-radius: 3px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.category .__select-form select::-ms-expand {
-  display: none;
-}
-
-.category .__select-form select:focus {
-  outline: none;
-  padding: 5px;
-  border: 1px solid #999;
-  font-family: 'Nanumgothic';
-}
-
 .category .category-img-form {
   width: 180px;
   height: 250px;
@@ -3503,5 +3498,34 @@ select {
   -webkit-box-shadow: 5px 5px 10px #a8a8a8;
           box-shadow: 5px 5px 10px #a8a8a8;
   font-weight: 600;
+}
+
+.__select-form {
+  display: inline-block;
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.__select-form select {
+  width: 151px;
+  padding: 5px;
+  border: 1px solid #999;
+  font-family: 'Nanumgothic';
+  background: url("../assets/images/arrow-down.png") no-repeat 90% 50%;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.__select-form select::-ms-expand {
+  display: none;
+}
+
+.__select-form select:focus {
+  outline: none;
+  padding: 5px;
+  border: 1px solid #999;
+  font-family: 'Nanumgothic';
 }
 /*# sourceMappingURL=index.css.map */

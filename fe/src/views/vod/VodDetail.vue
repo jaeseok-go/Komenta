@@ -60,15 +60,16 @@
       </div>
         <div class="vod__detail">
         <div v-for="(vod,index) in paginatedData" :key="index" class="vod__detail__column">
-          <div class="at-user vod__detail__img" @click="goVodEpi(vod.ve_id)"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" height="150px"></div>
+          <div class="at-user vod__detail__img" @click="goVodEpi(vod.ve_id)"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" height="150px">
           <div class="vod__detail__num">{{vod.ve_episode_num}}회 </div>
+          </div>
         </div>
         </div>
+        <br>
         <div @click="showVod()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div>
         </div>
         </div>
         <br>
-       
         <div class="comments__container"> 
         <router-link :to="{name:'BestComments'}" active-class="comments__menu">
           <i class="fas fa-check"></i> BEST </router-link>

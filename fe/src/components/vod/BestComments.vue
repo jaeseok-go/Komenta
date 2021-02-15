@@ -24,7 +24,7 @@
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
       <!-- :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" -->
-      <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" style="cursor:pointer" ></i><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
+      <span @click="commentLike(index,comment)"><font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       </div>
       <hr>
     </div>
@@ -116,13 +116,13 @@ export default {
         return changeTime
         },
    async commentLike(index,comment){
-    // const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
+    const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
     // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
     // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
   this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     
-    // likeBtn.classList.toggle('comment__like')
-    // likeBtn.classList.toggle('comment__unlike')
+    likeBtn.classList.toggle('comment__like')
+    likeBtn.classList.toggle('comment__unlike')
     // console.log('버튼',likeBtn)
 // if (this.commentsList[index].is_like_comment){
       // this.commentsList[index].comment_good_count += 1
