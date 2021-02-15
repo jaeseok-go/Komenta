@@ -9,13 +9,11 @@
           </span>
           <template v-if="isLikePlaylist(playlist[0].pl_id)">
             <span class="playlsit-icon-size" @click="addlikeUserPlaylist(playlist[0].pl_id)" width='20px'>
-                <!-- <i class="far fa-star"></i> -->
                 <font-awesome-icon :icon="['far', 'star' ]" />
             </span>
         </template>
         <template v-else>
             <span class="playlsit-icon-size" @click="cancellikePlaylist(playlist[0].pl_id)">
-                <!-- <i class="fas fa-star playlist__star"></i> -->
                 <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
             </span>
         </template>
@@ -29,7 +27,11 @@
               <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)">
                 <img :src="getPoster(vod.v_poster)"/>
                 <div class="vodInfo">
-                  <!-- {{vod.v_title}} -->
+                  <div class="vod-info-form">
+                    <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                    <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                    <button class="vod-info-btn">보러가기</button>
+                  </div>
                 </div>
               </span>
             </div>
@@ -71,7 +73,7 @@ export default {
   data() {
     return {
       pageNum: 0,
-      popularPlayList:[]
+      popularPlayList:[],
     };
   },
   created() {
@@ -137,11 +139,6 @@ export default {
         console.log(err,"err")
       }
     },
-    // async getByUserNickname(plId) {
-    //   const response = await fetchPlayListDetail(plId);
-    //   console.log("by user nickname : ", response.data[0].u_nickname);
-    //   return response.data[0].u_nickname;
-    // },
     async getByUserNickname() {
       const response = await searchUserlist();
       // this.userNicname = response.data;
@@ -153,6 +150,21 @@ export default {
         }
       }
       console.log("유저 닉네임 잘 들어왔니? : ",this.likeUserPlaylists)
+    },
+    vodTitleReName(title, epi_num) {
+    //{{vod.v_title}} {{vod.ve_episode_num}}화
+      let name = String(title+" "+epi_num+"화");
+      // console.log('name : ',name)
+      let rename = "";
+      for(let i = 0; i<name.length; i++){
+        if(i%10 == 0) {
+          rename +=  `<br>`+name.charAt(i);
+        }else {
+          rename += name.charAt(i);
+        }
+      }
+      // console.log("rename : ",rename)
+      return rename;
     }
   },
 };
