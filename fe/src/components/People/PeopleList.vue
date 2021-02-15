@@ -9,6 +9,7 @@
             <!-- 프로필 팔로잉 사진 목록 -->
             <div class="container__following__Profle">
                 <div v-for="(user,index) in paginatedData" :key="index">
+                    {{user}}
                     <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getProfile(index)" class="container__following__Profle__img" width="100px" height="100px"></div>
                     <div class="container__following__Profle__NEW">NEW!</div>
                 </div>
@@ -153,6 +154,7 @@ export default {
             this.pageNum_2 -=1;
         },
         getProfile(index) {
+            console.log(this.following_list,'넌뭐닝')
             const profile = this.following_list[index].u_profile_pic.split('.')[0]
             console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;

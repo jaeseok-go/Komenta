@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container margin__left__five">
     <!-- 여기 플레이리스트 타이틀, 플레이 리스트 대표사진, 플레이 리스트 작성자, 플레이 리스트 안에 콘텐츠들(각각 장르, 제목, 몇화인지, 러닝타임)-->
     <div class="container__profile">
       <img :src="getUserProfile()" alt="" width="20%" class="cotainer__profileimg"/>
