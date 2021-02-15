@@ -2984,6 +2984,26 @@ select {
   color: #787878;
 }
 
+.playlist_user_profile {
+  margin-left: 0.3rem;
+  position: relative;
+  bottom: 10px;
+  right: 15px;
+  text-align: right;
+}
+
+.playlist_user_profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(206, 206, 206, 0.555);
+  background-color: white;
+}
+
+.pl__name {
+  text-decoration: underline;
+}
+
 .container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3573,3 +3593,4 @@ select {
   border: 1px solid #999;
   font-family: 'Nanumgothic';
 }
+/*# sourceMappingURL=index.css.map */

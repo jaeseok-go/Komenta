@@ -46,36 +46,29 @@
                 <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
             </div>
 
-            <!-- <div class="playlist">
-                <div v-for="(playlist,index) in updateFollowPlaylists" :key="index" class="playlist__box">
-                    <div>
-                        <div @click="gotoPlaylist(playlist[0].pl_id)"><img :src="getPoster(index)" width="50px" height="50px" class="playlist__box__img"></div>
-                        <div class="playlist__box__info">
-                            <div class="playlist__box__info__plname">{{playlist[0].pl_name}}</div>
-                            <button class="playlist__box__info__nickname" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</button>
-                            <div class="playlist__box__info__comment">{{playlist[0].pl_comment}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+        <div class="play-list-form">
         <div class="play-list">
           <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index">
             <div class="playList-Form" @click="gotoPlaylist(playlist[0].pl_id)">
               <div class="reprePoster">
                 <img :src="getPoster(index)" width="210px" height="150px">
               </div>
-              <div class="userPic-popList">
-                <!-- <img :src="getUpdateProfile(updateFollow_array[index].u_profile_pic)"> -->
+              <div class="playlist_user_profile">
+                <img :src="getUpdateProfiletoPlaylist(playlist)" class="playlist_user_profile">            
               </div>
               <div class="plInfo">
-                <p>
-                <!-- <button class="playlist__box__info__nickname" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</button>'S PICK <br> -->
-                  {{playlist[0].pl_name}} <br>
+                <span class="container__info__button" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</span>'S PICK
+                <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
+                {{playlist[0].pl_good_count}}
+                <p> 
+                   <span style="text-decoration: underline; text-underline-position:under;"><strong>{{playlist[0].pl_name}}</strong><br></span>
                   {{playlist[0].pl_comment}} <br>
                 </p>
+                
               </div>
             </div>
           </div>
+        </div>
         </div>
         </div>
     </div>
@@ -96,6 +89,7 @@ export default {
             updateProfile:[],
             playlist_nickname:[],
             updateFollow_array : [],
+            updateFollow_userId:[],
             updateFollow_nickname:[]
         }
     },
@@ -177,7 +171,19 @@ export default {
             console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
         },
-        getUpdateProfile(profile) {
+        getUpdateProfiletoPlaylist(playlist) {
+            for (let i = 0; i < this.updateFollow_array.length; i++) {
+                const user = this.updateFollow_array[i];
+                if (playlist[0].u_id == user.u_id) {
+                    const path = user.u_profile_pic.split('.')[0]
+                    return `${process.env.VUE_APP_PICTURE}profile/${path}`;
+                }
+                
+            }
+           
+            return
+        },
+        getUpdateProfile(profile){
             const path = profile.split('.')[0]
             return `${process.env.VUE_APP_PICTURE}profile/${path}`;
         },
@@ -187,13 +193,19 @@ export default {
         },
         // 이미 있는 updateFollowPlaylist로 nickname 배열 만들기
         async getNickname() {
-            for (let index = 0; index < this.updateProfile.length; index++) {
-                const element = this.updateProfile[index];
+            let temp = [];
+            for (let index = 0; index < this.updateFollow_userId.length; index++) {
+                const element = this.updateFollow_userId[index];
                 const response = await fetchMyInfo(element)
-                this.updateFollow_array.push(response.data)
-                this.updateFollow_nickname.push(response.data.u_nickname)
+                if (temp.includes(element)) {
+                    this.updateFollow_nickname.push(response.data.u_nickname)
+                } else {
+                    temp.push(element)
+                    this.updateFollow_array.push(response.data)
+                    this.updateFollow_nickname.push(response.data.u_nickname)
+                }
+                
             }
-            console.log(this.updateFollow_nickname,'담겼니')
         },
 
         async getUpdateFollowPlaylist() {
@@ -207,6 +219,7 @@ export default {
                 } else {
                     this.updateProfile.push(element[0].u_id)
                 }
+                this.updateFollow_userId.push(element[0].u_id)
                 
             } 
             this.getNickname();
@@ -221,5 +234,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.margin__left{
+  margin-left: 10%;
+}
+</style>
 

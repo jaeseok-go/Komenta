@@ -178,3 +178,11 @@ export default {
 };
 </script>
 
+<style scoped>
+.margin__left__five{
+  margin-left: 5%;
+}
+.margin__left{
+  margin-left: 10%;
+}
+</style>
