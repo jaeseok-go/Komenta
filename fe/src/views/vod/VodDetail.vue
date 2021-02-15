@@ -44,8 +44,10 @@
         
         <!-- <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div> -->
         </div>
-        <hr>
+        </div>
         <br>
+        <!-- <hr> -->
+        <div class="vodEpiAll">
         <div v-show="!showVodDetail" @click="showVod()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>전체 회차 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
         <div v-show="showVodDetail">
         <div><h4><strong>전체회차</strong></h4></div>
@@ -63,6 +65,7 @@
           <div class="at-user vod__detail__img" @click="goVodEpi(vod.ve_id)"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" height="150px">
           <div class="vod__detail__num">{{vod.ve_episode_num}}회 </div>
           </div>
+        
         </div>
         </div>
         <br>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <template v-if="commentsList.length">
     <div v-for="(comment,index) in commentsList" :key="comment.c_id">
       <div class="comment__rank">{{index+1}} </div>
       <div class="comment__commentbox">
@@ -28,7 +29,12 @@
       </div>
       <hr>
     </div>
+  </template>
+  <template v-else>
+    <h2>댓글이 없습니다! 댓글을 남겨주세요!</h2>
+  </template>
   </div>
+
 </template>
 
 <script>

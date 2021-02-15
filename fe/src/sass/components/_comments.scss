@@ -156,12 +156,12 @@
   margin-left: 5px;
 }
 .vodepi {
-  // display: flex;
+  display: flex;
   
   margin-left: 1rem;
   &__img {
     display: inline-block;
-    // margin-left: 5%;
+    margin-left: 5%;
     margin: auto;
   }
   &__detail {
@@ -170,6 +170,11 @@
     margin: auto;
     margin-left: 5%;
   }
+}
+.vodEpiAll{
+  display: block;
+  content: '';
+  margin-left: 10px;
 }
 .vodepi__button {
   width: 100%;
