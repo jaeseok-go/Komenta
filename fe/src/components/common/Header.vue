@@ -19,9 +19,6 @@
         </div>
       </div>
     </div>
-    <div class="testRoute">
-      <router-link :to="{name:'Membership'}">이용권</router-link>
-    </div>
     <!-- 로그인 한 유저 프로필 -->
     <!-- <div class="user-profile-form navbar-collapse collapse">
       <ul class="navbar-nav navbar-align">

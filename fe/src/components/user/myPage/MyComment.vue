@@ -91,7 +91,7 @@ export default {
       let listLeng = this.commentContents.length,
           listSize = this.pageSize,
           page = Math.floor(listLeng / listSize);
-
+      console.log("commentContents 수 : ",listLeng)
       if(listLeng % listSize > 0) page += 1;
 
       return page;
@@ -109,8 +109,11 @@ export default {
     },
     async getMyComment(){
       const response = await fetchUserComment(this.userInfo.u_id);
-      this.commentContents = response.data
-      console.log("내 댓글 : ",response.data)
+      for(let i = response.data.length-1; i >= 0; i--){
+        this.commentContents.push(response.data[i]);
+      }
+      // this.commentContents = response.data
+      console.log("내 댓글 : ",this.commentContents)
     },
     commentDelete() {
       if(this.editDisplay == 'none'){
