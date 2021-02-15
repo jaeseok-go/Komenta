@@ -61,8 +61,9 @@ export default {
   },
   methods: {
     async signMembership(){
-      console.log('회원 멤버십 정보 : ',this.userInfo.u_expire_member)
       var moment = require('moment');
+      console.log('회원 멤버십 정보 : ',moment(this.userInfo.u_expire_member).format('YYYY-MM-DD'))
+      console.log('현재 시간 : ', moment(new Date()).format('YYYY-MM-DD'))
       if(this.userInfo.u_expire_member === "0000-00-00 00:00:00" || moment(this.userInfo.u_expire_member).format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
         const result = await membership();
         console.log('그래서 가입이 된겨? ',result)
