@@ -33,11 +33,12 @@
     <div class="membership-warning">
       <p>※ 멤버십 가입 시 유의사항 ※</p>
       <li>Komenta 서비스는 비영리 목적으로 제작된 홈페이지로써 사용자에게 금전적 요구를 하지 않습니다.</li>
-      <li>Komenta는 반응형 웹이 적용되지 않았기 때문에 웹 환경에서 사용하길 권장합니다.</li>
+      <li>Komenta는 반응형 웹이 적용되지 않았기 때문에 PC 환경에서 사용하길 권장합니다.</li>
       <li>Komenta 서비스는 모든 사용자에게 시청 연령대를 준수하길 권장하고 있습니다.</li>
-      <li>타인에게 불쾌감을 줄 수 있는 댓글 작성 시, 임의적으로 댓글 권한이 제한될 수 있습니다.</li>
+      <li>타인에게 불쾌감을 줄 수 있는 댓글 작성 시, 임의적으로 댓글 기능이 제한될 수 있습니다.</li>
       <li>이용권은 1달 주기로 사용자가 직접 갱신해야 합니다(헷)</li>
       <li>과도한 접속량으로 인해 해당 서비스가 원활하게 제공되지 않을 수 있습니다.</li>
+      <li>본 서비스는 설문조사를 위해 본래의 의도와 다르게 멤버십 없이도 해당 기능을 이용할 수 있습니다.</li>
       <li>VOD 화질은 영상마다 제각각 다를 수 있음을 양해부탁드립니다.</li>
       <li>VOD 저작권 문제로 인해 영상의 길이가 길지 않음을 양해 부탁드립니다.</li>
       <li>서비스 이용 권장사양은 PC환경의 Chrome에 최적화 되어있습니다.</li>
@@ -62,7 +63,7 @@ export default {
     async signMembership(){
       console.log('회원 멤버십 정보 : ',this.userInfo.u_expire_member)
       var moment = require('moment');
-      if(this.userInfo.u_expire_member === "0000-00-00 00:00:00" || this.userInfo.u_expire_member < moment(new Date()).format('YYYY-MM-DD HH:MM:SS')) {
+      if(this.userInfo.u_expire_member === "0000-00-00 00:00:00" || moment(this.userInfo.u_expire_member).format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
         const result = await membership();
         console.log('그래서 가입이 된겨? ',result)
         // this.userInfo.u_expire_member = this.getUserInfo(this.userInfo.u_id);

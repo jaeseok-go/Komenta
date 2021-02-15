@@ -62,10 +62,10 @@ export default {
       }
     },
     async getMembershipInfo(){
-      console.log("멤버십 가입 여부 : ",this.userInfo.u_expire_member)
       var moment = require('moment');
+      console.log("멤버십 가입 여부 : ",moment(this.userInfo.u_expire_member).format('YYYY-MM-DD'))
       console.log('현재 시간 : ',moment(new Date()).format('YYYY-MM-DD HH:MM:SS'))
-      if(this.userInfo.u_expire_member == "0000-00-00 00:00:00" || this.userInfo.u_expire_member.format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
+      if(this.userInfo.u_expire_member == "0000-00-00 00:00:00" || moment(this.userInfo.u_expire_member).format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
         console.log('가입한 멤버십이 없거나 만료되었습니다.');
       }else {
         // console.log("가입한 멤버십이 있습니다.")
