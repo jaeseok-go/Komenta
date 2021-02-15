@@ -28,8 +28,8 @@
             </div>
         </div>
         <hr>
-        <div v-show="!showEpiDetail" @click="showEpi()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>추가 정보 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
-        <div v-show="showEpiDetail">
+        <!-- <div v-show="!showEpiDetail" @click="showEpi()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>추가 정보 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
+        <div v-show="showEpiDetail"> -->
         <div class="vodepi">
         <div class="vodepi__img"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></div>
         <div class="vodepi__detail">
@@ -39,19 +39,36 @@
         <strong>개요</strong> {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}} <br>
         <strong>출연</strong> {{vodEpiInfo.v_actors}} <br>
         <strong>감독</strong> {{vodEpiInfo.v_director}}
-       </div>
+       <!-- </div>
+        </div> -->
+        
+        <!-- <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div> -->
+        </div>
+        <hr>
+        <br>
+        <div v-show="!showVodDetail" @click="showVod()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>전체 회차 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
+        <div v-show="showVodDetail">
+        <div><h4><strong>전체회차</strong></h4></div>
+        <div class="btn-cover">
+        <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+          <font-awesome-icon :icon="['fas', 'angle-left']"/>
+        </button>
+        <span class="page-count">{{pageNum+1}}/{{pageCount}} </span>
+        <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+          <font-awesome-icon :icon="['fas', 'angle-right']"/>
+        </button>
+      </div>
+        <div class="vod__detail">
+        <div v-for="(vod,index) in paginatedData" :key="index" class="vod__detail__column">
+          <div class="at-user vod__detail__img" @click="goVodEpi(vod.ve_id)"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" height="150px"></div>
+          <div class="vod__detail__num">{{vod.ve_episode_num}}회 </div>
+        </div>
+        </div>
+        <div @click="showVod()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div>
+        </div>
         </div>
         <br>
-        <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div>
-        <hr>
-        </div>
-        <div><h4><strong>전체회차</strong></h4></div>
-        <div class="vod__detail">
-        <div v-for="(vod,index) in vodInfo" :key="index">
-          <div class="vodepi__img vod__detail__img"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px"></div>
-          <div class="vod__detail__num">{{vod.ve_episode_num}}회</div>
-        </div>
-        </div>
+       
         <div class="comments__container"> 
         <router-link :to="{name:'BestComments'}" active-class="comments__menu">
           <i class="fas fa-check"></i> BEST </router-link>
@@ -78,6 +95,7 @@ components: {
 name: 'VodDetail',
 data(){
   return {
+    pageNum:0,
     // vod epi 세부정보
     vodEpiInfo :{},
     // vod 세부정보
@@ -90,7 +108,8 @@ data(){
     pre_diffHeight :0,
     bottom_flag : true,
     // followingComment:false
-    showEpiDetail:true
+    showEpiDetail:true,
+    showVodDetail:true
   }
 },
 created(){
@@ -105,6 +124,26 @@ created(){
   
 },
 methods : {
+  goVodEpi(veId){
+    this.$router.push(`/voddetail/${veId}`).catch(error => {
+    if(error.name === "NavigationDuplicated" ){
+        location.reload();
+    }
+});
+  },
+  nextPage() {
+      this.pageNum += 1;
+  },
+  prevPage() {
+    this.pageNum -= 1;
+  },
+  showVod(){
+    if (this.showVodDetail) {
+      this.showVodDetail = false
+    } else {
+      this.showVodDetail = true
+    }
+  },
   showEpi(){
     if (this.showEpiDetail) {
       this.showEpiDetail = false
@@ -170,24 +209,24 @@ methods : {
       console.log('epicomment 에러!!')
     }
   },
-         onscroll() {
-            const objDiv = document.getElementById("comment_div");
+      onscroll() {
+        const objDiv = document.getElementById("comment_div");
 
-            if((objDiv.scrollTop + objDiv.clientHeight) == objDiv.scrollHeight){
-                    // 채팅창 전체높이 + 스크롤높이가 스크롤 전체높이와 같다면
-                    // 이는 스크롤이 바닥을 향해있다는것이므로
-                    // 스크롤 바닥을 유지하도록 플래그 설정
-                    this.bottom_flag = true;
-            }
+        if((objDiv.scrollTop + objDiv.clientHeight) == objDiv.scrollHeight){
+                // 채팅창 전체높이 + 스크롤높이가 스크롤 전체높이와 같다면
+                // 이는 스크롤이 바닥을 향해있다는것이므로
+                // 스크롤 바닥을 유지하도록 플래그 설정
+                this.bottom_flag = true;
+        }
 
-            if(this.pre_diffHeight > objDiv.scrollTop + objDiv.clientHeight ){
-                // 스크롤이 한번이라도 바닥이 아닌 위로 상승하는 액션이 발생할 경우
-                // 스크롤 바닥유지 플래그 해제
-                this.bottom_flag = false;  
-            }
-                    //
-                // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
-            // }
+        if(this.pre_diffHeight > objDiv.scrollTop + objDiv.clientHeight ){
+            // 스크롤이 한번이라도 바닥이 아닌 위로 상승하는 액션이 발생할 경우
+            // 스크롤 바닥유지 플래그 해제
+            this.bottom_flag = false;  
+        }
+                //
+            // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
+        // }
 
         },
         nowTime(num){
@@ -341,7 +380,29 @@ methods : {
         },
         
     },
+    props: {
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 4
+    }
+  },
     computed:{
+    pageCount() {
+      let listLeng = this.vodInfo.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+
+      if(listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    paginatedData() {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+
+      return this.vodInfo.slice(start, end);
+    },
          ...mapState({
       userInfo: state => state.user.userInfo,
       myFollowingList: state => state.user.myFollowingList,
