@@ -1,10 +1,11 @@
 <template>
     <div class="category">
+        <span class="pl-comment category-total-title">전체 카테고리</span>
         <div class="category-select">
             <div class="__select-form">
                 <!-- <label for="mainGenre">장르</label> -->
                 <select v-model="selectedGenre" id="mainGenre">
-                    <option disabled value="">장르 전체</option>
+                    <option value="">장르 전체</option>
                     <option v-for="genre in allGenres" :key="genre.g_id" :value="`${genre.g_id}`">{{genre.g_name}}</option>
                 </select>
             </div>
@@ -17,7 +18,26 @@
             </div>
         </div>
         <hr>
-        <div class="category-img-form" v-for='vod in vodlists' :key="vod.v_id">
+        <!-- 처음 화면 -->
+        <div class="all-category" v-if="vodlists.length == 0">
+            <div class="category-sub-list">
+                <category-paging :vodList="dramaList"></category-paging>
+            </div>
+            <div class="category-sub-list">
+                <category-paging :vodList="entertainList"></category-paging>
+            </div>
+            <div class="category-sub-list">
+                <category-paging :vodList="docuList"></category-paging>
+            </div>
+            <div class="category-sub-list">
+                <category-paging :vodList="sportList"></category-paging>
+            </div>
+            <div class="category-sub-list">
+                <category-paging :vodList="aniList"></category-paging>
+            </div>
+        </div>
+        <!-- select box에서 선택한 뒤 -->
+        <div class="category-img-form" v-for='vod in vodlists' :key="vod.v_id" v-else>
             <span class="category-img" @click="goVodDetail(vod.v_id)">
                 <img :src="getPoster(vod.v_poster)">
             </span>
@@ -28,7 +48,7 @@
 
 <script>
 import {fetchVodList,fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
-
+import CategoryPaging from '@/components/Category/categoryPaging'
 export default {
     name: 'Category',
     data() {
@@ -38,6 +58,11 @@ export default {
             allGenres :[],
             vodlists:[],
             subGenres:[],
+            dramaList:[],
+            entertainList:[],
+            docuList:[],
+            sportList:[],
+            aniList:[]
         };
     },
     created(){
@@ -45,11 +70,29 @@ export default {
         this.getMainGenre();
         //default 모든 VOD 조회
     },
+    components: {
+        CategoryPaging
+    },
     methods: {
         async getAllVOD(){
             const response = await fetchVodList();
             console.log("all vod : ",response);
-            this.vodlists = response.data;
+            for (let i = 0; i < response.data.length; i++) {
+                const contents = response.data[i];
+                if(contents.g_name == '드라마') {
+                    this.dramaList.push(contents);
+                } else if(contents.g_name == '예능') {
+                    this.entertainList.push(contents);
+                } else if(contents.g_name == '다큐') {
+                    this.docuList.push(contents);
+                }else if(contents.g_name == '스포츠') {
+                    this.sportList.push(contents);
+                }else if(contents.g_name == '애니메이션') {
+                    this.aniList.push(contents);
+                }
+            }
+
+            // this.vodlists = response.data;
         },
         async getMainGenre() {
             const genres = await fetchAllGenre();
@@ -80,12 +123,17 @@ export default {
         getTitle(title) {
             if(title.length >= 11) return title.substring(0,11)+'...';
             else return title;
-        }
+        },
     },
     watch:{
         selectedGenre : function(){
             console.log(this.selectedGenre,'대분류 장르 선택')
-            this.getMainGenreDetail(this.selectedGenre)
+            if(this.selectedGenre == "") {
+                this.vodlists.splice(0);
+                this.subGenres.splice(0);
+            }else {
+                this.getMainGenreDetail(this.selectedGenre);
+            }
         },
         selectedGenreDetail:function(){
             console.log(this.selectedGenreDetail,'소분류 장르 선택')
