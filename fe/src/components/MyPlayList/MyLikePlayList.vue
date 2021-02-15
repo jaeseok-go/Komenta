@@ -55,6 +55,13 @@
             <div v-for="(vod, vindex) in playlist.pldetail" :key="vindex" class="drag-el">
               <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)">
                 <img :src="getPoster(vod.v_poster)"/>
+                <div class="vodInfo">
+                  <div class="vod-info-form">
+                    <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                    <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                    <button class="vod-info-btn">보러가기</button>
+                  </div>
+                </div>
               </span>
             </div>
           </div>
