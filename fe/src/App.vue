@@ -5,7 +5,7 @@
       </aside>
       <section>
         <Header id="header-section" v-if="isLogin"></Header>
-        <router-view id="page-view" :class="{asideOn: isLogin}"></router-view>
+        <router-view id="page-view" :class="{asideOn: isLogin, asideOff: !isLogin}"></router-view>
         <!--  :key="$route.fullPath" -->
         <br>
         <div class="margin__top"></div>
