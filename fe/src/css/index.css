@@ -3317,19 +3317,19 @@ select {
   margin-top: 7rem;
 }
 
-.home__desc .home__desc__title {
+.desc .home__desc__title {
   font-size: 3rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
 }
 
-.home__desc .home__desc__subtitle {
+.desc .home__desc__subtitle {
   color: #fa233b;
   font-size: 1.5rem;
   font-weight: 250;
 }
 
-.home__desc .home__desc__login {
+.desc .home__desc__login {
   text-align: center;
   font-size: 20px;
   line-height: 1.23536;
@@ -3347,6 +3347,48 @@ select {
   background: #fa243c;
   color: #fff;
   margin-top: 44px;
+}
+
+.desc__2__button {
+  color: white;
+  padding: 1rem 2rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  background: -webkit-gradient(linear, left top, right top, from(#feac5e), color-stop(#c779d0), to(#4bc0c8));
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+  border-radius: 40px;
+}
+
+.desc__2__title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.desc__2__title > span {
+  color: #fa233b;
+  font-weight: 800;
+}
+
+.desc__2__subtitle {
+  font-size: 30px;
+  width: 80rem;
+  margin: 1.5rem;
+}
+
+.text__scroll {
+  color: black;
+  position: absolute;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 5rem;
+  left: 50%;
+  -webkit-transform: translateX(-50px);
+          transform: translateX(-50px);
+  opacity: var(--opacity, 1);
+  -webkit-transition: opacity 0.3s ease 0.2s;
+  transition: opacity 0.3s ease 0.2s;
 }
 
 .category:disabled(.category-select) {

@@ -23,7 +23,7 @@
     <section class="home">
       <h1>Click</h1>
       <label for="home"></label>
-      <div class="home__desc">
+      <div class="desc">
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
         <div class="home__desc__title">세상에 없었던 인터렉티브 VOD 서비스</div>
         <div class="home__desc__subtitle">카드를 넘겨보면서 KOMENTA에 대해 더 알아보세요!</div>
@@ -32,12 +32,18 @@
     </section>
     <input type="radio" name="tab" id="about"/>
     <section class="about">
-      <h1>About</h1>
+      <!-- <h1>About</h1> -->
       <label for="about"></label>
+      <div class="desc">
+          <span class="desc__2__button">NEW</span>
+          <div class="desc__2__title"><span>Komenta</span>의 'Drag and Drop 플레이리스트'</div>
+          <div class="desc__2__subtitle">나만의 플레이 리스트를 만들고, "드래그 앤 드롭" 기능으로 손쉽게 플레이리스트를 관리해보세요.</div>
+          <div class="desc__2__video"><video src="@/assets/videos/playlist.mp4" width="50%" autoplay muted loop></video></div>
+      </div>
     </section>
     <input type="radio" name="tab" id="work"/>
     <section class="work">
-      <h1>Work</h1>
+      <!-- <h1>Work</h1> -->
       <label for="work"></label>
       <p>하이하이</p>
       <video src="@/assets/videos/about.mp4" width="50%" loop autoplay muted></video>
@@ -259,7 +265,7 @@ button {
 }
 
 .text__scroll {
-  color: black;
+  color: #A8A8A8	;
   position: absolute;
   bottom: 0;
   display: flex;
@@ -308,7 +314,10 @@ input[type='radio'],
 }
 
 input[type='radio']:checked + section {
-	top: 0;
+	/* top: 0;
+   */
+   top: -3rem;
+  left: -1rem;
 }
 
 .container {
