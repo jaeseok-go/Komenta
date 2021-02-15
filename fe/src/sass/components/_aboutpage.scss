@@ -1,6 +1,6 @@
 
 .desc {
-      top: 0;
+    top: 0;
     position: absolute;
     position: absolute;
     transform: translateX(50%);
@@ -82,7 +82,7 @@
 .text__scroll {
   color: black;
   position: absolute;
-  bottom: 0;
+  bottom: 25px;
   display: flex;
   font-size: 5rem;
   left: 50%;
@@ -93,32 +93,45 @@
 
 }
 
+.clickme_button {
+  transform: translateX(550px);
+  font-size: 1.4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  border-radius: 100rem;
+  // padding: 1rem;
+  font-family: 'Avenir Next';
+  padding: .5rem 3rem;
+  color: black;
+  border: solid 3px $apple-color;
+  transform-style: preserve-3d;
 
+}
 
-// --- ## BASIC #############
-// body {
-//   background: #E8EBF3;
-//   height: 100vh;
-//   font: 400 16px 'Poppins', sans-serif;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   .socials {
-//     position: fixed;
-//     display: block;
-//     left: 20px;
-//     bottom: 20px;
-//     z-index: 9999;
-//     > a {
-//       display: block;
-//       width: 30px;
-//       opacity: .2;
-//       transform: scale(var(--scale, .8));
-//       transition: transform .3s cubic-bezier(0.38,-0.12, 0.24, 1.91);
-//       &:hover {
-//         --scale: 1;
-//       }
-//     }
-//   }
-// }
+.container section .clickme_button {
+	margin: 0;
+	font-size: 1.4rem;
+  transform: scale(0);
+	text-align: center;
+	transition: transform 500ms;
+	transform-style: preserve-3d;
+  transform: scale(0);
+}
+
+#menu:checked + .container section .clickme_button {
+  transform: scale(0.5) translateX(480px);
+  transition: transform 500ms;
+  transform: translateX(480px);
+  font-size: 1.4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  border-radius: 100rem;
+  font-family: 'Avenir Next';
+  padding: .5rem 2rem;
+  color: black;
+  border: solid 3px $apple-color;
+  transform-style: preserve-3d;
+
+}

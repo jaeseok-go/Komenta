@@ -3426,7 +3426,7 @@ select {
 .text__scroll {
   color: black;
   position: absolute;
-  bottom: 0;
+  bottom: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3437,6 +3437,59 @@ select {
   opacity: var(--opacity, 1);
   -webkit-transition: opacity 0.3s ease 0.2s;
   transition: opacity 0.3s ease 0.2s;
+}
+
+.clickme_button {
+  -webkit-transform: translateX(550px);
+          transform: translateX(550px);
+  font-size: 1.4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  border-radius: 100rem;
+  font-family: 'Avenir Next';
+  padding: .5rem 3rem;
+  color: black;
+  border: solid 3px #fa233b;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.container section .clickme_button {
+  margin: 0;
+  font-size: 1.4rem;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  text-align: center;
+  -webkit-transition: -webkit-transform 500ms;
+  transition: -webkit-transform 500ms;
+  transition: transform 500ms;
+  transition: transform 500ms, -webkit-transform 500ms;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  transform: scale(0);
+}
+
+#menu:checked + .container section .clickme_button {
+  -webkit-transform: scale(0.5) translateX(480px);
+          transform: scale(0.5) translateX(480px);
+  -webkit-transition: -webkit-transform 500ms;
+  transition: -webkit-transform 500ms;
+  transition: transform 500ms;
+  transition: transform 500ms, -webkit-transform 500ms;
+  -webkit-transform: translateX(480px);
+          transform: translateX(480px);
+  font-size: 1.4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  border-radius: 100rem;
+  font-family: 'Avenir Next';
+  padding: .5rem 2rem;
+  color: black;
+  border: solid 3px #fa233b;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .category:disabled(.category-select) {

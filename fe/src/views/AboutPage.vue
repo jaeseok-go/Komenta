@@ -16,12 +16,12 @@
     </div>
 
     <!-- 2 -->
-  <form id="section2">
-  <input type="radio" name="tab" id="menu" checked="checked"/>
+  <form id="section2" >
+  <input type="radio" name="tab" id="menu" checked="checked" class="goback goMenu"/>
   <div class="container">
-    <input type="radio" name="tab" id="home"/>
-    <section class="home">
-      <h1>Click</h1>
+    <input type="radio" name="tab" id="home" class="goback"/>
+    <section class="home" @click="gotoSmall">
+      <!-- <h1>Click</h1> -->
       <label for="home"></label>
       <div class="desc">
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
@@ -30,9 +30,9 @@
         <div class="home__desc__login">무료 체험하기</div>
       </div>
     </section>
-    <input type="radio" name="tab" id="about"/>
-    <section class="about">
-      <!-- <h1>About</h1> -->
+    <input type="radio" name="tab" id="about" class="goback"/>
+    <section class="about" @click="gotoSmall">
+      <button class="clickme_button">#Playlist</button>
       <label for="about"></label>
       <div class="desc">
           <span class="desc__2__button">NEW</span>
@@ -41,25 +41,23 @@
           <div class="desc__2__video"><video src="@/assets/videos/playlist.mp4" width="50%" autoplay muted loop></video></div>
       </div>
     </section>
-    <input type="radio" name="tab" id="work"/>
-    <section class="work">
-      <!-- <h1>Work</h1> -->
+    <input type="radio" name="tab" id="work" class="goback"/>
+    <section class="work" @click="gotoSmall">
+      <button class="clickme_button clickme_button_comment">#Comment</button>
       <label for="work"></label>
-      <p>하이하이</p>
-      <video src="@/assets/videos/about.mp4" width="50%" loop autoplay muted></video>
     </section>
-    <input type="radio" name="tab" id="contact"/>
-    <section class="contact">
-      <h1>Contact</h1>
+    <input type="radio" name="tab" id="contact" class="goback"/>
+    <section class="contact" @click="gotoSmall">
+      <button class="clickme_button" >#Interest</button>
       <label for="contact"></label>
     </section>
   </div>
-  <div class="menu">
+  <!-- <div class="menu">
     <div>
       <label for="menu"></label>
       <label for="home"></label>
     </div>
-  </div>
+  </div> -->
 </form>
 <AboutFooter class="footer__margin" :class="{asideOn: isLogin}"></AboutFooter>
 </div>
@@ -76,9 +74,19 @@ export default {
     gotoLogin() {
       this.$router.push(`/member/login`)
     },
-    gotoBack() {
-      const menu = document.getElementById('menu')
-      menu.checked = true;
+    gotoSmall() {
+      const INPUT = document.querySelectorAll('.goback')
+      const MENU = document.querySelector('.goMenu')
+      console.log(INPUT,'DLSVDSDS')
+      for (let index = 0; index < INPUT.length; index++) {
+        const element = INPUT[index];
+        if (element.checked) {
+          element.checked = false;
+          MENU.checked = true;
+        }
+        
+      }
+
     }
   }
   
@@ -86,7 +94,7 @@ export default {
 </script>
 
 <style scoped>
-button {
+.wrapper_button {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -318,6 +326,7 @@ input[type='radio']:checked + section {
    */
    top: -3rem;
   left: -1rem;
+  cursor: pointer;
 }
 
 .container {
@@ -358,7 +367,8 @@ input[type='radio']:checked + section {
 .container section h1 {
 	margin: 0;
 	font-size: 64px;
-	transform: translate(0, 40vh);
+	/* transform: translate(0, 40vh); */
+  transform: scale(0);
 	text-align: center;
 	/* color: rgba(255,255,255,0.85); */
   color: black;
@@ -372,6 +382,7 @@ input[type='radio']:checked + section {
 	top: 0;
 	width: 100%;
 	height: 100vh;
+  cursor: pointer;
 }
 
 .menu {
@@ -432,7 +443,8 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container {
-	transform: scale(0.65) translateY(-18%);
+	/* transform: scale(0.65) translateY(-18%); */
+  transform:scale(0.6) translate(-2%, -18%);
 	transition: all 500ms;
 	transform-style: preserve-3d;
 }
@@ -446,7 +458,7 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container section h1 {
-	transform: scale(0.5);
+	/* transform: scale(0.5); */
 	transform-style: preserve-3d;
 }
 
