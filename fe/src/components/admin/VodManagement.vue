@@ -25,7 +25,6 @@
         <td>{{vod.ve_upload_date}}</td>
         <td>{{vod.ve_admin}}</td>
         <td>
-          <p class="vod-setting vod-modify">수정</p> /<!--  @click="setVodModify(vod.ve_id)" -->
           <p class="vod-setting vod-delete" @click="deleteVod(vod.v_id)">삭제</p>
         </td>
       </tr>
