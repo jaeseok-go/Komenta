@@ -9,7 +9,7 @@
     transform: translateX(-50%);
     left: 50%;
     /* margin-bottom: auto; */
-    margin-top: 7rem;
+    margin-top: 4rem;
 
 
     // margin: 9rem;
@@ -82,7 +82,7 @@
 .text__scroll {
   color: black;
   position: absolute;
-  bottom: 25px;
+  bottom: 30px;
   display: flex;
   font-size: 5rem;
   left: 50%;
@@ -133,5 +133,30 @@
   color: black;
   border: solid 3px $apple-color;
   transform-style: preserve-3d;
+
+}
+
+
+.desc__3__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+  & > span {
+    color: #fa233b;
+  }
+
+}
+
+.desc__3__subtitle {
+     width: 80rem;
+    margin: 1.2rem;
+    font-size: 1.5rem;
+
+    & > span {
+      color: #fa233b;
+      font-weight: 700;
+    }
+}
+
+.desc__3__video {
 
 }
