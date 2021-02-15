@@ -211,7 +211,7 @@
   border-collapse: collapse;
 
   & th {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
   }
   & tr {
     height: 2rem;
@@ -223,7 +223,7 @@
   }
   & tr td {
     padding: 0.6rem 0;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
 
     & p {
       margin: 0;
@@ -571,8 +571,14 @@
     display: inline-block;
     width: 550px;
     margin-top: 1rem;
-    margin-left: 1rem;
+    margin-left: 3rem;
     font-size: 14px;
+    position: absolute;
+
+    & li {
+      font-size: 13px;
+      margin-left: 0.5rem;
+    }
   }
 
   & .ms-content {
