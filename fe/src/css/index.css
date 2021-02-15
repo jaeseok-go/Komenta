@@ -302,6 +302,10 @@ hr {
   margin-left: 5%;
 }
 
+.margin_right {
+  margin-right: 5px;
+}
+
 .header {
   background-color: #8e8e93;
 }
@@ -3154,14 +3158,6 @@ select {
   font-size: 11.5px;
 }
 
-.commet__like {
-  color: #fc3c44;
-}
-
-.comment__unlike {
-  color: gray;
-}
-
 .video__comment__input {
   width: 80%;
   background-color: white;
@@ -3340,6 +3336,18 @@ select {
 
 .comment__lineheight {
   line-height: 2rem;
+}
+
+.commet__like {
+  color: #fc3c44;
+}
+
+.comment__unlike {
+  color: gray;
+}
+
+.comment_like_btn {
+  font-size: small;
 }
 
 .desc {

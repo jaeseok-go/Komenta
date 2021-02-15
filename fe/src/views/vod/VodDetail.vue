@@ -11,15 +11,22 @@
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
                 <div v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="comment__lineheight" >
                   <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname" :class=" {comment__highlight:userFollowing(comment.u_id)}">{{comment.u_nickname}} </span> 
-                  <template v-if="userBlocking(comment.u_id)">
-                  <span class="comment__block__content">차단한 댓글입니다. </span>
+                  <template v-if="itsMe(comment.u_id)">
+                  <span>{{ comment.c_contents}} </span>
+                  <span @click="commentLike(index,comment)"> <font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" class="comment_like_btn" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/>
+                  <span :id="`like-cnt-${comment.c_id}`"  class="comment__block margin_right" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]">{{ comment.comment_good_count }}</span></span>    
+                  <span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span>
+                  </template>
+                  <template v-else-if="userBlocking(comment.u_id)">
+                  <span class="comment__block__content">차단한 댓글입니다. </span>  <span @click="blockUser(comment.u_id)" class="comment__block margin_right">차단취소</span>
                   </template>
                   <template v-else>
                   <span>{{ comment.c_contents}} </span> 
+                  <span @click="commentLike(index,comment)"> <font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" class="comment_like_btn" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/>
+                  <span :id="`like-cnt-${comment.c_id}`"  class="comment__block margin_right" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]">{{ comment.comment_good_count }}</span></span>    
+                  <span @click="blockUser(comment.u_id)" class="comment__block margin_right">차단하기</span>
                   </template>
-                  <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
-                  <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span>
-                  </span>    
+                  
                 </div>
             </div>
             </div>
@@ -93,7 +100,8 @@
 
 <script>
 import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch} from '@/api/vod'
-import { fetchEpiComment, userlikeComment, commentInsert } from '@/api/comment'
+import {modifyunfollow} from '@/api/user'
+import { fetchEpiComment, userlikeComment, commentInsert ,removeComment} from '@/api/comment'
 import {mapState} from 'vuex';
 
 
@@ -134,6 +142,25 @@ created(){
   
 },
 methods : {
+  async DeleteComment(cId){
+    await removeComment(cId)
+     this.getEpiComment();
+    },
+  itsMe(uId) {
+      if (this.userInfo.u_id == uId) {
+          return true
+      }
+      return false
+},
+  async blockUser(uId) {
+    const blockInfo = {
+      u_id : this.userInfo.u_id,
+      uf_id : uId
+    }
+    await modifyunfollow(blockInfo)
+    this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
+
+  },
   goVodEpi(veId){
     this.$router.push(`/voddetail/${veId}`).catch(error => {
     if(error.name === "NavigationDuplicated" ){
