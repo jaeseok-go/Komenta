@@ -604,3 +604,11 @@
     }
   }
 }
+
+//vod management
+.vod-management {
+  & .vod-setting {
+    display: inline-block;
+    cursor: pointer;
+  }
+}

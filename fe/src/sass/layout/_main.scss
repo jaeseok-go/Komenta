@@ -12,6 +12,13 @@
   bottom: 48px !important;
 }
 
+.vodSort-form {
+  & .page-count {
+    font-size: smaller;
+    margin-bottom: 3px;
+  }
+}
+
 .vodSort-form .stage.clearfix {
   padding-bottom: 1rem;
   margin-top: 0.5rem;
