@@ -3,38 +3,7 @@
 }
 
 .category {
-  font-family: 'Roboto', sans-serif;
-  & .__select-form {
-    display: inline-block;
-    margin: 0 1rem;
-    // border: 1px solid;
-    // border-radius: 10px;
-    // padding: 0.3rem;
-    text-align: center;
-
-    & select {
-      width: 151px;
-      padding: 5px;
-      border: 1px solid #999;
-      font-family: 'Nanumgothic';
-      background: url('../assets/images/arrow-down.png') no-repeat 90% 50%;
-      border-radius: 3px;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
-
-    & select::-ms-expand {
-      display: none;
-    }
-
-    & select:focus {
-      outline: none;
-      padding: 5px;
-      border: 1px solid #999;
-      font-family: 'Nanumgothic';
-    }
-  }
+  // font-family: 'Roboto', sans-serif;
 
   & .category-img-form {
     // overflow: hidden;
@@ -68,5 +37,37 @@
     height: 250.5px;
     box-shadow: 5px 5px 10px rgb(168, 168, 168);
     font-weight: 600;
+  }
+}
+
+.__select-form {
+  display: inline-block;
+  margin: 0 1rem;
+  // border: 1px solid;
+  // border-radius: 10px;
+  // padding: 0.3rem;
+  text-align: center;
+
+  & select {
+    width: 151px;
+    padding: 5px;
+    border: 1px solid #999;
+    font-family: 'Nanumgothic';
+    background: url('../assets/images/arrow-down.png') no-repeat 90% 50%;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  & select::-ms-expand {
+    display: none;
+  }
+
+  & select:focus {
+    outline: none;
+    padding: 5px;
+    border: 1px solid #999;
+    font-family: 'Nanumgothic';
   }
 }
