@@ -52,22 +52,22 @@
                 @dragstart="startDrag($event, vod)"
               >
                 <img :src="getVodPoster(vod.v_poster)" width="100%" />
-                {{ vod.v_poster }}
               </div>
             </div>
           </div>
-        
+
           <Modal v-if="showModal" @close="showModal = false">
             <h4 slot="header">
-                <div class="modal_title">나만의 플레이 리스트를 만들어보세요</div>
-              
-              <div @click="showModal = false" class="modal_close_btn"
-                ><i class="closeModalBtn fa fa-times" aria-hidden="true"> </i
-              ></div>
+              <div class="modal_title">나만의 플레이 리스트를 만들어보세요</div>
+
+              <div @click="showModal = false" class="modal_close_btn">
+                <i class="closeModalBtn fa fa-times" aria-hidden="true"> </i>
+              </div>
             </h4>
             <p slot="body" @keydown.enter="createPlaylist">
-                
-                <label class="modal__playlist" for="playlist_name"><strong>Playlist Title</strong></label>
+              <label class="modal__playlist" for="playlist_name"
+                ><strong>Playlist Title</strong></label
+              >
               <input
                 id="playlist_name"
                 class="modal-input"
@@ -76,7 +76,9 @@
                 placeholder="플레이리스트 제목을 적어주세요."
               />
               <br />
-              <label class="modal__playlist" for="playlist_context"><strong>Context</strong></label>
+              <label class="modal__playlist" for="playlist_context"
+                ><strong>Context</strong></label
+              >
               <input
                 id="playlist_context"
                 class="modal-textarea"
@@ -85,9 +87,12 @@
                 placeholder="플레이리스트 내용을 적어주세요."
               />
               <br />
-              <button class="userprofile__button modal_button" @click="createPlaylist">
-              SUBMIT
-            </button>
+              <button
+                class="userprofile__button modal_button"
+                @click="createPlaylist"
+              >
+                SUBMIT
+              </button>
             </p>
           </Modal>
           <!-- 플레이리스트 수만큼 drop-zon v-for -->
@@ -114,9 +119,16 @@
                   class="drag-el"
                   draggable
                 >
-                  <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"
-                    ><img :src="getPlaylistVodPoster(vod.v_poster)"
-                  /></span>
+                  <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)">
+                    <img :src="getPlaylistVodPoster(vod.v_poster)"/>
+                    <div class="vodInfo">
+                      <div class="vod-info-form">
+                        <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                        <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                        <button class="vod-info-btn">보러가기</button>
+                      </div>
+                    </div>
+                  </span>
                 </div>
               </div>
             </div>
@@ -126,32 +138,46 @@
         <template v-else>
           <div v-for="(playlist, index) in playlists" :key="index">
             <h3 style="cursor:pointer">
-                <span @click="goPlaylsitDetail(playlist[0].pl_id)">{{ playlist[0].pl_name }}</span>
-                <template v-if="isLikePlaylist(playlist[0].pl_id)">
-                    <span class="playlsit-icon" @click="addlikeUserPlaylist(playlist[0].pl_id)">
-                        <!-- <i class="far fa-star"></i> -->
-                        <font-awesome-icon :icon="['far', 'star' ]" />
-                    </span>
-                </template>
-                <template v-else>
-                    <span class="playlsit-icon" @click="cancellikePlaylist(playlist[0].pl_id)">
-                        <!-- <i class="fas fa-star playlist__star"></i> -->
-                        <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
-                    </span>
-                </template>
+              <span @click="goPlaylsitDetail(playlist[0].pl_id)">{{
+                playlist[0].pl_name
+              }}</span>
+              <template v-if="isLikePlaylist(playlist[0].pl_id)">
+                <span
+                  class="playlsit-icon"
+                  @click="addlikeUserPlaylist(playlist[0].pl_id)"
+                >
+                  <!-- <i class="far fa-star"></i> -->
+                  <font-awesome-icon :icon="['far', 'star']" />
+                </span>
+              </template>
+              <template v-else>
+                <span
+                  class="playlsit-icon"
+                  @click="cancellikePlaylist(playlist[0].pl_id)"
+                >
+                  <!-- <i class="fas fa-star playlist__star"></i> -->
+                  <font-awesome-icon
+                    class="playlist__star"
+                    :icon="['fas', 'star']"
+                  />
+                </span>
+              </template>
             </h3>
             <div class="drop-zone">
               <!-- 한 플레이리스트의 컨텐츠만큼 v-for(5개씩 보여주면 옆으로 넘기는 식으로 해야될것같음) -->
               <!-- startDrag -1이면  -->
               <div class="drop-zone__inner">
-                <div
-                  v-for="(vod, index) in playlist"
-                  :key="index"
-                  class="drag-el"
-                >
-                  <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)"
-                    ><img :src="getPlaylistVodPoster(vod.v_poster)"
-                  /></span>
+                <div v-for="(vod, index) in playlist" :key="index" class="drag-el">
+                  <span v-if="vod.gd_name" @click="goEpiDetail(vod.ve_id)">
+                    <img :src="getPlaylistVodPoster(vod.v_poster)"/>
+                    <div class="vodInfo">
+                      <div class="vod-info-form">
+                        <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                        <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                        <button class="vod-info-btn">보러가기</button>
+                      </div>
+                    </div>
+                  </span>
                 </div>
               </div>
             </div>
@@ -341,21 +367,21 @@ export default {
       for (let i = 0; i < this.likePlaylist.length; i++) {
         const playlist = this.likePlaylist[i];
         if (playlist[0].pl_id == plId) {
-            console.log('false')
+          console.log('false');
           return false;
         }
       }
-      console.log('true')
+      console.log('true');
       return true;
     },
     async addlikeUserPlaylist(plId) {
       await likePlaylist({ pl_id: plId });
-      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
       // alert('플레이리스트 좋아요 함')
     },
     async cancellikePlaylist(plId) {
       await unlikePlaylist({ pl_id: plId });
-      this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
+      this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
       // alert('플레이리스트 좋아요 취소함')
     },
     async deleteUserPlaylist(plId) {
@@ -379,6 +405,21 @@ export default {
     },
     getVodPoster(poster) {
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
+    },
+    vodTitleReName(title, epi_num) {
+      //{{vod.v_title}} {{vod.ve_episode_num}}화
+      let name = String(title + ' ' + epi_num + '화');
+      // console.log('name : ',name)
+      let rename = '';
+      for (let i = 0; i < name.length; i++) {
+        if (i % 10 == 0) {
+          rename += `<br>` + name.charAt(i);
+        } else {
+          rename += name.charAt(i);
+        }
+      }
+      // console.log("rename : ",rename)
+      return rename;
     },
   },
 };
