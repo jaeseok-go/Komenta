@@ -1,5 +1,6 @@
 <template>
   <div>
+    <template v-if="commentsList.length">
     <div v-for="(comment,index) in paginatedData" :key="index">
       <span class="comment__username" @click="goFeed(comment.u_id)">{{comment.u_nickname}}</span> 
       <template v-if="itsMe(comment.u_id)"><span class="comment__block" @click="DeleteComment(comment.c_id)">삭제</span></template>
@@ -29,6 +30,10 @@
         <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
         <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
     </div>
+  </template>
+  <template v-else>
+    <h2>댓글이 없습니다! 댓글을 남겨주세요!</h2>
+  </template>
   </div>
 </template>
 

@@ -2973,6 +2973,16 @@ select {
   color: white;
 }
 
+.playlist_vod_img {
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+}
+
+.input__length {
+  width: 100%;
+}
+
 .comment__scroll::-webkit-scrollbar {
   width: 15px;
   height: 18px;
@@ -3154,11 +3164,15 @@ select {
 }
 
 .vodepi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin-left: 1rem;
 }
 
 .vodepi__img {
   display: inline-block;
+  margin-left: 5%;
   margin: auto;
 }
 
@@ -3167,6 +3181,12 @@ select {
   display: inline-block;
   margin: auto;
   margin-left: 5%;
+}
+
+.vodEpiAll {
+  display: block;
+  content: '';
+  margin-left: 10px;
 }
 
 .vodepi__button {
