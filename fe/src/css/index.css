@@ -295,7 +295,7 @@ hr {
 }
 
 .margin__top {
-  margin-top: 300px;
+  margin-top: 50vh;
 }
 
 .margin__left__five {
@@ -2044,6 +2044,10 @@ select {
 
 .follow-setting .followForm {
   width: 50%;
+}
+
+.follow-form .drop-zone {
+  height: 170px !important;
 }
 
 .f-drag-el {
