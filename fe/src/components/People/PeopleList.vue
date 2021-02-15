@@ -56,7 +56,7 @@
               <div class="playlist_user_profile">
                 <img :src="getUpdateProfiletoPlaylist(playlist)" class="playlist_user_profile">            
               </div>
-              <div class="plInfo">
+              <div class="plInfo margin__left__five">
                 <span class="container__info__button" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</span>'S PICK
                 <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
                 {{playlist[0].pl_good_count}}
@@ -237,6 +237,9 @@ export default {
 <style scoped>
 .margin__left{
   margin-left: 10%;
+}
+.margin__left__five{
+  margin-left: 5%;
 }
 </style>
 
