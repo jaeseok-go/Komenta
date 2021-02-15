@@ -9,12 +9,18 @@
            <div id="comment_div">
              <div class="comment__scroll" id="comment__scroll">
             <div v-for="(comment,index) in commentsList" :key="index" @mouseover.middle="stopScroll" class="comment__text">
-                <p v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="testbtn" :class=" {comment__highlight:userFollowing(comment.u_id),comment__hidden:userBlocking(comment.u_id)}">
-                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname">{{comment.u_nickname}} </span> {{ comment.c_contents}}  
+                <div v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="comment__lineheight" >
+                  <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>  <span @click="goFeed(comment.u_id)" class="comment__nickname" :class=" {comment__highlight:userFollowing(comment.u_id)}">{{comment.u_nickname}} </span> 
+                  <template v-if="userBlocking(comment.u_id)">
+                  <span class="comment__block__content">차단한 댓글입니다. </span>
+                  </template>
+                  <template v-else>
+                  <span>{{ comment.c_contents}} </span> 
+                  </template>
                   <span @click="commentLike(index,comment)"><i class="far fa-thumbs-up" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"></i>
                   <span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span>
                   </span>    
-                </p>
+                </div>
             </div>
             </div>
             <div class="video__comment">
@@ -44,8 +50,10 @@
         
         <!-- <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div> -->
         </div>
-        <hr>
+        </div>
         <br>
+        <!-- <hr> -->
+        <div class="vodEpiAll">
         <div v-show="!showVodDetail" @click="showVod()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>전체 회차 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
         <div v-show="showVodDetail">
         <div><h4><strong>전체회차</strong></h4></div>
@@ -63,6 +71,7 @@
           <div class="at-user vod__detail__img" @click="goVodEpi(vod.ve_id)"><img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" height="150px">
           <div class="vod__detail__num">{{vod.ve_episode_num}}회 </div>
           </div>
+        
         </div>
         </div>
         <br>

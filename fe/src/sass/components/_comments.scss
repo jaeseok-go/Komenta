@@ -23,8 +23,8 @@
   overflow: auto;
   white-space: pre-line;
   width: 100%;
-  // height: 400px;
   height: 80%;
+  padding: 0.6rem;
 }
 #appBody {
   width: 100%;
@@ -32,11 +32,13 @@
 
 #comment_div {
   display: inline-block;
-  background-color: #eee;
-  // box-sizing: border-box;
+  background-color: #d9d4d442;
+  border: 1px solid #e1dede;
+  margin-left: 0.1rem;
   width: 100%;
   height: 500px;
 }
+
 .video {
   font-family: Georgia, 'Times New Roman', Times, serif;
   height: 500px;
@@ -51,20 +53,21 @@
   padding-left: 5%;
   margin-bottom: 0;
   display: inline-block;
-  // display: flex;
   box-sizing: border-box;
   width: 100%;
   height: 20%;
-  background-color: white;
+  background-color: #ffffff;
+  border-top: 1px solid #e1dede;
 }
 .video__comment__box {
-  margin-top: 25px;
+  margin-top: 23px;
   display: inline-block;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
 }
+
 .video__comment__profile {
   width: 100%;
   height: 100%;
@@ -74,21 +77,22 @@
   padding-left: 5%;
   width: 85%;
   display: inline-block;
+  position: relative;
+  bottom: 8px;
 }
 .video__comment__inner__nickname {
-  color: #c0c0c0;
-  font-weight: bold;
+  color: #a1a1a1;
+  font-size: 14px;
+  position: relative;
+  bottom: 1px;
 }
 .comment__time {
-  color: darkgray;
+  color: #747474;
   cursor: pointer;
   text-decoration: none;
+  font-size: 11.5px;
 }
-.comment__highlight {
-  /* background-color: yellow; */
-  color: #fc3c44;
-  font-weight: bold;
-}
+
 .commet__like {
   color: #fc3c44;
 }
@@ -102,6 +106,7 @@
   border-right-width: 0;
   border-top-width: 0;
   border-bottom: black 1px solid;
+  font-size: 13px;
 }
 .comments__menu {
   color: #fc3c44;
@@ -110,8 +115,10 @@
 .comment__text {
 }
 .comment__nickname {
-  color: gray;
+  color: #a6a6a6;
   cursor: pointer;
+  font-size: 13px;
+  margin-right: 0.3rem;
 }
 .comment__username {
   color: black;
@@ -156,12 +163,12 @@
   margin-left: 5px;
 }
 .vodepi {
-  // display: flex;
+  display: flex;
   
   margin-left: 1rem;
   &__img {
     display: inline-block;
-    // margin-left: 5%;
+    margin-left: 5%;
     margin: auto;
   }
   &__detail {
@@ -170,6 +177,11 @@
     margin: auto;
     margin-left: 5%;
   }
+}
+.vodEpiAll{
+  display: block;
+  content: '';
+  margin-left: 10px;
 }
 .vodepi__button {
   width: 100%;
@@ -255,3 +267,12 @@
   }
 }
 
+.comment__highlight {
+  background-color: #fc3c44;
+  color: white;
+  font-weight: bold;
+}
+
+.comment__lineheight{
+  line-height: 2rem;
+}
