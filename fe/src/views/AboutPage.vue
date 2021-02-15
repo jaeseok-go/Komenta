@@ -65,7 +65,10 @@
     </div>
   </div> -->
 </form>
+<footer>
 <AboutFooter class="footer__margin" :class="{asideOn: isLogin}"></AboutFooter>
+
+</footer>
 </div>
       
 </template>
@@ -353,6 +356,7 @@ input[type='radio']:checked + section {
 
 .container section.home {
   background: white;
+
 }
 
 .container section.about {
@@ -396,9 +400,7 @@ input[type='radio']:checked + section {
 	position: fixed;
 	top: 20px;
 	left: 25px;
-  /* 아래꺼 크게 해서 어쩌고하면 적용될듯 */
-  /* top: 50%; */
-  /* left: 50%; */
+
 	z-index: 1000;
 	transform: 0deg;
 	transition: all 200ms;
@@ -407,7 +409,7 @@ input[type='radio']:checked + section {
 	background: rgba(0,0,0,0.25);
 }
 
-.menu::before,
+/* .menu::before,
 .menu::after {
 	content: '';
 	display: block;
@@ -416,7 +418,7 @@ input[type='radio']:checked + section {
 	height: 4px;
 	background: rgba(0,0,0,0.25);
 	transition: all 200ms;
-}
+} */
 
 .menu::before {
 	top: 10px;
@@ -435,7 +437,7 @@ input[type='radio']:checked + section {
 	background: #fff;
 }
 
-.menu div,
+/* .menu div,
 .menu div label:nth-child(1) {
 	display: block;
 	width: 35px;
@@ -446,7 +448,7 @@ input[type='radio']:checked + section {
 
 .menu div label:nth-child(2) {
 	display: none;
-}
+} */
 
 #menu:checked + .container {
 	/* transform: scale(0.65) translateY(-18%); */
@@ -468,7 +470,7 @@ input[type='radio']:checked + section {
 	transform-style: preserve-3d;
 }
 
-#menu:checked + .container + .menu {
+/* #menu:checked + .container + .menu {
 	top: 30px;
 	left: 20px;
 	transform: rotate(225deg);
@@ -494,16 +496,16 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container + .menu div label:nth-child(2) {
-	display: block;
+   display: block;
 	width: 35px;
 	height: 35px;
 	position: absolute;
-	top: -6px;
+	top: -6px; 
 }
 
 #menu:checked + .container + .menu div label:nth-child(1) {
 	display: none;
-}
+} */
 
 .container section.home {
 	z-index: 99;
@@ -553,7 +555,7 @@ input[type='radio']:checked + section {
 	top: 8px;
 }
 
-/* 3 */
 
+/* 3 */
 </style>
 
