@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container margin__left">
         <div class="container__following">
             <!-- 버튼 누르기 -->
             <div class="btn-cover_people">
