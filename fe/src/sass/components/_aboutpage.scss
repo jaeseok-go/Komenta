@@ -1,6 +1,6 @@
 
-.home__desc {
-    top: 0;
+.desc {
+      top: 0;
     position: absolute;
     position: absolute;
     transform: translateX(50%);
@@ -11,6 +11,10 @@
     /* margin-bottom: auto; */
     margin-top: 7rem;
 
+
+    // margin: 9rem;
+    // margin-left: 13rem;
+    // text-align: center;
 
   .home__desc__logo {
 
@@ -49,19 +53,47 @@
   }
 }
 
-// .text__scroll {
-//   color: black;
-//   position: absolute;
-//   bottom: 0;
-//   display: flex;
-//   font-size: 5rem;
-//   left: 50%;
-//   transform: translateX(-50px);
-//   opacity: var(--opacity, 1);
-//   -webkit-transition: opacity 0.3s ease 0.2s;
-//   transition: opacity 0.3s ease 0.2s;
+.desc__2__button {
+    color: white;
+    padding: 1rem 2rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    border-radius: 40px;
+}
 
-// }
+.desc__2__title {
+  font-size: 3rem;
+  font-weight: 600;
+  & > span {
+    color: #fa233b;
+    font-weight: 800;
+  }
+}
+
+
+.desc__2__subtitle {
+  font-size: 30px;
+  width: 80rem;
+  margin: 1.5rem;
+  
+}
+
+.text__scroll {
+  color: black;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  font-size: 5rem;
+  left: 50%;
+  transform: translateX(-50px);
+  opacity: var(--opacity, 1);
+  -webkit-transition: opacity 0.3s ease 0.2s;
+  transition: opacity 0.3s ease 0.2s;
+
+}
+
+
 
 // --- ## BASIC #############
 // body {
