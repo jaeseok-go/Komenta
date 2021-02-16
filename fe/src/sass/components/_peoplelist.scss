@@ -170,7 +170,7 @@ $totalColumns: 7;
       font-size: 1.3rem;
       font-weight: 500;
       line-height: 2.625rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
     
     &__profile {
@@ -295,11 +295,11 @@ $totalColumns: 7;
   margin-left: 0.3rem;
   position: relative;
   bottom: 10px;
-  right: 15px;
+  right: 10px;
   text-align: right;
   & img {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: 1px solid rgba(206, 206, 206, 0.555);
     background-color: white;
