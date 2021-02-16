@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="category-component">
     <h4>{{vodList[0].g_name}}</h4>
     <div class="btn-cover">
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
