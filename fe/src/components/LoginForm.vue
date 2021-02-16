@@ -11,7 +11,7 @@
     <b-container class="login-form">
       <b-col class="sns-login-form">
         <GoogleLogin/>
-        <kakao/>
+        <!-- <kakao/> -->
       </b-col>
       <hr class="inContent or"/>
       <b-col class="bcol-login">
@@ -78,13 +78,13 @@
 <script>
 import { validateEmail } from '@/utils/validations';
 import GoogleLogin from "@/components/user/snsLogin/GoogleLogin";
-import Kakao from "@/components/user/snsLogin/Kakao";
+// import Kakao from "@/components/user/snsLogin/Kakao";
 
 
 export default {
   components: { 
     GoogleLogin,
-    Kakao,
+    // Kakao,
     },
   data() {
     return {
