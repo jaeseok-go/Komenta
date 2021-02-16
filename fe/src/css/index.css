@@ -3536,6 +3536,26 @@ select {
   font-weight: 700;
 }
 
+.desc__4__title {
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.desc__4__title > span {
+  color: #fa233b;
+}
+
+.desc__4__subtitle {
+  width: 80rem;
+  margin: 1.2rem;
+  font-size: 1.5rem;
+}
+
+.desc__4__subtitle > span {
+  color: #fa233b;
+  font-weight: 700;
+}
+
 .category:disabled(.category-select) {
   text-align: center;
 }
