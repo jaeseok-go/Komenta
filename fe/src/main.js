@@ -29,7 +29,7 @@ library.add(faEye, faEyeSlash, faEnvelope, farCheckC, farStar) //far lib
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kakao로그인
-window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
+// window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
 
 Vue.use(GAuth, {
   clientId: '239626612902-chshh1qud8hhvt0k0bc3hcgmq871jgai.apps.googleusercontent.com', scope: 'email', prompt: 'consent', fetch_basic_profile: true
