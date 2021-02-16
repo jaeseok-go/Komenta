@@ -31,7 +31,7 @@
                 <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
                     <div class="at-user"  @click="gotoFeed(user.f_id)">
                         <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="210px" height="150px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
           <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index">
             <div class="playList-Form" @click="gotoPlaylist(playlist[0].pl_id)">
               <div class="reprePoster">
-                <img :src="getPoster(index)" width="210px" height="150px">
+                <img :src="getPoster(index)" width="50px" height="50px">
               </div>
               <div class="playlist_user_profile">
                 <img :src="getUpdateProfiletoPlaylist(playlist)" class="playlist_user_profile">            
