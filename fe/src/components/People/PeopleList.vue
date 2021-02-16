@@ -31,7 +31,7 @@
                 <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
                     <div class="at-user"  @click="gotoFeed(user.f_id)">
                         <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="80px" height="80px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
