@@ -172,7 +172,7 @@
 ::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum, 'Apple SD Gothic Neo', MS PGothic, arial, sans-serif;
+  font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum, 'Apple SD Gothic Neo', MS PGothic, arial, sans-serif, 'Indie Flower', cursive;
 }
 
 #page-view {
@@ -2897,7 +2897,7 @@ select {
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 2.625rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .at-user__profile {
@@ -3005,13 +3005,13 @@ select {
   margin-left: 0.3rem;
   position: relative;
   bottom: 10px;
-  right: 10px;
+  right: 15px;
   text-align: right;
 }
 
 .playlist_user_profile img {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 1px solid rgba(206, 206, 206, 0.555);
   background-color: white;
@@ -3569,22 +3569,17 @@ select {
   font-weight: 700;
 }
 
-.category:disabled(.category-select) {
-  text-align: center;
+.clickme_text {
+  font-family: 'Indie Flower', cursive !important;
 }
 
-.category hr {
-  margin-bottom: 0 !important;
+.category:disabled(.category-select) {
+  text-align: center;
 }
 
 .category .category-total-title {
   font-weight: 600;
   margin-right: 1rem;
-}
-
-.category .all-category {
-  background: -webkit-gradient(linear, left top, right top, color-stop(1%, white), color-stop(12%, #f6faffd1), color-stop(40%, #f6faffd1), color-stop(60%, #f6faffd1), color-stop(80%, #f6faffd1), color-stop(88%, #f6faffd1), color-stop(99%, white));
-  background: linear-gradient(to right, white 1%, #f6faffd1 12%, #f6faffd1 40%, #f6faffd1 60%, #f6faffd1 80%, #f6faffd1 88%, white 99%);
 }
 
 .category .category-sub-list h4 {
@@ -3597,13 +3592,6 @@ select {
 
 .category .category-select {
   display: inline-block;
-  position: relative;
-  z-index: 9999;
-}
-
-.category .category-component {
-  position: relative;
-  bottom: 39px;
 }
 
 .category .category-img-form {
@@ -3627,8 +3615,7 @@ select {
   position: relative;
   margin-top: 1rem;
   top: 5px;
-  color: black;
-  font-size: 17px;
+  color: #5a5a5a;
 }
 
 .category .category-img-form:hover {
