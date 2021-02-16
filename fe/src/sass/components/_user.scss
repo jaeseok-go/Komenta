@@ -146,12 +146,6 @@
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
 
-  // .modal-header h3 {
-  //   /* margin-top: 0; */
-  //   color: blanchedalmond;
-  //   text-align: center;
-  // }
-
   & h3 {
     margin: 0;
   }
@@ -264,7 +258,12 @@
 }
 
 .userInfo-form {
-  margin-left: 1rem;
+  & img {
+    margin-left: 1rem;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .showUserInfo-form {
@@ -485,7 +484,8 @@
       /* background-color: blueviolet; */
       border: 1px solid black;
       width: 100px;
-      height: 100px;
+      height: 97px;
+      overflow: hidden;
     }
   }
 

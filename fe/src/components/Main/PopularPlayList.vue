@@ -26,9 +26,9 @@
                 <img :src="getUserPic(index)">
               </div>
               <div class="plInfo">
-                <p>
+                <p class="plUserInfo">
+                  <b>{{playList.pldetail[0].u_nickname}}</b>'S PICK <br>
                   {{playList.pldetail[0].pl_name}} <br>
-                  {{playList.pldetail[0].u_nickname}}'S PICK <br>
                 </p>
                 <p class="likeInfo">
                   <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
