@@ -8,7 +8,8 @@
           <vueper-slide
             v-for="(slide, i) in slides"
             :key="i"
-            :image="slide.image" />
+            :image="slide.image"
+            :link="slide.link" />
             <!-- :title="slide.title"
             :content="slide.content"  -->
           <!-- <template v-slot:content>
@@ -35,25 +36,25 @@ export default {
           title: '배너1',
           content: 'Photo by Max Rive',
           image: require('@/assets/images/윤스테이.png'),
-          // link: 'https://www.maxrivephotography.com/index/C0000rU1RKCHdqwI/G0000X57AtIzuRX0/I0000Gvr9HqdtyXk'
+          link: '/voddetail/72'
         },
         {
           title: '배너2',
           content: 'Photo by Max Rive',
           image: require('@/assets/images/루카.png'),
-          // link: 'https://www.maxrivephotography.com/index/C0000rU1RKCHdqwI/G0000X57AtIzuRX0/I0000Gvr9HqdtyXk'
+          link: '/voddetail/69'
         },
         {
           title: '배너3',
           content: 'Photo by Max Rive',
           image: require('@/assets/images/난리났네 난리났어.png'),
-          // link: 'https://www.maxrivephotography.com/index/C0000rU1RKCHdqwI/G0000X57AtIzuRX0/I0000Gvr9HqdtyXk'
+          link: '/voddetail/76'
         },
         {
           title: '배너4',
           content: 'Photo by Max Rive',
           image: require('@/assets/images/여신강림.png'),
-          // link: 'https://www.maxrivephotography.com/index/C0000rU1RKCHdqwI/G0000X57AtIzuRX0/I0000Gvr9HqdtyXk'
+          link: '/voddetail/74'
         }
       ],
     }
