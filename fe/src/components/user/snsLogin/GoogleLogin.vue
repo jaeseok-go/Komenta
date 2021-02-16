@@ -92,18 +92,18 @@ export default {
             console.log('로그인하러가자,,')
             this.$store.dispatch('LOGIN',{
             u_email:googleUser.Fs.lt,
-            u_pw:googleUser.uc.login_hint
+            u_pw:googleUser.Fs.lt
           })
-          this.$router.push({ name: 'Main'});
+          this.$router.push(`/main/vodpopular`);
           return
           }
-        if (!googleUser) {
-          return null;
-        }
+        // if (!googleUser) {
+        //   return null;
+        // }
         console.log("googleUser", googleUser);
         const userData = {
           u_email:googleUser.Fs.lt,
-            u_pw: googleUser.uc.login_hint,
+            u_pw: googleUser.Fs.lt,
             u_phone_number : null,
             u_nickname : googleUser.Fs.sd,
         };

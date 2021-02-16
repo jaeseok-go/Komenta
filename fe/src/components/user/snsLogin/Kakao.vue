@@ -70,7 +70,7 @@ export default {
         },
     loginWithKakao() {
         const params = {
-            redirectUri: `process.env.VUE_APP_URL/Auth`,
+            redirectUri: `${process.env.VUE_APP_URL}/Auth`,
             // scope: 'phone_number_needs_agreement'
             // scope:'phone_number'
         };
@@ -97,7 +97,7 @@ export default {
             u_email:res.kakao_account.email,
             u_pw:res.kakao_account.email
           })
-          this.$router.push({ name: 'Main'});
+          this.$router.push('/main/vodpopular');
           return
           }
         const userInfo = {

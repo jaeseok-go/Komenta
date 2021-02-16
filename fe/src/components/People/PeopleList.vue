@@ -62,7 +62,7 @@
                 {{playlist[0].pl_good_count}}
                 <p> 
                    <span style="text-decoration: underline; text-underline-position:under;"><strong>{{playlist[0].pl_name}}</strong><br></span>
-                  {{playlist[0].pl_comment}} <br>
+                  <!-- {{playlist[0].pl_comment}} <br> -->
                 </p>
                 
               </div>
