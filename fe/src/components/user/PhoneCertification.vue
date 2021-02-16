@@ -85,7 +85,7 @@ export default {
           this.$store.commit('setPhonenum',this.userPhoneNum);
           console.log(this.userInfo,'데이터들어왔니카카오구글')
           const res = await registerUser(this.userInfo);
-          this.$store.dispatch('LOGIN',{
+          await this.$store.dispatch('LOGIN',{
             u_email:this.userInfo.u_email,
             u_pw:this.userInfo.u_email
           })
