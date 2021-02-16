@@ -52,6 +52,12 @@
                 @dragstart="startDrag($event, vod)"
               >
                 <img :src="getVodPoster(vod.v_poster)" width="100%" />
+                <div class="vodInfo">
+                  <div class="vod-info-form">
+                    <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                    <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

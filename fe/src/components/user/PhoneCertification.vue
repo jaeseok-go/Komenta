@@ -85,7 +85,11 @@ export default {
           this.$store.commit('setPhonenum',this.userPhoneNum);
           console.log(this.userInfo,'데이터들어왔니카카오구글')
           const res = await registerUser(this.userInfo);
-          console.log(res,'sns회원가입')
+          await this.$store.dispatch('LOGIN',{
+            u_email:this.userInfo.u_email,
+            u_pw:this.userInfo.u_email
+          })
+          console.log(res,'sns회원가입과 로그인')
           this.$router.push(`/main/vodpopular`)
         } else {
           store.commit('setEmail', this.userId);

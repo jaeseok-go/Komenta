@@ -2,7 +2,8 @@
     <div class="sns-login-logo">
       <!-- <button @click="handleClickSignOut">sign out</button><br> -->
         <button @click="handleClickSignIn">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="55" viewBox="0 0 55 55">
+          <img src="@/assets/images/btn_google_signin_light_normal_web@2x.png" width="70%" alt="">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="55" viewBox="0 0 55 55">
                 <defs>
                     <clipPath id="clip-path">
                     <path id="패스_155" data-name="패스 155" d="M21.023,10.057H11.847v3.8h5.282c-.492,2.417-2.551,3.8-5.282,3.8a5.819,5.819,0,1,1,0-11.637,5.693,5.693,0,0,1,3.625,1.3l2.865-2.865a9.841,9.841,0,1,0-6.49,17.232c4.923,0,9.4-3.581,9.4-9.847A8.169,8.169,0,0,0,21.023,10.057Z" transform="translate(-2 -2)"/>
@@ -28,7 +29,7 @@
                     </g>
                     </g>
                 </g>
-            </svg>
+            </svg> -->
 
         </button>
         <!-- <button @click="handleClickLogin">get authCode</button> <br>
@@ -90,7 +91,7 @@ export default {
           console.log(response.data,'구글 아이디 있나여? 뭐가오니?')
           if (response.data) {
             console.log('로그인하러가자,,')
-            this.$store.dispatch('LOGIN',{
+            await this.$store.dispatch('LOGIN',{
             u_email:googleUser.Fs.lt,
             u_pw:googleUser.Fs.lt
           })

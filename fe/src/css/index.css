@@ -2884,7 +2884,7 @@ select {
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 2.625rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .at-user__profile {
@@ -2992,13 +2992,13 @@ select {
   margin-left: 0.3rem;
   position: relative;
   bottom: 10px;
-  right: 15px;
+  right: 10px;
   text-align: right;
 }
 
 .playlist_user_profile img {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: 1px solid rgba(206, 206, 206, 0.555);
   background-color: white;
@@ -3564,9 +3564,18 @@ select {
   text-align: center;
 }
 
+.category hr {
+  margin-bottom: 0 !important;
+}
+
 .category .category-total-title {
   font-weight: 600;
   margin-right: 1rem;
+}
+
+.category .all-category {
+  background: -webkit-gradient(linear, left top, right top, color-stop(1%, white), color-stop(12%, #f6faffd1), color-stop(40%, #f6faffd1), color-stop(60%, #f6faffd1), color-stop(80%, #f6faffd1), color-stop(88%, #f6faffd1), color-stop(99%, white));
+  background: linear-gradient(to right, white 1%, #f6faffd1 12%, #f6faffd1 40%, #f6faffd1 60%, #f6faffd1 80%, #f6faffd1 88%, white 99%);
 }
 
 .category .category-sub-list h4 {
@@ -3579,6 +3588,13 @@ select {
 
 .category .category-select {
   display: inline-block;
+  position: relative;
+  z-index: 9999;
+}
+
+.category .category-component {
+  position: relative;
+  bottom: 39px;
 }
 
 .category .category-img-form {
@@ -3602,7 +3618,8 @@ select {
   position: relative;
   margin-top: 1rem;
   top: 5px;
-  color: #5a5a5a;
+  color: black;
+  font-size: 17px;
 }
 
 .category .category-img-form:hover {
