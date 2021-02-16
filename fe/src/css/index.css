@@ -172,7 +172,7 @@
 ::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum, 'Apple SD Gothic Neo', MS PGothic, arial, sans-serif;
+  font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum, 'Apple SD Gothic Neo', MS PGothic, arial, sans-serif, 'Indie Flower', cursive;
 }
 
 #page-view {
@@ -3554,6 +3554,10 @@ select {
 .desc__4__subtitle > span {
   color: #fa233b;
   font-weight: 700;
+}
+
+.clickme_text {
+  font-family: 'Indie Flower', cursive !important;
 }
 
 .category:disabled(.category-select) {
