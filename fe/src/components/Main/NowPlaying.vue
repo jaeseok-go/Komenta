@@ -58,7 +58,7 @@ export default {
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     goVOD(ve_id){
-      this.$router.push(`voddetail/${ve_id}`)
+      this.$router.push(`/voddetail/${ve_id}`)
     }
   },
 }
