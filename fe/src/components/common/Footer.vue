@@ -13,7 +13,7 @@
 
       <div class="margin_top_rem">
        <span>세상에 없었던 인터렉티브 VOD 서비스 </span> 지금 멤버십을 가입해주세요 <br>
-        <router-link to="/member/membership">멤버십가입하러가기</router-link>
+        <router-link to="/member/membership"><span>멤버십가입하러가기</span></router-link>
       </div>
        <v-card-text class="margin_top_rem">
          (SSAFY 4기) 대전 2반 1팀 - Komenta <strong>배상웅, 고재석, 김채린, 박수아, 정혜림 </strong> <br>
