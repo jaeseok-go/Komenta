@@ -10,6 +10,14 @@
         <!-- <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video> -->
       </div>
       <div class="text">
+        <svg viewBox="0 0 500 500" style="display: inherit;position: absolute;transform: translate(-265px, -275px);">
+          <path id="curve" fill="transparent" d="M100,250 C100,100 400,100 400,250" />
+            <text class="clickme_text" width="50" font-family="'Leckerli One', cursive">
+              <textPath xlink:href="#curve" style="font-size:1.7rem" >
+                Click Me
+              </textPath>
+            </text>
+        </svg>
         <span data-text="ABOUT KOMENTA"></span>
       </div>
       <a href="#section2"><div class="text__scroll"><i class="fas fa-chevron-down"></i></div></a>
@@ -24,6 +32,7 @@
       <!-- <h1>Click</h1> -->
       <label for="home"></label>
       <div class="desc">
+        
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
         <div class="home__desc__title">세상에 없었던 인터렉티브 VOD 서비스</div>
         <div class="home__desc__subtitle">카드를 넘겨보면서 KOMENTA에 대해 더 알아보세요!</div>
@@ -111,6 +120,11 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+.clickme_text {
+  font-family: 'Indie Flower', cursive !important;
+}
 .wrapper_button {
   position: absolute;
   top: 1rem;
@@ -235,7 +249,7 @@ export default {
 
 .wrapper input {
   width: 1000px;
-  height: 40px;
+  height: 550px;
   margin: auto;
   position: absolute;
   left: 0;
