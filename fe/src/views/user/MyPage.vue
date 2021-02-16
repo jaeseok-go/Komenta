@@ -15,21 +15,15 @@
             <div class="profile-form">
               <div class="img">
                 <v-img v-if="showProfile" :src="showProfile" width="100%"/>
-                <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
-                <!-- {{userProfilePic}} -->
               </div>
               <div class="file-input">
-                <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
-                <!-- <button>프로필 사진 변경</button> -->
                 <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages" :v-model="userProfilePic" accept="image/jpeg,image/jpg">
                 <v-btn type="button" @click="onClickImageUpload" class="btn-upload">
                   <font-awesome-icon :icon="['fas', 'upload']" :style="{ color: '#ffffff' }"/>
                   upload
                 </v-btn>
-                <!-- {{userProfilePic}} -->
               </div>
             </div>
-            <!-- <hr class="rowHR"> -->
             <div class="rowHR"></div>
             <div class="user-modi-form">
               <div class="modi-form">
