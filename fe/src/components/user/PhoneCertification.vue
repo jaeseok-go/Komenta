@@ -45,7 +45,6 @@ export default {
     ...mapState({
       userInfo: state => state.user.userInfo
     }),
-    // 인증번호가 4자리아니고 3자리인것도 있다
     putAuthenBtn() {
       return validatePhoneNum(this.userPhoneNum);
     },
@@ -64,20 +63,22 @@ export default {
   },
   methods: {
     isAuthen(){
-      // console.log("props getIdChk 체크 : ",this.getIdChk)
-      // console.log("props userId 체크 : ", this.getUserId)
-      if(this.getIdChk != undefined) {
+      console.log("props getIdChk 체크 : ",this.getIdChk)
+      console.log("props userId 체크 : ", this.getUserId)
+      if(this.getIdChk == "") {
         // console.log("비밀번호 찾기 페이지임")
-        if(!this.getIdChk && !this.getUserId){
-          this.$swal({
-        text: "아이디 체크를 먼저 진행해주세요",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      }).then(()=>{
+        alert("아이디 체크를 먼저 진행해주세요")
         this.$emit('idChkFocus');
-      })
-        }
+      //   if(!this.getIdChk && !this.getUserId){
+      //     this.$swal({
+      //   text: "아이디 체크를 먼저 진행해주세요",
+      //   icon: 'info',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // }).then(()=>{
+      //   this.$emit('idChkFocus');
+      // })
+      //   }
       }
       // else if(this.getIdChk == undefined){
       //   console.log("비밀번호 찾기 아니니까 무시ㄱㄱ")
@@ -89,30 +90,34 @@ export default {
       // this.confirmNum = `${response.data.auth_number}`;
       // response.data.u_email
       this.userId = response.data.u_email;
-      // console.log(response)
+      console.log(response)
       this.confirmNum = response.data.auth_number;
-      this.$swal({
-        text: '인증 번호를 발송했습니다.',
-        icon: 'success',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+      alert('인증 번호를 발송했습니다.')
+      // this.$swal({
+      //   text: '인증 번호를 발송했습니다.',
+      //   icon: 'success',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
       this.start();
       this.authenDisplay = 'block';
     },
     async checkCertification() {
       console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
-        this.$swal({
-        text: '인증에 성공했습니다.',
-        icon: 'success',
-        timer: 1300,
-        showConfirmButton: false,
-      }).then(()=>{
+        alert('인증에 성공했습니다.')
         this.timeStop();
         this.resetBtnDisplay = 'none';
+      //   this.$swal({
+      //   text: '인증에 성공했습니다.',
+      //   icon: 'success',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // }).then(()=>{
+      //   this.timeStop();
+      //   this.resetBtnDisplay = 'none';
 
-      })
+      // })
         if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
           // console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
           this.$store.commit('setPhonenum',this.userPhoneNum);
@@ -130,12 +135,13 @@ export default {
           this.$emit('checkCertification')
         }
       } else {
-        this.$swal({
-        text: '인증 실패했습니다. 다시 시도해주세요.',
-        icon: 'error',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+        alert('인증 실패했습니다. 다시 시도해주세요.')
+      //   this.$swal({
+      //   text: '인증 실패했습니다. 다시 시도해주세요.',
+      //   icon: 'error',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
       }
     },
     start(){ // 1초에 한번씩 start 호출

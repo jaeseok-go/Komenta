@@ -47,45 +47,45 @@ export default {
     this.getMembershipInfo();
   },
   methods: {
-    changeState(){
-      if(this.membership.m_state == '해지하기') {
-        //멤버십 해지하는 기능
-        this.$swal({
-          title:'멤버십을 해지하시겠습니까?',
-        text:'해지 시, 모든 VOD 시청 및 댓글 작성이 제한됩니다.',
-        showCancelButton: true,
-        confirmButtonText: '해지',
-        cancelButtonText: '취소',
-      }).then((result) => {
-        if(result.value) {
-          this.$swal({
-            text: '멤버십이 정상적으로 해지되었습니다.',
-            icon: 'success',
-            timer: 1300,
-            showConfirmButton: false,
-          })
-          membership().then(()=>{
-            // console.log(this.getUserInfo(this.userInfo.u_id),'???')
-            this.$store.dispatch('FETCH_MEMBERSHIP',this.getUserInfo(this.userInfo.u_id))
+    // async changeState(){
+    //   if(this.membership.m_state == '해지하기') {
+    //     //멤버십 해지하는 기능
+    //     this.$swal({
+    //       title:'멤버십을 해지하시겠습니까?',
+    //       text:'해지 시, 모든 VOD 시청 및 댓글 작성이 제한됩니다.',
+    //       showCancelButton: true,
+    //       confirmButtonText: '해지',
+    //       cancelButtonText: '취소',
+    //     }).then((result) => {
+    //       if(result.value) {
+    //         this.$swal({
+    //           text: '멤버십이 정상적으로 해지되었습니다.',
+    //           icon: 'success',
+    //           timer: 1300,
+    //           showConfirmButton: false,
+    //         })
+    //         await membership().then(()=>{
+    //           // console.log(this.getUserInfo(this.userInfo.u_id),'???')
+    //           this.$store.dispatch('FETCH_MEMBERSHIP',await this.getUserInfo(this.userInfo.u_id))
 
-          })
-            window.location.reload();
-        }
-      })
+    //         })
+    //         window.location.reload();
+    //       }
+    //     })
+    //   }
+    // },
+    // 위코드 안되면 아래 코드로 바꿈
+    async changeState(){
+      const result = window.confirm('멤버십을 해지하시겠습니까? \n 해지 시, 모든 VOD 시청 및 댓글 작성이 제한됩니다.')
+      if(result) {
+        console.log('해지 ㄱ')
+        const response = await membership();
+        console.log("해지 결과 : ",response)
+        this.$store.dispatch('FETCH_MEMBERSHIP',await this.getUserInfo(this.userInfo.u_id))
+        alert('멤버십이 정상적으로 해지되었습니다.')
+        window.location.reload();
       }
     },
-    // 위코드 안되면 아래 코드로 바꿈
-    // async changeState(){
-    //     const result = window.confirm('멤버십을 해지하시겠습니까? \n 해지 시, 모든 VOD 시청 및 댓글 작성이 제한됩니다.')
-    //     if(result) {
-    //       console.log('해지 ㄱ')
-    //       const response = await membership();
-    //       console.log("해지 결과 : ",response)
-    //       this.$store.dispatch('FETCH_MEMBERSHIP',await this.getUserInfo(this.userInfo.u_id))
-    //       alert('멤버십이 정상적으로 해지되었습니다.')
-    //       window.location.reload();
-    //     }
-    //   }
     // },
     async getMembershipInfo(){
       var moment = require('moment');
