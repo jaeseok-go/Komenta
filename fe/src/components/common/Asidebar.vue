@@ -134,6 +134,7 @@ export default {
           container: 'swal2-container'
         },
         confirmButtonText: '로그아웃',
+        confirmButtonColor: "#fc3c44",
       }).then((result) => {
         if(result.value) {
           this.$swal({

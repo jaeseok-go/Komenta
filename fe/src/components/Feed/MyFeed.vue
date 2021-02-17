@@ -448,6 +448,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
+        confirmButtonColor: "#fc3c44",
         customClass: {
           container: 'swal2-container'
         },
