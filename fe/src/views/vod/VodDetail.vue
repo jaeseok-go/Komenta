@@ -315,6 +315,9 @@ export default {
       this.videoCurrentTime = vod.currentTime;
     },
     async createComment() {
+      if (this.userComment.trim()=='') {
+        return
+      }
       try {
         const vod = document.getElementById("videotag");
         // console.log(vod.currentTime,'댓글시간등록')
