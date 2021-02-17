@@ -259,14 +259,14 @@ export default {
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
-        alert('비밀번호를 입력하세요.')
-      //   this.$swal({
-      //   text: "비밀번호를 입력하세요.",
-      //   postion:'top',
-      //   icon: 'info',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+        // alert('비밀번호를 입력하세요.')
+        this.$swal({
+        text: "비밀번호를 입력하세요.",
+        postion:'top-end',
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.confirmPW) {
@@ -326,18 +326,21 @@ export default {
         };
         // console.log('유저데이터잘들어왔니',userData)
         await this.$store.dispatch('MODIFY',userData)
-        this.$swal({
-        text: '내정보 수정을 완료했습니다.',
-        icon: 'success',
-        timer: 1300,
-        showConfirmButton: false,
+        this.closeUserInfoModal();
+          this.$swal({
+          customClass: {
+        container: 'swal2-container'
+        },
+          text: '내정보 수정을 완료했습니다.',
+          icon: 'success',
+          timer: 1300,
+          showConfirmButton: false,
+
       }).then(()=>{
         this.userId = this.userInfo.u_email
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
-        
-        this.closeUserInfoModal();
-        
+              
         window.location.reload();
         
       })
@@ -349,8 +352,12 @@ export default {
     },
     unSubscribe(){
         this.$swal({
-        title:"회원 탈퇴 시, 모든 데이터는 복구가 불가능합니다.",
+        customClass: {
+          container: 'swal2-container'
+        },
+        title:"회원 탈퇴",
         text: "탈퇴를 계속 진행하시겠습니까?",
+        // position:'top',
         showCancelButton: true,
         confirmButtonText: '탈퇴',
         cancelButtonText: '취소',
@@ -362,10 +369,12 @@ export default {
             icon: 'success',
             timer: 1300,
             showConfirmButton: false,
-          }).then(()=>{
-            deleteMyInfo(this.uId)
-            window.location.href='/';
           })
+            deleteMyInfo(this.uId).then(()=>{
+              sessionStorage.clear()
+            })
+            window.location.href='/';
+          
         } 
       })
     

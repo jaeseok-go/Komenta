@@ -126,7 +126,7 @@ export default {
       this.$router.push(`/playlist/${id}`);
     },
     logout() {
-          this.$swal({
+        this.$swal({
         text: '로그아웃 하시겠습니까?',
         showCancelButton: true,
         confirmButtonText: '로그아웃',
@@ -137,10 +137,12 @@ export default {
             icon: 'success',
             timer: 1300,
             showConfirmButton: false,
+          }).then(()=>{
+            this.$store.commit('logout')
+            // this.$router.push('/')
+            window.location.href = '/'
+
           })
-        this.$store.commit('logout')
-        // this.$router.push('/')
-        window.location.href = '/'
         } 
       })
      

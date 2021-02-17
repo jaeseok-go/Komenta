@@ -69,13 +69,7 @@ export default {
           u_profile_pic:this.userProfile
         };
         await this.$store.dispatch('MODIFY',userData)
-        this.$swal({
-        text: '수정 완료했습니다.',
-        icon: 'success',
-        timer: 1300,
-        showConfirmButton: false,
-      })
-       
+      
       
         // console.log('유저데이터잘들어왔니',userData)
         // console.log(this.userInfo)
