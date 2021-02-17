@@ -1,7 +1,13 @@
 <template>
     <div id="kakao-login" class="sns-login-logo">
         <!-- <button @click="logoutWithKakao">KakaoLogout</button> -->
-        <button @click="loginWithKakao">
+        <button @click="onClickLogin">
+    <!-- <a href="https://kauth.kakao.com/oauth/authorize
+            ?client_id=
+            &redirect_uri=http://i4b201.p.ssafy.io:9999/api/member/login
+            &response_type=code">
+            카카오 로그인
+        </a> -->
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="55"
@@ -48,29 +54,61 @@ export default {
         }
     },
     methods: {
-        logoutWithKakao(){
-            if (!window.Kakao.Auth.getAccessToken()) {
-            console.log('Not logged in.');
-            return;
-            }
-            window.Kakao.Auth.logout(function() {
-            console.log(window.Kakao.Auth.getAccessToken());
-            });
-        },
-        login(){
-            window.Kakao.Auth.login({
-            // scope: 'phone_number_needs_agreement',
-            success: function(authObj) {
-        alert(JSON.stringify(authObj))
-      },
-      fail: function(err) {
-        alert(JSON.stringify(err))
-      },
+        // logoutWithKakao(){
+        //     if (!window.Kakao.Auth.getAccessToken()) {
+        //     console.log('Not logged in.');
+        //     return;
+        //     }
+        //     window.Kakao.Auth.logout(function() {
+        //     console.log(window.Kakao.Auth.getAccessToken());
+        //     });
+        // },
+        onClickLogin() {
+      this.kakaoLogin()
+        .then(() => {
+          this.$router.push({
+            name: "Main",
+          })
         })
         },
+     kakaoLogin() {
+    return new Promise((resolve, reject) => {
+        console.log(resolve,' 링ㅇㅇㅇㅇㅇ')
+        window.Kakao.Auth.login({
+        scope: "profile",
+        success: () => {
+            this.kakaoAccoutInfo();
+            resolve();
+        },
+        fail: (err) => {
+            console.error(err)
+            // alert(err.config);
+            
+            reject();
+        },
+        });
+    });
+    },
+    kakaoAccoutInfo() {
+        console.log('너는 들어왔니')
+    window.Kakao.API.request({
+        url: "/v2/user/me",
+    })
+        .then((res) => {
+        const kakaoId = res.id;
+        console.log(kakaoId,'카카오아이디 들어왔니')
+        // const user_age = res.kakao_account.age_range;
+        
+        })
+        .catch((err) => {
+        console.log("err", err);
+        });
+    },
     loginWithKakao() {
         const params = {
+            // redirectUri: `https://i4b201.p.ssafy.io/api/Auth`,
             redirectUri: `${process.env.VUE_APP_URL}/Auth`,
+
             // scope: 'phone_number_needs_agreement'
             // scope:'phone_number'
         };
@@ -93,7 +131,7 @@ export default {
         console.log(res,response)
         if (response.data) {
             console.log('로그인하러가자,,')
-            this.$store.dispatch('LOGIN',{
+            await this.$store.dispatch('LOGIN',{
             u_email:res.kakao_account.email,
             u_pw:res.kakao_account.email
           })

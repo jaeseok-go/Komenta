@@ -31,7 +31,7 @@
                 <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
                     <div class="at-user"  @click="gotoFeed(user.f_id)">
                         <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getProfile(index)" width="50px" height="50px" class="at-user__profile__img"></div>
+                        <div class="at-user__profile"><img :src="getProfile(index)" width="80px" height="80px" class="at-user__profile__img"></div>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
 
         <div class="play-list-form">
         <div class="play-list">
-          <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index">
+          <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index" :class="[playlist[0].v_poster? '' : 'pl_block']">
             <div class="playList-Form" @click="gotoPlaylist(playlist[0].pl_id)">
               <div class="reprePoster">
                 <img :src="getPoster(index)" width="210px" height="150px">
@@ -61,7 +61,7 @@
                 <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
                 {{playlist[0].pl_good_count}}
                 <p> 
-                   <span style="text-decoration: underline; text-underline-position:under;"><strong>{{playlist[0].pl_name}}</strong><br></span>
+                   <span style="text-decoration: underline; text-underline-position:under;"><strong v-text="getPlTitle(playlist[0].pl_name)"></strong><br></span>
                   <!-- {{playlist[0].pl_comment}} <br> -->
                 </p>
                 
@@ -130,7 +130,7 @@ export default {
         paginatedData() {
             const start = this.pageNum * this.pageSize,
             end = start + this.pageSize;
-            console.log(this.updateProfile,'너는 어떻닝')
+            console.log(this.updateProfile,'너는 어떠닝')
             return this.updateProfile.slice(start, end);
             
         },
@@ -230,6 +230,14 @@ export default {
             const response = await fetchfollowinglist(userId)
             this.following_list = response.data
         },
+        getPlTitle(pl_title){
+            if(pl_title.length > 15){
+                const rename = pl_title.substring(0,15)+"...";
+                return rename;
+            }else{
+                return pl_title;
+            }
+        }
     },
 }
 </script>

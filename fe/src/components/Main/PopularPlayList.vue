@@ -26,9 +26,9 @@
                 <img :src="getUserPic(index)">
               </div>
               <div class="plInfo">
-                <p>
-                  {{playList.pldetail[0].pl_name}} <br>
-                  {{playList.pldetail[0].u_nickname}}'S PICK <br>
+                <p class="plUserInfo">
+                  <b>{{playList.pldetail[0].u_nickname}}</b>'S PICK <br>
+                  <span v-text="getPlTitle(playList.pldetail[0].pl_name)"></span>
                 </p>
                 <p class="likeInfo">
                   <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
@@ -103,6 +103,14 @@ export default {
     goPlayList(pl_id){
       console.log("pl_id : ",pl_id);
       this.$router.push(`/playlist/${pl_id}`);
+    },
+    getPlTitle(pl_title){
+      if(pl_title.length > 15){
+        const rename = pl_title.substring(0,15)+"...";
+        return rename;
+      }else{
+        return pl_title;
+      }
     }
   },
   computed: {

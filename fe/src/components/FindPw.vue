@@ -5,10 +5,8 @@
               아이디: <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/>
               <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디 확인</button>
           </div>
-          <div @click="checkId">
-            <phone-certification
-              @checkCertification="checkCertification"
-            ></phone-certification>
+          <div> <!-- @click="checkId" -->
+            <phone-certification @checkCertification="checkCertification"></phone-certification>
           </div>
             <hr>
         </template>

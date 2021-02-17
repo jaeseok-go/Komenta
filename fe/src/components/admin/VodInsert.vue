@@ -221,7 +221,7 @@ export default {
     })
 
     alert("VOD가 정상적으로 등록되었습니다.");
-    // window.location.reload();
+    window.location.reload();
   },
   toVideo(){
     location.href="test";

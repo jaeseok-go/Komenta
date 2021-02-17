@@ -195,6 +195,14 @@
   }
 }
 
+.mainRowHR {
+  display: inline-table;
+  position: absolute;
+  height: 100%;
+  width: 0;
+  border-left: 1px solid rgba(206, 206, 206, 0.555);
+}
+
 //main - now playing
 .half-card {
   display: inline-table;
@@ -202,7 +210,7 @@
 
 .half-card.Now-Playing {
   text-align: center;
-  margin-left: 8rem;
+  margin-left: 8.3rem;
 }
 
 .nowPlaying {
@@ -241,7 +249,7 @@
         width: 135px;
         height: 135px;
         border-radius: 50%;
-        border: 10px solid #fff;
+        border: 10px solid #ffffff85;
 
         & .posterCD-middle {
           position: absolute;
@@ -322,6 +330,10 @@
       box-shadow: 0 8px 50px rgba(#000, 0.2);
       transform: scale(1.1);
     }
+  }
+
+  & .plUserInfo {
+    margin-left: 0.8rem;
   }
 
   .userPic {

@@ -1,7 +1,7 @@
 <template>
   <b-col>
     <div class="follow-form">
-      <h4>UnFollow 관리</h4>
+      <h4>차단 유저 관리</h4>
       <div class="drop-zone">
         <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
         <div class="drop-zone__inner">

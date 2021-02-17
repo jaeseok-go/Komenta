@@ -19,9 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -84,16 +82,16 @@ public class MemberController{
         }
 
         // SMS 인증 서비스 API env
-        String api_key = "테스트할때는 쓰기 아깝네요";
-        String api_secret = "허허허";
+        String api_key = "NCSBCNFO2FFJM0BV";
+        String api_secret = "B1FFZEW61CGA5LW8MYV35WM7XYXZJNCB";
         net.nurigo.java_sdk.api.Message coolsms = new Message(api_key, api_secret);
 
         // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", u_phone_number);    // 수신전화번호
-        params.put("from", "번호쓰는곳");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("from", "01021147305");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", " 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
+        params.put("text", "Komenta : 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
         System.out.println(auth_number);

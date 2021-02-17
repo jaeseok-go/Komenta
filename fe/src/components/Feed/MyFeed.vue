@@ -52,6 +52,12 @@
                 @dragstart="startDrag($event, vod)"
               >
                 <img :src="getVodPoster(vod.v_poster)" width="100%" />
+                <div class="vodInfo">
+                  <div class="vod-info-form">
+                    <p class="vod-info-title" v-html="vodTitleReName(vod.v_title, vod.ve_episode_num)"></p>
+                    <p class="vod-info-genre">{{vod.g_name}}/{{vod.gd_name}}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -147,7 +153,7 @@
                   @click="addlikeUserPlaylist(playlist[0].pl_id)"
                 >
                   <!-- <i class="far fa-star"></i> -->
-                  <font-awesome-icon :icon="['far', 'star']" />
+                  <font-awesome-icon :icon="['far', 'star']"/>
                 </span>
               </template>
               <template v-else>
@@ -259,10 +265,9 @@ export default {
       const vod = this.myrecentlists.historyList.find(
         (vod) => vod.ve_id == vodID
       );
-      console.log(vod, '뭐가 선택됐는가');
+
       this.dragIndex = this.myrecentlists.historyList.indexOf(vod, 0);
       // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
-      console.log(this.dragIndex, '드래그인덱스임');
       // 해당 vod를 플레이리스트에 추가
       // this.myrecentlists.episodeList.pop(this.dragIndex)
       // this.myrecentlists.historyList.pop(this.dragIndex)
@@ -280,7 +285,6 @@ export default {
     },
     showMyRecent() {
       if (this.userInfo.u_id == this.feedUserInfo.u_id) {
-        console.log('아임...유저....');
         return true;
       }
       return false;
@@ -378,17 +382,58 @@ export default {
     async addlikeUserPlaylist(plId) {
       await likePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
-      // alert('플레이리스트 좋아요 함')
+      this.$swal({
+        text: '플레이리스트 좋아요를 했습니다.',
+        icon: 'success',
+        type: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
     async cancellikePlaylist(plId) {
       await unlikePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
-      // alert('플레이리스트 좋아요 취소함')
+      this.$swal({
+        text: '플레이리스트 좋아요를 취소했습니다.',
+        icon: 'error',
+        type: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
-    async deleteUserPlaylist(plId) {
-      const response = await deletePlaylist(plId);
-      console.log(response);
-      this.getUserPlayList();
+    deleteUserPlaylist(plId) {
+      this.$swal({
+        // title: '플레이리스트를 삭제하시겠습니까?',
+        text: '플레이리스트를 삭제하시겠습니까?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.$swal({
+            text: '플레이리스트를 삭제했습니다.',
+            icon: 'success',
+            type: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+          deletePlaylist(plId).then(()=>{
+            this.getUserPlayList();
+          })
+        } else {
+          this.$swal({
+            text: '플레이리스트를 삭제를 취소했습니다.',
+            icon: 'info',
+            type: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+        }
+      })
+      
     },
     async getFeedInfo() {
       try {
