@@ -45,6 +45,18 @@ export default {
       else return true
     }
   },
+    methods: {
+    goTop() {
+      window.scrollTo(0, 0);
+    }
+  },
+   watch: {
+    '$route'() {
+      if (this.$route.name !== 'AboutPage' && this.$route.name !== 'BestComments' &&  this.$route.name !== 'AllComments') {
+        this.goTop();
+      }
+    }
+  }
 }
 </script>
 
