@@ -38,8 +38,10 @@
               </h4>
             </button>
             <div class="intro-drag-and-drop" :style="{display:isShowIntro}">
-              
-              <img :src="getIntro()" alt="">
+              <div class="triangle"></div>
+              <div class="img-box">
+                <img :src="getIntro()" alt="">
+              </div>
             </div>
           </div>
           <div class="drop-zone" @dragover.prevent @dragenter.prevent>

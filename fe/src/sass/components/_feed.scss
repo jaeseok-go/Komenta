@@ -75,6 +75,7 @@
 
   &__recentSection {
     display: flex;
+    position: relative;
     justify-content: space-between;
 
     &__createPlaylistButton {
@@ -107,11 +108,66 @@
 }
 
 .intro-drag-and-drop {
-  width: 390px;
+  width: 420px;
   position: absolute;
   z-index: 9999;
-  right: 100px;
-  bottom: 140px;
+  right: 0;
+  top: 50px;
+
+  & .triangle {
+    //   width: 0;
+    position: relative;
+    left: 340px;
+    //   border-bottom: 20px solid;
+    //   border-left: 10px solid transparent;
+    //   border-right: 10px solid transparent;
+  }
+
+  & .triangle::before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: relative;
+    top: -16px;
+    left: 20px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid $komenta-color;
+  }
+
+  & .triangle::after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: relative;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #fff;
+    top: -13px;
+    left: 0;
+  }
+
+  & .img-box {
+    width: 420px;
+    height: 250px;
+    border-radius: 5px;
+    background-color: white;
+    border: 2px solid $komenta-color;
+    // background-image: linear-gradient(white, white),
+    //   radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
+    // background-origin: border-box;
+    // background-clip: content-box, border-box;
+    // border: double 2px transparent;
+    box-shadow: 5px 5px 10px #c8c8c8;
+    text-align: center;
+    display: inline-block;
+    line-height: 250px;
+    & img {
+      width: 390px;
+      // posistion: relative;
+      vertical-align: middle;
+    }
+  }
 }
 
 .drop-zone {
