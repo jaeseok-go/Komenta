@@ -4,7 +4,7 @@
       <span class="pl-comment"><b>{{userInfo.u_nickname}}</b>님이 좋아요를 누른 플레이 리스트를 확인하세요!</span>
       <div class="popular-play-list" v-for="(playlist, pindex) in likeUserPlaylists" :key="pindex" >
         <h2 style="cursor:pointer">
-          <span class="list-title"  @click="goPlaylsitDetail(playlist[0].pl_id)"> <!--  @click="goPlaylsitDetail(playlist[0].pl_id)" -->
+          <span class="list-title"  @click="goPlaylsitDetail(playlist[0].pl_id)">
             {{ playlist[0].pl_name }}
           </span>
           <template v-if="isLikePlaylist(playlist[0].pl_id)">
@@ -84,7 +84,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { fetchPopularPlayList } from '@/api/vod' //, fetchPlayListDetail
+import { fetchPopularPlayList } from '@/api/vod'
 import {searchUserlist, unlikePlaylist, likePlaylist,} from '@/api/user'
 
 export default {
@@ -97,7 +97,7 @@ export default {
   created() {
     this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
     this.getPopularPlayList();
-    setTimeout(this.getByUserNickname,50);
+    setTimeout(this.getByUserNickname,100);
     // this.getLikePlayList()
   },
   computed: {
@@ -114,11 +114,11 @@ export default {
       for (let i = 0; i < this.likeUserPlaylists.length; i++) {
         const playlist = this.likeUserPlaylists[i];
         if (playlist[0].pl_id == plId) {
-            console.log('false')
+            // console.log('false')
           return false;
         }
       }
-      console.log('true')
+      // console.log('true')
       return true;
     },
     async addlikeUserPlaylist(plId) {
@@ -130,6 +130,7 @@ export default {
         timer: 1300,
         showConfirmButton: false,
       })
+      setTimeout(this.getByUserNickname,100);
     },
     async cancellikePlaylist(plId) {
       await unlikePlaylist({ pl_id: plId });
@@ -140,6 +141,7 @@ export default {
         timer: 1300,
         showConfirmButton: false,
       })
+      setTimeout(this.getByUserNickname,100);
     },
     goPlaylsitDetail(plId) {
       this.$router.push(`/playlist/${plId}`);
@@ -147,9 +149,7 @@ export default {
     goEpiDetail(veId) {
       this.$router.push(`/voddetail/${veId}`);
     },
-    getPoster(poster) { //gdname, title
-      // const gdId = this.genreDetails.find((genre) => genre.gd_name === gdname);
-      // return `${process.env.VUE_APP_PICTURE}poster/${gdId.gd_id}_${title}`;
+    getPoster(poster) {
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     async getPopularPlayList() {
@@ -158,7 +158,7 @@ export default {
         console.log("popular play list : ",response.data);
         for (let i = 0; i < response.data.length; i++) {
           const now = response.data[i];
-          if (now.pldetail[0].v_id !== 0) {
+          if (now.pldetail[0].v_id !== 0 && now.pldetail[0].u_id != this.userInfo.u_id) {
             this.popularPlayList.push(response.data[i])
           }   
         }
@@ -169,7 +169,6 @@ export default {
     },
     async getByUserNickname() {
       const response = await searchUserlist();
-      // this.userNicname = response.data;
       for(let i = 0; i<this.likeUserPlaylists.length; i++){
         for(let j = 0; j<response.data.length; j++) {
           if(this.likeUserPlaylists[i][0].u_id === response.data[j].u_id){
