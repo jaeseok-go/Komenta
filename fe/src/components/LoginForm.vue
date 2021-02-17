@@ -139,12 +139,12 @@ export default {
         // console.log(error,'로그인에러ㅓ')
         if(error.status === 500) {
           this.loginError();
-          this.$swal({
-          text: '로그인에 실패했습니다.',
-          icon: 'error',
-          timer: 1300,
-          showConfirmButton: false,
-        })
+        //   this.$swal({
+        //   text: '로그인에 실패했습니다.',
+        //   icon: 'error',
+        //   timer: 1300,
+        //   showConfirmButton: false,
+        // })
         }
       }
     },
