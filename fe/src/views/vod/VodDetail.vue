@@ -52,7 +52,7 @@
             <div class="video__comment__inner">
               <span class="video__comment__inner__nickname">{{userInfo.u_nickname}}</span> <br>
               <div>
-                <input type='text' class="video__comment__input" id=msg v-model.trim ="userComment" :placeholder="getUserBlockedInfo()" @keydown.enter="createComment()" :disabled="userInfo.is_blocked"/>
+                <input type='text' class="video__comment__input" id=msg v-model.trim ="userComment" :placeholder="getUserBlockedInfo()" @keydown.enter="createComment()" :class="{'blockuser__placeholder':userInfo.is_blocked}" :disabled="userInfo.is_blocked"/>
                 <span @click="createComment()"><i class="far fa-paper-plane"></i></span>
               </div>
             </div>

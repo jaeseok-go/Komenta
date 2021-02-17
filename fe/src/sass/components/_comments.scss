@@ -117,6 +117,12 @@
   border-bottom: black 1px solid;
   font-size: 13px;
 }
+.blockuser__placeholder{
+  &::placeholder {
+    color: #fc3c44;
+    font-style: italic;
+  }
+}
 .comments__menu {
   color: #fc3c44;
   font-size: large;
