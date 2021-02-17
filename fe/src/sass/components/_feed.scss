@@ -114,6 +114,11 @@
   right: 0;
   top: 50px;
 
+  &.vod-detail {
+    top: 15px;
+    right: -43px;
+  }
+
   & .triangle {
     //   width: 0;
     position: relative;

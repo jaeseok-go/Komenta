@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC, faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC, faStar as farStar, faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCheckCircle as fasCheckC, faCheck, faTimes, faThumbsUp, faStar, faAngleRight, faAngleLeft, faUserCog, faUpload, faTv} from "@fortawesome/free-solid-svg-icons";
 import '@/css/index.css'
 import '@/assets/ionic.css'
@@ -28,7 +28,7 @@ Vue.use(Vuetify);
 
 
 library.add(fasCheckC, faCheck, faTimes, faThumbsUp, faStar, faAngleLeft, faAngleRight, faUserCog, faUpload, faTv) //fas lib
-library.add(faEye, faEyeSlash, faEnvelope, farCheckC, farStar) //far lib
+library.add(faEye, faEyeSlash, faEnvelope, farCheckC, farStar, faQuestionCircle) //far lib
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
