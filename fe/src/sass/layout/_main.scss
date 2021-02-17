@@ -26,7 +26,6 @@
   margin-top: 0.5rem;
   border-top: 1px solid rgba(206, 206, 206, 0.555);
   border-bottom: 1px solid rgba(206, 206, 206, 0.555);
-
 }
 
 .scene {
@@ -36,7 +35,7 @@
 }
 
 .main .scene {
-  margin: 10px 40px 10px 40px !important;
+  margin: 10px 39px 10px 39px !important;
 }
 
 .movie {
@@ -120,7 +119,6 @@
   width: 100%;
   margin: 0 auto;
   margin-top: -1.5rem;
-
 }
 
 .best-comm-form {
@@ -129,7 +127,6 @@
   & table {
     width: 500px;
     margin-top: 1.5rem;
-
   }
 }
 
@@ -311,7 +308,7 @@
   position: relative;
   z-index: -99;
   top: 33px;
-  left:1rem;
+  left: 1rem;
 
   & > div {
     display: inline-block;
