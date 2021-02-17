@@ -57,10 +57,10 @@ const mutations = {
         state.token = ''
         state.isLogin = false
         state.isLoginError = false
-        sessionStorage.clear()
-        if (this.$gAuth.signIn()) {
+        if (this.$gAuth != undefined) {
             this.$gAuth.signOut();
         }
+        sessionStorage.clear()
     },
     loginError(state) {
         state.isLoginError = true
