@@ -107,6 +107,7 @@ export default {
             showConfirmButton: false,
           })
           deletePlaylist(plId).then(()=>{
+            this.$store.dispatch('FETCH_MYPLAYLIST', this.userInfo.u_id);
             this.$router.push(`/feed/${this.userProfile.u_id}`)
           })
         } else {

@@ -275,7 +275,7 @@ export default {
           text: '이미 플레이리스트에 있는 VOD EPISODE 입니다.',
           customClass: {
           container: 'swal2-container'
-        },
+          },
           icon: 'info',
           timer: 1300,
           showConfirmButton: false,
@@ -288,8 +288,9 @@ export default {
         vh_id: vod.vh_id,
         pl_id: plId,
       };
-      addPlaylistVod(epiInfo);
-      this.getUserPlayList();
+      addPlaylistVod(epiInfo).then(()=>{
+        this.getUserPlayList();
+      });
       // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
       // 해당 vod를 플레이리스트에 추가
       // this.myrecentlists.episodeList.pop(this.dragIndex)
@@ -334,10 +335,10 @@ export default {
       const your_id = this.$route.params.id;
       const my_id = this.userInfo.u_id;
       const bothId = { u_id: my_id, f_id: your_id };
-      const response = modifyfollow(bothId);
-      console.log(response, '됐다');
+      modifyfollow(bothId);
+      // console.log(response, '됐다');
       this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
-      console.log(this.showFollowBtn, '->', !this.showFollowBtn);
+      // console.log(this.showFollowBtn, '->', !this.showFollowBtn);
       this.showFollowBtn = !this.showFollowBtn;
     },
 
@@ -465,6 +466,7 @@ export default {
             showConfirmButton: false,
           })
           deletePlaylist(plId).then(()=>{
+            this.$store.dispatch('FETCH_MYPLAYLIST', this.userInfo.u_id);
             this.getUserPlayList();
           })
         } else {
