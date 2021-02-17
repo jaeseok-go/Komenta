@@ -5,6 +5,7 @@
     <b-col class="card2">
       <!-- 실시간 인기 댓글 유저 -->
       <BestCommentRank class="col-md-6 half-card"></BestCommentRank>
+      <div class="col-md-1 mainRowHR"></div>
       <!-- 보고 있는 VOD -->
       <NowPlaying class="col-md-4 half-card Now-Playing"></NowPlaying>
     </b-col>
