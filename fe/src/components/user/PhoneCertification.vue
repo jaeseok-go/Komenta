@@ -2,7 +2,7 @@
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
         <form @submit.prevent="sendCertificationNumber">
-          <p class="phone-label">휴대폰 번호 : </p><input type="text" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
+          <p class="phone-label">휴대폰 번호 : </p><input type="text" @focus="isAuthen" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
           <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
             휴대폰 인증</button>
           <br />
@@ -40,6 +40,7 @@ export default {
             confirmNum: '0000',
         };
     },
+    props: ['getIdChk', 'getUserId'],
     computed: {
     ...mapState({
       userInfo: state => state.user.userInfo
@@ -62,6 +63,19 @@ export default {
     },
   },
   methods: {
+    isAuthen(){
+      console.log("props getIdChk 체크 : ",this.getIdChk)
+      console.log("props userId 체크 : ", this.getUserId)
+      if(this.getIdChk != undefined) {
+        console.log("비밀번호 찾기 페이지임")
+        if(!this.getIdChk && !this.getUserId){
+          alert("아이디 체크를 먼저 진행해주세요")
+          this.$emit('idChkFocus');
+        }
+      }else if(this.getIdChk == undefined){
+        console.log("비밀번호 찾기 아니니까 무시ㄱㄱ")
+      }
+    },
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
