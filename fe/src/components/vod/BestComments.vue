@@ -49,6 +49,9 @@ export default {
 
     }
   },
+  // props:{
+  //   commentsList:Array,
+  // },
    computed:{
       ...mapState({
       userInfo: state => state.user.userInfo,
@@ -174,7 +177,7 @@ export default {
     }
       await userlikeComment(commentInfo)
       this.getEpiComment();
-
+      this.$emit('commentLike',comment.c_id)
   }
 
       
