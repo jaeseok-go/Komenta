@@ -269,7 +269,10 @@ export default {
       const vod = this.myrecentlists.historyList.find(
         (vod) => vod.ve_id == vodID
       );
-
+      // for (let i = 0; i < array.length; i++) {
+      //   const element = array[i];
+        
+      // }
       this.dragIndex = this.myrecentlists.historyList.indexOf(vod, 0);
       // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
       // 해당 vod를 플레이리스트에 추가
