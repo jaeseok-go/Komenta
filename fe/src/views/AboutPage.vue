@@ -10,7 +10,7 @@
         <!-- <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video> -->
       </div>
       <div class="text">
-        <svg viewBox="0 0 500 500" style="display: inherit;position: absolute;transform: translate(-265px, -275px);">
+        <svg viewBox="0 0 500 500" class="svg">
           <path id="curve" fill="transparent" d="M100,250 C100,100 400,100 400,250" />
             <text width="50" >
               <textPath xlink:href="#curve" style="font-size:1.7rem" class="clickme_text">
