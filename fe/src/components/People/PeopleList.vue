@@ -2,6 +2,12 @@
     <div>
         <div v-if="following_list.length" class="container margin__left">
             <div class="container__following">
+                
+                <!-- 친구 카드 프로필 닉네임 같이 보여주면서 바로가기 -->
+                <div class="at-section">
+                    <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 피드에서 소식을 확인해보세요</div>
+                    <span class="at-section__subtitleButton " style="margin-top:2rem; margin-bottom:4.5rem"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>새로 업데이트된 친구들의 플레이리스트를 확인해보세요</span></span>
+                </div>
                 <!-- 버튼 누르기 -->
                 <div class="btn-cover_people">
                     <button :disabled="pageNum === 0" @click="prevPage" class="page-btn_people">
@@ -18,12 +24,8 @@
                     <font-awesome-icon :icon="['fas', 'angle-right']"/>
                 </button>
                 </div>
-                
-                <!-- 친구 카드 프로필 닉네임 같이 보여주면서 바로가기 -->
-                <div class="at-section">
-                    <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 피드에서 소식을 확인해보세요</div>
-                    <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
-                </div>
+
+                <span class="at-section__subtitleButton" style="margin-top:6rem;margin-bottom:1.2rem"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
                 <div class="btn-cover_people">
                     <button :disabled="pageNum_2 === 0" @click="prevPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
                         <font-awesome-icon :icon="['fas', 'angle-left']"/>
@@ -43,8 +45,8 @@
                 
                 <!-- 업데이트된 플레이리스트 카드형태로 2개씩 보여줌 -->
                 <div class="at-section">
-                    <div class="at-section__title"><span class="at-section__nickname" style="font-size:2.8rem">새롭게 업데이트된 플레이리스트를 확인해보세요</span></div>
-                    <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
+                    <!-- <div class="at-section__title"><span class="at-section__nickname" style="font-size:2.8rem">새롭게 업데이트된 플레이리스트를 확인해보세요</span></div> -->
+                    <span class="at-section__subtitleButton" style="margin-top:4.5rem; margin-bottom:1.2rem"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
                 </div>
 
             <div class="play-list-form">
