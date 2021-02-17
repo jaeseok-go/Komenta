@@ -20,10 +20,10 @@
           <div class="playList" v-for="(playList, index) in paginatedData" :key="index">
             <div class="playList-Form" @click="goPlayList(playList.plb_id)">
               <div class="reprePoster">
-                <img :src="getPoster(index)" width="210px" height="150px">
+                <img :src="getPoster(playList.pldetail[0].v_poster)" width="210px" height="150px">
               </div>
               <div class="userPic-popList">
-                <img :src="getUserPic(index)">
+                <img :src="getUserPic(playList.pldetail[0].u_profile_pic)">
               </div>
               <div class="plInfo">
                 <p class="plUserInfo">
@@ -89,16 +89,13 @@ export default {
         console.log(err,"err")
       }
     },
-    getPoster(index) {
-      var poster = this.popularPlaylist[index].pldetail[0].v_poster;
-      // console.log("comment poster name : ",poster)
-      return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
+    getPoster(path) {
+     
+      return `${process.env.VUE_APP_PICTURE}poster/${path}`;
     },
-    getUserPic(index) {
-      const profile = this.popularPlaylist[index].pldetail[0].u_profile_pic.split('.');
-      let picName = profile[0];
-      // console.log("picname : ",picName);
-      return `${process.env.VUE_APP_PICTURE}profile/${picName}`;
+    getUserPic(path) {
+      const profile = path.split('.')[0];
+      return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
     },
     goPlayList(pl_id){
       console.log("pl_id : ",pl_id);
