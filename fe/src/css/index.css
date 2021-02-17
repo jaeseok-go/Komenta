@@ -2542,6 +2542,7 @@ select {
 }
 
 .intro-drag-and-drop {
+<<<<<<< HEAD
   width: 420px;
   position: absolute;
   z-index: 9999;
@@ -2594,6 +2595,13 @@ select {
 .intro-drag-and-drop .img-box img {
   width: 390px;
   vertical-align: middle;
+=======
+  width: 390px;
+  position: absolute;
+  z-index: 9999;
+  right: 100px;
+  bottom: 140px;
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
 }
 
 .drop-zone {
@@ -3819,4 +3827,3 @@ select {
   border: 1px solid #999;
   font-family: 'Nanumgothic';
 }
-/*# sourceMappingURL=index.css.map */

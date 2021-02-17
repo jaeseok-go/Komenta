@@ -2,7 +2,7 @@
   <div>
     <!-- 클릭 => 영상 나오기 -->
     <div class="wrapper">
-      <button class="wrapper_button bounce" @click="gotoLogin">LOGIN</button>
+      <button class="wrapper_button" @click="gotoLogin">LOGIN</button>
       <input type="checkbox">
       <div class="video">
         <video src="@/assets/videos/about.mp4" loop muted autoplay></video>
@@ -12,34 +12,35 @@
       <div class="text">
         <svg viewBox="0 0 500 500" style="display: inherit;position: absolute;transform: translate(-265px, -275px);">
           <path id="curve" fill="transparent" d="M100,250 C100,100 400,100 400,250" />
-            <text width="50" >
-              <textPath xlink:href="#curve" style="font-size:1.7rem" class="clickme_text">
-                Click Me!
+            <text class="clickme_text" width="50" font-family="'Leckerli One', cursive">
+              <textPath xlink:href="#curve" style="font-size:1.7rem" >
+                Click Me
               </textPath>
             </text>
         </svg>
         <span data-text="ABOUT KOMENTA"></span>
       </div>
-      <a href="#section2"><div class="text__scroll animated bounce animate__animated animate__fadeInUp "><i class="fas fa-chevron-down"></i></div></a>
+      <a href="#section2"><div class="text__scroll"><i class="fas fa-chevron-down"></i></div></a>
     </div>
 
     <!-- 2 -->
   <form id="section2" >
   <input type="radio" name="tab" id="menu" checked="checked" class="goback goMenu"/>
   <div class="container">
-    <input type="radio" name="tab" id="home" class="goback" @click="onlyOne('home')"/>
-    <section class="home" @click="gotoSmall('home')">
+    <input type="radio" name="tab" id="home" class="goback"/>
+    <section class="home" @click="gotoSmall">
       <!-- <h1>Click</h1> -->
       <label for="home"></label>
       <div class="desc">
+        
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
         <div class="home__desc__title">세상에 없었던 인터렉티브 VOD 서비스</div>
         <div class="home__desc__subtitle">카드를 넘겨보면서 KOMENTA에 대해 더 알아보세요!</div>
-        <div class="home__desc__login"  @click="gotoLogin">GO TO LOGIN</div>
+        <div class="home__desc__login"  @click="gotoLogin">무료 체험하기</div>
       </div>
     </section>
-    <input type="radio" name="tab" id="about" class="goback" @click="onlyOne('about')"/>
-    <section class="about" @click="gotoSmall('about')">
+    <input type="radio" name="tab" id="about" class="goback"/>
+    <section class="about" @click="gotoSmall">
       <button class="clickme_button">#Playlist</button>
       <label for="about"></label>
       <div class="desc">
@@ -49,8 +50,8 @@
           <div class="desc__2__video"><video src="@/assets/videos/playlist.mp4" width="50%" autoplay muted loop></video></div>
       </div>
     </section>
-    <input type="radio" name="tab" id="work" class="goback" @click="onlyOne('work')" />
-    <section class="work" @click="gotoSmall('work')">
+    <input type="radio" name="tab" id="work" class="goback"/>
+    <section class="work" @click="gotoSmall">
       <button class="clickme_button clickme_button_comment">#Comment</button>
       <label for="work"></label>
       <div class="desc">
@@ -62,8 +63,8 @@
         <div class="desc__3__video"><video src="@/assets/videos/comment.mp4" width="50%" autoplay muted loop></video></div>
       </div>
     </section>
-    <input type="radio" name="tab" id="contact" class="goback" @click="onlyOne('contact')"/>
-    <section class="contact" @click="gotoSmall('contact')">
+    <input type="radio" name="tab" id="contact" class="goback"/>
+    <section class="contact" @click="gotoSmall">
       <button class="clickme_button" >#Interest</button>
       <label for="contact"></label>
       <div class="desc">
@@ -95,12 +96,8 @@ export default {
   components:{
     AboutFooter
   },
-  data() {
-    return {
-      classList : ['home','about','contact','work']
-    }
-  },
   methods: {
+<<<<<<< HEAD
     onlyOne(id) {
       for (let index = 0; index < this.classList.length; index++) {
         const element =  this.classList[index];
@@ -114,10 +111,12 @@ export default {
       }
     },
     
+=======
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
     gotoLogin() {
       this.$router.push(`/member/login`)
     },
-    gotoSmall(id) {
+    gotoSmall() {
       const INPUT = document.querySelectorAll('.goback')
       const MENU = document.querySelector('.goMenu')
       console.log(INPUT,'DLSVDSDS')
@@ -126,16 +125,6 @@ export default {
         if (element.checked) {
           element.checked = false;
           MENU.checked = true;
-        }
-        
-      }
-      for (let index = 0; index < this.classList.length; index++) {
-        const element =  this.classList[index];
-        
-        if (id !== element ) {
-          const another = document.querySelector(`.${element}`)
-          console.log(another,id,'언아더')
-          another.style.display = 'block';
         }
         
       }
@@ -149,23 +138,13 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=GloriaHallelujah&family=Schoolbell&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Sue+Ellen+Francisco&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Nanum+Pen+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
 .clickme_text {
-  font-family: 'Architects Daughter', cursive;
+  font-family: 'Indie Flower', cursive !important;
 }
 .wrapper_button {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-family: 'Poor Story', cursive;
-  font-size: 2rem;
-  /* color:#fa233b; */
 }
 .wrapper {
   --color: #fa233b;
@@ -226,12 +205,11 @@ export default {
   position: relative;
   text-transform: uppercase;
   font-size: 5rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .2px;
   opacity: var(--opacity, 1);
   -webkit-transition: opacity 0.3s var(--timing-function) 0.2s;
   transition: opacity 0.3s var(--timing-function) 0.2s;
-  font-family: 'Raleway', sans-serif;
 }
 
 .wrapper .text::before, .wrapper .text::after {
@@ -266,20 +244,15 @@ export default {
 .wrapper .text > span::before, .wrapper .text > span::after {
   content: attr(data-text);
   padding-left: 26px;
-  
 }
 
 .wrapper .text > span::before {
   color: var(--color);
-  /* color: blue; */
-  font-weight: 900  !important;
-  font-family: 'Raleway', sans-serif;
-  
+  font-weight: 700;
 }
 
-.wrapper .text > span::after  {
+.wrapper .text > span::after {
   color: var(--color-invert);
-  /* color: blue; */
   -webkit-clip-path: var(--clip-path);
           clip-path: var(--clip-path);
   -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
@@ -288,7 +261,6 @@ export default {
   transition: clip-path var(--duration) var(--timing-function), -webkit-clip-path var(--duration) var(--timing-function);
   position: absolute;
   left: 0;
-  font-family: 'Raleway', sans-serif;
 }
 
 .wrapper input {
@@ -318,7 +290,6 @@ export default {
 .wrapper input:hover ~ .text::before {
   --r: 25px;
   --opacity: 1;
-  
 }
 
 .wrapper input:hover ~ .text::after {
@@ -330,7 +301,6 @@ export default {
   -webkit-clip-path: var(--clip-path-hover);
           clip-path: var(--clip-path-hover);
 }
-
 
 .wrapper input:checked {
   width: 100%;
@@ -382,6 +352,16 @@ export default {
 
 /* section2 */
 
+body {
+	margin: 0;
+	padding: 0;
+	font-weight: 300;
+	font-family: 'Raleway', sans-serif;
+	background: #fff;
+	background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 80%, rgba(0,0,0,0.15) 100%);
+	overflow: hidden;
+	transform-style: preserve-3d;
+}
 
 input[type='radio'],
 .hide {
@@ -391,7 +371,7 @@ input[type='radio'],
 input[type='radio']:checked + section {
 	/* top: 0;
    */
-  top: -3rem;
+   top: -3rem;
   left: -1rem;
   cursor: pointer;
 }
@@ -467,6 +447,16 @@ input[type='radio']:checked + section {
 	background: rgba(0,0,0,0.25);
 }
 
+/* .menu::before,
+.menu::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 35px;
+	height: 4px;
+	background: rgba(0,0,0,0.25);
+	transition: all 200ms;
+} */
 
 .menu::before {
 	top: 10px;
@@ -485,19 +475,18 @@ input[type='radio']:checked + section {
 	background: #fff;
 }
 
-.menu div,
+/* .menu div,
 .menu div label:nth-child(1) {
-  display: none;
-	/* display: block;
+	display: block;
 	width: 35px;
 	height: 35px;
 	position: absolute;
-	top: -6px; */
+	top: -6px;
 }
 
 .menu div label:nth-child(2) {
 	display: none;
-}
+} */
 
 #menu:checked + .container {
 	/* transform: scale(0.65) translateY(-18%); */
@@ -511,8 +500,7 @@ input[type='radio']:checked + section {
 	overflow: hidden;
 	opacity: 1;
 	box-shadow: 0 0 40px rgba(0,0,0,0.25);
-
-
+	transform-style: preserve-3d;
 }
 
 #menu:checked + .container section h1 {
@@ -520,10 +508,10 @@ input[type='radio']:checked + section {
 	transform-style: preserve-3d;
 }
 
-#menu:checked + .container + .menu {
+/* #menu:checked + .container + .menu {
 	top: 30px;
 	left: 20px;
-	/* transform: rotate(225deg); */
+	transform: rotate(225deg);
 	transition: all 200ms;
 	transform-origin: center center;
 	background: #646464;
@@ -541,13 +529,12 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container + .menu::after {
-	margin-top: -20px; 
+	margin-top: -20px;
 	transform: rotate(90deg);
-
 }
 
-#menu:checked + .container + .menu div label:nth-child(4) {
-   display: none;
+#menu:checked + .container + .menu div label:nth-child(2) {
+   display: block;
 	width: 35px;
 	height: 35px;
 	position: absolute;
@@ -556,10 +543,7 @@ input[type='radio']:checked + section {
 
 #menu:checked + .container + .menu div label:nth-child(1) {
 	display: none;
-}
-
-
-
+} */
 
 .container section.home {
 	z-index: 99;
@@ -608,8 +592,6 @@ input[type='radio']:checked + section {
 #menu:checked + .container section.contact:hover {
 	top: 8px;
 }
-
-
 
 
 /* 3 */
