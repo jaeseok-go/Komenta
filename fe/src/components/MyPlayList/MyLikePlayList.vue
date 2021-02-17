@@ -124,12 +124,22 @@ export default {
     async addlikeUserPlaylist(plId) {
       await likePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
-      // alert('플레이리스트 좋아요 함')
+       this.$swal({
+        text: '플레이리스트 좋아요를 했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
     async cancellikePlaylist(plId) {
       await unlikePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
-      // alert('플레이리스트 좋아요 취소함')
+      this.$swal({
+        text: '플레이리스트 좋아요를 취소했습니다.',
+        icon: 'error',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
     goPlaylsitDetail(plId) {
       this.$router.push(`/playlist/${plId}`);

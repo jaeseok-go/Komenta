@@ -2744,6 +2744,11 @@ select {
   background-color: #fc3c44;
 }
 
+.addRecomm {
+  margin-top: 2.5rem;
+  font-size: 25px;
+}
+
 .drag-el:hover .vodInfo {
   background-color: #000000a8;
   display: block;
@@ -2803,6 +2808,10 @@ select {
 
 .playlsit-icon-size {
   font-size: 1.5rem;
+}
+
+.playlist-display {
+  display: inline-block;
 }
 
 .container {

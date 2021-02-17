@@ -339,7 +339,6 @@ export default {
         this.$swal({
         text: '플레이리스트를 생성 했습니다.',
         icon: 'success',
-        type: 'success',
         timer: 1300,
         showConfirmButton: false,
       })
@@ -392,7 +391,6 @@ export default {
       this.$swal({
         text: '플레이리스트 좋아요를 했습니다.',
         icon: 'success',
-        type: 'success',
         timer: 1300,
         showConfirmButton: false,
       })
@@ -403,7 +401,6 @@ export default {
       this.$swal({
         text: '플레이리스트 좋아요를 취소했습니다.',
         icon: 'error',
-        type: 'success',
         timer: 1300,
         showConfirmButton: false,
       })
@@ -412,18 +409,15 @@ export default {
       this.$swal({
         // title: '플레이리스트를 삭제하시겠습니까?',
         text: '플레이리스트를 삭제하시겠습니까?',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
           this.$swal({
             text: '플레이리스트를 삭제했습니다.',
             icon: 'success',
-            type: 'success',
             timer: 1300,
             showConfirmButton: false,
           })
@@ -434,7 +428,6 @@ export default {
           this.$swal({
             text: '플레이리스트를 삭제를 취소했습니다.',
             icon: 'info',
-            type: 'info',
             timer: 1300,
             showConfirmButton: false,
           })
