@@ -35,6 +35,17 @@
             </div>
           </div>
           <div class="video__comment">
+            <div class="video__intro">
+              <span @mouseover="showIntro" @mouseleave="closeIntro">
+                <font-awesome-icon :icon="['far','question-circle']"  @mouseover="showIntro" @mouseleave="closeIntro"/>
+              </span>
+              <div class="intro-drag-and-drop vod-detail" :style="{display:isShowIntro}">
+                <div class="triangle"></div>
+                <div class="img-box">
+                  <img :src="getIntro()" alt="">
+                </div>
+              </div>
+            </div>
             <div class="video__comment__box">
               <img :src="getPoster()" alt="" class="video__comment__profile">
             </div>
@@ -142,6 +153,7 @@ export default {
       // followingComment:false
       showEpiDetail:true,
       showVodDetail:true,
+      isShowIntro: 'none',
     }
   },
   created(){
@@ -153,6 +165,15 @@ export default {
     this.startWatchTime();
   },
   methods : {
+    showIntro(){
+      this.isShowIntro = 'block';
+    },
+    closeIntro(){
+      this.isShowIntro = 'none';
+    },
+    getIntro(){
+      return require('@/assets/images/vod-detail.gif');
+    },
     DeleteComment(cId){
     removeComment(cId).then(()=>{
       this.getEpiComment();

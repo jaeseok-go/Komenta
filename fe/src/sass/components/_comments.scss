@@ -58,6 +58,18 @@
   height: 20%;
   background-color: #ffffff;
   border-top: 1px solid #e1dede;
+  position: relative;
+
+  & .video__intro {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+
+    & .fa-question-circle {
+      color: rgb(145, 145, 145);
+      cursor: pointer;
+    }
+  }
 }
 .video__comment__box {
   margin-top: 23px;
@@ -89,7 +101,7 @@
 .comment__time {
   // color: #747474;
   // color:#3EA6FF;
-  color:#065FD4;
+  color: #065fd4;
   cursor: pointer;
   text-decoration: none;
   font-size: 11.5px;
@@ -115,7 +127,7 @@
   cursor: pointer;
   font-size: 13px;
   margin-right: 0.3rem;
-  margin-left: 0.3rem
+  margin-left: 0.3rem;
 }
 .comment__username {
   color: black;
