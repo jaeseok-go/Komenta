@@ -5,15 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>logo.ico">
-    <!-- kakao.js -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-      // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-      Kakao.init(`${process.env.VUE_APP_KAKAO_JS_KEY}`);
-
-      // SDK 초기화 여부를 판단합니다.
-      console.log(Kakao.isInitialized());
-    </script>
+    <!-- alert CDN -->
+    <!-- <script src="sweetalert2.all.min.js"></script> -->
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css"> -->
     <title>Komenta: 세상에 없었던 인터렉티브 VOD 서비스</title>
     <link rel="stylesheet" href="../src/css/index.css">
     
