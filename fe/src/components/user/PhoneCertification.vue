@@ -45,7 +45,6 @@ export default {
     ...mapState({
       userInfo: state => state.user.userInfo
     }),
-    // 인증번호가 4자리아니고 3자리인것도 있다
     putAuthenBtn() {
       return validatePhoneNum(this.userPhoneNum);
     },
@@ -64,9 +63,9 @@ export default {
   },
   methods: {
     isAuthen(){
-      // console.log("props getIdChk 체크 : ",this.getIdChk)
-      // console.log("props userId 체크 : ", this.getUserId)
-      if(this.getIdChk != undefined) {
+      console.log("props getIdChk 체크 : ",this.getIdChk)
+      console.log("props userId 체크 : ", this.getUserId)
+      if(this.getIdChk == "") {
         // console.log("비밀번호 찾기 페이지임")
         alert("아이디 체크를 먼저 진행해주세요")
         this.$emit('idChkFocus');

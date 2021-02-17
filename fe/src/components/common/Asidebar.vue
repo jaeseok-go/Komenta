@@ -139,9 +139,8 @@ export default {
             showConfirmButton: false,
           })
         this.$store.commit('logout')
-        // window.location.reload()
-        this.$router.push('/')
-
+        // this.$router.push('/')
+        window.location.href = '/'
         } 
       })
      
