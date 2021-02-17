@@ -7,6 +7,15 @@
         </span>
       </router-link>
     </div>
+    <div class="web-navigation__userInfo">
+      <div class="web-navigation__userProfile">
+        <img :src="getProfile(userInfo.u_profile_pic)" alt="">
+      </div>
+      <div class="web-navigation__userText">
+        <p class="web-navigation__userNickName" v-text="getUserNickName(userInfo.u_nickname)"></p> <!-- v-text="getNickName(userInfo.u_nickname)" -->
+        <p class="web-navigation__userId" v-text="getUserEmail(userInfo.u_email)"></p> <!-- v-text="getEmail(userInfo.u_email)" -->
+      </div>
+    </div>
     <div class="web-navigation__scrollable">
       <ul class="web-navigation__nav-list">
         <div class="web-navigation__nav">
@@ -125,6 +134,25 @@ export default {
         // }
       }
     },
+    getProfile(profile) {
+      return `${process.env.VUE_APP_PICTURE}profile/${profile.split('.')[0]}`;
+    },
+    getUserNickName(nickname) {
+      if(nickname.length > 18) {
+        const rename = nickname.substring(0,17)+"... 님";
+        return rename;
+      }else {
+        return nickname+" 님";
+      }
+    },
+    getUserEmail(email) {
+      if(email.length > 18) {
+        const rename = email.substring(0,17);
+        return rename;
+      }else {
+        return email;
+      }
+    }
   },
   computed: {
     ...mapState({
