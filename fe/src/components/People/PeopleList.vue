@@ -58,7 +58,7 @@
               </div>
               <div class="plInfo margin__left__five">
                 <span class="container__info__button" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</span>'S PICK
-                <font-awesome-icon :icon="[starType, 'star']" :style="{ color: '#e2c000'}"/>
+                <font-awesome-icon :icon="['far', 'star']" :style="{ color: '#e2c000'}"/>
                 {{playlist[0].pl_good_count}}
                 <p> 
                    <span style="text-decoration: underline; text-underline-position:under;"><strong v-text="getPlTitle(playlist[0].pl_name)"></strong><br></span>

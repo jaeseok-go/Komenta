@@ -126,14 +126,25 @@ export default {
       this.$router.push(`/playlist/${id}`);
     },
     logout() {
-      const result = confirm('로그아웃 하시겠습니까?');
-      if (result) {
-        this.$store.commit('logout');
-        // if (this.$route.path !== '/') {
-          // window.location.reload();
-          window.location.href = '/';
-        // }
-      }
+          this.$swal({
+        text: '로그아웃 하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '로그아웃',
+      }).then((result) => {
+        if(result.value) {
+          this.$swal({
+            text: '로그아웃했습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+        this.$store.commit('logout')
+        // window.location.reload()
+        this.$router.push('/')
+
+        } 
+      })
+     
     },
     getProfile(profile) {
       return `${process.env.VUE_APP_PICTURE}profile/${profile.split('.')[0]}`;

@@ -27,16 +27,19 @@ const router =  new Router({
           path: 'vodpopular',
           name: 'VodPopular',
           component: () => import('@/components/Main/VodPopular.vue'),
+          meta: { auth: true },
         },
         {
           path: 'vodrecent',
           name: "VodRecent",
-          component: () => import('@/components/Main/VodRecent.vue')
+          component: () => import('@/components/Main/VodRecent.vue'),
+          meta: { auth: true },
         },
         {
           path: 'vodcomment',
           name: "VodComment",
-          component: () => import('@/components/Main/VodComment.vue')
+          component: () => import('@/components/Main/VodComment.vue'),
+          meta: { auth: true },
         },
       ]
     },
@@ -112,25 +115,29 @@ const router =  new Router({
           path: 'usermanage',
           name: 'UserManage',
           component: () => import('@/components/admin/UserManagement/UserManagement.vue'),
+          meta: { auth: true },
           // redirect: 'usermanage/allUser',
           children: [
             {
               path: 'alluser',
               name: 'AllUser',
               component: () => import('@/components/admin/UserManagement/AllUser.vue'),
-              props: true
+              props: true,
+              meta: { auth: true },
             },
             {
               path: 'blockeduser',
               name: 'BlockedUser',
               component: () => import('@/components/admin/UserManagement/BlockedUser.vue'),
-              props: true
+              props: true,
+              meta: { auth: true },
             },
             {
               path: 'adminUser',
               name: 'AdminUser',
               component: () => import('@/components/admin/UserManagement/AdminUser.vue'),
-              props: true
+              props: true,
+              meta: { auth: true },
             },
           ]
         },
@@ -161,12 +168,14 @@ const router =  new Router({
           name: 'BestComments',
           component: () => import('@/components/vod/BestComments.vue'),
           props: true,
+          meta: { auth: true },
         },
         {
           path: 'allcomments',
           name: "AllComments",
           component: () => import('@/components/vod/AllComments.vue'),
           props: true,
+          meta: { auth: true },
         },
       ]
     },
@@ -188,11 +197,6 @@ const router =  new Router({
       component: () => import('@/components/user/snsLogin/GoogleLogin.vue'),
     },
     {
-      path: '*',
-      name: 'NotFound',
-      component: () => import('@/views/NotFoundPage.vue'),
-    },
-    {
       path:'/myplaylist',
       name:'MyPlayList',
       component: () => import('@/components/MyPlayList/MyPlayList.vue'),
@@ -203,6 +207,12 @@ const router =  new Router({
       name:'PlayListDetail',
       component: () => import('@/components/MyPlayList/PlayListDetail'),
       meta: { auth: true },
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: () => import('@/views/NotFoundPage.vue'),
+      redirect: '/main/vodpopular'
     },
 
   ],
@@ -216,9 +226,10 @@ router.beforeEach((to, from, next) => {
   // 라우터페이지정보에(to).meta에.auth에 true 이고(&&:AND)
   // 그정보가 store의 getters에 isLogin에 사용자가 로그인했는지 여부가 true/false로 있음
   // auth:true인 라우터는 login했는지 확인하고 안했으면(False,!) 로그인페이지로 이동
+  // console.log(to.meta.auth,store.state.isLogin,'???')
   if (to.meta.auth && !store.state.isLogin) {
     // log를찍고
-    console.log('인증이 필요합니다');
+    // console.log('인증이 필요합니다');
     // next를 호출해야지 /login페이지로 이동
     next('/member/login');
     // return을 꼭 적어줘야됨! 그래야 아래에 있는 next()가 실행되지 않는다

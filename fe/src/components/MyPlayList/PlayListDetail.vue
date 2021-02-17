@@ -6,10 +6,14 @@
     </div>
 
     <div class="container__info">
-      <h1 class="container__info__name">{{ userProfile.pl_name }}</h1>
-    <template v-if="isMyPlyalist(userProfile.u_id)"></template>
+      <h1 class="playlist-display">{{ userProfile.pl_name }}</h1>
+    <template v-if="isMyPlyalist(userProfile.u_id)">
+      <span class="playlsit-icon playlsit-icon-size " @click="deleteUserPlaylist(playlists[0].pl_id)"
+        ><i class="far fa-trash-alt"></i>
+      </span>
+    </template>
     <template v-else-if="isLikePlaylist()">
-        <span class="playlsit-icon playlsit-icon-size" @click="addlikeUserPlaylist()" width='20px'>
+        <span class="playlsit-icon playlsit-icon-size" @click="addlikeUserPlaylist()">
             <!-- <i class="far fa-star"></i> -->
             <font-awesome-icon :icon="['far', 'star' ]" />
         </span>
@@ -21,7 +25,7 @@
         </span>
     </template>
       <h3 class="container__info__comment ">{{ userProfile.pl_comment }}</h3>
-      <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">{{userProfile.u_nickname }}</button>
+      <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">by.{{userProfile.u_nickname }}</button>
       <v-simple-table fixed-header >
         <template v-slot:default>
           <thead>
@@ -67,7 +71,7 @@
 <script>
 import { fetchPlayListDetail } from '@/api/vod';
 import { mapState } from 'vuex';
-import { addReviewPlaylist,unlikePlaylist, likePlaylist, } from '@/api/user';
+import { addReviewPlaylist,unlikePlaylist, likePlaylist,deletePlaylist } from '@/api/user';
 
 export default {
   data() {
@@ -78,6 +82,36 @@ export default {
     };
   },
   methods: {
+      deleteUserPlaylist(plId) {
+      this.$swal({
+        // title: '플레이리스트를 삭제하시겠습니까?',
+        text: '플레이리스트를 삭제하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+      }).then((result) => {
+        if(result.value) {
+          this.$swal({
+            text: '플레이리스트를 삭제했습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+          deletePlaylist(plId).then(()=>{
+            this.$router.push(`/feed/${this.userProfile.u_id}`)
+          })
+        } else {
+          this.$swal({
+            text: '플레이리스트를 삭제를 취소했습니다.',
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+        }
+      })
+      
+    },
     getPlaylistVodPoster(poster) {
       // const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
@@ -104,13 +138,23 @@ export default {
       const plId = this.$route.params.id;
       await likePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
-      // alert('플레이리스트 좋아요 함')
+     this.$swal({
+        text: '플레이리스트 좋아요를 했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
     async cancellikePlaylist() {
       const plId = this.$route.params.id;
       await unlikePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST',this.userInfo.u_id)
-      // alert('플레이리스트 좋아요 취소함')
+      this.$swal({
+        text: '플레이리스트 좋아요를 취소했습니다.',
+        icon: 'error',
+        timer: 1300,
+        showConfirmButton: false,
+      })
     },
     goVod(veId){
       this.$router.push(`/voddetail/${veId}`)

@@ -156,9 +156,35 @@ export default {
     test(){
       console.log(document.getElementsById("comment_div"));
     },
-    async DeleteComment(cId){
-      await removeComment(cId)
-      this.getEpiComment();
+    DeleteComment(cId){
+      this.$swal({
+        // title: '플레이리스트를 삭제하시겠습니까?',
+        text: '댓글을 삭제하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        if(result.value) {
+          this.$swal({
+            text: '댓글을 삭제했습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+           removeComment(cId).then(()=>{
+            this.getEpiComment();
+          })
+        } else {
+          this.$swal({
+            text: '댓글을 삭제를 취소했습니다.',
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+        }
+      })
     },
     itsMe(uId) {
       if (this.userInfo.u_id == uId) {

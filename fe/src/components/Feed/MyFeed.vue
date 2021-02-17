@@ -32,14 +32,17 @@
             <h3 class="container__recentSection__recentList">
               Recently Watched
             </h3>
-            <button
-              class="container__recentSection__createPlaylistButton"
-              @click="showModalForm"
-            >
+            <button class="container__recentSection__createPlaylistButton" @click="showModalForm" @mouseover="showIntro" @mouseleave="closeIntro">
               <h4 class="container__recentSection__createPlaylistTitle">
                 새로운 플레이리스트 만들기
               </h4>
             </button>
+            <div class="intro-drag-and-drop" :style="{display:isShowIntro}">
+              <div class="triangle"></div>
+              <div class="img-box">
+                <img :src="getIntro()" alt="">
+              </div>
+            </div>
           </div>
           <div class="drop-zone" @dragover.prevent @dragenter.prevent>
             <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
@@ -65,14 +68,14 @@
           <Modal v-if="showModal" @close="showModal = false">
             <h4 slot="header">
               <div class="modal_title">나만의 플레이 리스트를 만들어보세요</div>
-
+              
               <div @click="showModal = false" class="modal_close_btn">
                 <i class="closeModalBtn fa fa-times" aria-hidden="true"> </i>
               </div>
             </h4>
             <p slot="body" @keydown.enter="createPlaylist">
               <label class="modal__playlist" for="playlist_name"
-                ><strong>Playlist Title</strong></label
+                ><strong>TITLE</strong></label
               >
               <input
                 id="playlist_name"
@@ -83,7 +86,7 @@
               />
               <br />
               <label class="modal__playlist" for="playlist_context"
-                ><strong>Context</strong></label
+                ><strong>CONTEXT</strong></label
               >
               <input
                 id="playlist_context"
@@ -231,6 +234,7 @@ export default {
       epiComment: '',
       selectedId: [],
       showFollowBtn: true,
+      isShowIntro: 'none',
     };
   },
   created() {
@@ -289,7 +293,15 @@ export default {
       }
       return false;
     },
-
+    showIntro(){
+      this.isShowIntro = 'block';
+    },
+    closeIntro(){
+      this.isShowIntro = 'none';
+    },
+    getIntro(){
+      return require('@/assets/images/dragAndDrop.gif');
+    },
     async getFollowinglist() {
       const response = await fetchfollowinglist(this.userInfo.u_id);
       this.myFollowing = response.data;
@@ -336,6 +348,12 @@ export default {
         this.showModal = false;
         this.getUserPlayList();
         this.$store.dispatch('FETCH_MYPLAYLIST', this.userInfo.u_id);
+        this.$swal({
+        text: '플레이리스트를 생성 했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         this.plName = '';
         this.plComment = '';
       } catch {
@@ -385,7 +403,6 @@ export default {
       this.$swal({
         text: '플레이리스트 좋아요를 했습니다.',
         icon: 'success',
-        type: 'success',
         timer: 1300,
         showConfirmButton: false,
       })
@@ -396,7 +413,6 @@ export default {
       this.$swal({
         text: '플레이리스트 좋아요를 취소했습니다.',
         icon: 'error',
-        type: 'success',
         timer: 1300,
         showConfirmButton: false,
       })
@@ -405,18 +421,15 @@ export default {
       this.$swal({
         // title: '플레이리스트를 삭제하시겠습니까?',
         text: '플레이리스트를 삭제하시겠습니까?',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
           this.$swal({
             text: '플레이리스트를 삭제했습니다.',
             icon: 'success',
-            type: 'success',
             timer: 1300,
             showConfirmButton: false,
           })
@@ -427,7 +440,6 @@ export default {
           this.$swal({
             text: '플레이리스트를 삭제를 취소했습니다.',
             icon: 'info',
-            type: 'info',
             timer: 1300,
             showConfirmButton: false,
           })
