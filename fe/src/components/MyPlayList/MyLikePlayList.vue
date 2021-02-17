@@ -39,13 +39,24 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <p class="pl-comment"><b>{{userInfo.u_nickname}}</b>님이 좋아요 한 플레이 리스트가 없네요! 이런 플레이 리스트는 어떠신가요?</p>
+    <hr v-if="likeUserPlaylists.length">
+    <div>
+      <p class="pl-comment" v-html="getRecommTitle()"></p>
       <div class="popular-play-list" v-for="(playlist, pindex) in popularPlayList" :key="pindex">
         <h2>
           <span class="list-title" style="cursor:pointer" @click="goPlaylsitDetail(playlist.pldetail[0].pl_id)">
             {{ playlist.pldetail[0].pl_name }}
           </span>
+          <template v-if="isLikePlaylist(playlist.pldetail[0].pl_id)">
+            <span class="playlsit-icon" @click="addlikeUserPlaylist(playlist.pldetail[0].pl_id)">
+              <font-awesome-icon :icon="['far', 'star']" />
+            </span>
+          </template>
+          <template v-else>
+            <span class="playlsit-icon" @click="cancellikePlaylist(playlist.pldetail[0].pl_id)">
+              <font-awesome-icon class="playlist__star" :icon="['fas', 'star']"/>
+            </span>
+          </template>
           <span class="byUser" @click="goFeed(playlist.pldetail[0].u_id)">
             by. {{playlist.pldetail[0].u_nickname}}
           </span>
@@ -172,6 +183,13 @@ export default {
       }
       // console.log("rename : ",rename)
       return rename;
+    },
+    getRecommTitle() {
+      if(this.likeUserPlaylists.length == 0){
+        return `<b>${this.userInfo.u_nickname}</b>님이 좋아요 한 플레이 리스트가 없네요! 이런 플레이 리스트는 어떠신가요?`
+      }else {
+        return `<div class='addRecomm'><b>${this.userInfo.u_nickname}</b>님! 이런 플레이 리스트는 어떠신가요?</div>`
+      }
     }
   },
 };
