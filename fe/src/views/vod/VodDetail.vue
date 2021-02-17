@@ -52,7 +52,7 @@
             <div class="video__comment__inner">
               <span class="video__comment__inner__nickname">{{userInfo.u_nickname}}</span> <br>
               <div>
-                <input type='text' class="video__comment__input" id=msg v-model.trim ="userComment" placeholder="댓글을 입력하세요" @keydown.enter="createComment()"/>
+                <input type='text' class="video__comment__input" id=msg v-model.trim ="userComment" :placeholder="getUserBlockedInfo()" @keydown.enter="createComment()" :disabled="userInfo.is_blocked"/>
                 <span @click="createComment()"><i class="far fa-paper-plane"></i></span>
               </div>
             </div>
@@ -82,7 +82,6 @@
         </div>
       </div>
       <br>
-      <!-- <hr> -->
       <div class="vodEpiAll">
         <div v-show="!showVodDetail" @click="showVod()" class="vodepi__button"> 
           <span class="vodepi__button__title"> 
@@ -160,6 +159,7 @@ export default {
     this.getVodEpi();
     // this.getVodDetail();
     this.getEpiComment();
+    this.getUserBlockedInfo();
     this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
     this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
     this.startWatchTime();
@@ -289,9 +289,6 @@ export default {
           // 스크롤 바닥유지 플래그 해제
           this.bottom_flag = false;  
       }
-              //
-          // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
-      // }
     },
     nowTime(num){
       let myNum = parseInt(num, 10);
@@ -368,16 +365,9 @@ export default {
       for (let i = 0; i < this.myFollowingList.length; i++) {
         const following = this.myFollowingList[i];
         if (following.f_id == uId) {
-            //  return {
-            //    comment__highlight: true
-            //   }        
-          
           return true
         }
       }
-          // return {
-          //   comment__highlight: false
-          // }
       return false
           
     },
@@ -386,32 +376,17 @@ export default {
       // console.log(this.myUnFollowingList,'언팔리스트')
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const blocking = this.myUnFollowingList[i];
-        if (blocking.f_id == uId) {
-            //  return {
-            //    comment__hidden: true
-            //   }        
+        if (blocking.f_id == uId) {      
           return true
           
         }
       }
-          // return {
-          //   comment__hidden: false
-          // }
       return false    
     },
     //유저 댓글 좋아요 class추가/제거
     commentLike(index,comment){
       const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
-      // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
       this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
-      // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-      // if (comment.is_like_comment) {
-      //   likeCount.innerText = comment.comment_good_count - 1
-      //   likeBtn.style.color ='grey'
-      //   } else {
-      //     likeCount.innerText = comment.comment_good_count + 1
-      //     likeBtn.style.color = '#fc3c44'
-      //   }
       if (this.commentsList[index].is_like_comment){
         this.commentsList[index].comment_good_count += 1
         likeBtn.style.color = '#fc3c44'
@@ -424,7 +399,14 @@ export default {
         u_id : this.userInfo.u_id
       }
       userlikeComment(commentInfo)
-        // this.getEpiComment();
+    },
+    getUserBlockedInfo(){
+      console.log("이 회원은 : ",this.userInfo.is_blocked,"입니다.")
+      if(this.userInfo.is_blocked) {
+        return '차단 회원으로 분류되어 댓글 기능을 이용하실 수 없습니다'
+      }else {
+        return '댓글을 입력하세요'
+      }
     }
   },
   watch : {
