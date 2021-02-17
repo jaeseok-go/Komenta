@@ -100,6 +100,7 @@ export default {
         icon:'error',
         showCancelButton: true,
         confirmButtonText: '삭제',
+        confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
         // showCloseButton: true,
         // showLoaderOnConfirm: true

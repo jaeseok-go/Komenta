@@ -59,6 +59,7 @@ export default {
         icon:'warning',
           showCancelButton: true,
           confirmButtonText: '해지',
+        confirmButtonColor: "#fc3c44",
           cancelButtonText: '취소',
         }).then((result) => {
           if(result.value) {

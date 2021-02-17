@@ -381,6 +381,7 @@ export default {
         // position:'top',
         showCancelButton: true,
         confirmButtonText: '탈퇴',
+        confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
         // showCloseButton: true,
       }).then((result) => {
