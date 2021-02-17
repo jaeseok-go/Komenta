@@ -46,7 +46,7 @@
           </thead>
           <tbody>
             <tr v-for="(playlist,index) in playlists" :key="index">
-              <td><img :src="getPlaylistVodPoster(playlist.v_poster)" class="playlist_vod_img"></td>
+              <td @click="goVod(playlist.ve_id)" style="cursor:pointer"><img :src="getPlaylistVodPoster(playlist.v_poster)" class="playlist_vod_img"></td>
               <td>{{ playlist.g_name }}/{{ playlist.gd_name }}</td>
               <td @click="goVod(playlist.ve_id)" style="cursor:pointer" >
                  {{ playlist.v_title }} {{ playlist.ve_episode_num }}회</td>

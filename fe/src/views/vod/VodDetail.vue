@@ -2,13 +2,13 @@
   <div>
     <div id="appBody">
       <div class="video">
-        <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" width="100%" height="100%">
+        <video @loadstart="goLastVod" @click="startVideo" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" width="100%" height="100%">
             <source :src="getVideo()" id="player" type='video/mp4'/>
         </video>    
         <div id="comment_div">
           <div class="comment__scroll" id="comment__scroll">
             <div v-for="(comment,index) in commentsList" :key="index" class="comment__text"> <!--  @mousewheel="stopScroll"  -->
-              <div v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="comment__lineheight" >
+              <div v-show="showComments && (comment.c_playtime <= nowTime(videoCurrentTime))" class="comment__lineheight" >
                 <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>
                 <span @click="goFeed(comment.u_id)" class="comment__nickname" :class=" {comment__highlight:userFollowing(comment.u_id)}">{{comment.u_nickname}} </span> 
                 <template v-if="itsMe(comment.u_id)">
@@ -141,7 +141,8 @@ export default {
       bottom_flag : true,
       // followingComment:false
       showEpiDetail:true,
-      showVodDetail:true
+      showVodDetail:true,
+      showComments:false,
     }
   },
   created(){
@@ -153,6 +154,10 @@ export default {
     this.startWatchTime();
   },
   methods : {
+    startVideo(){
+      this.showComments = true
+      return
+    },
     test(){
       console.log(document.getElementsById("comment_div"));
     },
@@ -208,14 +213,14 @@ export default {
     },
     startWatchTime(){
       const edID = Number(this.$route.params.id)
-      const res = startVodWatch(edID);
-      console.log('시청기록 시작',res,this.$route.params.id)
+      startVodWatch(edID);
+      // console.log('시청기록 시작',res,this.$route.params.id)
     },
     goLastVod(){
       const endtime = document.getElementById("videotag");
       if (this.vodEpiInfo.vh_watching_time) {
         endtime.currentTime = this.timeToSec(this.vodEpiInfo.vh_watching_time)
-        console.log('시청기록시간부터 시작?',this.vodEpiInfo.vh_watching_time)
+        // console.log('시청기록시간부터 시작?',this.vodEpiInfo.vh_watching_time)
       }
     },
     goFeed(uId){
@@ -227,10 +232,10 @@ export default {
     async getVodEpi() {
       try {
         const epiId = Number(this.$route.params.id);
-        console.log(epiId)  
+        // console.log(epiId)  
         const res = await fetchVodEpiDetail(epiId)
         this.vodEpiInfo = res.data
-        console.log('VODEPI 상세 정보',this.vodEpiInfo)
+        // console.log('VODEPI 상세 정보',this.vodEpiInfo)
         this.getVodDetail();
       } catch {
         console.log('vod epi detail에러!!')
@@ -238,7 +243,7 @@ export default {
     },
     async getVodDetail() {
       try {
-        console.log(this.vodEpiInfo.v_id,'vod아이디')
+        // console.log(this.vodEpiInfo.v_id,'vod아이디')
         const res = await fetchVodDetail(this.vodEpiInfo.v_id)
         this.vodInfo = res.data
       } catch {
@@ -253,7 +258,7 @@ export default {
         this.commentsList.sort(function (a,b) {
           return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
         })
-        console.log(this.commentsList,'댓글?')
+        // console.log(this.commentsList,'댓글?')
       } catch {
         console.log('epicomment 에러!!')
       }
@@ -304,7 +309,7 @@ export default {
     // 비디오 불러오기
     getVideo() {
       const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.gd_id}_${this.vodEpiInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.ve_episode_num}화`
-      console.log(path,'동영상주소')
+      // console.log(path,'동영상주소')
       return path
     },
     // 해당시간으로 댓글 이동
@@ -320,15 +325,15 @@ export default {
     async createComment() {
       try {
         const vod = document.getElementById("videotag");
-        console.log(vod.currentTime,'댓글시간등록')
+        // console.log(vod.currentTime,'댓글시간등록')
         const commentInfo = {
           c_contents : this.userComment,
           c_playtime : this.nowTime(vod.currentTime),
           u_id : this.userInfo.u_id,
           ve_id : this.$route.params.id
         }
-        const res = await commentInsert(commentInfo)
-        console.log(res,'댓글써졌니?')
+        await commentInsert(commentInfo)
+        // console.log(res,'댓글써졌니?')
         this.getEpiComment();
         this.userComment=""
       } catch {
@@ -447,8 +452,8 @@ export default {
       ve_id: this.vodEpiInfo.ve_id,
       vh_watching_time: this.nowTime(this.videoCurrentTime)
     }
-    const end = endVodWatch(watching);
-    console.log('시청기록끝',watching,end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
+    endVodWatch(watching);
+    // console.log('시청기록끝',watching,end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
   }
 };
 </script>

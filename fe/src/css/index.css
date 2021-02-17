@@ -2862,6 +2862,7 @@ select {
 
 .playlsit-icon {
   margin-left: 0.6rem;
+  cursor: pointer;
 }
 
 .playlsit-icon-size {
