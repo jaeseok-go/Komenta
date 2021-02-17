@@ -271,7 +271,6 @@ export default {
       );
       for (let i = 0; i < this.playlists[index].length; i++) {
         const playVod = this.playlists[index][i];
-        console.log(playVod.ve_id,vod.ve_id,'뭐야')
         if ( vod.ve_id == playVod.ve_id) {
            this.$swal({
           text: '이미 플레이리스트에 있는 VOD EPISODE 입니다.',

@@ -155,14 +155,14 @@ export default {
     async getPopularPlayList() {
       try{
         const response = await fetchPopularPlayList();
-        console.log("popular play list : ",response.data);
+        // console.log("popular play list : ",response.data);
         for (let i = 0; i < response.data.length; i++) {
           const now = response.data[i];
           if (now.pldetail[0].v_id !== 0 && now.pldetail[0].u_id != this.userInfo.u_id) {
             this.popularPlayList.push(response.data[i])
           }   
         }
-        console.log("popular play list!!!!!!!!!!! : ",this.popularPlayList);
+        // console.log("popular play list!!!!!!!!!!! : ",this.popularPlayList);
       }catch(err) {
         console.log(err,"err")
       }
@@ -176,7 +176,7 @@ export default {
           }
         }
       }
-      console.log("유저 닉네임 잘 들어왔니? : ",this.likeUserPlaylists)
+      // console.log("유저 닉네임 잘 들어왔니? : ",this.likeUserPlaylists)
     },
     vodTitleReName(title, epi_num) {
     //{{vod.v_title}} {{vod.ve_episode_num}}화
