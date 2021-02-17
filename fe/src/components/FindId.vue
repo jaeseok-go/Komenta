@@ -37,6 +37,14 @@ export default {
       if (store.state.userInfo.u_email) {
         this.userId = store.state.userInfo.u_email;
       } else {
+<<<<<<< HEAD
+        this.$swal({
+        text: '회원가입이 필요합니다.',
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
+=======
         alert('회원가입이 필요합니다.')
       //   this.$swal({
       //   text: '회원가입이 필요합니다.',
@@ -44,6 +52,7 @@ export default {
       //   timer: 1300,
       //   showConfirmButton: false,
       // })
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
         this.$router.push('/member/join')
       }
     },

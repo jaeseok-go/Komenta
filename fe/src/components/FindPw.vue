@@ -87,6 +87,22 @@ export default {
           // console.log(response)
           this.authenId = response.data;
           if (!this.authenId) {
+<<<<<<< HEAD
+            this.$swal({
+              text: '아이디가 틀렸습니다.',
+              icon: 'error',
+              timer: 1300,
+              showConfirmButton: false,
+            })
+            this.userId = ""
+          }else{
+            this.$swal({
+            text: '아이디가 확인됐습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+=======
             alert('아이디가 틀렸습니다.');
             // this.$swal({
             //   text: '아이디가 틀렸습니다.',
@@ -103,12 +119,21 @@ export default {
           //   timer: 1300,
           //   showConfirmButton: false,
           // })
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
           }
           return;
         },
         idChkConfirm(){
           // console.log("클릭이 되니?")
           if(!this.userId || !this.authenId) {
+<<<<<<< HEAD
+            this.$swal({
+            text: '아이디 체크 먼저 진행해주세요.',
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+=======
             alert('아이디 체크 먼저 진행해주세요.')
           //   this.$swal({
           //   text: '아이디 체크 먼저 진행해주세요.',
@@ -116,6 +141,7 @@ export default {
           //   timer: 1300,
           //   showConfirmButton: false,
           // })
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
           }
         },
         checkCertification() {

@@ -2289,6 +2289,7 @@ select {
 
 .membership-form .membership-form-card {
   display: inline-block;
+  position: relative;
   padding: 2rem;
   margin: 0 auto;
   width: 500px;
@@ -2303,8 +2304,8 @@ select {
   border-bottom: 80px solid transparent;
   border-left: 80px solid #fc3c44;
   position: absolute;
-  top: 78px;
-  left: 220px;
+  top: 0;
+  left: 0;
 }
 
 .membership-form .membership-form-card .ms-best p {
@@ -2506,6 +2507,7 @@ select {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -2540,11 +2542,66 @@ select {
 }
 
 .intro-drag-and-drop {
+<<<<<<< HEAD
+  width: 420px;
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  top: 50px;
+}
+
+.intro-drag-and-drop .triangle {
+  position: relative;
+  left: 340px;
+}
+
+.intro-drag-and-drop .triangle::before {
+  content: '';
+  width: 0;
+  height: 0;
+  position: relative;
+  top: -16px;
+  left: 20px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #fc3c44;
+}
+
+.intro-drag-and-drop .triangle::after {
+  content: '';
+  width: 0;
+  height: 0;
+  position: relative;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #fff;
+  top: -13px;
+  left: 0;
+}
+
+.intro-drag-and-drop .img-box {
+  width: 420px;
+  height: 250px;
+  border-radius: 5px;
+  background-color: white;
+  border: 2px solid #fc3c44;
+  -webkit-box-shadow: 5px 5px 10px #c8c8c8;
+          box-shadow: 5px 5px 10px #c8c8c8;
+  text-align: center;
+  display: inline-block;
+  line-height: 250px;
+}
+
+.intro-drag-and-drop .img-box img {
+  width: 390px;
+  vertical-align: middle;
+=======
   width: 390px;
   position: absolute;
   z-index: 9999;
   right: 100px;
   bottom: 140px;
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
 }
 
 .drop-zone {

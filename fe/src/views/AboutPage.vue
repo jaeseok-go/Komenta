@@ -97,6 +97,22 @@ export default {
     AboutFooter
   },
   methods: {
+<<<<<<< HEAD
+    onlyOne(id) {
+      for (let index = 0; index < this.classList.length; index++) {
+        const element =  this.classList[index];
+        
+        if (id !== element ) {
+          const another = document.querySelector(`.${element}`)
+          console.log(another,id,'언아더')
+          another.style.display = 'none';
+        }
+        
+      }
+    },
+    
+=======
+>>>>>>> 8a054e855fb6d3c3311d3278d22519d2345fc891
     gotoLogin() {
       this.$router.push(`/member/login`)
     },
