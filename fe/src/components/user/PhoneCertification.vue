@@ -8,7 +8,7 @@
           <br />
         </form>
         <div class="authentic-form" :style="{ display: authenDisplay }">
-          {{ resTimeData }} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum" />
+          {{ resTimeData }} <input type="text" class="form-control form-control-lg authentic" v-model="authenNum" @keydown.enter="checkCertification"/>
           <button class="btn btn-normal btn-authentic" @click="checkCertification" :disabled="!putAuthenNum">인증하기</button>
           <p class="authentic-text" :style="{display:resetBtnDisplay}">인증 문자가 도착하지 않았다면? <b class="" @click="smsReset">다시보내기</b></p>
         </div>
@@ -64,18 +64,21 @@ export default {
       console.log("props userId 체크 : ", this.getUserId)
       if(this.getIdChk == "") {
         // console.log("비밀번호 찾기 페이지임")
-        alert("아이디 체크를 먼저 진행해주세요")
+        // alert("아이디 체크를 먼저 진행해주세요")
         this.$emit('idChkFocus');
-      //   if(!this.getIdChk && !this.getUserId){
-      //     this.$swal({
-      //   text: "아이디 체크를 먼저 진행해주세요",
-      //   icon: 'info',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // }).then(()=>{
-      //   this.$emit('idChkFocus');
-      // })
-      //   }
+        if(!this.getIdChk && !this.getUserId){
+          this.$swal({
+            customClass: {
+          container: 'swal2-container'
+        },
+        text: "아이디 체크를 먼저 진행해주세요",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      }).then(()=>{
+        this.$emit('idChkFocus');
+      })
+        }
       }
       // else if(this.getIdChk == undefined){
       //   console.log("비밀번호 찾기 아니니까 무시ㄱㄱ")
@@ -89,32 +92,37 @@ export default {
       this.userId = response.data.u_email;
       console.log(response)
       this.confirmNum = response.data.auth_number;
-      alert('인증 번호를 발송했습니다.')
-      // this.$swal({
-      //   text: '인증 번호를 발송했습니다.',
-      //   icon: 'success',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+      // alert('인증 번호를 발송했습니다.')
+      this.$swal({
+        customClass: {
+          container: 'swal2-container'
+        },
+        text: '인증 번호를 발송했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
       this.start();
       this.authenDisplay = 'block';
     },
     async checkCertification() {
       console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
-        alert('인증에 성공했습니다.')
+        // alert('인증에 성공했습니다.')
+        // this.timeStop();
+        // this.resetBtnDisplay = 'none';
+        this.$swal({
+          customClass: {
+          container: 'swal2-container'
+        },
+        text: '인증에 성공했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      }).then(()=>{
         this.timeStop();
         this.resetBtnDisplay = 'none';
-      //   this.$swal({
-      //   text: '인증에 성공했습니다.',
-      //   icon: 'success',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // }).then(()=>{
-      //   this.timeStop();
-      //   this.resetBtnDisplay = 'none';
-
-      // })
+      })
         if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
           // console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
           this.$store.commit('setPhonenum',this.userPhoneNum);
@@ -132,13 +140,16 @@ export default {
           this.$emit('checkCertification')
         }
       } else {
-        alert('인증 실패했습니다. 다시 시도해주세요.')
-      //   this.$swal({
-      //   text: '인증 실패했습니다. 다시 시도해주세요.',
-      //   icon: 'error',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+        // alert('인증 실패했습니다. 다시 시도해주세요.')
+        this.$swal({
+          customClass: {
+          container: 'swal2-container'
+        },
+        text: '인증 실패했습니다. 다시 시도해주세요.',
+        icon: 'error',
+        timer: 1300,
+        showConfirmButton: false,
+      })
       }
     },
     start(){ // 1초에 한번씩 start 호출

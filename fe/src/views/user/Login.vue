@@ -7,7 +7,7 @@
     <!-- <button @click="signOut">Logout</button> -->
     <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
 
-    <Modal v-if="showModal" @click="$emit('close')">
+    <Modal v-if="showModal" @click="$emit('close')" >
       <h3 slot="header">
         <div class="findIdPw__title">아이디 및 비밀번호 찾기</div>
         <span id="closeModalBtn" @click="showModal = false">
@@ -26,13 +26,14 @@
           </div>
           <div>
             <router-link :to="{ name: 'FindPw' }"
+            
               ><span class="findIdPw__content">비밀번호 찾기</span></router-link
             >
           </div>
         </div>
       </h3>
       <p slot="body">
-        <router-view></router-view>
+        <router-view @changePw="changePw"></router-view>
       </p>
     </Modal>
   </div>
@@ -54,6 +55,9 @@ export default {
     Modal,
   },
   methods: {
+    changePw(){
+      this.closeModal()
+    },
     closeModal() {
       this.showModal = false;
       // console.log('들어와라,,');
