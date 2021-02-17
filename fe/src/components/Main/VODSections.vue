@@ -46,6 +46,8 @@ export default {
 
   ion-label {
     color: black;
+    font-weight: 500;
+    font-size: 1.1rem;
   }
 
   .selectTab {
@@ -54,6 +56,9 @@ export default {
     display: inline-block;
   }
 
+  .text-color {
+    font-family: 'Black Han Sans', sans-serif !important; 
+  }
   /* .col {
     z-index: 998;
   } */
