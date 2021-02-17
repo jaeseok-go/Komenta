@@ -262,7 +262,9 @@ export default {
         // alert('비밀번호를 입력하세요.')
         this.$swal({
         text: "비밀번호를 입력하세요.",
-        postion:'top-end',
+        customClass: {
+          container: 'swal2-container'
+        },
         icon: 'info',
         timer: 1300,
         showConfirmButton: false,
@@ -270,33 +272,42 @@ export default {
         return;
       }
       if(!this.confirmPW) {
-        alert('비밀번호를 확인하세요.')
-      //   this.$swal({
-      //   text: "비밀번호를 확인하세요.",
-      //   icon: 'info',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+        // alert('비밀번호를 확인하세요.')
+        this.$swal({
+          customClass: {
+          container: 'swal2-container'
+        },
+        text: "비밀번호를 확인하세요.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.userNickName) {
-        alert('닉네임을 설정해주세요.')
-      //   this.$swal({
-      //   text: "닉네임을 설정해주세요.",
-      //   icon: 'info',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+        // alert('닉네임을 설정해주세요.')
+        this.$swal({
+        text: "닉네임을 설정해주세요.",
+        customClass: {
+          container: 'swal2-container'
+        },
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.userPhoneNumber) {
-        alert('휴대폰 번호를 입력하세요')
-      //   this.$swal({
-      //   text: "휴대폰 번호를 입력하세요",
-      //   icon: 'info',
-      //   timer: 1300,
-      //   showConfirmButton: false,
-      // })
+        // alert('휴대폰 번호를 입력하세요')
+        this.$swal({
+        text: "휴대폰 번호를 입력하세요",
+        customClass: {
+          container: 'swal2-container'
+        },
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       try {
@@ -312,7 +323,16 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-            alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+            // alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+            this.$swal({
+              text: "프로필 사진을 업로드 하던 중 오류가 발생했습니다.",
+              customClass: {
+                container: 'swal2-container'
+              },
+              icon: 'warning',
+              timer: 1300,
+              showConfirmButton: false,
+            })
             return false;
           });
         }
@@ -355,6 +375,7 @@ export default {
         customClass: {
           container: 'swal2-container'
         },
+        icon:'warning',
         title:"회원 탈퇴",
         text: "탈퇴를 계속 진행하시겠습니까?",
         // position:'top',
@@ -367,6 +388,9 @@ export default {
           this.$swal({
             text: 'Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.',
             icon: 'success',
+            customClass: {
+          container: 'swal2-container'
+        },
             timer: 1300,
             showConfirmButton: false,
           })

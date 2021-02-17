@@ -273,6 +273,9 @@ export default {
         if ( vod.ve_id == playVod.ve_id) {
            this.$swal({
           text: '이미 플레이리스트에 있는 VOD EPISODE 입니다.',
+          customClass: {
+          container: 'swal2-container'
+        },
           icon: 'info',
           timer: 1300,
           showConfirmButton: false,
@@ -360,6 +363,9 @@ export default {
         this.getUserPlayList();
         this.$store.dispatch('FETCH_MYPLAYLIST', this.userInfo.u_id);
         this.$swal({
+          customClass: {
+          container: 'swal2-container'
+        },
         text: '플레이리스트를 생성 했습니다.',
         icon: 'success',
         timer: 1300,
@@ -412,6 +418,9 @@ export default {
       await likePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
       this.$swal({
+        customClass: {
+          container: 'swal2-container'
+        },
         text: '플레이리스트 좋아요를 했습니다.',
         icon: 'success',
         timer: 1300,
@@ -422,6 +431,9 @@ export default {
       await unlikePlaylist({ pl_id: plId });
       this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
       this.$swal({
+        customClass: {
+          container: 'swal2-container'
+        },
         text: '플레이리스트 좋아요를 취소했습니다.',
         icon: 'error',
         timer: 1300,
@@ -432,13 +444,20 @@ export default {
       this.$swal({
         // title: '플레이리스트를 삭제하시겠습니까?',
         text: '플레이리스트를 삭제하시겠습니까?',
+        icon:'error',
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
-        showCloseButton: true,
+        customClass: {
+          container: 'swal2-container'
+        },
+        // showCloseButton: true,
       }).then((result) => {
         if(result.value) {
           this.$swal({
+            customClass: {
+          container: 'swal2-container'
+        },
             text: '플레이리스트를 삭제했습니다.',
             icon: 'success',
             timer: 1300,
@@ -449,6 +468,9 @@ export default {
           })
         } else {
           this.$swal({
+            customClass: {
+          container: 'swal2-container'
+        },
             text: '플레이리스트를 삭제를 취소했습니다.',
             icon: 'info',
             timer: 1300,

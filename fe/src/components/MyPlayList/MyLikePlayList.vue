@@ -127,6 +127,9 @@ export default {
        this.$swal({
         text: '플레이리스트 좋아요를 했습니다.',
         icon: 'success',
+        customClass: {
+          container: 'swal2-container'
+        },
         timer: 1300,
         showConfirmButton: false,
       })
@@ -138,6 +141,9 @@ export default {
       this.$swal({
         text: '플레이리스트 좋아요를 취소했습니다.',
         icon: 'error',
+        customClass: {
+          container: 'swal2-container'
+        },
         timer: 1300,
         showConfirmButton: false,
       })

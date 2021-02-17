@@ -98,7 +98,7 @@ export default {
           container: 'swal2-container'
         },
         text: '인증 번호를 발송했습니다.',
-        icon: 'success',
+        icon: 'info',
         timer: 1300,
         showConfirmButton: false,
       })

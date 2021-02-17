@@ -38,9 +38,9 @@ export default {
   methods: {
     async fetchUnFollowingList(userId){
       const response = await fetchunfollowinglist(userId);
-      console.log('unfollowing list : ',response)
+      // console.log('unfollowing list : ',response)
       this.unfollowings = response.data;
-      console.log('나의 unfollowings', this.unfollowings);
+      // console.log('나의 unfollowings', this.unfollowings);
     },
     getProfile(profile) {
       const path = profile.split('.');
