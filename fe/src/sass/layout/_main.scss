@@ -303,6 +303,14 @@
   position: relative;
   z-index: -99;
   top: 33px;
+
+  & > div {
+    display: inline-block;
+    color: grey;
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-weight: 200;
+  }
 }
 
 .play-list-form {
