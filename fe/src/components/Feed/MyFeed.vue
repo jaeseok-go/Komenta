@@ -72,7 +72,7 @@
             </h4>
             <p slot="body" @keydown.enter="createPlaylist">
               <label class="modal__playlist" for="playlist_name"
-                ><strong>Playlist Title</strong></label
+                ><strong>TITLE</strong></label
               >
               <input
                 id="playlist_name"
@@ -83,7 +83,7 @@
               />
               <br />
               <label class="modal__playlist" for="playlist_context"
-                ><strong>Context</strong></label
+                ><strong>CONTEXT</strong></label
               >
               <input
                 id="playlist_context"
@@ -336,6 +336,13 @@ export default {
         this.showModal = false;
         this.getUserPlayList();
         this.$store.dispatch('FETCH_MYPLAYLIST', this.userInfo.u_id);
+        this.$swal({
+        text: '플레이리스트를 생성 했습니다.',
+        icon: 'success',
+        type: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         this.plName = '';
         this.plComment = '';
       } catch {
