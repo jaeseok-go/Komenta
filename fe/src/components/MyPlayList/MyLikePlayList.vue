@@ -17,7 +17,7 @@
                 <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
             </span>
         </template>
-          <span class="byUser" @click="goFeed(playlist.u_id)">
+          <span class="byUser" @click="goFeed(playlist[0].u_id)">
             by. {{playlist.u_nickname}}
           </span>
         </h2>
