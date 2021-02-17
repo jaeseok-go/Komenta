@@ -305,7 +305,7 @@ export default {
       
     },
     checkCertification() {
-      console.log(store.state.userInfo,'들어왓니 유저정보야')
+      // console.log(store.state.userInfo,'들어왓니 유저정보야')
       this.userPhoneNumber = store.state.userInfo.u_phone_number;
       this.showCertiForm = false;
     },
@@ -322,7 +322,7 @@ export default {
       }
     },
     allTermcheck(){
-      console.log(this.allTerm)
+      // console.log(this.allTerm)
       this.allTerm=!this.allTerm
       if (this.allTerm) {
         this.isTerm.term1=true
@@ -347,11 +347,21 @@ export default {
     // 우리서버이용
     async submitSignup() {
       if(this.idCheck){
-        alert("이미 사용중인 아이디입니다.");
+        this.$swal({
+        text: "이미 사용중인 아이디입니다.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(this.nickCheck) {
-        alert("이미 사용중인 닉네임입니다.");
+        this.$swal({
+        text: "이미 사용중인 닉네임입니다.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if (!this.clickSignupBtn) {
@@ -367,10 +377,10 @@ export default {
             u_phone_number : this.userPhoneNumber,
             u_nickname : this.username,
         };
-        console.log(userData,'유저데이터다')
-        console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)
-        const response = await registerUser(userData);
-        console.log('응답은왔니',response);
+        // console.log(userData,'유저데이터다')
+        // console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)
+        await registerUser(userData);
+        // console.log('응답은왔니',response);
         // this.initForm();
         this.$router.push({name:'Login'});
       } catch(error) {
@@ -380,7 +390,7 @@ export default {
       }
     },
     signupComplete() {
-      console.log('회원가입완료!');
+      // console.log('회원가입완료!');
       this.clickSignupBtn =true;
     },
     initForm() {

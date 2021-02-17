@@ -60,7 +60,6 @@ export default {
       this.modiForm = 'block';
     },
     async modifyUserInfo(){
-      try {
         const userData = {
           u_id:this.uId,
           u_email:this.userId,
@@ -69,13 +68,20 @@ export default {
           u_phone_number : this.userPhoneNumber,
           u_profile_pic:this.userProfile
         };
-        console.log('유저데이터잘들어왔니',userData)
-        console.log(this.userInfo)
+        this.$swal({
+        text: '수정 완료했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
+        // console.log('유저데이터잘들어왔니',userData)
+        // console.log(this.userInfo)
         await this.$store.dispatch('MODIFY',userData)
-      }catch(err) {
-        console.log("수정 에러")
-        console.log(err);
-      }
+
+      // catch(err) {
+      //   console.log("수정 에러")
+      //   console.log(err);
+      // }
     }
   }
 }

@@ -56,7 +56,7 @@ export default {
   methods: {
     closeModal() {
       this.showModal = false;
-      console.log('들어와라,,');
+      // console.log('들어와라,,');
     },
     showModalForm() {
       this.showModal = true;

@@ -84,20 +84,35 @@ export default {
         async checkId(){
           const response = await userIdChk(this.userId)
           // 인증번호 params확인필요
-          console.log(response)
+          // console.log(response)
           this.authenId = response.data;
           if (!this.authenId) {
-             alert('아이디가 틀렸습니다.')
+            this.$swal({
+              text: '아이디가 틀렸습니다.',
+              icon: 'error',
+              timer: 1300,
+              showConfirmButton: false,
+            })
             this.userId = ""
           }else{
-            alert('아이디가 확인되었습니다.')
+            this.$swal({
+            text: '아이디가 확인됐습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
           }
           return;
         },
         idChkConfirm(){
-          console.log("클릭이 되니?")
+          // console.log("클릭이 되니?")
           if(!this.userId || !this.authenId) {
-            alert('아이디 체크 먼저 진행해주세요.')
+            this.$swal({
+            text: '아이디 체크 먼저 진행해주세요.',
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
           }
         },
         checkCertification() {
@@ -110,7 +125,7 @@ export default {
             u_email:this.userId,
             u_pw: this.newPw,
           };
-          console.log(userData)
+          // console.log(userData)
           changePw(userData)
           // 로그인 버튼 누르고 라우터로 가게 하기
         },
