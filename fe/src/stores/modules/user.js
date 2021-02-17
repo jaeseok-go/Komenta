@@ -54,18 +54,13 @@ const mutations = {
 
     },
     logout(state) {
-        // this.$gAuth.signOut();
         state.token = ''
         state.isLogin = false
         state.isLoginError = false
         sessionStorage.clear()
-        if (!window.Kakao.Auth.getAccessToken()) {
-            console.log('Not logged in.');
-            return;
+        if (this.$gAuth.signIn()) {
+            this.$gAuth.signOut();
         }
-        window.Kakao.Auth.logout(function () {
-            console.log(window.Kakao.Auth.getAccessToken());
-        });
     },
     loginError(state) {
         state.isLoginError = true
