@@ -3,7 +3,7 @@
     <!-- asidebar에서 내피드를 클릭했을때 feed/f_id로 오게 함 -->
     <!-- f_id로 정보 받아서 처리 -->
     <div class="container">
-      <section>
+      <section class="feed-section">
         <div class="userprofile">
           <div class="userprofile__picbox">
             <div class="userprofile__picbox__content">
@@ -194,7 +194,6 @@
         </template>
       </section>
     </div>
-    <div class="margin__top"></div>
   </div>
 </template>
 

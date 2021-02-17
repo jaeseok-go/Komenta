@@ -1,4 +1,8 @@
 .container {
+  & .feed-section {
+    height: 100%;
+  }
+
   .userprofile {
     // margin-bottom: 2rem;
     padding: 1rem 3rem 1rem;
