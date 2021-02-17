@@ -2,6 +2,8 @@
 .popular-vod-sort {
   display: inline-block;
   margin-left: 1rem;
+  // font-weight: 200;
+  // font-size: 1.8rem;
 }
 
 .selectTab {
@@ -24,6 +26,7 @@
   margin-top: 0.5rem;
   border-top: 1px solid rgba(206, 206, 206, 0.555);
   border-bottom: 1px solid rgba(206, 206, 206, 0.555);
+
 }
 
 .scene {
@@ -116,6 +119,8 @@
 .card2 {
   width: 100%;
   margin: 0 auto;
+  margin-top: -1.5rem;
+
 }
 
 .best-comm-form {
@@ -123,6 +128,8 @@
 
   & table {
     width: 500px;
+    margin-top: 1.5rem;
+
   }
 }
 
@@ -292,6 +299,7 @@
 //인기 유저 플레이리스트
 .popular-list {
   padding: 12px;
+  margin-top: -2rem;
 
   & .page-count {
     font-size: smaller;
@@ -303,6 +311,7 @@
   position: relative;
   z-index: -99;
   top: 33px;
+  left:1rem;
 
   & > div {
     display: inline-block;
