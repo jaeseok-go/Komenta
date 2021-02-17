@@ -49,10 +49,7 @@ export default {
       return validatePhoneNum(this.userPhoneNum);
     },
     putPhoneNum() {
-      if(this.putAuthenBtn) {
-        return true;
-      }
-      return false;
+      return this.putAuthenBtn;
     },
     putAuthenNum() {
       if (this.authenNum.length >= 4) {
