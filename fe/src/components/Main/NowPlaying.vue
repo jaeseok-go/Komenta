@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h4 class="page-title">Now playing</h4>
+      <h4 class="page-title"><i class="fas fa-forward"></i> Now playing <i class="fas fa-backward"></i></h4>
       <div class="nowPlaying nonShow" v-if="nowPlayingVOD.ve_id == undefined">
         <div class="poster-form">
           <div class="poster">
