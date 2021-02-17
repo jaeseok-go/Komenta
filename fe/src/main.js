@@ -17,7 +17,10 @@ import GAuth from 'vue-google-oauth2'
 
 // import '@/assets/js/main'
 
+import VueSweetalert2 from "vue-sweetalert2";
+import 'sweetalert2/dist/sweetalert2.min.css';
 
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -28,8 +31,7 @@ library.add(fasCheckC, faCheck, faTimes, faThumbsUp, faStar, faAngleLeft, faAngl
 library.add(faEye, faEyeSlash, faEnvelope, farCheckC, farStar) //far lib
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-// kakao로그인
-// window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY);
+
 
 Vue.use(GAuth, {
   clientId: '239626612902-chshh1qud8hhvt0k0bc3hcgmq871jgai.apps.googleusercontent.com', scope: 'email', prompt: 'consent', fetch_basic_profile: true
