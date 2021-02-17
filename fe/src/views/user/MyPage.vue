@@ -259,39 +259,44 @@ export default {
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
-        this.$swal({
-        text: "비밀번호를 입력하세요.",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+        alert('비밀번호를 입력하세요.')
+      //   this.$swal({
+      //   text: "비밀번호를 입력하세요.",
+      //   postion:'top',
+      //   icon: 'info',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
         return;
       }
       if(!this.confirmPW) {
-        this.$swal({
-        text: "비밀번호를 확인하세요.",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+        alert('비밀번호를 확인하세요.')
+      //   this.$swal({
+      //   text: "비밀번호를 확인하세요.",
+      //   icon: 'info',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
         return;
       }
       if(!this.userNickName) {
-        this.$swal({
-        text: "닉네임을 설정해주세요.",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+        alert('닉네임을 설정해주세요.')
+      //   this.$swal({
+      //   text: "닉네임을 설정해주세요.",
+      //   icon: 'info',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
         return;
       }
       if(!this.userPhoneNumber) {
-        this.$swal({
-        text: "휴대폰 번호를 입력하세요",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      })
+        alert('휴대폰 번호를 입력하세요')
+      //   this.$swal({
+      //   text: "휴대폰 번호를 입력하세요",
+      //   icon: 'info',
+      //   timer: 1300,
+      //   showConfirmButton: false,
+      // })
         return;
       }
       try {
@@ -326,8 +331,7 @@ export default {
         icon: 'success',
         timer: 1300,
         showConfirmButton: false,
-      })
-        // console.log(this.userInfo)
+      }).then(()=>{
         this.userId = this.userInfo.u_email
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
@@ -335,6 +339,9 @@ export default {
         this.closeUserInfoModal();
         
         window.location.reload();
+        
+      })
+        // console.log(this.userInfo)
       }catch(err) {
         // console.log("수정 에러")
         console.log(err);
@@ -355,9 +362,10 @@ export default {
             icon: 'success',
             timer: 1300,
             showConfirmButton: false,
+          }).then(()=>{
+            deleteMyInfo(this.uId)
+            window.location.href='/';
           })
-          deleteMyInfo(this.uId)
-          window.location.href='/';
         } 
       })
     
