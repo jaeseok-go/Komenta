@@ -10,7 +10,7 @@ export default {
     name: 'NotFoundPage',
     methods: {
     goMain() {
-      this.$router.push('/main');
+      this.$router.push('/main/vodpopular');
     }
     },
 };

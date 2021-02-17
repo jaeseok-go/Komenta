@@ -62,22 +62,27 @@ export default {
   methods: {
     async signMembership(){
       var moment = require('moment');
-      console.log('회원 멤버십 정보 : ',moment(this.userInfo.u_expire_member).format('YYYY-MM-DD'))
-      console.log('현재 시간 : ', moment(new Date()).format('YYYY-MM-DD'))
+      // console.log('회원 멤버십 정보 : ',moment(this.userInfo.u_expire_member).format('YYYY-MM-DD'))
+      // console.log('현재 시간 : ', moment(new Date()).format('YYYY-MM-DD'))
       if(this.userInfo.u_expire_member === "0000-00-00 00:00:00" || moment(this.userInfo.u_expire_member).format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
-        const result = await membership();
-        console.log('그래서 가입이 된겨? ',result)
+       await membership();
+        // console.log('그래서 가입이 된겨? ',result)
         // this.userInfo.u_expire_member = this.getUserInfo(this.userInfo.u_id);
         this.$store.dispatch('FETCH_MEMBERSHIP',await this.getUserInfo(this.userInfo.u_id))
         window.open('https://forms.gle/WPi6iM7Q5Doyyx2y5');
         this.$router.push({name:'MyPage'});
       }else {
-        alert('이미 멤버십에 가입하신 회원입니다!')
+        this.$swal({
+        text:'이미 멤버십에 가입하신 회원입니다!',
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
       }
     },
     async getUserInfo(uid) {
       const response = await fetchMyInfo(uid);
-      console.log("멤버십 정보 잘 바꼈니?",response)
+      // console.log("멤버십 정보 잘 바꼈니?",response)
       return response.data.u_expire_member;
     }
   },

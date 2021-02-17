@@ -124,11 +124,11 @@ export default {
     },
     async loginComplete() {
        try {
-        const response = await this.$store.dispatch('LOGIN', {
+        await this.$store.dispatch('LOGIN', {
           u_email:this.userId,
           u_pw:this.password
         })
-        console.log(response,'로그인응답')
+        // console.log(response,'로그인응답')
         // if (response.status === 204) {
         //   alert('비밀번호를 다시 입력해주세요.')
         //   return
@@ -136,9 +136,15 @@ export default {
         this.initForm()
         this.$router.push('/main/vodpopular');
       } catch (error) {
-        console.log(error,'로그인에러ㅓ')
+        // console.log(error,'로그인에러ㅓ')
         if(error.status === 500) {
           this.loginError();
+          this.$swal({
+          text: '로그인에 실패했습니다.',
+          icon: 'error',
+          timer: 1300,
+          showConfirmButton: false,
+        })
         }
       }
     },
