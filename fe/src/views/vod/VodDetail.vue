@@ -2,13 +2,13 @@
   <div>
     <div id="appBody">
       <div class="video">
-        <video @loadstart="goLastVod" @click="startVideo" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" width="100%" height="100%">
+        <video @loadstart="goLastVod" class="video__height" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate" width="100%" height="100%">
             <source :src="getVideo()" id="player" type='video/mp4'/>
         </video>    
         <div id="comment_div">
           <div class="comment__scroll" id="comment__scroll">
             <div v-for="(comment,index) in commentsList" :key="index" class="comment__text"> <!--  @mousewheel="stopScroll"  -->
-              <div v-show="showComments && (comment.c_playtime <= nowTime(videoCurrentTime))" class="comment__lineheight" >
+              <div v-show="comment.c_playtime <= nowTime(videoCurrentTime)" class="comment__lineheight" >
                 <span class="comment__time" @click="goCommentTime(timeToSec(comment.c_playtime))"> {{comment.c_playtime}}</span>
                 <span @click="goFeed(comment.u_id)" class="comment__nickname" :class=" {comment__highlight:userFollowing(comment.u_id)}">{{comment.u_nickname}} </span> 
                 <template v-if="itsMe(comment.u_id)">
@@ -142,7 +142,6 @@ export default {
       // followingComment:false
       showEpiDetail:true,
       showVodDetail:true,
-      showComments:false,
     }
   },
   created(){
@@ -154,13 +153,6 @@ export default {
     this.startWatchTime();
   },
   methods : {
-    startVideo(){
-      this.showComments = true
-      return
-    },
-    test(){
-      console.log(document.getElementsById("comment_div"));
-    },
     DeleteComment(cId){
     removeComment(cId).then(()=>{
       this.getEpiComment();
