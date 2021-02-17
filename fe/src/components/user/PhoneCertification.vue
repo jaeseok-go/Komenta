@@ -2,7 +2,7 @@
     <b-col class="col-setting col-center">
       <div class="phoneNum-form">
         <form @submit.prevent="sendCertificationNumber">
-          <p class="phone-label">휴대폰 번호 : </p><input type="text" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
+          <p class="phone-label">휴대폰 번호 : </p><input type="text" @focus="isAuthen" class="form-control form-control-lg find" v-model="userPhoneNum" placeholder="휴대폰 번호를 입력하세요(-제외한 숫자만 입력)"/>
           <button class="btn btn-normal btn-authentic" :disabled="!putPhoneNum">
             휴대폰 인증</button>
           <br />
@@ -40,6 +40,7 @@ export default {
             confirmNum: '0000',
         };
     },
+    props: ['getIdChk', 'getUserId'],
     computed: {
     ...mapState({
       userInfo: state => state.user.userInfo
@@ -62,34 +63,66 @@ export default {
     },
   },
   methods: {
+    isAuthen(){
+      // console.log("props getIdChk 체크 : ",this.getIdChk)
+      // console.log("props userId 체크 : ", this.getUserId)
+      if(this.getIdChk != undefined) {
+        // console.log("비밀번호 찾기 페이지임")
+        if(!this.getIdChk && !this.getUserId){
+          this.$swal({
+        text: "아이디 체크를 먼저 진행해주세요",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      }).then(()=>{
+        this.$emit('idChkFocus');
+      })
+        }
+      }
+      // else if(this.getIdChk == undefined){
+      //   console.log("비밀번호 찾기 아니니까 무시ㄱㄱ")
+      // }
+    },
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
       // this.confirmNum = `${response.data.auth_number}`;
       // response.data.u_email
       this.userId = response.data.u_email;
-      console.log(response)
+      // console.log(response)
       this.confirmNum = response.data.auth_number;
-      window.alert('인증 번호를 발송했습니다.');
+      this.$swal({
+        text: '인증 번호를 발송했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
       this.start();
       this.authenDisplay = 'block';
     },
     async checkCertification() {
       console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
-        window.alert('인증에 성공했습니다.');
+        this.$swal({
+        text: '인증에 성공했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      }).then(()=>{
         this.timeStop();
         this.resetBtnDisplay = 'none';
+
+      })
         if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
-          console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
+          // console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
           this.$store.commit('setPhonenum',this.userPhoneNum);
-          console.log(this.userInfo,'데이터들어왔니카카오구글')
-          const res = await registerUser(this.userInfo);
+          // console.log(this.userInfo,'데이터들어왔니카카오구글')
+          await registerUser(this.userInfo);
           await this.$store.dispatch('LOGIN',{
             u_email:this.userInfo.u_email,
             u_pw:this.userInfo.u_email
           })
-          console.log(res,'sns회원가입과 로그인')
+          // console.log(res,'sns회원가입과 로그인')
           this.$router.push(`/main/vodpopular`)
         } else {
           store.commit('setEmail', this.userId);
@@ -97,7 +130,12 @@ export default {
           this.$emit('checkCertification')
         }
       } else {
-        window.alert('인증 실패했습니다. 다시 시도해주세요.');
+        this.$swal({
+        text: '인증 실패했습니다. 다시 시도해주세요.',
+        icon: 'error',
+        timer: 1300,
+        showConfirmButton: false,
+      })
       }
     },
     start(){ // 1초에 한번씩 start 호출

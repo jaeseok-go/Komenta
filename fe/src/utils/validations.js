@@ -8,6 +8,6 @@ export function validatePassword(value) {
 }
 
 export function validatePhoneNum(number) {
-  var num = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
+  var num = /(^01.(0|1|[6-9]){1})([0-9]{3}|[0-9]{4})([0-9]{4})/g;
   return num.test(String(number));
 }

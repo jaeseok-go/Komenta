@@ -1,12 +1,12 @@
 <template> 
-    <b-container class="container-setting find-idpw">
+    <b-container class="container-setting find-idpw block">
         <template v-if="showCertiForm">
           <div class="form-sort id-chk">
-              아이디: <input v-model="userId" class="form-control form-control-lg find" placeholder="example@example.com" type="text"/>
+              아이디: <input type="text" v-model="userId" ref="idChk" class="form-control form-control-lg find" placeholder="example@example.com"/>
               <button class="btn btn-normal btn-authentic" @click="checkId" :disabled="!isUserIdValid">아이디 확인</button>
           </div>
           <div> <!-- @click="checkId" -->
-            <phone-certification @checkCertification="checkCertification"></phone-certification>
+            <phone-certification @idChkFocus="idChkFocus" @checkCertification="checkCertification" :getIdChk="authenId" :getUserId="userId"></phone-certification>
           </div>
             <hr>
         </template>
@@ -84,14 +84,37 @@ export default {
         async checkId(){
           const response = await userIdChk(this.userId)
           // 인증번호 params확인필요
-          console.log(response)
+          // console.log(response)
           this.authenId = response.data;
-          if (response.data === false) {
-             alert('아이디가 틀렸습니다.')
+          if (!this.authenId) {
+            this.$swal({
+              text: '아이디가 틀렸습니다.',
+              icon: 'error',
+              timer: 1300,
+              showConfirmButton: false,
+            })
             this.userId = ""
+          }else{
+            this.$swal({
+            text: '아이디가 확인됐습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
           }
           return;
-          },
+        },
+        idChkConfirm(){
+          // console.log("클릭이 되니?")
+          if(!this.userId || !this.authenId) {
+            this.$swal({
+            text: '아이디 체크 먼저 진행해주세요.',
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+          }
+        },
         checkCertification() {
           this.showCertiForm =  false;
           this.pwDisplay = 'block';
@@ -102,11 +125,13 @@ export default {
             u_email:this.userId,
             u_pw: this.newPw,
           };
-          console.log(userData)
+          // console.log(userData)
           changePw(userData)
           // 로그인 버튼 누르고 라우터로 가게 하기
-          
         },
+        idChkFocus(){
+          this.$refs.idChk.focus();
+        }
     },
     
 }

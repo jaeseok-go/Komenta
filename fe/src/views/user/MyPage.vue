@@ -170,7 +170,7 @@ export default {
     isNickNameDuplicaionCheck() { //async
       // const result = await userNickNameChk(this.username)
       const result = 'true';
-      console.log(result)
+      // console.log(result)
       if(result === 'true') {
         // console.log('DUPLICATED')
         return true;
@@ -217,7 +217,7 @@ export default {
     },
     closeUserInfoModal() {
       this.showUserInfoModal = false;
-      console.log('들어와라,,')
+      // console.log('들어와라,,')
     },
     showUserInfoForm() {
       this.showUserInfoModal = true;
@@ -230,7 +230,7 @@ export default {
       this.userPhoneNumber = this.userInfo.u_phone_number;
       this.userProfilePic = this.userInfo.u_profile_pic;
       this.userIsAdmin = this.userInfo.is_admin;
-      console.log(this.userInfo,'바꼈니?')
+      // console.log(this.userInfo,'바꼈니?')
     },
     modifyUser() {
       this.modiForm = 'block';
@@ -252,26 +252,46 @@ export default {
     onChangeImages(e) {
       this.userProfilePic = this.$refs.imageInput.files[0].name;
       this.profilePicFile = this.$refs.imageInput.files[0];
-      console.log("user pic : ",this.userProfilePic)
-      console.log("user pic Info : ",this.profilePicFile)
+      // console.log("user pic : ",this.userProfilePic)
+      // console.log("user pic Info : ",this.profilePicFile)
       this.showProfile =  URL.createObjectURL(e.target.files[0]);
-      console.log('바뀐 이미지 경로 : ',this.showProfile)
+      // console.log('바뀐 이미지 경로 : ',this.showProfile)
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
-        alert("비밀번호를 입력하세요.")
+        this.$swal({
+        text: "비밀번호를 입력하세요.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.confirmPW) {
-        alert("비밀번호를 확인하세요.")
+        this.$swal({
+        text: "비밀번호를 확인하세요.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.userNickName) {
-        alert("닉네임을 설정해주세요.")
+        this.$swal({
+        text: "닉네임을 설정해주세요.",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       if(!this.userPhoneNumber) {
-        alert("휴대폰 번호를 입력하세요")
+        this.$swal({
+        text: "휴대폰 번호를 입력하세요",
+        icon: 'info',
+        timer: 1300,
+        showConfirmButton: false,
+      })
         return;
       }
       try {
@@ -299,36 +319,49 @@ export default {
           u_phone_number : this.userPhoneNumber,
           u_profile_pic : this.userProfilePic
         };
-        console.log('유저데이터잘들어왔니',userData)
+        // console.log('유저데이터잘들어왔니',userData)
         await this.$store.dispatch('MODIFY',userData)
-        console.log(this.userInfo)
+        this.$swal({
+        text: '내정보 수정을 완료했습니다.',
+        icon: 'success',
+        timer: 1300,
+        showConfirmButton: false,
+      })
+        // console.log(this.userInfo)
         this.userId = this.userInfo.u_email
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
         
         this.closeUserInfoModal();
+        
         window.location.reload();
       }catch(err) {
-        console.log("수정 에러")
+        // console.log("수정 에러")
         console.log(err);
       }
     },
-    async unSubscribe(){
-      const userConfirm = confirm("회원 탈퇴 시, 모든 데이터는 복구가 불가능합니다.\n 탈퇴를 계속 진행하시겠습니까?");
-      console.log(userConfirm);
-
-      try{
-        if(userConfirm) {
-          console.log('회원탈퇴 진행',this.uId);
-          const response = await deleteMyInfo(this.uId);
-          console.log("회원탈퇴...",response);
-          alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
-        }
-        window.location.href='/';
-      }catch(err){
-        console.log(err)
-      }
-    },
+    unSubscribe(){
+        this.$swal({
+        title:"회원 탈퇴 시, 모든 데이터는 복구가 불가능합니다.",
+        text: "탈퇴를 계속 진행하시겠습니까?",
+        showCancelButton: true,
+        confirmButtonText: '탈퇴',
+        cancelButtonText: '취소',
+        // showCloseButton: true,
+      }).then((result) => {
+        if(result.value) {
+          this.$swal({
+            text: 'Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.',
+            icon: 'success',
+            timer: 1300,
+            showConfirmButton: false,
+          })
+          deleteMyInfo(this.uId)
+          window.location.href='/';
+        } 
+      })
+    
+     },
   },
 }
 </script>

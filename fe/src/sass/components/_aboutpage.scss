@@ -79,7 +79,6 @@
 }
 
 .text__scroll {
-  scroll-behavior: smooth;
   color: black;
   position: absolute;
   bottom: 30px;
@@ -90,83 +89,7 @@
   opacity: var(--opacity, 1);
   -webkit-transition: opacity 0.3s ease 0.2s;
   transition: opacity 0.3s ease 0.2s;
-}
 
-
-.animate__animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-duration: var(--animate-duration);
-  animation-duration: var(--animate-duration);
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.animate__fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
-}
-
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-
-.bounce {
-    animation-iteration-count: infinite;
-  animation-duration: 1.5s;
-  animation: bounce 3.6s ease infinite;
-  transform-origin: 50% 50%;
-}
-
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  5.55556% {
-    transform: translateY(0);
-  }
-  11.11111% {
-    transform: translateY(0);
-  }
-  22.22222% {
-    transform: translateY(-15px);
-  }
-  27.77778% {
-    transform: translateY(0);
-  }
-  33.33333% {
-    transform: translateY(-15px);
-  }
-  44.44444% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(0);
-  }
 }
 
 .clickme_button {
@@ -258,11 +181,7 @@
 
 
 
-
-
-.svg {
-  display: inherit;
-  position: absolute;
-  transform: translate(-280px, -290px);
+.clickme_text {
+  font-family: 'Indie Flower', cursive !important;
 }
 

@@ -41,7 +41,7 @@
             <div class="video__comment__inner">
               <span class="video__comment__inner__nickname">{{userInfo.u_nickname}}</span> <br>
               <div>
-                <input type='text' class="video__comment__input" id=msg v-model="userComment" placeholder="댓글을 입력하세요" @keydown.enter="createComment()"/>
+                <input type='text' class="video__comment__input" id=msg v-model.trim ="userComment" placeholder="댓글을 입력하세요" @keydown.enter="createComment()"/>
                 <span @click="createComment()"><i class="far fa-paper-plane"></i></span>
               </div>
             </div>
@@ -156,9 +156,10 @@ export default {
     test(){
       console.log(document.getElementsById("comment_div"));
     },
-    async DeleteComment(cId){
-      await removeComment(cId)
+    DeleteComment(cId){
+    removeComment(cId).then(()=>{
       this.getEpiComment();
+    })
     },
     itsMe(uId) {
       if (this.userInfo.u_id == uId) {

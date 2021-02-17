@@ -52,13 +52,13 @@ export default {
       this.$router.push(`/voddetail/${veId}`)
     },
     async getRecentPlayList() {
-    try {
         const res = await fetchRecentPlaylist()
         this.recentlyPlayLists = res.data
-        console.log('나의 최신vod목록:',this.recentlyPlayLists)
-    } catch {
-        console.log('최신vod에러')
-    }
+        // console.log('나의 최신vod목록:',this.recentlyPlayLists)
+
+    //  catch {
+        // console.log('최신vod에러')
+    // }
     },
     getVodPoster(gdId,title){
         return `${process.env.VUE_APP_PICTURE}poster/${gdId}_${title}`
