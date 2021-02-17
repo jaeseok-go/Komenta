@@ -2538,6 +2538,14 @@ select {
   font-weight: 650;
 }
 
+.intro-drag-and-drop {
+  width: 390px;
+  position: absolute;
+  z-index: 9999;
+  right: 100px;
+  bottom: 140px;
+}
+
 .drop-zone {
   margin-top: 10px;
   height: 300px;
@@ -3761,4 +3769,3 @@ select {
   border: 1px solid #999;
   font-family: 'Nanumgothic';
 }
-/*# sourceMappingURL=index.css.map */

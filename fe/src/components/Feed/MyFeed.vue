@@ -32,14 +32,15 @@
             <h3 class="container__recentSection__recentList">
               Recently Watched
             </h3>
-            <button
-              class="container__recentSection__createPlaylistButton"
-              @click="showModalForm"
-            >
+            <button class="container__recentSection__createPlaylistButton" @click="showModalForm" @mouseover="showIntro" @mouseleave="closeIntro">
               <h4 class="container__recentSection__createPlaylistTitle">
                 새로운 플레이리스트 만들기
               </h4>
             </button>
+            <div class="intro-drag-and-drop" :style="{display:isShowIntro}">
+              
+              <img :src="getIntro()" alt="">
+            </div>
           </div>
           <div class="drop-zone" @dragover.prevent @dragenter.prevent>
             <!-- 최근 본 VOD 리스트 중 하나씩 v-for돌림 -->
@@ -65,7 +66,7 @@
           <Modal v-if="showModal" @close="showModal = false">
             <h4 slot="header">
               <div class="modal_title">나만의 플레이 리스트를 만들어보세요</div>
-
+              
               <div @click="showModal = false" class="modal_close_btn">
                 <i class="closeModalBtn fa fa-times" aria-hidden="true"> </i>
               </div>
@@ -231,6 +232,7 @@ export default {
       epiComment: '',
       selectedId: [],
       showFollowBtn: true,
+      isShowIntro: 'none',
     };
   },
   created() {
@@ -289,7 +291,15 @@ export default {
       }
       return false;
     },
-
+    showIntro(){
+      this.isShowIntro = 'block';
+    },
+    closeIntro(){
+      this.isShowIntro = 'none';
+    },
+    getIntro(){
+      return require('@/assets/images/dragAndDrop.gif');
+    },
     async getFollowinglist() {
       const response = await fetchfollowinglist(this.userInfo.u_id);
       this.myFollowing = response.data;

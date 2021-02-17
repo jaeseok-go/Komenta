@@ -106,6 +106,14 @@
   }
 }
 
+.intro-drag-and-drop {
+  width: 390px;
+  position: absolute;
+  z-index: 9999;
+  right: 100px;
+  bottom: 140px;
+}
+
 .drop-zone {
   margin-top: 10px;
   height: 300px;
