@@ -13,7 +13,7 @@
       </div>
       <div class="web-navigation__userText">
         <p class="web-navigation__userNickName" v-text="getUserNickName(userInfo.u_nickname)"></p> <!-- v-text="getNickName(userInfo.u_nickname)" -->
-        <p class="web-navigation__userId" v-text="getUserEmail(userInfo.u_email)"></p> <!-- v-text="getEmail(userInfo.u_email)" -->
+        <p class="web-navigation__userId" v-text="userInfo.u_email"></p> <!-- v-text="getEmail(userInfo.u_email)" -->
       </div>
     </div>
     <div class="web-navigation__scrollable">
@@ -156,14 +156,14 @@ export default {
         return nickname+" 님";
       }
     },
-    getUserEmail(email) {
-      if(email.length > 18) {
-        const rename = email.substring(0,17);
-        return rename;
-      }else {
-        return email;
-      }
-    }
+    // getUserEmail(email) {
+    //   if(email.length > 18) {
+    //     const rename = email.substring(0,17);
+    //     return rename;
+    //   }else {
+    //     return email;
+    //   }
+    // }
   },
   computed: {
     ...mapState({
