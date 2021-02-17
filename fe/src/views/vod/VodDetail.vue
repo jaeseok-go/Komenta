@@ -121,7 +121,8 @@
         <i class="fas fa-check"></i> BEST </router-link>
         <router-link :to="{name:'AllComments'}" active-class="comments__menu">
         <i class="fas fa-check"></i> 전체 댓글 </router-link>
-        <router-view  @goCommentTime="goCommentTime"></router-view>
+        <router-view  @goCommentTime="goCommentTime" @commentLike="commentLikeEmit" ></router-view>
+        <!-- :commentsList="commentsList" props로 넘겨줄까? -->
       </div>
     </div>
   </div>
@@ -383,6 +384,12 @@ export default {
       }
       return false    
     },
+    commentLikeEmit(cId){
+      const likeBtn = document.querySelector(`#like-btn-${cId}`)
+      likeBtn.classList.toggle('comment__like')
+      likeBtn.classList.toggle('comment__unlike')
+      // console.log(likeBtn,'이댓글 좋아용')
+    },
     //유저 댓글 좋아요 class추가/제거
     commentLike(index,comment){
       const likeBtn = document.querySelector(`#like-btn-${comment.c_id}`)
@@ -399,6 +406,7 @@ export default {
         u_id : this.userInfo.u_id
       }
       userlikeComment(commentInfo)
+      // this.getEpiComment();
     },
     getUserBlockedInfo(){
       console.log("이 회원은 : ",this.userInfo.is_blocked,"입니다.")

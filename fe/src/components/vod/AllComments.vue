@@ -48,7 +48,8 @@ export default {
       type:Number,
       required: false,
       default: 10
-    }
+    },
+    // commentsList:Array,
   },
   data(){
     return {
