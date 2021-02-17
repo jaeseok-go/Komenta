@@ -118,10 +118,10 @@
 </template>
 
 <script>
-import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch} from '@/api/vod'
-import {modifyunfollow} from '@/api/user'
-import { fetchEpiComment, userlikeComment, commentInsert ,removeComment} from '@/api/comment'
-import {mapState} from 'vuex';
+import { startVodWatch, fetchVodEpiDetail, fetchVodDetail, endVodWatch } from '@/api/vod'
+import { modifyunfollow } from '@/api/user'
+import { fetchEpiComment, userlikeComment, commentInsert ,removeComment } from '@/api/comment'
+import { mapState } from 'vuex';
 
 export default {
   name: 'VodDetail',
