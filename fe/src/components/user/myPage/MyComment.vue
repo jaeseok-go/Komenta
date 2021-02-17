@@ -91,7 +91,7 @@ export default {
       let listLeng = this.commentContents.length,
           listSize = this.pageSize,
           page = Math.floor(listLeng / listSize);
-      console.log("commentContents 수 : ",listLeng)
+      // console.log("commentContents 수 : ",listLeng)
       if(listLeng % listSize > 0) page += 1;
 
       return page;

@@ -127,8 +127,12 @@ export default {
     },
     logout() {
         this.$swal({
+        icon:'question',
         text: '로그아웃 하시겠습니까?',
         showCancelButton: true,
+        customClass: {
+          container: 'swal2-container'
+        },
         confirmButtonText: '로그아웃',
       }).then((result) => {
         if(result.value) {
@@ -136,6 +140,9 @@ export default {
             text: '로그아웃했습니다.',
             icon: 'success',
             timer: 1300,
+            customClass: {
+          container: 'swal2-container'
+        },
             showConfirmButton: false,
           }).then(()=>{
             this.$store.commit('logout')

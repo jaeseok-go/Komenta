@@ -71,11 +71,15 @@ export default {
       this.$swal({
         // title: '플레이리스트를 삭제하시겠습니까?',
         text: '댓글을 삭제하시겠습니까?',
+        icon:'error',
+         customClass: {
+          container: 'swal2-container'
+        },
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
-        showCloseButton: true,
-        showLoaderOnConfirm: true
+        // showCloseButton: true,
+        // showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
           this.$swal({
