@@ -190,10 +190,14 @@
 .modal_title {
   text-align: center;
   font-weight: bold;
+  font-size: x-large;
   background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .modal__playlist {
   margin-top: 35px;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
 }
