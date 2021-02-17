@@ -1,81 +1,116 @@
 <template>
-    <div class="container margin__left">
-        <div class="container__following">
-            <!-- 버튼 누르기 -->
-            <div class="btn-cover_people">
-                <button :disabled="pageNum === 0" @click="prevPage" class="page-btn_people">
-                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
+    <div>
+        <div v-if="following_list.length" class="container margin__left">
+            <div class="container__following">
+                <!-- 버튼 누르기 -->
+                <div class="btn-cover_people">
+                    <button :disabled="pageNum === 0" @click="prevPage" class="page-btn_people">
+                        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                    </button>
+                <!-- 프로필 팔로잉 사진 목록 -->
+                <div class="container__following__Profle">
+                    <div v-for="(user,index) in paginatedData" :key="index">
+                        <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getUpdateProfile(updateFollow_array[index].u_profile_pic)" class="container__following__Profle__img" width="100px" height="100px"></div>
+                        <div class="container__following__Profle__NEW">NEW!</div>
+                    </div>
+                </div>
+                <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn_people">
+                    <font-awesome-icon :icon="['fas', 'angle-right']"/>
                 </button>
-            <!-- 프로필 팔로잉 사진 목록 -->
-            <div class="container__following__Profle">
-                <div v-for="(user,index) in paginatedData" :key="index">
-                    <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getUpdateProfile(updateFollow_array[index].u_profile_pic)" class="container__following__Profle__img" width="100px" height="100px"></div>
-                    <div class="container__following__Profle__NEW">NEW!</div>
+                </div>
+                
+                <!-- 친구 카드 프로필 닉네임 같이 보여주면서 바로가기 -->
+                <div class="at-section">
+                    <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 피드에서 소식을 확인해보세요</div>
+                    <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
+                </div>
+                <div class="btn-cover_people">
+                    <button :disabled="pageNum_2 === 0" @click="prevPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+                    </button>
+                <div class="at-grid basic-scroll">
+                    <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
+                        <div class="at-user"  @click="gotoFeed(user.f_id)">
+                            <div class="at-user__name">{{user.u_nickname}}</div>
+                            <div class="at-user__profile"><img :src="getProfile(index)" width="80px" height="80px" class="at-user__profile__img"></div>
+                        </div>
+                    </div>
+                </div>
+                <button :disabled="pageNum_2 >= pageCount_2 -1" @click="nextPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
+                    <font-awesome-icon :icon="['fas', 'angle-right']"/>
+                </button>
+                </div>
+                
+                <!-- 업데이트된 플레이리스트 카드형태로 2개씩 보여줌 -->
+                <div class="at-section">
+                    <div class="at-section__title"><span class="at-section__nickname" style="font-size:2.8rem">새롭게 업데이트된 플레이리스트를 확인해보세요</span></div>
+                    <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
+                </div>
+
+            <div class="play-list-form">
+            <div class="play-list">
+            <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index" :class="[playlist[0].v_poster? '' : 'pl_block']">
+                <div class="playList-Form" @click="gotoPlaylist(playlist[0].pl_id)">
+                <div class="reprePoster">
+                    <img :src="getPoster(index)" width="210px" height="150px">
+                </div>
+                <div class="playlist_user_profile">
+                    <img :src="getUpdateProfiletoPlaylist(playlist)" class="playlist_user_profile">            
+                </div>
+                <div class="plInfo margin__left__five">
+                    <span class="container__info__button" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</span>'S PICK
+                    <font-awesome-icon :icon="['far', 'star']" :style="{ color: '#e2c000'}"/>
+                    {{playlist[0].pl_good_count}}
+                    <p> 
+                    <span style="text-decoration: underline; text-underline-position:under;"><strong v-text="getPlTitle(playlist[0].pl_name)"></strong><br></span>
+                    <!-- {{playlist[0].pl_comment}} <br> -->
+                    </p>
+                    
+                </div>
                 </div>
             </div>
-            <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn_people">
-                <font-awesome-icon :icon="['fas', 'angle-right']"/>
-            </button>
             </div>
+            </div>
+            </div>
+        </div>
+
+        <div v-else class="container_form"> 
+            <div class="at-section__title" style="margin-left:55px"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님이 팔로우하고 있는 친구가 없습니다.</div>
+            <div class="container_form__subtitle">친구들을 팔로우하고, 취향에 맞는 플레이리스트를 즐겨찾기해보세요</div>
             
-            <!-- 친구 카드 프로필 닉네임 같이 보여주면서 바로가기 -->
-            <div class="at-section">
-                <div class="at-section__title"><span class="at-section__nickname">{{userInfo.u_nickname}}</span>님의 친구들의 피드에서 소식을 확인해보세요</div>
-                <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>친구들의 플레이리스트를 확인하고, 취향에 맞는 VOD를 추천받아보세요!</span></span>
-            </div>
-            <div class="btn-cover_people">
-                <button :disabled="pageNum_2 === 0" @click="prevPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
-                    <font-awesome-icon :icon="['fas', 'angle-left']"/>
-                </button>
-            <div class="at-grid basic-scroll">
-                <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
-                    <div class="at-user"  @click="gotoFeed(user.f_id)">
-                        <div class="at-user__name">{{user.u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getProfile(index)" width="80px" height="80px" class="at-user__profile__img"></div>
+            <!-- 플레이리스트탑10 -->
+            <div class="container_form__subtitle__desc"><i class="fas fa-check at-section__icon"></i>현재 시간, 코멘타의 탑 10 인기 플레이리스트를 보유한 친구를 팔로우해보세요!</div>
+            <div class="bestPlaylistUserForm">
+                <div class="at-column" v-for="(bestplUser,index) in bestPlaylistUser" :key="index">
+                    <div class="at-user" @click="gotoFeed(bestplUser['pldetail'][0].u_id)">
+                        <div class="at-user__name">{{bestplUser['pldetail'][0].u_nickname}}</div>
+                        <div class="at-user__profile"><img :src="getUpdateProfile(bestplUser['pldetail'][0].u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
+                        <a class="followForm"><span class="followForm__followBtn">FOLLOW</span></a>
                     </div>
                 </div>
             </div>
-            <button :disabled="pageNum_2 >= pageCount_2 -1" @click="nextPage_2" class="page-btn_people" style="margin: 4.5rem 2rem">
-                <font-awesome-icon :icon="['fas', 'angle-right']"/>
-            </button>
+            <!-- 베스트댓글 탑 -->
+            <div class="container_form__subtitle__desc" style="margin-top:6rem"><i class="fas fa-check at-section__icon"></i>좋아요를 많이 받은 댓글을 쓴 유저들을 팔로우하고, VOD 시청을 더 유쾌하게 즐겨보세요</div>
+            <div class="bestPlaylistUserForm">
+                <div class="at-column" v-for="(bestCommentUser,index) in bestCommentUser" :key="index">
+                    <div class="at-user" @click="gotoFeed(bestCommentUser.u_id)">
+                        <div class="at-user__name">{{bestCommentUser.u_nickname}}</div>
+                        <div class="at-user__profile"><img :src="getUpdateProfile(bestCommentUser.u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
+                        <a class="followForm"><span class="followForm__followBtn">FOLLOW</span></a>
+                    </div>
+                </div>
             </div>
             
-            <!-- 업데이트된 플레이리스트 카드형태로 2개씩 보여줌 -->
-            <div class="at-section">
-                <div class="at-section__title"><span class="at-section__nickname" style="font-size:2.8rem">새롭게 업데이트된 플레이리스트를 확인해보세요</span></div>
-                <span class="at-section__subtitleButton"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
-            </div>
-
-        <div class="play-list-form">
-        <div class="play-list">
-          <div class="playList" v-for="(playlist, index) in updateFollowPlaylists" :key="index" :class="[playlist[0].v_poster? '' : 'pl_block']">
-            <div class="playList-Form" @click="gotoPlaylist(playlist[0].pl_id)">
-              <div class="reprePoster">
-                <img :src="getPoster(index)" width="210px" height="150px">
-              </div>
-              <div class="playlist_user_profile">
-                <img :src="getUpdateProfiletoPlaylist(playlist)" class="playlist_user_profile">            
-              </div>
-              <div class="plInfo margin__left__five">
-                <span class="container__info__button" @click="gotoFeed(playlist[0].u_id)"> {{ updateFollow_nickname[index] }}</span>'S PICK
-                <font-awesome-icon :icon="['far', 'star']" :style="{ color: '#e2c000'}"/>
-                {{playlist[0].pl_good_count}}
-                <p> 
-                   <span style="text-decoration: underline; text-underline-position:under;"><strong v-text="getPlTitle(playlist[0].pl_name)"></strong><br></span>
-                  <!-- {{playlist[0].pl_comment}} <br> -->
-                </p>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
         </div>
     </div>
+    
 </template>
 
 <script>
 import { fetchfollowinglist,updateFollowPlaylist,fetchMyInfo } from '@/api/user'
+import { fetchPopularPlayList } from '@/api/vod'
+import { fetchBestComment } from '@/api/comment'
+
 // import { mapState } from 'vuex'
 import store from '@/stores/modules/user'
 
@@ -90,7 +125,13 @@ export default {
             playlist_nickname:[],
             updateFollow_array : [],
             updateFollow_userId:[],
-            updateFollow_nickname:[]
+            updateFollow_nickname:[],
+
+            // 좋아요 많이 받은 베스트 플레이리스트 유저
+            bestPlaylistUser:[],
+            // 댓글 좋아요 많이 받은 유저
+            bestCommentUser:[],
+
         }
     },
     props: {
@@ -143,9 +184,21 @@ export default {
         
     },
     created() {
-        this.getFollowing()
-        this.getUpdateFollowPlaylist()
-        this.getNickname()
+        // if (this.following_list) {
+        //     this.getFollowing()
+        //     this.getUpdateFollowPlaylist()
+        //     this.getNickname()
+
+        // } else {
+        //     this.getBestPlaylistUser()
+        //     this.getBesctCommentUser()
+
+        // }
+                    this.getFollowing()
+            this.getUpdateFollowPlaylist()
+            this.getNickname()
+                        this.getBestPlaylistUser()
+            this.getBesctCommentUser()
     },
     methods: {
         gotoFeed(userId) {
@@ -237,17 +290,32 @@ export default {
             }else{
                 return pl_title;
             }
+        },
+
+        async getBestPlaylistUser() {
+            const response = await fetchPopularPlayList()
+            this.bestPlaylistUser = response.data
+            console.log(this.bestPlaylistUser,'되냐?')
+        },
+        async getBesctCommentUser() {
+            const response = await fetchBestComment()
+            this.bestCommentUser = response.data.slice(0,10)
+            console.log(this.bestCommentUser,'유저쨩')
         }
     },
 }
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Patrick+Hand");
+
 .margin__left{
   margin-left: 10%;
 }
 .margin__left__five{
   margin-left: 5%;
 }
+
+
 </style>
 
