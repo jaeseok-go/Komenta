@@ -7,8 +7,8 @@
         <Header id="header-section" v-if="isLogin"></Header>
         <router-view id="page-view" :class="{asideOn: isLogin, asideOff: !isLogin}"></router-view>
         <!--  :key="$route.fullPath" -->
-        <footer class="footer_padding">
-        <Footer v-if="isLogin" :class="{asideOn: isLogin}" class="footer__margin"></Footer>
+        <footer class="footer_padding" :class="{'asideOn-footer': isLogin}">
+          <Footer v-if="isLogin" class="footer__margin"></Footer> <!--  :class="{asideOn: isLogin}" -->
         </footer>
       </section>
   </div>
