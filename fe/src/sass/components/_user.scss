@@ -519,6 +519,7 @@
 
   & .membership-form-card {
     display: inline-block;
+    position: relative;
     padding: 2rem;
     margin: 0 auto;
     width: 500px;
@@ -532,8 +533,8 @@
       border-bottom: 80px solid transparent;
       border-left: 80px solid #fc3c44;
       position: absolute;
-      top: 78px;
-      left: 220px;
+      top: 0;
+      left: 0;
 
       & p {
         position: absolute;
