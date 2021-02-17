@@ -115,7 +115,7 @@
             </h3>
             <div
               class="drop-zone"
-              @drop="onDrop($event, playlist[0].pl_id)"
+              @drop="onDrop($event, playlist[0].pl_id,index)"
               @dragover.prevent
               @dragenter.prevent
             >
@@ -264,28 +264,38 @@ export default {
       evt.dataTransfer.setData('vodID', vod.ve_id);
     },
     // vod를 끌어다가 놓는 플레이리스트
-    onDrop(evt, plId) {
+    onDrop(evt, plId,index) {
       const vodID = evt.dataTransfer.getData('vodID');
       const vod = this.myrecentlists.historyList.find(
         (vod) => vod.ve_id == vodID
       );
-      // for (let i = 0; i < array.length; i++) {
-      //   const element = array[i];
-        
-      // }
+      for (let i = 0; i < this.playlists[index].length; i++) {
+        const playVod = this.playlists[index][i];
+        console.log(playVod.ve_id,vod.ve_id,'뭐야')
+        if ( vod.ve_id == playVod.ve_id) {
+           this.$swal({
+          text: '이미 플레이리스트에 있는 VOD EPISODE 입니다.',
+          icon: 'info',
+          timer: 1300,
+          showConfirmButton: false,
+        })
+          return
+        } 
+      }
       this.dragIndex = this.myrecentlists.historyList.indexOf(vod, 0);
-      // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
-      // 해당 vod를 플레이리스트에 추가
-      // this.myrecentlists.episodeList.pop(this.dragIndex)
-      // this.myrecentlists.historyList.pop(this.dragIndex)
-      // 플레이리스트추가api(vod.ve_id,plId)
-      // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
       const epiInfo = {
         vh_id: vod.vh_id,
         pl_id: plId,
       };
       addPlaylistVod(epiInfo);
       this.getUserPlayList();
+      // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
+      // 해당 vod를 플레이리스트에 추가
+      // this.myrecentlists.episodeList.pop(this.dragIndex)
+      // this.myrecentlists.historyList.pop(this.dragIndex)
+      // 플레이리스트추가api(vod.ve_id,plId)
+      // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
+      
     },
     showModalForm() {
       this.showModal = true;
@@ -374,7 +384,7 @@ export default {
         // userId를 같이 안보내주고 토큰으로??
         const res = await fetchRecentPlaylist();
         this.myrecentlists = res.data;
-        console.log(this.myrecentlists, res, '나의 최신vod목록');
+        // console.log(this.myrecentlists, res, '나의 최신vod목록');
       } catch {
         console.log('최신vod에러');
       }
@@ -384,7 +394,7 @@ export default {
       try {
         const res = await fetchMyPlaylist(userId);
         this.playlists = res.data;
-        console.log(res.data, this.recentlistLen, 'playlist목록');
+        // console.log(res.data, this.recentlistLen, 'playlist목록');
       } catch {
         console.log('playlist목록에러');
       }
@@ -455,7 +465,7 @@ export default {
         const feedUserId = this.$route.params.id;
         const response = await fetchMyInfo(feedUserId);
         this.feedUserInfo = response.data;
-        console.log(feedUserId, this.feedUserInfo);
+        // console.log(feedUserId, this.feedUserInfo);
       } catch {
         console.log('피드목록 에러', this.$route.params.id);
       }
