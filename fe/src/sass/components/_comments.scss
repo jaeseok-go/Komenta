@@ -68,6 +68,7 @@
 
     & .fa-question-circle {
       color: rgb(145, 145, 145);
+      font-size: 18px;
       cursor: pointer;
     }
   }
@@ -117,7 +118,7 @@
   border-bottom: black 1px solid;
   font-size: 13px;
 }
-.blockuser__placeholder{
+.blockuser__placeholder {
   &::placeholder {
     color: #fc3c44;
     font-style: italic;
