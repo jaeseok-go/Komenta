@@ -306,12 +306,12 @@ $totalColumns: 7;
 
 @import url("https://fonts.googleapis.com/css?family=Patrick+Hand");
 .followForm {
-
+  cursor: pointer;
   position: relative;
   float: left;
   font: normal 20px/22px "Patrick Hand", sans-serif;
   text-transform: uppercase;
-  color: #000;
+  color: #f03755;
   text-decoration: none;
   padding-bottom: 3px;
   border-radius: 5px;
@@ -324,7 +324,7 @@ $totalColumns: 7;
     box-shadow: 0 2px 0 #000, 0 2px 0px 2px #f03755;
     font: normal 20px/23px "Patrick Hand", sans-serif;
     text-transform: uppercase;
-    color: #000;
+    color: #f03755;
     text-decoration: none;
   }
 
