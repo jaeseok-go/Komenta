@@ -34,6 +34,10 @@
     color: black;
   }
 
+  & h6 {
+    font-family: sans-serif;
+  }
+
   & h6 a {
     border-radius: 4px;
     background-color: $komenta-color;
@@ -41,6 +45,7 @@
     padding: 1px 2px;
     text-decoration: none;
     cursor: pointer;
+    font-family: sans-serif;
   }
 }
 

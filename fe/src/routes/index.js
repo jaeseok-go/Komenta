@@ -81,24 +81,6 @@ const router =  new Router({
       component: () => import('@/components/user/Membership.vue'),
     },
     {
-      path: '/admin/admintest',
-      name: 'AdminTest',
-      component: () => import('@/components/admin/AdminTest.vue'),
-      meta: { auth: true },
-    },
-    {
-      path: '/admin/test',
-      name: 'Test',
-      component: () => import('@/components/admin/Test.vue'),
-      meta: { auth: true },
-    },
-    {
-      path: '/admin/vodPosterInput',
-      name: 'PosterInput',
-      component: () => import('@/components/admin/vodPosterInput.vue'),
-      meta: { auth: true },
-    },
-    {
       path: 'people',
       name:'People',
       component: () => import('@/components/People/PeopleList.vue'),
