@@ -313,10 +313,13 @@ export default {
       try {
         if(this.profilePicFile) {
           let profilePic = new FormData();
-          let pic = this.userProfilePic.split('.');
           // console.log(pic,'잘렸니?')
-          profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
-          // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
+          let pic = this.userInfo.u_id+this.userInfo.u_nickname+"_프로필";
+          console.log("프사 파일 이름 : ",pic)
+          let picDB = String(pic + '.jpg');
+          this.userProfilePic = picDB;
+          console.log("DB에 들어가는 프사 이름 : ",this.userProfilePic)
+          profilePic.append("profile", this.profilePicFile, String(pic+'.jpg'))
           await uploadProfile(profilePic)
           .then((response) => {
             console.log("프로필 사진 잘 들어감",response.data);

@@ -37,14 +37,8 @@ public class JwtServiceImpl implements JwtService {
         jwtBuilder.setHeaderParam("typ", "JWT"); // 토큰의 타입으로 고정 값.
         Date date  = new Date();
         long t = date.getTime();
-//        System.out.println(t);
-//        System.out.println(t+(1000*60*60*24*14));
 
         Date expired_token_date = new Date((System.currentTimeMillis() +(1000*60*60*24*14)));
-//        Date expired_token_date = new Date(System.currentTimeMillis()+1000);
-//        System.out.println("현재 : "+System.currentTimeMillis());
-//        System.out.println("완료 : "+(System.currentTimeMillis() +(1000*60*60*24*14)));
-//        System.out.println("완료 : "+expired_token_date);
 
 //		Payload 설정
         jwtBuilder
@@ -63,7 +57,7 @@ public class JwtServiceImpl implements JwtService {
 
 //		signature 설정
         jwtBuilder.signWith(SignatureAlgorithm.HS256, signature.getBytes());
-//        System.out.println(jwtBuilder.toString());
+
 //		마지막 직렬화 처리
         String jwt = jwtBuilder.compact();
 //        logger.info("jwt : {}", jwt);
@@ -74,10 +68,8 @@ public class JwtServiceImpl implements JwtService {
     //	전달 받은 토큰이 제대로 생성된것이니 확인 하고 문제가 있다면 RuntimeException을 발생.
     @Override
     public void checkValid(String jwt) {
-        System.out.println("check valid : " + jwt);
 //		예외가 발생하지 않으면 OK
         try {
-            System.out.println("들어가유?");
             Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
         } catch (SignatureException e) {
             logger.info("Invalid JWT signature");
@@ -89,7 +81,6 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public Map<String, Object> get(String jwt) {
         Jws<Claims> claims = null;
-        System.out.println("여기야 여기" + Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt).getBody());
         try {
             claims = Jwts.parser().setSigningKey(signature.getBytes()).parseClaimsJws(jwt);
         } catch (final Exception e) {
@@ -103,8 +94,6 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public int getUidFromJwt(String jwt) {
-        System.out.println(jwt);
-        System.out.println(get(jwt).get("u_email"));
         int uid = (int) get(jwt).get("u_id");
         return uid;
     }

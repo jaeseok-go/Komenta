@@ -1,10 +1,6 @@
 package com.komenta.be.config;
 
-import com.komenta.be.interceptor.AdminInterceptor;
 import com.komenta.be.interceptor.JwtInterceptor;
-import com.komenta.be.service.JwtService;
-import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,8 +16,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/static/", "/swagger-ui.html", "/webjars/**", "admin/**", "/v2/api-docs", "/configuration/security",
                         "/configuration/ui", "/swagger-resources/**", "/member/dup_id_chk/**", "/member/dup_nickname_chk/**",
                         "/member/find_id/**", "/member/chk_id/**", "/member/change_pw/**");
-//        registry.addInterceptor(new AdminInterceptor())
-//                .addPathPatterns("/admin/**");
-
     }
 }

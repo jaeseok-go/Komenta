@@ -12,7 +12,6 @@
     import org.springframework.web.bind.annotation.*;
 
     import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
     import java.util.HashMap;
     import java.util.LinkedList;
     import java.util.List;
@@ -41,12 +40,9 @@
             int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
             VodHistorySetDTO history_info = new VodHistorySetDTO(u_id, ve_id);
 
-            System.out.println("################################");
-            System.out.println("####################### start!!!");
+
             VodDetailDTO result = vodService.getVodDetail(history_info);
-            System.out.println(result.toString());
-            System.out.println("####################### end!!!!!");
-            System.out.println("################################");
+
 
             return result;
         }
@@ -60,7 +56,7 @@
         public ResponseEntity<Map<String, Object>> selectMyVod(HttpServletRequest request) {
             // jwt 토큰의 uid 를 받는다는 가정하에
             String token = request.getHeader("auth-token");
-//            System.out.println("여기는 토큰 : "+token);
+
             int u_id = (int) jwtService.getUidFromJwt(token);
             HttpStatus status = null;
             Map<String, Object> resultMap = new HashMap<>();
