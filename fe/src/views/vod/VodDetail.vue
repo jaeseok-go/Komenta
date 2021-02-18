@@ -67,9 +67,10 @@
           <img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px">
         </div>
         <div class="vodepi__detail">
-          <h3> 
+          <h3>
             <strong> {{vodEpiInfo.v_title}} {{vodEpiInfo.ve_episode_num}}회</strong>
           </h3>
+          <h5> {{vodEpiInfo.ve_contents}}</h5>
           {{vodEpiInfo.v_summary}} <br>
           <p></p>
           <strong>개요</strong> {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}} <br>
