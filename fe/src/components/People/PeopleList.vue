@@ -84,10 +84,10 @@
             <div class="container_form__subtitle__desc"><i class="fas fa-check at-section__icon"></i>현재시간 가장 많은 사랑을 받고 있는 플레이리스트를 보유한 친구를 팔로우해보세요!</div>
             <div class="bestPlaylistUserForm">
                 <div class="at-column" v-for="(bestplUser,index) in bestPlaylistUser" :key="index">
-                    <div class="at-user" @click="gotoFeed(bestplUser['pldetail'][0].u_id)">
-                        <div class="at-user__name">{{bestplUser['pldetail'][0].u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getUpdateProfile(bestplUser['pldetail'][0].u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
-                        <a class="followForm"><span class="followForm__followBtn">FOLLOW</span></a>
+                    <div class="at-user">
+                        <div class="at-user__name" @click="gotoFeed(bestplUser['pldetail'][0].u_id)">{{bestplUser['pldetail'][0].u_nickname}}</div>
+                        <div class="at-user__profile" @click="gotoFeed(bestplUser['pldetail'][0].u_id)"><img :src="getUpdateProfile(bestplUser['pldetail'][0].u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
+                        <div class="followForm"><span class="followForm__followBtn" @click="followUser(bestplUser['pldetail'][0].u_id)" :id="`follow-btn-${bestplUser['pldetail'][0].u_id}`">FOLLOW</span></div>
                     </div>
                 </div>
             </div>
@@ -95,10 +95,10 @@
             <div class="container_form__subtitle__desc" style="margin-top:6rem"><i class="fas fa-check at-section__icon"></i>좋아요를 많이 받은 댓글을 쓴 유저들을 팔로우하고, VOD 시청을 더 유쾌하게 즐겨보세요!</div>
             <div class="bestPlaylistUserForm">
                 <div class="at-column" v-for="(bestCommentUser,index) in bestCommentUser" :key="index">
-                    <div class="at-user" @click="gotoFeed(bestCommentUser.u_id)">
-                        <div class="at-user__name">{{bestCommentUser.u_nickname}}</div>
-                        <div class="at-user__profile"><img :src="getUpdateProfile(bestCommentUser.u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
-                        <a class="followForm"><span class="followForm__followBtn">FOLLOW</span></a>
+                    <div class="at-user">
+                        <div class="at-user__name"  @click="gotoFeed(bestCommentUser.u_id)">{{bestCommentUser.u_nickname}}</div>
+                        <div class="at-user__profile"><img :src="getUpdateProfile(bestCommentUser.u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"  @click="gotoFeed(bestCommentUser.u_id)"></div>
+                        <div class="followForm"><span class="followForm__followBtn" @click="followbestCommentUser(bestCommentUser.u_id)" :id="`follow-com-btn-${bestCommentUser.u_id}`">FOLLOW</span></div>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { fetchfollowinglist,updateFollowPlaylist,fetchMyInfo } from '@/api/user'
+import { fetchfollowinglist,updateFollowPlaylist,fetchMyInfo ,modifyfollow} from '@/api/user'
 import { fetchPopularPlayList } from '@/api/vod'
 import { fetchBestComment } from '@/api/comment'
 
@@ -203,6 +203,37 @@ export default {
             this.getBesctCommentUser()
     },
     methods: {
+    followUser(fId) {
+      const my_id = this.userInfo.u_id;
+      const bothId = { u_id: my_id, f_id: fId };
+      const followBtn = document.getElementById(`follow-btn-${fId}`)
+      if (followBtn.innerText === 'FOLLOW'){
+          followBtn.innerText = 'UNFOLLOW'
+        //   followBtn.style.marginLeft = '40px';
+      } else {
+        followBtn.innerText = 'FOLLOW'
+    //    followBtn.style.marginLeft = '55px';
+      }
+      modifyfollow(bothId);
+      // console.log(response, '됐다');
+      this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
+    },
+    followbestCommentUser(fId) {
+      const my_id = this.userInfo.u_id;
+      const bothId = { u_id: my_id, f_id: fId };
+      const followBtn = document.getElementById(`follow-com-btn-${fId}`)
+      if (followBtn.innerText === 'FOLLOW'){
+          followBtn.innerText = 'UNFOLLOW'
+        //   followBtn.style.marginLeft = '40px';
+         
+      } else {
+        followBtn.innerText = 'FOLLOW'
+        // followBtn.style.marginLeft = '55px';
+      }
+      modifyfollow(bothId);
+      // console.log(response, '됐다');
+      this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
+    },
         gotoFeed(userId) {
             this.$router.push(`/feed/${userId}`)
         },
@@ -278,7 +309,7 @@ export default {
                 
             } 
             this.getNickname();
-            console.log(this.updateProfile,this.updateFollowPlaylists,'너는,,,,,,,왜,,,,,날,,,')
+            // console.log(this.updateProfile,this.updateFollowPlaylists,'너는,,,,,,,왜,,,,,날,,,')
         },
         async getFollowing() {
             const userId = store.state.userInfo.u_id
@@ -297,12 +328,13 @@ export default {
         async getBestPlaylistUser() {
             const response = await fetchPopularPlayList()
             this.bestPlaylistUser = response.data
-            console.log(this.bestPlaylistUser,'되냐?')
+            // console.log(this.bestPlaylistUser,'되냐?')
         },
         async getBesctCommentUser() {
             const response = await fetchBestComment()
+            // console.log(response.data.length,'몇개니')
             this.bestCommentUser = response.data.slice(0,10)
-            console.log(this.bestCommentUser,'유저쨩')
+            // console.log(this.bestCommentUser,'유저쨩')
         }
     },
 }
