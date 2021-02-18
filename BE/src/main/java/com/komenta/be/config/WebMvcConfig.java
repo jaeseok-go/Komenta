@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/member/login/**", "/member/join/**", "/check/**", "/auth/**",
                         "/static/", "/swagger-ui.html", "/webjars/**", "admin/**", "/v2/api-docs", "/configuration/security",
                         "/configuration/ui", "/swagger-resources/**", "/member/dup_id_chk/**", "/member/dup_nickname_chk/**",
-                        "/member/find_id/**", "/member/chk_id/**");
+                        "/member/find_id/**", "/member/chk_id/**", "/member/change_pw/**");
 //        registry.addInterceptor(new AdminInterceptor())
 //                .addPathPatterns("/admin/**");
 
