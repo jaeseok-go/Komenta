@@ -122,6 +122,7 @@ public class MemberController{
     })
     @PutMapping("/change_pw")
     public int updatePassword(@RequestBody MemberDTO member){
+        System.out.println(member);
         return mservice.updatePassword(member);
     }
 
