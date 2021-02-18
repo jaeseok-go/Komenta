@@ -34,7 +34,7 @@
       <div class="desc">
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
         <div class="home__desc__title">세상에 없었던 인터렉티브 VOD 서비스</div>
-        <div class="home__desc__subtitle">카드를 넘겨보면서 KOMENTA에 대해 더 알아보세요!</div>
+        <div class="home__desc__subtitle">잠깐! 로그인을 하시기전에 <span>"#해시태그"</span>를 클릭해서 KOMENTA를 미리 즐겨보세요<i class="fas fa-arrow-alt-circle-up"></i></div>
         <div class="home__desc__login"  @click="gotoLogin">GO TO LOGIN</div>
       </div>
     </section>
@@ -55,7 +55,7 @@
       <label for="work"></label>
       <div class="desc">
         <span class="desc__2__button">NEW</span>
-        <div class="desc__3__title">정확한 시간에 맞춰서 나오는 댓글에 좋아요를 누르고 <span>베스트 댓글</span>을 함께 만들어나가보세요</div>
+        <div class="desc__3__title">실시간으로 나오는 댓글에 좋아요를 누르고 <span>베스트 댓글</span>을 함께 만들어나가보세요</div>
         <div class="desc__3__subtitle">언제 어느때 보든지 <span>실시간</span>으로 보는 것 같은 생생한 VOD<br>친구들을 <span>팔로우</span>하고, 친구의 댓글을 <span>하이라이트</span>하고 마음에 안드는 댓글은 그 자리에서 <span>차단</span>까지!<br><span>베스트 댓글 탭</span>에서 레전드 댓글을 확인해보세요
         <br><span>타임스탬프</span> 기능으로 댓글을 클릭하면 <span>해당 구간으로 이동</span>해서 더욱 편안한 감상을 즐겨보세요
         </div>
