@@ -1,42 +1,24 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.playlist.*;
 import com.komenta.be.service.JwtService;
 import com.komenta.be.service.PlayListService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/playlist")
 public class PlayListController {
-    /*
-        유저가 시청한 콘텐츠 목록 조회(스토어 관리)
-        유저가 등록한 플레이리스트 목록
-        v 플레이리스트 생성
-        플레이리스트 수정
-        플레이리스트 삭제
-        플레이리스트에 VOD추가
-        플레이리스트 상세 페이지
-        플레이리스트의 컨텐츠 상세보기
-        플레이리스트의 컨텐츠 리뷰 생성
-        플레이리스트 좋아요
-        골라보는 플레이 리스트
-        좋아요 누른 스트리밍 리스트(스토어관리)
 
-    */
 
     @Autowired
     PlayListService playListService;
@@ -132,13 +114,11 @@ public class PlayListController {
     public List<List<PlayListGetAllDTO>> recentUpdatedPlayList(HttpServletRequest request){
 
         int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
-        System.out.println("u_id 받아보기 : " + u_id);
 
         List<List<PlayListGetAllDTO>> playlist = new ArrayList<>();
         List<Integer> plId_list = playListService.select_follower_pl_id(u_id);
 
         for (int pl_id : plId_list) {
-            System.out.println("pl_id 받아보기 : " + pl_id);
             playlist.add(playListService.playlist_info(pl_id));
         }
 

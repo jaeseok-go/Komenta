@@ -1,9 +1,6 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.model.member.MemberSearchInfoDTO;
-import com.komenta.be.model.vod.VodDTO;
-import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodSearchInfoDTO;
 import com.komenta.be.service.MemberService;
 import com.komenta.be.service.VodService;

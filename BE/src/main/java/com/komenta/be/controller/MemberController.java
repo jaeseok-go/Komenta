@@ -96,10 +96,10 @@ public class MemberController{
         params.put("text", "Komenta : 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
-        System.out.println(auth_number);
+
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
-            System.out.println(obj.toString());
+
         } catch (CoolsmsException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
@@ -122,7 +122,6 @@ public class MemberController{
     })
     @PutMapping("/change_pw")
     public int updatePassword(@RequestBody MemberDTO member){
-        System.out.println(member);
         return mservice.updatePassword(member);
     }
 
@@ -157,12 +156,11 @@ public class MemberController{
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);
-        System.out.println(targetFile);
+
 
         try {
             InputStream fileStream = profile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("파일 업로드 성공");
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
@@ -183,7 +181,6 @@ public class MemberController{
         Map<String, Object> resultMap = new HashMap<>();
         try{
             MemberDTO getMember = mservice.getMyInfo(member.getU_email());
-            System.out.println("controller : " + getMember);
             if(getMember.getU_pw().equals(member.getU_pw())) {
                 String token = jwtService.create(getMember);
                 
@@ -192,7 +189,7 @@ public class MemberController{
                 resultMap.put("data", getMember);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-//                System.out.println(response.getHeader("auth-token"));
+
             }
             else{
                 System.out.println("아디 비번 다름");
@@ -226,18 +223,18 @@ public class MemberController{
         member.setU_is_admin(is_admin);
         member.setU_is_blocked(is_blocked);
 
-        System.out.println("수정 할 정보 :  "+member);
+
         try{
             int result = mservice.updateMember(member);
             if(result == 1) {
                 String token = jwtService.create(member);
-                System.out.println("수정 성공");
+
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
                 resultMap.put("data", result);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-//                System.out.println(response.getHeader("auth-token"));
+
             }
             else{
                 resultMap.put("status", false);

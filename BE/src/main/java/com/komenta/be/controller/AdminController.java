@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -59,7 +56,6 @@ public class AdminController {
     })
     @PutMapping("/member_update")
     public int updateMember(@RequestBody MemberDTO member){
-        System.out.println(member);
         int result = adminService.updateMember(member);
         return result;
 
@@ -71,13 +67,11 @@ public class AdminController {
     })
     @PostMapping("/vod_regist")
     public int registVod(@RequestBody VodEpisodeAllDTO vod_all, HttpServletRequest request) {
-//        System.out.println("여기 들어옴???");
 
-        System.out.println(vod_all);
         VodDTO vod = new VodDTO();
         VodEpisodeDTO vodepi = new VodEpisodeDTO();
         int vod_id = vod_all.getV_id();
-        System.out.println("vod_id는?"+vod_id);
+
         if(vod_id == 0){
             vod.setV_title(vod_all.getV_title());
             vod.setV_summary(vod_all.getV_summary());
@@ -91,16 +85,15 @@ public class AdminController {
 
         }
         vodepi.setV_id(vod_id);
-        System.out.println(request.getHeader("auth-token"));
+
         String token = request.getHeader("auth-token");
-        System.out.println("여기 토큰 들어가게 해줘 : "+token);
+
         String nickname = (String) jwtService.get(token).get("u_nickname");
-        System.out.println(nickname);
+
         vodepi.setVe_admin(nickname);
         vodepi.setVe_episode_num(vod_all.getVe_episode_num());
         vodepi.setVe_contents(vod_all.getVe_contents());
         adminService.uploadEpisode(vodepi);
-        System.out.println("vod episode regist test" + vodepi);
 
         return 1;
     }
@@ -118,12 +111,10 @@ public class AdminController {
 //        video.replace(" ", "_");
 
         File targetFile = new File(poster);
-//        System.out.println(targetFile);
 
         try {
             InputStream fileStream = posterfile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("그림 파일 업로드 성공");
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
@@ -137,19 +128,18 @@ public class AdminController {
     })
     @PostMapping("/video_upload")
     public int registVideo(@RequestParam("file") MultipartFile videofile, HttpServletRequest request) {
-//        System.out.println(request.getHeader("auth-token"));
+
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
 //        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
             String video = "/home/ubuntu/Video/" + videofile.getOriginalFilename();
 //        video.replace(" ", "_");
 
         File targetFile = new File(video);
-//        System.out.println(targetFile);
 
         try {
             InputStream fileStream = videofile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("파일 업로드 성공");
+
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
@@ -176,7 +166,6 @@ public class AdminController {
     @GetMapping("/vod_list_by_gdid/{gd_id}")
     public ResponseEntity<List<VodDTO>> selectVodByGd(@PathVariable int gd_id){
         ResponseEntity<List<VodDTO>> dto =new ResponseEntity<List<VodDTO>>(adminService.selectVodByGd(gd_id), HttpStatus.OK);
-        System.out.println(dto.getBody().get(0));
         return dto;
     }
 

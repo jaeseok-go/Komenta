@@ -1,31 +1,16 @@
 package com.komenta.be.controller;
 
 import com.komenta.be.model.comment.*;
-import com.komenta.be.model.member.AuthPhoneDTO;
-import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.CommentService;
 import com.komenta.be.service.JwtService;
-import com.komenta.be.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-//거기서 댓글 등록하면 댓글 입력
-//그 회차의 모든 댓글 리스트
 
 
 @CrossOrigin(origins = "*")
