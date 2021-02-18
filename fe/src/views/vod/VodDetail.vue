@@ -409,9 +409,8 @@ export default {
       // this.getEpiComment();
     },
     getUserBlockedInfo(){
-      console.log("이 회원은 : ",this.userInfo.is_blocked,"입니다.")
       if(this.userInfo.is_blocked) {
-        return '차단 회원으로 분류되어 댓글 기능을 이용하실 수 없습니다'
+        return '제한회원은 댓글 기능을 이용하실 수 없습니다'
       }else {
         return '댓글을 입력하세요'
       }
