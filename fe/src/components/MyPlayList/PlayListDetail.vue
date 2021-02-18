@@ -25,7 +25,7 @@
         </span>
     </template>
       <h3 class="container__info__comment ">{{ userProfile.pl_comment }}</h3>
-      <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">by.{{userProfile.u_nickname }}</button>
+      <button class="container__info__button" @click="gotoFeed(userProfile.u_id)">{{userProfile.u_nickname }} 피드 가기</button>
       <v-simple-table fixed-header >
         <template v-slot:default>
           <thead>
