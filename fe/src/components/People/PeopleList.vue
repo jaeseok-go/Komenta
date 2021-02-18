@@ -16,7 +16,8 @@
                 <!-- 프로필 팔로잉 사진 목록 -->
                 <div class="container__following__Profle">
                     <div v-for="(user,index) in paginatedData" :key="index">
-                        <div @click="gotoFeed(user)" class="container__following__Profle__background"><img :src="getUpdateProfile(updateFollow_array[index].u_profile_pic)" class="container__following__Profle__img" width="100px" height="100px"></div>
+                        <div @click="gotoFeed(user)" class="container__following__Profle__background">
+                            <img :src="getUpdateProfile(updateFollow_array[index].u_profile_pic)" class="container__following__Profle__img" width="100px" height="100px"></div>
                         <div class="container__following__Profle__NEW">NEW!</div>
                     </div>
                 </div>
@@ -34,7 +35,7 @@
                     <div class="at-column" v-for="(user,index) in paginatedData_people" :key="index">
                         <div class="at-user"  @click="gotoFeed(user.f_id)">
                             <div class="at-user__name">{{user.u_nickname}}</div>
-                            <div class="at-user__profile"><img :src="getProfile(index)" width="80px" height="80px" class="at-user__profile__img"></div>
+                            <div class="at-user__profile"><img :src="getProfile(user.u_profile_pic)" width="80px" height="80px" class="at-user__profile__img"></div>
                         </div>
                     </div>
                 </div>
@@ -252,8 +253,8 @@ export default {
         prevPage_2() {
             this.pageNum_2 -=1;
         },
-        getProfile(index) {
-            const profile = this.following_list[index].u_profile_pic.split('.')[0]
+        getProfile(pic) {
+            const profile = pic.split('.')[0]
             console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
         },
