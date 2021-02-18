@@ -81,7 +81,7 @@
             <div class="container_form__subtitle">친구들을 팔로우하고, 취향에 맞는 플레이리스트를 즐겨찾기해보세요</div>
             
             <!-- 플레이리스트탑10 -->
-            <div class="container_form__subtitle__desc"><i class="fas fa-check at-section__icon"></i>현재 시간, 코멘타의 탑 10 인기 플레이리스트를 보유한 친구를 팔로우해보세요!</div>
+            <div class="container_form__subtitle__desc"><i class="fas fa-check at-section__icon"></i>현재시간 가장 많은 사랑을 받고 있는 플레이리스트를 보유한 친구를 팔로우해보세요!</div>
             <div class="bestPlaylistUserForm">
                 <div class="at-column" v-for="(bestplUser,index) in bestPlaylistUser" :key="index">
                     <div class="at-user" @click="gotoFeed(bestplUser['pldetail'][0].u_id)">
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <!-- 베스트댓글 탑 -->
-            <div class="container_form__subtitle__desc" style="margin-top:6rem"><i class="fas fa-check at-section__icon"></i>좋아요를 많이 받은 댓글을 쓴 유저들을 팔로우하고, VOD 시청을 더 유쾌하게 즐겨보세요</div>
+            <div class="container_form__subtitle__desc" style="margin-top:6rem"><i class="fas fa-check at-section__icon"></i>좋아요를 많이 받은 댓글을 쓴 유저들을 팔로우하고, VOD 시청을 더 유쾌하게 즐겨보세요!</div>
             <div class="bestPlaylistUserForm">
                 <div class="at-column" v-for="(bestCommentUser,index) in bestCommentUser" :key="index">
                     <div class="at-user" @click="gotoFeed(bestCommentUser.u_id)">
