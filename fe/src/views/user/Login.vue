@@ -7,7 +7,7 @@
     <!-- <button @click="signOut">Logout</button> -->
     <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
 
-    <Modal v-if="showModal" @click="$emit('close')" >
+    <Modal v-if="showModal" @click="$emit('closeModal')" >
       <h3 slot="header">
         <div class="findIdPw__title">아이디 및 비밀번호 찾기</div>
         <span id="closeModalBtn" @click="showModal = false">
