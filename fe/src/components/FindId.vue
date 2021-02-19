@@ -1,16 +1,14 @@
 <template>
   <b-container class="container-setting">
-
     <template v-if="showCertiForm">
       <phone-certification @checkCertification="checkCertification"></phone-certification>
     </template>
     <b-col class="showID" :style="{ display: idDisplay }">
-
       고객님의 아이디는
       <p class="idView" :style="{ display: 'inline-block' }">{{ userId }}</p>
       입니다.
        <div class="sign-setting" >
-          <button class="btn btn-normal btn-small" @click="$emit('close')">로그인</button>
+          <button class="btn btn-normal btn-small" @click="closeModalForm">로그인</button>
         </div>
     </b-col>
   </b-container>
@@ -50,9 +48,8 @@ export default {
         this.$router.push('/member/join')
       }
     },
-    closeModal(e) {
-      console.log(e)
-      this.$emit('closeModal')
+    closeModalForm() {
+      this.$emit('changePw')
     },
   },
 };

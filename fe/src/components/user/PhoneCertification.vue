@@ -60,8 +60,8 @@ export default {
   },
   methods: {
     isAuthen(){
-      console.log("props getIdChk 체크 : ",this.getIdChk)
-      console.log("props userId 체크 : ", this.getUserId)
+      // console.log("props getIdChk 체크 : ",this.getIdChk)
+      // console.log("props userId 체크 : ", this.getUserId)
       if(this.getIdChk == "") {
         // console.log("비밀번호 찾기 페이지임")
         // alert("아이디 체크를 먼저 진행해주세요")
@@ -90,7 +90,7 @@ export default {
       // this.confirmNum = `${response.data.auth_number}`;
       // response.data.u_email
       this.userId = response.data.u_email;
-      console.log(response)
+      // console.log(response)
       this.confirmNum = response.data.auth_number;
       // alert('인증 번호를 발송했습니다.')
       this.$swal({
@@ -106,7 +106,7 @@ export default {
       this.authenDisplay = 'block';
     },
     async checkCertification() {
-      console.log(this.confirmNum,this.authenNum)
+      // console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
         // alert('인증에 성공했습니다.')
         // this.timeStop();
