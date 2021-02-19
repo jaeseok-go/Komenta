@@ -9,7 +9,7 @@
       <button class="wrapper_button bounce" @click="gotoLogin">LOGIN</button>
       <input type="checkbox">
       <div class="video">
-        <video src="@/assets/videos/about.mp4" loop muted autoplay></video>
+        <video src="@/assets/videos/intro.mp4" loop muted autoplay></video>
         <!-- <video src="@/assets/videos/about.mp4" width="40%" loop autoplay muted></video> -->
         <!-- <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video> -->
       </div>
