@@ -114,6 +114,7 @@ export default {
       }
     },
     
+    
     gotoLogin() {
       this.$router.push(`/member/login`)
     },
