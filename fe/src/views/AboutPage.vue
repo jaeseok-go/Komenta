@@ -1,3 +1,7 @@
+
+
+
+
 <template>
   <div>
     <!-- 클릭 => 영상 나오기 -->
@@ -113,6 +117,7 @@ export default {
         
       }
     },
+    
     
     gotoLogin() {
       this.$router.push(`/member/login`)
@@ -350,7 +355,7 @@ export default {
 }
 
 .text__scroll {
-  color: #A8A8A8	;
+  color: #A8A8A8    ;
   position: absolute;
   bottom: 0;
   display: flex;
@@ -385,11 +390,11 @@ export default {
 
 input[type='radio'],
 .hide {
-	display: none;
+    display: none;
 }
 
 input[type='radio']:checked + section {
-	/* top: 0;
+    /* top: 0;
    */
   top: -3rem;
   left: -1rem;
@@ -397,19 +402,19 @@ input[type='radio']:checked + section {
 }
 
 .container {
-	width: 100%;
-	height: 100vh;
-	transition: all 500ms;
-	transform-style: preserve-3d;
+    width: 100%;
+    height: 100vh;
+    transition: all 500ms;
+    transform-style: preserve-3d;
 }
 
 .container section {
-	position: absolute;
-	top: 100vh;
-	width: 100%;
-	height: 100vh;
-	transition: top 500ms;
-	transform-style: preserve-3d;
+    position: absolute;
+    top: 100vh;
+    width: 100%;
+    height: 100vh;
+    transition: top 500ms;
+    transform-style: preserve-3d;
 }
 
 .container section.home {
@@ -433,180 +438,180 @@ input[type='radio']:checked + section {
 }
 
 .container section h1 {
-	margin: 0;
-	font-size: 64px;
-	/* transform: translate(0, 40vh); */
+    margin: 0;
+    font-size: 64px;
+    /* transform: translate(0, 40vh); */
   transform: scale(0);
-	text-align: center;
-	/* color: rgba(255,255,255,0.85); */
+    text-align: center;
+    /* color: rgba(255,255,255,0.85); */
   color: black;
-	transition: transform 500ms;
-	transform-style: preserve-3d;
+    transition: transform 500ms;
+    transform-style: preserve-3d;
 }
 
 .container section label {
-	display: block;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 100vh;
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
   cursor: pointer;
 }
 
 .menu {
-	display: block;
-	position: fixed;
-	top: 20px;
-	left: 25px;
+    display: block;
+    position: fixed;
+    top: 20px;
+    left: 25px;
 
-	z-index: 1000;
-	transform: 0deg;
-	transition: all 200ms;
-	width: 35px;
-	height: 4px;
-	background: rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: 0deg;
+    transition: all 200ms;
+    width: 35px;
+    height: 4px;
+    background: rgba(0,0,0,0.25);
 }
 
 
 .menu::before {
-	top: 10px;
+    top: 10px;
 }
 
 .menu::after {
-	top: 20px;
+    top: 20px;
 }
 
 .menu:hover {
-	background: #fff;
+    background: #fff;
 }
 
 .menu:hover::before,
 .menu:hover::after {
-	background: #fff;
+    background: #fff;
 }
 
 .menu div,
 .menu div label:nth-child(1) {
   display: none;
-	/* display: block;
-	width: 35px;
-	height: 35px;
-	position: absolute;
-	top: -6px; */
+    /* display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: -6px; */
 }
 
 .menu div label:nth-child(2) {
-	display: none;
+    display: none;
 }
 
 #menu:checked + .container {
-	/* transform: scale(0.65) translateY(-18%); */
+    /* transform: scale(0.65) translateY(-18%); */
   transform:scale(0.6) translate(-2%, -18%);
-	transition: all 500ms;
-	transform-style: preserve-3d;
+    transition: all 500ms;
+    transform-style: preserve-3d;
 }
 
 #menu:checked + .container section {
-	cursor: pointer;
-	overflow: hidden;
-	opacity: 1;
-	box-shadow: 0 0 40px rgba(0,0,0,0.25);
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(0,0,0,0.25);
 
 
 }
 
 #menu:checked + .container section h1 {
-	/* transform: scale(0.5); */
-	transform-style: preserve-3d;
+    /* transform: scale(0.5); */
+    transform-style: preserve-3d;
 }
 
 #menu:checked + .container + .menu {
-	top: 30px;
-	left: 20px;
-	/* transform: rotate(225deg); */
-	transition: all 200ms;
-	transform-origin: center center;
-	background: #646464;
+    top: 30px;
+    left: 20px;
+    /* transform: rotate(225deg); */
+    transition: all 200ms;
+    transform-origin: center center;
+    background: #646464;
 }
 
 #menu:checked + .container + .menu::before,
 #menu:checked + .container + .menu::after {
-	background: #646464;
-	transition: all 200ms;
+    background: #646464;
+    transition: all 200ms;
 }
 
 #menu:checked + .container + .menu::before {
-	opacity: 0;
-	transition: opacity 0s;
+    opacity: 0;
+    transition: opacity 0s;
 }
 
 #menu:checked + .container + .menu::after {
-	margin-top: -20px; 
-	transform: rotate(90deg);
+    margin-top: -20px; 
+    transform: rotate(90deg);
 
 }
 
 #menu:checked + .container + .menu div label:nth-child(4) {
    display: none;
-	width: 35px;
-	height: 35px;
-	position: absolute;
-	top: -6px; 
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: -6px; 
 }
 
 #menu:checked + .container + .menu div label:nth-child(1) {
-	display: none;
+    display: none;
 }
 
 
 
 
 .container section.home {
-	z-index: 99;
+    z-index: 99;
 }
 
 .container section.about {
-	z-index: 98;
+    z-index: 98;
 }
 
 .container section.work {
-	z-index: 97;
+    z-index: 97;
 }
 
 .container section.contact {
-	z-index: 96;
+    z-index: 96;
 }
 
 #menu:checked + .container section.home {
-	top: 192px;
+    top: 192px;
 }
 
 #menu:checked + .container section.home:hover {
-	top: 188px;
+    top: 188px;
 }
 
 #menu:checked + .container section.about {
-	top: 132px;
+    top: 132px;
 }
 
 #menu:checked + .container section.about:hover {
-	top: 128px;
+    top: 128px;
 }
 
 #menu:checked + .container section.work {
-	top: 72px;
+    top: 72px;
 }
 
 #menu:checked + .container section.work:hover {
-	top: 68px;
+    top: 68px;
 }
 
 #menu:checked + .container section.contact {
-	top: 12px;
+    top: 12px;
 }
 
 #menu:checked + .container section.contact:hover {
-	top: 8px;
+    top: 8px;
 }
 
 
@@ -614,4 +619,3 @@ input[type='radio']:checked + section {
 
 /* 3 */
 </style>
-
