@@ -8,7 +8,7 @@
       <p class="idView" :style="{ display: 'inline-block' }">{{ userId }}</p>
       입니다.
        <div class="sign-setting" >
-          <button class="btn btn-normal btn-small" @click="closeModalForm">로그인</button>
+          <button class="btn btn-normal btn-small" @click="closeModal">로그인</button>
         </div>
     </b-col>
   </b-container>
@@ -48,8 +48,10 @@ export default {
         this.$router.push('/member/join')
       }
     },
-    closeModalForm() {
+    closeModal(e) {
+      console.log(e)
       this.$emit('changePw')
+      
     },
   },
 };
