@@ -2,7 +2,6 @@
   <div>
       <div class="best-comm-form">
         <h4 class="page-title">실시간 베스트 댓글 유저</h4>
-        <!-- 합칠 때 style에 있는 table width 속성 지우기 -->
         <table>
           <tr v-if="bestComment.length == 0">
             <td colspan="5">
@@ -11,7 +10,6 @@
           </tr>
           <tr class="comm-rank-item" v-for="(user,index) in bestComment" :key="index" v-else style="cursor:pointer">
             <td class="commRank-num" :class="{red: index < 3, nonHighLight: index >= 3}">{{index+1}}</td> 
-            <!-- :class="{red:fetchBestComment(index)}" -->
             <td class="userPic">
               <div @click="goUserFeed(user.u_id)">
                 <img :src="getProfile(index)" alt="" v-if="user.u_profile_pic"/>
@@ -43,10 +41,8 @@ export default {
   },
   methods: {
     async getBestComment() {
-      //getBestComment api만들어야함
       const response = await fetchBestComment();
       this.bestComment = response.data.slice(0,10);
-      // console.log(this.bestComment)
     },
     getProfile(index) {
       let profile = this.bestComment[index].u_profile_pic.split('.');

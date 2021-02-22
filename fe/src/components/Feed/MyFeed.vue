@@ -21,9 +21,6 @@
               UNFOLLOW
             </button>
           </template>
-          <!-- <div v-if="!showMyRecent() && isFollowed()">
-                        <button class="userprofile__button" @click="followUser">FOLLOW</button>
-                    </div> -->
         </div>
 
         <template v-if="showMyRecent()">
@@ -155,7 +152,6 @@
                   class="playlsit-icon"
                   @click="addlikeUserPlaylist(playlist[0].pl_id)"
                 >
-                  <!-- <i class="far fa-star"></i> -->
                   <font-awesome-icon :icon="['far', 'star']"/>
                 </span>
               </template>
@@ -164,7 +160,6 @@
                   class="playlsit-icon"
                   @click="cancellikePlaylist(playlist[0].pl_id)"
                 >
-                  <!-- <i class="fas fa-star playlist__star"></i> -->
                   <font-awesome-icon
                     class="playlist__star"
                     :icon="['fas', 'star']"
@@ -291,13 +286,6 @@ export default {
       addPlaylistVod(epiInfo).then(()=>{
         this.getUserPlayList();
       });
-      // const vhId = this.myrecentlists[this.dragIndex].historyList.vh_id
-      // 해당 vod를 플레이리스트에 추가
-      // this.myrecentlists.episodeList.pop(this.dragIndex)
-      // this.myrecentlists.historyList.pop(this.dragIndex)
-      // 플레이리스트추가api(vod.ve_id,plId)
-      // 아래 코드에 보면 플레이리스트에 추가 돼있음 근데 vod 이름이 안들어감,,이건 data받아올거니까 바뀔때마다 새로 보이게 해야겠다!
-      
     },
     showModalForm() {
       this.showModal = true;
@@ -336,9 +324,7 @@ export default {
       const my_id = this.userInfo.u_id;
       const bothId = { u_id: my_id, f_id: your_id };
       modifyfollow(bothId);
-      // console.log(response, '됐다');
       this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
-      // console.log(this.showFollowBtn, '->', !this.showFollowBtn);
       this.showFollowBtn = !this.showFollowBtn;
     },
 
@@ -375,7 +361,7 @@ export default {
         this.plName = '';
         this.plComment = '';
       } catch {
-        console.log('플레이리스트 생성 실패');
+        alert('플레이리스트 생성 실패');
       }
     },
     goPlaylsitDetail(plId) {
@@ -389,7 +375,6 @@ export default {
         // userId를 같이 안보내주고 토큰으로??
         const res = await fetchRecentPlaylist();
         this.myrecentlists = res.data;
-        // console.log(this.myrecentlists, res, '나의 최신vod목록');
       } catch {
         console.log('최신vod에러');
       }
@@ -399,7 +384,6 @@ export default {
       try {
         const res = await fetchMyPlaylist(userId);
         this.playlists = res.data;
-        // console.log(res.data, this.recentlistLen, 'playlist목록');
       } catch {
         console.log('playlist목록에러');
       }
@@ -408,11 +392,9 @@ export default {
       for (let i = 0; i < this.likePlaylist.length; i++) {
         const playlist = this.likePlaylist[i];
         if (playlist[0].pl_id == plId) {
-          console.log('false');
           return false;
         }
       }
-      console.log('true');
       return true;
     },
     async addlikeUserPlaylist(plId) {
@@ -443,7 +425,6 @@ export default {
     },
     deleteUserPlaylist(plId) {
       this.$swal({
-        // title: '플레이리스트를 삭제하시겠습니까?',
         text: '플레이리스트를 삭제하시겠습니까?',
         icon:'error',
         showCancelButton: true,
@@ -453,7 +434,6 @@ export default {
         customClass: {
           container: 'swal2-container'
         },
-        // showCloseButton: true,
       }).then((result) => {
         if(result.value) {
           this.$swal({
@@ -488,22 +468,18 @@ export default {
         const feedUserId = this.$route.params.id;
         const response = await fetchMyInfo(feedUserId);
         this.feedUserInfo = response.data;
-        // console.log(feedUserId, this.feedUserInfo);
       } catch {
-        console.log('피드목록 에러', this.$route.params.id);
+        console.log('피드목록 에러');
       }
     },
     getPlaylistVodPoster(poster) {
-      // const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     getVodPoster(poster) {
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     vodTitleReName(title, epi_num) {
-      //{{vod.v_title}} {{vod.ve_episode_num}}화
       let name = String(title + ' ' + epi_num + '화');
-      // console.log('name : ',name)
       let rename = '';
       for (let i = 0; i < name.length; i++) {
         if (i % 10 == 0) {
@@ -512,7 +488,6 @@ export default {
           rename += name.charAt(i);
         }
       }
-      // console.log("rename : ",rename)
       return rename;
     },
   },

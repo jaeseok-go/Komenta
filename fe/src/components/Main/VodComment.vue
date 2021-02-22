@@ -24,8 +24,6 @@
               <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
               <hr>
               <span v-text="getVeContents(vod.ve_contents)"></span>
-              <!-- <span class="rating">PG</span>
-            <span class="duration">130 minutes</span> -->
             </header>
             <div>
               <button>보러가기</button>
@@ -60,10 +58,8 @@ export default {
     }
   },
   methods: {
-    //fetchCommentVOD api만들어야함
     async getcommentVOD() {
       const response = await fetchCommentVOD();
-      console.log('댓글순 정렬 왜 암것도 없냐 ',response)
       this.commentVODs = response.data;
     },
     async getVODPoster(){

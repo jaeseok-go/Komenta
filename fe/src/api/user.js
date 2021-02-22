@@ -2,16 +2,9 @@ import { setInterceptors } from './config/interceptors'
 import axios from 'axios';
 import store from '@/stores/modules/user'
 const instance = setInterceptors()
-// const instance = axios.create({
-//     baseURL: process.env.VUE_APP_URL,
-//     headers: {
-//         Authorization: store.state.user.token, // header의 속성
-//     },
-// });
 
 //회원가입 API
 function registerUser(userData) {
-    console.log('넘어는왔니?',userData)
     return instance.post('member/join', userData);
 }
 
@@ -75,7 +68,6 @@ function changePw(userData) {
 
 // 휴대폰 인증
 function phoneAuth(userPhonenum) {
-    // console.log(typeof userPhonenum)
     //아이디찾기
     return instance.get(`member/find_id/`, {
         params: { u_phone_number: userPhonenum }
@@ -89,7 +81,6 @@ function membership() {
 
 // 프로필 사진 file 업로드 
 function uploadProfile(profile) {
-    console.log('프로필 마지막 확인 : ',profile.get('profile'))
     return axios.post(`${process.env.VUE_APP_URL}member/profile_upload`,profile, { 
         headers: {
            'Content-Type': 'multipart/form-data',

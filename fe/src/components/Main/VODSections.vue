@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- <div class="vod-section-title"> -->
     <h4 class="page-title popular-vod-sort">{{ message }} VOD</h4>
-    <!-- </div> -->
     <div class="selectTab">
       <router-link :to="{name:'VodPopular'}"  class="text-color">
         <ion-chip @click="changeTitle('인기순')" outline color="primary">
@@ -33,7 +31,6 @@ export default {
   methods: {
     changeTitle(msg){
         this.message = msg;
-        console.log(this.message);
     }
   },
 }
@@ -59,9 +56,5 @@ export default {
   .text-color {
     font-family: 'Black Han Sans', sans-serif !important; 
   }
-  /* .col {
-    z-index: 998;
-  } */
-
 </style>
 

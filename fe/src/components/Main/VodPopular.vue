@@ -24,8 +24,6 @@
               <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
               <hr>
               <span v-text="getVeContents(vod.ve_contents)"></span>
-              <!-- <span class="rating">PG</span>
-            <span class="duration">130 minutes</span> -->
             </header>
             <div>
               <button>보러가기</button>
@@ -68,15 +66,11 @@ export default {
     },
     async getPopularVOD() {
       const response = await fetchPopularVOD();
-      console.log('인기순 정렬 : ', response);
       this.popularVODs = response.data;
-    //   console.log(this.popularVODs);
     },
     async getVODPoster(){
         const response = await fetchAllVOD();
-        console.log('vod poster list : ',response);
         this.allVODInfo = response.data;
-        // console.log(this.allVODInfo);
     },
     getPoster(index) {
         for (let i = 0; i < this.allVODInfo.length; i++) {
