@@ -45,8 +45,8 @@ export default {
       this.pageNum -= 1;
     },
     async goVodDetail(vId){
-        console.log(vId,'vod가장 첫 epi로 이동')
         const res = await fetchVodDetail(vId)
+
         // VOD의 가장 첫 epi로 보내기
         this.$router.push(`/voddetail/${res.data[0].ve_id}`)
     },
