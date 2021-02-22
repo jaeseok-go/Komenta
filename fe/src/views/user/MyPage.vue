@@ -32,7 +32,7 @@
                   <input type="text" id="modi-u-email" class="form-control form-control-lg" v-model="userId" disabled>
                 </div>
                 <div>
-                  <!-- 영문, 숫자, 특수문자 포함 8~15자 이내 -->
+                  <!-- 비밀번호 8자 이상 -->
                   <label for="modi-u-password">비밀번호</label>
                   <input type="password" id="modi-u-password" class="form-control form-control-lg" v-model="userPassword"><br>
                   <p class="warning-form warning-signup">
@@ -71,8 +71,6 @@
                   <label for="modi-u-phone">휴대폰 번호</label>
                   <input type="text" id="modi-u-phone" class="form-control form-control-lg" v-model="userPhoneNumber" :disabled="phoneChange">
                   <button class="phoneNumChange" @click.stop.prevent="changePhoneNumber" v-text="phoneText"></button>
-                  <!-- <br v-if="phoneNumForm"> -->
-                  <!-- <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification> -->
                 </div>
               </div>
             </div>
@@ -115,7 +113,6 @@ import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
 import AdminPage from '@/components/user/myPage/adminPage.vue';
 import Modal from '@/components/common/Modal';
-// import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
 import { deleteMyInfo, uploadProfile, dupNickNameChk } from '@/api/user';
@@ -132,7 +129,6 @@ export default {
     MembershipSetting,
     AdminPage,
     Modal,
-    // PhoneCertification,
   },
   data() {
     return {
@@ -167,12 +163,9 @@ export default {
       }
       return false;
     },
-    isNickNameDuplicaionCheck() { //async
-      // const result = await userNickNameChk(this.username)
+    isNickNameDuplicaionCheck() {
       const result = 'true';
-      // console.log(result)
       if(result === 'true') {
-        // console.log('DUPLICATED')
         return true;
       }
       return false;
@@ -217,7 +210,6 @@ export default {
     },
     closeUserInfoModal() {
       this.showUserInfoModal = false;
-      // console.log('들어와라,,')
     },
     showUserInfoForm() {
       this.showUserInfoModal = true;
@@ -225,19 +217,15 @@ export default {
     getUserInfo() {
       this.uId = this.userInfo.u_id;
       this.userId = this.userInfo.u_email;
-      // this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
       this.userProfilePic = this.userInfo.u_profile_pic;
       this.userIsAdmin = this.userInfo.is_admin;
-      // console.log(this.userInfo,'바꼈니?')
     },
     modifyUser() {
       this.modiForm = 'block';
     },
     changePhoneNumber() {
-      // this.phoneNumForm =false;
-      // this.authPhoneNumForm = true;
       if(this.phoneChange) {
         this.phoneChange = false;
         this.phoneText = '변경완료';
@@ -252,14 +240,10 @@ export default {
     onChangeImages(e) {
       this.userProfilePic = this.$refs.imageInput.files[0].name;
       this.profilePicFile = this.$refs.imageInput.files[0];
-      // console.log("user pic : ",this.userProfilePic)
-      // console.log("user pic Info : ",this.profilePicFile)
       this.showProfile =  URL.createObjectURL(e.target.files[0]);
-      // console.log('바뀐 이미지 경로 : ',this.showProfile)
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
-        // alert('비밀번호를 입력하세요.')
         this.$swal({
         text: "비밀번호를 입력하세요.",
         customClass: {
@@ -272,7 +256,6 @@ export default {
         return;
       }
       if(!this.confirmPW) {
-        // alert('비밀번호를 확인하세요.')
         this.$swal({
           customClass: {
           container: 'swal2-container'
@@ -285,7 +268,6 @@ export default {
         return;
       }
       if(!this.userNickName) {
-        // alert('닉네임을 설정해주세요.')
         this.$swal({
         text: "닉네임을 설정해주세요.",
         customClass: {
@@ -298,7 +280,6 @@ export default {
         return;
       }
       if(!this.userPhoneNumber) {
-        // alert('휴대폰 번호를 입력하세요')
         this.$swal({
         text: "휴대폰 번호를 입력하세요",
         customClass: {
@@ -313,20 +294,14 @@ export default {
       try {
         if(this.profilePicFile) {
           let profilePic = new FormData();
-          // console.log(pic,'잘렸니?')
           let pic = this.userInfo.u_id+this.userInfo.u_nickname+"_프로필";
-          console.log("프사 파일 이름 : ",pic)
           let picDB = String(pic + '.jpg');
           this.userProfilePic = picDB;
-          console.log("DB에 들어가는 프사 이름 : ",this.userProfilePic)
           profilePic.append("profile", this.profilePicFile, String(pic+'.jpg'))
           await uploadProfile(profilePic)
-          .then((response) => {
-            console.log("프로필 사진 잘 들어감",response.data);
+          .then(() => {
           })
-          .catch((err) => {
-            console.log(err);
-            // alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+          .catch(() => {
             this.$swal({
               text: "프로필 사진을 업로드 하던 중 오류가 발생했습니다.",
               customClass: {
@@ -347,7 +322,6 @@ export default {
           u_phone_number : this.userPhoneNumber,
           u_profile_pic : this.userProfilePic
         };
-        // console.log('유저데이터잘들어왔니',userData)
         await this.$store.dispatch('MODIFY',userData)
         this.closeUserInfoModal();
           this.$swal({
@@ -367,9 +341,7 @@ export default {
         window.location.reload();
         
       })
-        // console.log(this.userInfo)
       }catch(err) {
-        // console.log("수정 에러")
         console.log(err);
       }
     },
@@ -381,12 +353,10 @@ export default {
         icon:'warning',
         title:"회원 탈퇴",
         text: "탈퇴를 계속 진행하시겠습니까?",
-        // position:'top',
         showCancelButton: true,
         confirmButtonText: '탈퇴',
         confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
-        // showCloseButton: true,
       }).then((result) => {
         if(result.value) {
           this.$swal({
@@ -402,10 +372,8 @@ export default {
               sessionStorage.clear()
             })
             window.location.href='/';
-          
         } 
       })
-    
      },
   },
 }

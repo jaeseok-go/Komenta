@@ -6,22 +6,18 @@
       <section>
         <Header id="header-section" v-if="isLogin"></Header>
         <router-view id="page-view" :class="{asideOn: isLogin, asideOff: !isLogin}"></router-view>
-        <!--  :key="$route.fullPath" -->
         <footer class="footer_padding" :class="{'asideOn-footer': isLogin}">
-          <Footer v-if="isLogin" class="footer__margin"></Footer> <!--  :class="{asideOn: isLogin}" -->
+          <Footer v-if="isLogin" class="footer__margin"></Footer> 
         </footer>
       </section>
   </div>
 </template>
 
 <script>
-// import "@/css/index.css"
 import Asidebar from '@/components/common/Asidebar'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
-// import store from '@/stores/modules/user'
 import { mapState } from 'vuex'
-// import Main from '@/components/Main/Main'
 
 export default {
   name: 'App',
@@ -35,7 +31,6 @@ export default {
       userInfo:state => state.user.userInfo
     }),
     isLogin() {
-      console.log("유저 정보 : ",this.userInfo)
       if(this.userInfo.u_id === null) return false;
       else return true;
     },

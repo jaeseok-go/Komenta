@@ -15,8 +15,6 @@ import '@/assets/ionic.css'
 // google 로그인
 import GAuth from 'vue-google-oauth2'
 
-// import '@/assets/js/main'
-
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 
