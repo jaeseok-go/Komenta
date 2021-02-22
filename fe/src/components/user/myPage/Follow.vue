@@ -53,16 +53,12 @@ export default {
       return `${process.env.VUE_APP_PICTURE}profile/${path[0]}`;
     },
     async fetchFollowingList(userId) {
-      // console.log('getUserId', userId);
       const response = await fetchfollowinglist(userId);
       this.followings = response.data;
-      // console.log('나의 followings', this.followings);
     },
     async fetchfollowerlist(userId) {
-      console.log('getUserId', userId);
       const response = await fetchfollowerlist(userId);
       this.followers = response.data;
-      // console.log('나의 followers', this.followers);
     },
     fetchUserNicname(uNickName) {
       if(uNickName.length > 6) return uNickName.substring(0,5)+'...';

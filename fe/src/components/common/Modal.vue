@@ -74,10 +74,6 @@ export default {
   text-align: center;
 }
 
-/* .modal-body {
-  margin: 20px 0;
-} */
-
 .modal-default-button {
   float: right;
 }

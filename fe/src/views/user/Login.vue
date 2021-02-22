@@ -4,7 +4,6 @@
       <img src="@/assets/images/KOMENTA_logo.png" alt=""/>
       <hr />
     </div>
-    <!-- <button @click="signOut">Logout</button> -->
     <LoginForm v-on:showModalForm="showModalForm"></LoginForm>
 
     <Modal v-if="showModal" @click="$emit('closeModal')" >
@@ -60,7 +59,6 @@ export default {
     },
     closeModal() {
       this.showModal = false;
-      // console.log('들어와라,,');
     },
     showModalForm() {
       this.showModal = true;
@@ -70,10 +68,6 @@ export default {
 </script>
 
 <style scoped>
-/* .temp-bc-title {
-    display: flex;
-    background-color: #F9F9F9;
-  } */
 
 img {
   margin-left: 10px;

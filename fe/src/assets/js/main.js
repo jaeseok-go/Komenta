@@ -83,16 +83,6 @@
 		}
 	}
 
-	// function checkMenu() {
-	// 	// 문서전체에서 스크롤된 정도를 담은 변수
-	// 	// 첫번째 nav높이만큼(height가 44니까 44보다 크면 class붙임)
-	// 	if (yOffset > 44) {
-	// 		document.body.classList.add('local-nav-sticky');
-	// 	} else {
-	// 		document.body.classList.remove('local-nav-sticky');
-	// 	}
-	// }
-
 	function setLayout() {
 		// 각 스크롤 섹션의 높이 세팅
 		// sceneIfo를 다 돌면서  네구간의 height를 다 적용해줌
@@ -179,7 +169,6 @@
 // 현재 scene만 실행되게 switch사용
 		switch (currentScene) {
 			case 0:
-				// console.log('0 play');
 				// 소수점이 아니라 정수로 index해줘야되기때문에 반올림
 				// let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
 				// videoImages 배열에 적혀있는 그림을, 0,0좌표부터 보여줌
@@ -233,9 +222,8 @@
 				}
 
 				break;
-// case1은 normal이라 control할게 없어서 뺌
+			// case1은 normal이라 control할게 없어서 뺌
 			case 2:
-				// console.log('2 play');
 				// let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset));
 				// objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
 				// canvas등장과 나감에 불투명도 따로 적용(0.5아니어도됨, 그냥 등장과 나감을 나눌수있을정도이면 됨)
@@ -347,7 +335,6 @@
 				break;
 
 			case 3:
-				// console.log('3 play');
 				// step을 나눔!(구조가 복잡하니까 각 동작별로 나눈다)
 				let step = 0;
 				// (어떤브라우저든)가로/세로 모두 꽉 차게 하기 위해 여기서 세팅(계산 필요)
@@ -433,12 +420,10 @@
 				);
 				// 스크롤 ratio가 cavas가 상단에 닿기전까진 step이 1
 				if (scrollRatio < values.rect1X[2].end) {
-					// console.log('캔버스 닿기 전');
 					step = 1;
 					// 캔버스에 닿기전 sticky클래스를 제거함
 					objs.canvas.classList.remove('sticky');
 				} else {
-					// console.log('캔버스 닿은 후');
 					step = 2;
 					// 이미지 블렌드
 					// values.blendHeight: [ 0, 0, { start: 0, end: 0 } ]
@@ -548,8 +533,8 @@
 			currentScene--;
 			document.body.setAttribute('id', `show-scene-${currentScene}`);
 		}
-// enterNEwScene(씬이 바뀌는 순간)이 true라면 바로 return -> 이렇게 처리하면 처음씬이 바뀌는 순간 음수값이 나올때 한턴 playAnimation이 걸러짐(계산의 오차를 해결)
-// 오동작을 일으킬 원인이 되는 것을 사전에 막아줌
+		// enterNEwScene(씬이 바뀌는 순간)이 true라면 바로 return -> 이렇게 처리하면 처음씬이 바뀌는 순간 음수값이 나올때 한턴 playAnimation이 걸러짐(계산의 오차를 해결)
+		// 오동작을 일으킬 원인이 되는 것을 사전에 막아줌
 		if (enterNewScene) return;
 
 		playAnimation();
@@ -626,8 +611,8 @@
                 tempScrollCount++;
             }, 20);
 				}
-// 모든 과정은 load가 된 후 실행돼야 되니까 load 안에 넣어줌
-// 스크롤시에 안에 함수가 실행됨
+				// 모든 과정은 load가 된 후 실행돼야 되니까 load 안에 넣어줌
+				// 스크롤시에 안에 함수가 실행됨
         window.addEventListener('scroll', () => {
 					// 스크롤이 일어날 때 yOffset에 pageYOffset값을 할당해줌
 						yOffset = window.pageYOffset;
@@ -640,7 +625,7 @@
   				rafState = true;
   			}
   		});
-// 윈도우 사이즈를 줄이면 다시 높이 조정(setlayout실행)
+			// 윈도우 사이즈를 줄이면 다시 높이 조정(setlayout실행)
   		window.addEventListener('resize', () => {
 				// innerWidth가 900(폰들이 요즘 900까지 됨)보다 클때만 
   			if (window.innerWidth > 900) {

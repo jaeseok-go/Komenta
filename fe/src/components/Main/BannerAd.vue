@@ -1,23 +1,13 @@
 <template>
   <div>
-    <!-- <h1>Banner 들어갈 자리</h1> -->
     <div class="bannerAd-Form">
       <div class="banner">
-        <!-- <img src="http://img.wkorea.com/w/2020/12/style_5fdac1f775097.jpg"> -->
         <vueper-slides fade :touchable="false" fixed-height="500px">
           <vueper-slide
             v-for="(slide, i) in slides"
             :key="i"
             :image="slide.image"
             :link="slide.link" />
-            <!-- :title="slide.title"
-            :content="slide.content"  -->
-          <!-- <template v-slot:content>
-            <div class="vueperslide__content-wrapper" style="flex-direction: row">
-              <i class="material-icons">access_time</i>
-              <span>{{ slide.title }}</span>
-            </div>
-          </template> -->
         </vueper-slides>
       </div>
     </div>

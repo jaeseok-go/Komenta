@@ -21,7 +21,7 @@ import { validatePhoneNum } from '@/utils/validations';
 import { phoneAuth } from '@/api/user';
 import store from '@/stores/index';
 import { mapState } from 'vuex';
-import { registerUser } from '@/api/user'; //, userIdChk, userNickNameChk
+import { registerUser } from '@/api/user';
 
 export default {
     name: 'PhoneCertification',
@@ -60,39 +60,27 @@ export default {
   },
   methods: {
     isAuthen(){
-      // console.log("props getIdChk 체크 : ",this.getIdChk)
-      // console.log("props userId 체크 : ", this.getUserId)
       if(this.getIdChk == "") {
-        // console.log("비밀번호 찾기 페이지임")
-        // alert("아이디 체크를 먼저 진행해주세요")
         this.$emit('idChkFocus');
         if(!this.getIdChk && !this.getUserId){
           this.$swal({
             customClass: {
-          container: 'swal2-container'
-        },
-        text: "아이디 체크를 먼저 진행해주세요",
-        icon: 'info',
-        timer: 1300,
-        showConfirmButton: false,
-      }).then(()=>{
-        this.$emit('idChkFocus');
-      })
+              container: 'swal2-container'
+            },
+            text: "아이디 체크를 먼저 진행해주세요",
+            icon: 'info',
+            timer: 1300,
+            showConfirmButton: false,
+          }).then(()=>{
+            this.$emit('idChkFocus');
+          })
         }
       }
-      // else if(this.getIdChk == undefined){
-      //   console.log("비밀번호 찾기 아니니까 무시ㄱㄱ")
-      // }
     },
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
-      // 인증번호 params response에서 확인필요
-      // this.confirmNum = `${response.data.auth_number}`;
-      // response.data.u_email
       this.userId = response.data.u_email;
-      // console.log(response)
       this.confirmNum = response.data.auth_number;
-      // alert('인증 번호를 발송했습니다.')
       this.$swal({
         customClass: {
           container: 'swal2-container'
@@ -106,11 +94,7 @@ export default {
       this.authenDisplay = 'block';
     },
     async checkCertification() {
-      // console.log(this.confirmNum,this.authenNum)
       if (this.confirmNum === this.authenNum) {
-        // alert('인증에 성공했습니다.')
-        // this.timeStop();
-        // this.resetBtnDisplay = 'none';
         this.$swal({
           customClass: {
           container: 'swal2-container'
@@ -124,15 +108,12 @@ export default {
         this.resetBtnDisplay = 'none';
       })
         if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
-          // console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
           this.$store.commit('setPhonenum',this.userPhoneNum);
-          // console.log(this.userInfo,'데이터들어왔니카카오구글')
           await registerUser(this.userInfo);
           await this.$store.dispatch('LOGIN',{
             u_email:this.userInfo.u_email,
             u_pw:this.userInfo.u_email
           })
-          // console.log(res,'sns회원가입과 로그인')
           this.$router.push(`/main/vodpopular`)
         } else {
           store.commit('setEmail', this.userId);
@@ -140,7 +121,6 @@ export default {
           this.$emit('checkCertification')
         }
       } else {
-        // alert('인증 실패했습니다. 다시 시도해주세요.')
         this.$swal({
           customClass: {
           container: 'swal2-container'
@@ -152,7 +132,7 @@ export default {
       })
       }
     },
-    start(){ // 1초에 한번씩 start 호출
+    start(){
       this.resTimeData = this.prettyTime();
       this.polling = setInterval(()=>{
         this.timeCount--;
@@ -183,7 +163,6 @@ export default {
     smsReset() {
       clearInterval(this.polling);
       this.timeCount = 300;
-      //sms 인증 문자 다시 보내는 로직(구현예정)
       this.start();
     },
   },

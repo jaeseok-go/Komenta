@@ -1,15 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/stores/modules/user';
-// import { loadView,loadComponent } from '@/utils/loadPage'
 
 Vue.use(Router);
 
 const router =  new Router({
   mode: 'history',
-  // base: process.env.VUE_APP_URL,
   routes: [
-    // Main은 나중에 바꿀예정
     {
       path:'/',
       name:'AboutPage',
@@ -66,11 +63,6 @@ const router =  new Router({
       component: () => import('@/views/user/Signup.vue'),
     },
     {
-      path: '/auth',
-      name: 'Kakao',
-      component: () => import('@/components/user/snsLogin/Kakao.vue'),
-    },
-    {
       path: '/member/certification',
       name: "PhoneCertification",
       component: () => import('@/components/user/PhoneCertification.vue'),
@@ -91,14 +83,12 @@ const router =  new Router({
       name: 'MyPage',
       component: () => import('@/views/user/MyPage.vue'),
       meta: { auth: true },
-      // redirect: '/member/myPage/userManage',
       children: [
         {
           path: 'usermanage',
           name: 'UserManage',
           component: () => import('@/components/admin/UserManagement/UserManagement.vue'),
           meta: { auth: true },
-          // redirect: 'usermanage/allUser',
           children: [
             {
               path: 'alluser',
@@ -199,19 +189,14 @@ const router =  new Router({
 
   ],
 });
-
-
-
 // router네비게이션가드 beforeEach에 콜백함수의 인자로 to,from,next가 들어감
 // to:이동하려는 페이지 , from:현재페이지 , next:페이지이동할때 호출하는 API
 router.beforeEach((to, from, next) => {
   // 라우터페이지정보에(to).meta에.auth에 true 이고(&&:AND)
   // 그정보가 store의 getters에 isLogin에 사용자가 로그인했는지 여부가 true/false로 있음
   // auth:true인 라우터는 login했는지 확인하고 안했으면(False,!) 로그인페이지로 이동
-  // console.log(to.meta.auth,store.state.isLogin,'???')
   if (to.meta.auth && !store.state.isLogin) {
     // log를찍고
-    // console.log('인증이 필요합니다');
     // next를 호출해야지 /login페이지로 이동
     next('/member/login');
     // return을 꼭 적어줘야됨! 그래야 아래에 있는 next()가 실행되지 않는다

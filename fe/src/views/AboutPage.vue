@@ -1,7 +1,3 @@
-
-
-
-
 <template>
   <div>
     <!-- 클릭 => 영상 나오기 -->
@@ -10,8 +6,6 @@
       <input type="checkbox">
       <div class="video">
         <video src="@/assets/videos/intro.mp4" loop muted autoplay></video>
-        <!-- <video src="@/assets/videos/about.mp4" width="40%" loop autoplay muted></video> -->
-        <!-- <video src="https://www.robmillsarchitects.com/files/land/city/RMA_Web_land_city_1.mp4" loop muted autoplay></video> -->
       </div>
       <div class="text">
         <svg viewBox="0 0 500 500" class="svg">
@@ -33,7 +27,6 @@
   <div class="container">
     <input type="radio" name="tab" id="home" class="goback" @click="onlyOne('home')"/>
     <section class="home" @click="gotoSmall('home')">
-      <!-- <h1>Click</h1> -->
       <label for="home"></label>
       <div class="desc">
         <div class="home__desc__logo"><img src="@/assets/images/KOMENTA_logo.png" alt=""></div>
@@ -78,12 +71,6 @@
       </div>
     </section>
   </div>
-  <!-- <div class="menu">
-    <div>
-      <label for="menu"></label>
-      <label for="home"></label>
-    </div>
-  </div> -->
 </form>
 <footer>
 <AboutFooter class="footer__margin" :class="{asideOn: isLogin}"></AboutFooter>
@@ -156,7 +143,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
-/* @import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=GloriaHallelujah&family=Schoolbell&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Sue+Ellen+Francisco&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Sue+Ellen+Francisco&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Nanum+Pen+Script&display=swap');
@@ -170,7 +156,6 @@ export default {
   right: 1rem;
   font-family: 'Poor Story', cursive;
   font-size: 2rem;
-  /* color:#fa233b; */
 }
 .wrapper {
   --color: #fa233b;
@@ -276,7 +261,6 @@ export default {
 
 .wrapper .text > span::before {
   color: var(--color);
-  /* color: blue; */
   font-weight: 900  !important;
   font-family: 'Raleway', sans-serif;
   
@@ -284,7 +268,6 @@ export default {
 
 .wrapper .text > span::after  {
   color: var(--color-invert);
-  /* color: blue; */
   -webkit-clip-path: var(--clip-path);
           clip-path: var(--clip-path);
   -webkit-transition: -webkit-clip-path var(--duration) var(--timing-function);
@@ -383,7 +366,6 @@ export default {
   -webkit-clip-path: var(--clip-path-clicked);
           clip-path: var(--clip-path-clicked);
 }
-/*# sourceMappingURL=index.css.map */
 
 /* section2 */
 
@@ -394,8 +376,6 @@ input[type='radio'],
 }
 
 input[type='radio']:checked + section {
-    /* top: 0;
-   */
   top: -3rem;
   left: -1rem;
   cursor: pointer;
@@ -440,10 +420,8 @@ input[type='radio']:checked + section {
 .container section h1 {
     margin: 0;
     font-size: 64px;
-    /* transform: translate(0, 40vh); */
   transform: scale(0);
     text-align: center;
-    /* color: rgba(255,255,255,0.85); */
   color: black;
     transition: transform 500ms;
     transform-style: preserve-3d;
@@ -493,11 +471,6 @@ input[type='radio']:checked + section {
 .menu div,
 .menu div label:nth-child(1) {
   display: none;
-    /* display: block;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: -6px; */
 }
 
 .menu div label:nth-child(2) {
@@ -505,7 +478,6 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container {
-    /* transform: scale(0.65) translateY(-18%); */
   transform:scale(0.6) translate(-2%, -18%);
     transition: all 500ms;
     transform-style: preserve-3d;
@@ -521,14 +493,12 @@ input[type='radio']:checked + section {
 }
 
 #menu:checked + .container section h1 {
-    /* transform: scale(0.5); */
     transform-style: preserve-3d;
 }
 
 #menu:checked + .container + .menu {
     top: 30px;
     left: 20px;
-    /* transform: rotate(225deg); */
     transition: all 200ms;
     transform-origin: center center;
     background: #646464;
@@ -613,9 +583,4 @@ input[type='radio']:checked + section {
 #menu:checked + .container section.contact:hover {
     top: 8px;
 }
-
-
-
-
-/* 3 */
 </style>

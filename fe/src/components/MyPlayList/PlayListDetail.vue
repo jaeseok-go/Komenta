@@ -14,13 +14,11 @@
     </template>
     <template v-else-if="isLikePlaylist()">
         <span class="playlsit-icon playlsit-icon-size" @click="addlikeUserPlaylist()">
-            <!-- <i class="far fa-star"></i> -->
             <font-awesome-icon :icon="['far', 'star' ]" />
         </span>
     </template>
     <template v-else>
         <span class="playlsit-icon playlsit-icon-size" @click="cancellikePlaylist()">
-            <!-- <i class="fas fa-star playlist__star"></i> -->
             <font-awesome-icon class="playlist__star" :icon="['fas', 'star' ]"/>
         </span>
     </template>
@@ -84,7 +82,6 @@ export default {
   methods: {
       deleteUserPlaylist(plId) {
       this.$swal({
-        // title: '플레이리스트를 삭제하시겠습니까?',
         text: '플레이리스트를 삭제하시겠습니까?',
         icon:'error',
         customClass: {
@@ -94,7 +91,6 @@ export default {
         confirmButtonText: '삭제',
         confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
-        // showCloseButton: true,
       }).then((result) => {
         if(result.value) {
           this.$swal({
@@ -125,7 +121,6 @@ export default {
       
     },
     getPlaylistVodPoster(poster) {
-      // const gdId = this.genreDetails.find(genre => genre.gd_name === gdname);
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
     },
     isMyPlyalist(uId){
@@ -139,11 +134,9 @@ export default {
       for (let i = 0; i < this.likePlaylist.length; i++) {
         const playlist = this.likePlaylist[i];
         if (playlist[0].pl_id == plId) {
-            console.log('false')
           return false;
         }
       }
-      console.log('true')
       return true;
     },
     async addlikeUserPlaylist() {
@@ -193,8 +186,7 @@ export default {
           plc_id: plId,
           vh_comment: this.review,
         };
-        const res = await addReviewPlaylist(commentInfo);
-        console.log(res, '등록?');
+        await addReviewPlaylist(commentInfo);
         this.getStreamingListDetail();
       } catch {
         console.log('플레이리스트 comment생성 실패');
@@ -211,16 +203,11 @@ export default {
       const res = await fetchPlayListDetail(plId);
       this.playlists = res.data;
       this.userProfile = this.playlists[0];
-      console.log(this.playlists, '플레이리스트 갱신');
     },
     getUserProfile() {
-      console.log(this.userProfile.u_profile_pic)
       if (this.userProfile.u_profile_pic) {
         const split = this.userProfile.u_profile_pic.split('.');
         let profile = split[0];
-        console.log(
-          `${process.env.VUE_APP_PICTURE}profile/${profile}`
-        );
         return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
       }
       return false

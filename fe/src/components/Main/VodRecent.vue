@@ -24,8 +24,6 @@
               <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
               <hr>
               <span v-text="getVeContents(vod.ve_contents)"></span>
-              <!-- <span class="rating">PG</span>
-            <span class="duration">130 minutes</span> -->
             </header>
             <div>
               <button>보러가기</button>
@@ -60,7 +58,6 @@ export default {
     }
   },
   methods: {
-    //getRecentVOD api만들어야함
     async getRecentVOD() {
       const response = await fetchRecentVOD();
       this.recentVODs = response.data;

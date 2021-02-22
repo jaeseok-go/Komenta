@@ -21,7 +21,6 @@
       <span>{{ comment.c_contents}} </span> <br>
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
-      <!-- :class="{commet__like :comment.is_like_comment}"  -->
       <span @click="commentLike(index,comment)"><font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       <hr>
     </div>
@@ -49,7 +48,6 @@ export default {
       required: false,
       default: 10
     },
-    // commentsList:Array,
   },
   data(){
     return {
@@ -93,7 +91,6 @@ export default {
       },
         DeleteComment(cId){
       this.$swal({
-        // title: '플레이리스트를 삭제하시겠습니까?',
         text: '댓글을 삭제하시겠습니까?',
         customClass: {
           container: 'swal2-container'
@@ -103,8 +100,6 @@ export default {
         confirmButtonText: '삭제',
         confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
-        // showCloseButton: true,
-        // showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
           this.$swal({
@@ -162,7 +157,7 @@ export default {
   const res = await fetchEpiComment(epiId)
   this.commentsList = res.data.reverse()
   } catch {
-    console.log('epicomment 에러!!')
+    console.log('epicomment 에러')
   }
   },
   goCommentTime(time){
@@ -170,42 +165,33 @@ export default {
   },
   timeToSec(time){
     let splitTime = time.split(':')
-    // console.log(splitTime)
     let changeTime = Number(splitTime[splitTime.length-1])
     for (let i = splitTime.length-2; i >= 0; i--) {
         let element = Number(splitTime[i]);
         changeTime += element*(60**(splitTime.length-i-1))
-        // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
     }
     return changeTime
     },
    commentLike(index,comment){
    const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
-    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-    // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
   this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
     
     likeBtn.classList.toggle('comment__like')
     likeBtn.classList.toggle('comment__unlike')
-if (this.commentsList[index].is_like_comment){
+  if (this.commentsList[index].is_like_comment){
       this.commentsList[index].comment_good_count += 1
-      // likeBtn.style.color = '#fc3c44'
     } else {
       this.commentsList[index].comment_good_count -=1
-      // likeBtn.style.color ='grey'
     }
-
       const commentInfo = {
         c_id : comment.c_id,
         u_id : this.userInfo.u_id
     }
       userlikeComment(commentInfo)
-    // this.getEpiComment();
-
   }
 
       
-    },
+  },
 }
 </script>
 

@@ -16,21 +16,20 @@ export default {
     },
     async send(){
       let formData2 = new FormData();
-      // let poster_name = this.file1.name;
-      // let extensions = poster_name.split('.');
       formData2.append("v_poster", this.file1, String('11_인간극장.jpg'));
 
+      let num = 0;
+
       await insertVodPoster(formData2)
-      .then((response)=>{
-        console.log("poster 사진 잘 들어감", response.data);
-      })
-      .catch((err)=>{
-        console.log("poster 업로드에러");
-        console.log(err)
+      .catch(()=>{
+        alert("poster 업로드에러");
+        num++;
       })
 
-      alert("VOD가 정상적으로 등록되었습니다.");
-      window.location.reload();
+      if(num == 0){
+        alert("VOD가 정상적으로 등록되었습니다.");
+        window.location.reload();
+      }
     }
   },
 }

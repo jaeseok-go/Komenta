@@ -1,5 +1,4 @@
 a:hover {
-  // background-color: hotpink;
   color: transparent;
 }
 
@@ -29,11 +28,6 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 55px auto 1fr auto;
-  // grid-template-areas:
-  //   'header'
-  //   'search'
-  //   'scrollable'
-  //   'upsell';
   border-inline-end-color: $sidebarBorderRule;
   border-inline-end-style: solid;
   border-inline-end-width: 1px;
@@ -102,7 +96,6 @@ a:hover {
     position: relative;
     flex-shrink: 0;
     font-size: unset;
-    // align-self: flex-end;
 
     margin-top: 17px;
     margin-bottom: 18px;
@@ -121,8 +114,6 @@ a:hover {
   }
 
   &__scrollable {
-    // margin-top: 3rem;
-
     .web-navigation__nav-list {
       list-style-type: none;
       user-select: none;
@@ -157,7 +148,6 @@ a:hover {
           height: 100%;
           display: flex;
           align-items: center;
-          /* border-radius: 6px; */
           box-sizing: content-box;
           text-align: start;
 
@@ -200,11 +190,6 @@ a:hover {
   color: $apple-color;
   font-size: 15px;
 }
-
-// router-link-exact-active router-link-active {
-//   text-decoration: none;
-
-// }
 
 .web-navigation__nav-list-item.active {
   border: 1px solid white;

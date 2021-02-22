@@ -1,32 +1,22 @@
 .desc {
-    top: 0;
-    width: 1200px;
-    position: absolute;
-    position: absolute;
-    transform: translateX(50%);
-    /* margin-left: 13rem; */
-    text-align: center;
-    transform: translateX(-50%);
-    left: 50%;
-    /* margin-bottom: auto; */
-    margin-top: 4rem;
-  
-
-
-    // margin: 9rem;
-    // margin-left: 13rem;
-    // text-align: center;
+  top: 0;
+  width: 1200px;
+  position: absolute;
+  position: absolute;
+  transform: translateX(50%);
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+  margin-top: 4rem;
 
   .home__desc__logo {
-
   }
   .home__desc__title {
-        font-size: 3rem;
+    font-size: 3rem;
     margin-top: 2rem;
     margin-bottom: 3rem;
-
   }
-  
+
   .home__desc__subtitle {
     color: #fa233b;
     font-size: 1.9rem;
@@ -38,13 +28,13 @@
     }
   }
   .home__desc__login {
-    // margin-left: 12rem;
     text-align: center;
     font-size: 30px;
     line-height: 1.23536;
     font-weight: 700;
-    letter-spacing: -.011em;
-    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    letter-spacing: -0.011em;
+    font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+      'Arial', sans-serif;
     min-width: 51px;
     padding-left: 35px;
     padding-right: 35px;
@@ -56,17 +46,16 @@
     background: #fa243c;
     color: #fff;
     margin-top: 44px;
-    
   }
 }
 
 .desc__2__button {
-    color: white;
-    padding: 1rem 2rem;
-    display: inline-block;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
-    border-radius: 40px;
+  color: white;
+  padding: 1rem 2rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+  border-radius: 40px;
 }
 
 .desc__2__title {
@@ -78,12 +67,10 @@
   }
 }
 
-
 .desc__2__subtitle {
   font-size: 30px;
   width: 80rem;
   margin: 1.5rem;
-  
 }
 
 .text__scroll {
@@ -97,7 +84,6 @@
   opacity: var(--opacity, 1);
   -webkit-transition: opacity 0.3s ease 0.2s;
   transition: opacity 0.3s ease 0.2s;
-
 }
 .animate__animated {
   -webkit-animation-duration: 1s;
@@ -141,82 +127,82 @@
 
 .bounce {
   -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
   -webkit-animation-duration: 1.5s;
-          animation-duration: 1.5s;
+  animation-duration: 1.5s;
   -webkit-animation: bounce 3.6s ease infinite;
-          animation: bounce 3.6s ease infinite;
+  animation: bounce 3.6s ease infinite;
   -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
 }
 
 @-webkit-keyframes bounce {
   0% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   5.55556% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   11.11111% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   22.22222% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   27.77778% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   33.33333% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   44.44444% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
 @keyframes bounce {
   0% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   5.55556% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   11.11111% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   22.22222% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   27.77778% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   33.33333% {
     -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
   44.44444% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -227,22 +213,20 @@
   position: absolute;
   top: 10px;
   border-radius: 100rem;
-  // padding: 1rem;
   font-family: 'Avenir Next';
-  padding: .5rem 3rem;
+  padding: 0.5rem 3rem;
   color: black;
   border: solid 3px $apple-color;
   transform-style: preserve-3d;
-
 }
 
 .container section .clickme_button {
-    margin: 0;
-    font-size: 1.4rem;
+  margin: 0;
+  font-size: 1.4rem;
   transform: scale(0);
-    text-align: center;
-    transition: transform 500ms;
-    transform-style: preserve-3d;
+  text-align: center;
+  transition: transform 500ms;
+  transform-style: preserve-3d;
   transform: scale(0);
 }
 
@@ -256,36 +240,32 @@
   top: 10px;
   border-radius: 100rem;
   font-family: 'Avenir Next';
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   color: black;
   border: solid 3px $apple-color;
   transform-style: preserve-3d;
-
 }
 
-
 .desc__3__title {
-    font-size: 2.25rem;
-    font-weight: 600;
+  font-size: 2.25rem;
+  font-weight: 600;
   & > span {
     color: #fa233b;
   }
-
 }
 
 .desc__3__subtitle {
-     width: 80rem;
-    margin: 1.2rem;
-    font-size: 1.5rem;
+  width: 80rem;
+  margin: 1.2rem;
+  font-size: 1.5rem;
 
-    & > span {
-      color: #fa233b;
-      font-weight: 700;
-    }
+  & > span {
+    color: #fa233b;
+    font-weight: 700;
+  }
 }
 
 .desc__3__video {
-
 }
 
 .desc__4__title {
@@ -293,20 +273,19 @@
   font-weight: 600;
   & > span {
     color: #fa233b;
-}
+  }
 }
 
 .desc__4__subtitle {
-    width: 80rem;
-    margin: 1.2rem;
-    font-size: 1.5rem;
+  width: 80rem;
+  margin: 1.2rem;
+  font-size: 1.5rem;
 
-    & > span {
+  & > span {
     color: #fa233b;
     font-weight: 700;
+  }
 }
-}
-
 
 .svg {
   display: inherit;

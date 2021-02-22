@@ -71,22 +71,16 @@ export default {
       this.pageNum -= 1;
     },
     async getPopularPlayList() {
-      //좋아요가 많은 순서대로 받아올수있을지? => ok
       try{
         const response = await fetchPopularPlayList();
-        // console.log("popular play list!!!!!!!!!!! : ",response);
         for (let i = 0; i < response.data.length; i++) {
           const now = response.data[i];
           if (now.pldetail[0].v_id !==0) {
             this.popularPlaylist.push(response.data[i])
-            // console.log('여기오지마')
           }
-          
         }
-        // console.log('popularPlayList 저장 : ',this.popularPlaylist)
-        
       }catch(err) {
-        console.log(err,"err")
+        console.log(err)
       }
     },
     getPoster(path) {
@@ -98,7 +92,6 @@ export default {
       return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
     },
     goPlayList(pl_id){
-      console.log("pl_id : ",pl_id);
       this.$router.push(`/playlist/${pl_id}`);
     },
     getPlTitle(pl_title){

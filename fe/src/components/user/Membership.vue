@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="ms-btn">
-        <!-- 등록하기 버튼(구글 폼으로 이동) -->
+        <!-- 등록하기 버튼 -->
         <button @click="signMembership">가입하기</button>
       </div>
     </div>
@@ -43,9 +43,6 @@
       <li>VOD 저작권 문제로 인해 영상의 길이가 길지 않음을 양해 부탁드립니다.</li>
       <li>서비스 이용 권장사양은 PC환경의 Chrome에 최적화 되어있습니다.</li>
       <li>서비스 이용 도중 문의 사항이 생길 경우, "배상웅 팀장님"께 문의 바랍니다.</li>
-      <li>이제 더 이상 할 말이 없습니다.</li>
-      <li>열심히 만들었으니까 좋게좋게 봐주십셔</li>
-      <li>자 이제 설문조사 고고</li>
     </div>
   </b-col>
 </template>
@@ -62,12 +59,8 @@ export default {
   methods: {
     async signMembership(){
       var moment = require('moment');
-      // console.log('회원 멤버십 정보 : ',moment(this.userInfo.u_expire_member).format('YYYY-MM-DD'))
-      // console.log('현재 시간 : ', moment(new Date()).format('YYYY-MM-DD'))
       if(this.userInfo.u_expire_member === "0000-00-00 00:00:00" || moment(this.userInfo.u_expire_member).format('YYYY-MM-DD') <= moment(new Date()).format('YYYY-MM-DD')) {
        await membership();
-        // console.log('그래서 가입이 된겨? ',result)
-        // this.userInfo.u_expire_member = this.getUserInfo(this.userInfo.u_id);
         this.$store.dispatch('FETCH_MEMBERSHIP',await this.getUserInfo(this.userInfo.u_id))
         window.open('https://forms.gle/WPi6iM7Q5Doyyx2y5');
         this.$router.push({name:'MyPage'});
@@ -82,7 +75,6 @@ export default {
     },
     async getUserInfo(uid) {
       const response = await fetchMyInfo(uid);
-      // console.log("멤버십 정보 잘 바꼈니?",response)
       return response.data.u_expire_member;
     }
   },

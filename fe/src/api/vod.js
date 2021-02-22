@@ -90,7 +90,6 @@ function sendVODInfo(vodInfo) {
 
 //vod 영상 저장
 function insertVOD(vodForm) {
-    // console.log("vod 영상 정보 : ",vodForm.get('file'))
     return axios.post('http://i4b201.p.ssafy.io:9999/api/admin/video_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',
@@ -100,7 +99,6 @@ function insertVOD(vodForm) {
 }
 
 function insertVodPoster(vodForm) {
-    // console.log("vod 포스터 정보 : ",vodForm.get('v_poster'))
     return axios.post('http://i4b201.p.ssafy.io:9999/api/admin/poster_upload',vodForm, { 
       headers: {
          'Content-Type': 'multipart/form-data',

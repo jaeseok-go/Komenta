@@ -77,8 +77,7 @@ export default {
             u_profile_pic:this.blockedList[idx].u_profile_pic,
             u_pw:this.blockedList[idx].u_pw,
           };
-          const response = await updateUserInfo(userdata);
-          console.log("일반->제한: ",response);
+          await updateUserInfo(userdata);
           window.location.reload();
         }else if(this.blockedList[idx].u_state === '제한회원'){
           this.blockedList[idx].u_state = '일반회원';
@@ -93,12 +92,11 @@ export default {
             u_profile_pic:this.blockedList[idx].u_profile_pic,
             u_pw:this.blockedList[idx].u_pw,
           };
-          const response = await updateUserInfo(userdata);
-          console.log("제한->일반: ",response);
+          await updateUserInfo(userdata);
           window.location.reload();
         }
       }catch(err) {
-        console.log("상태수정 에러 : ",err);
+        console.log(err);
       }
     }
   },

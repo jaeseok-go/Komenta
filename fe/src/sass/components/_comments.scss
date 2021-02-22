@@ -101,8 +101,6 @@
   bottom: 1px;
 }
 .comment__time {
-  // color: #747474;
-  // color:#3EA6FF;
   color: #065fd4;
   cursor: pointer;
   text-decoration: none;
@@ -160,9 +158,6 @@
   display: inline-block;
   font-size: 80px;
   color: #fc3c44;
-  // background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
-  //   -webkit-background-clip: text;
-  //   -webkit-text-fill-color: transparent;
 }
 .comment__commentbox {
   display: inline-block;
@@ -223,11 +218,7 @@
 }
 .vod__detail {
   display: flex;
-  // width: 100%;
   height: 200px;
-  // box-sizing: border-box;
-  // flex-wrap: wrap;
-  // grid-auto-flow: column;
   &__column {
     background-color: beige;
     flex: 0 0 20%;
@@ -241,18 +232,12 @@
     &:before {
       content: '';
       display: block;
-      // padding-top: 100%;
     }
 
     &:hover {
       z-index: 1;
       box-shadow: 0 8px 50px rgba(#000, 0.2);
       transform: scale(1);
-
-      // .#{$prefix}-social {
-      //   margin: 16px 0 0;
-      //   opacity: 1;
-      // }
     }
   }
 
@@ -262,18 +247,7 @@
   &__img {
     display: inline-block;
     box-sizing: border-box;
-
-    // justify-content: space-around;
-    // align-items: center;
-    // margin: 5px;
-    // height: 150px;
-    // height: 100%;
     cursor: pointer;
-    // &:hover {
-    //   z-index: 1;
-    //   box-shadow: 0 8px 50px rgba(#000, 0.2);
-    //   transform: scale(1.02);
-    // }
   }
   &__num {
     text-align: center;

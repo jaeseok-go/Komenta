@@ -46,7 +46,6 @@
                 
                 <!-- 업데이트된 플레이리스트 카드형태로 2개씩 보여줌 -->
                 <div class="at-section">
-                    <!-- <div class="at-section__title"><span class="at-section__nickname" style="font-size:2.8rem">새롭게 업데이트된 플레이리스트를 확인해보세요</span></div> -->
                     <span class="at-section__subtitleButton" style="margin-top:4.5rem; margin-bottom:1.2rem"><span class="at-section__subtitle"><i class="fas fa-check at-section__icon"></i>최근 일주일 간 업데이트된 친구의 플레이리스트 보러가기</span></span>
                 </div>
 
@@ -66,7 +65,6 @@
                     {{playlist[0].pl_good_count}}
                     <p> 
                     <span style="text-decoration: underline; text-underline-position:under;"><strong v-text="getPlTitle(playlist[0].pl_name)"></strong><br></span>
-                    <!-- {{playlist[0].pl_comment}} <br> -->
                     </p>
                     
                 </div>
@@ -114,7 +112,6 @@ import { fetchfollowinglist,updateFollowPlaylist,fetchMyInfo ,modifyfollow} from
 import { fetchPopularPlayList } from '@/api/vod'
 import { fetchBestComment } from '@/api/comment'
 
-// import { mapState } from 'vuex'
 import store from '@/stores/modules/user'
 
 export default {
@@ -174,9 +171,7 @@ export default {
         paginatedData() {
             const start = this.pageNum * this.pageSize,
             end = start + this.pageSize;
-            console.log(this.updateProfile,'너는 어떠닝')
             return this.updateProfile.slice(start, end);
-            
         },
         paginatedData_people() {
             const start_2 = this.pageNum_2 * this.pageSize_2,
@@ -187,54 +182,37 @@ export default {
         
     },
     created() {
-        // if (this.following_list) {
-        //     this.getFollowing()
-        //     this.getUpdateFollowPlaylist()
-        //     this.getNickname()
-
-        // } else {
-        //     this.getBestPlaylistUser()
-        //     this.getBesctCommentUser()
-
-        // }
-                    this.getFollowing()
-            this.getUpdateFollowPlaylist()
-            this.getNickname()
-                        this.getBestPlaylistUser()
-            this.getBesctCommentUser()
+        this.getFollowing()
+        this.getUpdateFollowPlaylist()
+        this.getNickname()
+        this.getBestPlaylistUser()
+        this.getBesctCommentUser()
     },
     methods: {
-    followUser(fId) {
-      const my_id = this.userInfo.u_id;
-      const bothId = { u_id: my_id, f_id: fId };
-      const followBtn = document.getElementById(`follow-btn-${fId}`)
-      if (followBtn.innerText === 'FOLLOW'){
-          followBtn.innerText = 'UNFOLLOW'
-        //   followBtn.style.marginLeft = '40px';
-      } else {
-        followBtn.innerText = 'FOLLOW'
-    //    followBtn.style.marginLeft = '55px';
-      }
-      modifyfollow(bothId);
-      // console.log(response, '됐다');
-      this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
-    },
-    followbestCommentUser(fId) {
-      const my_id = this.userInfo.u_id;
-      const bothId = { u_id: my_id, f_id: fId };
-      const followBtn = document.getElementById(`follow-com-btn-${fId}`)
-      if (followBtn.innerText === 'FOLLOW'){
-          followBtn.innerText = 'UNFOLLOW'
-        //   followBtn.style.marginLeft = '40px';
-         
-      } else {
-        followBtn.innerText = 'FOLLOW'
-        // followBtn.style.marginLeft = '55px';
-      }
-      modifyfollow(bothId);
-      // console.log(response, '됐다');
-      this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
-    },
+        followUser(fId) {
+        const my_id = this.userInfo.u_id;
+        const bothId = { u_id: my_id, f_id: fId };
+        const followBtn = document.getElementById(`follow-btn-${fId}`)
+        if (followBtn.innerText === 'FOLLOW'){
+            followBtn.innerText = 'UNFOLLOW'
+        } else {
+            followBtn.innerText = 'FOLLOW'
+        }
+        modifyfollow(bothId);
+        this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
+        },
+        followbestCommentUser(fId) {
+        const my_id = this.userInfo.u_id;
+        const bothId = { u_id: my_id, f_id: fId };
+        const followBtn = document.getElementById(`follow-com-btn-${fId}`)
+        if (followBtn.innerText === 'FOLLOW'){
+            followBtn.innerText = 'UNFOLLOW'
+        } else {
+            followBtn.innerText = 'FOLLOW'
+        }
+        modifyfollow(bothId);
+        this.$store.dispatch('FETCH_FOLLOWING', this.userInfo.u_id);
+        },
         gotoFeed(userId) {
             this.$router.push(`/feed/${userId}`)
         },
@@ -255,7 +233,6 @@ export default {
         },
         getProfile(pic) {
             const profile = pic.split('.')[0]
-            console.log(`${process.env.VUE_APP_PICTURE}profile/${profile}`)
             return `${process.env.VUE_APP_PICTURE}profile/${profile}`;
         },
         getUpdateProfiletoPlaylist(playlist) {
@@ -278,7 +255,6 @@ export default {
             const poster = this.updateFollowPlaylists[index][0].v_poster
             return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
         },
-        // 이미 있는 updateFollowPlaylist로 nickname 배열 만들기
         async getNickname() {
             let temp = [];
             for (let index = 0; index < this.updateFollow_userId.length; index++) {
@@ -298,11 +274,10 @@ export default {
         async getUpdateFollowPlaylist() {
             const response = await updateFollowPlaylist()
             this.updateFollowPlaylists = response.data
-            console.log(this.updateFollowPlaylists,'업데잇')
             for (let index = 0; index < this.updateFollowPlaylists.length; index++) {
                 const element = this.updateFollowPlaylists[index];
                 if (this.updateProfile.includes(element[0].u_id)) {
-                    console.log(element[0].u_id,'오잉')
+                    // 아무 동작 없음
                 } else {
                     this.updateProfile.push(element[0].u_id)
                 }
@@ -310,7 +285,6 @@ export default {
                 
             } 
             this.getNickname();
-            // console.log(this.updateProfile,this.updateFollowPlaylists,'너는,,,,,,,왜,,,,,날,,,')
         },
         async getFollowing() {
             const userId = store.state.userInfo.u_id
@@ -329,13 +303,10 @@ export default {
         async getBestPlaylistUser() {
             const response = await fetchPopularPlayList()
             this.bestPlaylistUser = response.data
-            // console.log(this.bestPlaylistUser,'되냐?')
         },
         async getBesctCommentUser() {
             const response = await fetchBestComment()
-            // console.log(response.data.length,'몇개니')
             this.bestCommentUser = response.data.slice(0,10)
-            // console.log(this.bestCommentUser,'유저쨩')
         }
     },
 }

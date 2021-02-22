@@ -1,13 +1,6 @@
 <template>
     <div id="kakao-login" class="sns-login-logo">
-        <!-- <button @click="logoutWithKakao">KakaoLogout</button> -->
         <button @click="onClickLogin">
-    <!-- <a href="https://kauth.kakao.com/oauth/authorize
-            ?client_id=
-            &redirect_uri=http://i4b201.p.ssafy.io:9999/api/member/login
-            &response_type=code">
-            카카오 로그인
-        </a> -->
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="55"
@@ -54,15 +47,6 @@ export default {
         }
     },
     methods: {
-        // logoutWithKakao(){
-        //     if (!window.Kakao.Auth.getAccessToken()) {
-        //     console.log('Not logged in.');
-        //     return;
-        //     }
-        //     window.Kakao.Auth.logout(function() {
-        //     console.log(window.Kakao.Auth.getAccessToken());
-        //     });
-        // },
         onClickLogin() {
       this.kakaoLogin()
         .then(() => {
@@ -73,7 +57,6 @@ export default {
         },
      kakaoLogin() {
     return new Promise((resolve, reject) => {
-        console.log(resolve,' 링ㅇㅇㅇㅇㅇ')
         window.Kakao.Auth.login({
         scope: "profile",
         success: () => {
@@ -82,23 +65,14 @@ export default {
         },
         fail: (err) => {
             console.error(err)
-            // alert(err.config);
-            
             reject();
         },
         });
     });
     },
     kakaoAccoutInfo() {
-        console.log('너는 들어왔니')
-    window.Kakao.API.request({
-        url: "/v2/user/me",
-    })
-        .then((res) => {
-        const kakaoId = res.id;
-        console.log(kakaoId,'카카오아이디 들어왔니')
-        // const user_age = res.kakao_account.age_range;
-        
+        window.Kakao.API.request({
+            url: "/v2/user/me",
         })
         .catch((err) => {
         console.log("err", err);
@@ -106,19 +80,13 @@ export default {
     },
     loginWithKakao() {
         const params = {
-            // redirectUri: `https://i4b201.p.ssafy.io/api/Auth`,
             redirectUri: `${process.env.VUE_APP_URL}/Auth`,
-
-            // scope: 'phone_number_needs_agreement'
-            // scope:'phone_number'
         };
         
         window.Kakao.Auth.authorize(params);
         },
         async setKakaoToken () {
-        console.log('카카오 인증 코드', this.$route.query.code);
         const { data } = await getKakaoToken(this.$route.query.code);
-        console.log('데이터잘있니',{data})
         this.token = data.access_token;
         if (data.error) {
             alert('카카오톡 로그인 오류입니다.');
@@ -128,9 +96,7 @@ export default {
         window.Kakao.Auth.setAccessToken(data.access_token);
         const res = await getKakaoUserInfo();
         const response  = await dupIdChk(res.kakao_account.email)
-        console.log(res,response)
         if (response.data) {
-            console.log('로그인하러가자,,')
             await this.$store.dispatch('LOGIN',{
             u_email:res.kakao_account.email,
             u_pw:res.kakao_account.email
@@ -145,7 +111,6 @@ export default {
             u_phone_number : null,
         }
         this.$store.commit('fetchInfo',userInfo);
-        console.log('카카오유저',userInfo)
         if (userInfo.u_phone_number === null) {
             this.$router.push('/member/certification');
         }

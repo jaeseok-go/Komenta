@@ -1,6 +1,4 @@
-// import { setInterceptors } from './config/interceptors'
 import axios from './config/axios'
-// const instance = setInterceptors()
 
 const kakaoHeader = {
     'Authorization': process.env.VUE_APP_KAKAO_ADMIN_KEY,

@@ -41,12 +41,6 @@ export default {
         userInfo: state => state.user.userInfo,
       })
   },
-  created() {
-    //   this.$route.push({name:'VodPopular'});
-  },
-  methods: {
-    
-  },
 };
 </script>
 

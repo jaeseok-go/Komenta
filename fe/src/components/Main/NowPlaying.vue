@@ -27,7 +27,6 @@
 </template>
 
 <script>
-// import store from '@/stores/modules/user'
 import {fetchRecentPlaylist} from '@/api/user'
 import { mapState } from 'vuex';
 
@@ -49,7 +48,6 @@ export default {
   methods: {
     async getNowPlaying(){
       const response = await fetchRecentPlaylist(this.userInfo.u_id)
-      console.log("vod 목록 : ",response.data)
       this.nowPlayingVOD = response.data.episodeList[0];
       this.playingVODInfo = response.data.historyList[0];
     },

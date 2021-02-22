@@ -60,8 +60,6 @@
         </div>
       </div>
       <hr>
-      <!-- <div v-show="!showEpiDetail" @click="showEpi()" class="vodepi__button"> <span class="vodepi__button__title"> <strong>추가 정보 더보기</strong> <i class="fas fa-sort-down"></i></span> </div>
-      <div v-show="showEpiDetail"> -->
       <div class="vodepi">
         <div class="vodepi__img">
           <img :src="getVodPoster(vodEpiInfo.v_poster)" alt="" width="200px">
@@ -76,10 +74,6 @@
           <strong>개요</strong> {{vodEpiInfo.g_name}}/{{vodEpiInfo.gd_name}} <br>
           <strong>출연</strong> {{vodEpiInfo.v_actors}} <br>
           <strong>감독</strong> {{vodEpiInfo.v_director}}
-          <!-- </div>
-          </div> -->
-        
-          <!-- <div @click="showEpi()" class="vodepi__button"><strong>닫기</strong> <i class="fas fa-sort-up"></i></div> -->
         </div>
       </div>
       <br>
@@ -123,7 +117,6 @@
         <router-link :to="{name:'AllComments'}" active-class="comments__menu">
         <i class="fas fa-check"></i> 전체 댓글 </router-link>
         <router-view  @goCommentTime="goCommentTime" @commentLike="commentLikeEmit" ></router-view>
-        <!-- :commentsList="commentsList" props로 넘겨줄까? -->
       </div>
     </div>
   </div>
@@ -151,7 +144,6 @@ export default {
       now: "00:00:00",
       pre_diffHeight :0,
       bottom_flag : true,
-      // followingComment:false
       showEpiDetail:true,
       showVodDetail:true,
       isShowIntro: 'none',
@@ -159,7 +151,6 @@ export default {
   },
   created(){
     this.getVodEpi();
-    // this.getVodDetail();
     this.getEpiComment();
     this.getUserBlockedInfo();
     this.$store.dispatch('FETCH_FOLLOWING',this.userInfo.u_id)
@@ -229,13 +220,11 @@ export default {
     startWatchTime(){
       const edID = Number(this.$route.params.id)
       startVodWatch(edID);
-      // console.log('시청기록 시작',res,this.$route.params.id)
     },
     goLastVod(){
       const endtime = document.getElementById("videotag");
       if (this.vodEpiInfo.vh_watching_time) {
         endtime.currentTime = this.timeToSec(this.vodEpiInfo.vh_watching_time)
-        // console.log('시청기록시간부터 시작?',this.vodEpiInfo.vh_watching_time)
       }
     },
     goFeed(uId){
@@ -247,18 +236,15 @@ export default {
     async getVodEpi() {
       try {
         const epiId = Number(this.$route.params.id);
-        // console.log(epiId)  
         const res = await fetchVodEpiDetail(epiId)
         this.vodEpiInfo = res.data
-        // console.log('VODEPI 상세 정보',this.vodEpiInfo)
         this.getVodDetail();
       } catch {
-        console.log('vod epi detail에러!!')
+        console.log('vod epi detail에러')
       }
     },
     async getVodDetail() {
       try {
-        // console.log(this.vodEpiInfo.v_id,'vod아이디')
         const res = await fetchVodDetail(this.vodEpiInfo.v_id)
         this.vodInfo = res.data
       } catch {
@@ -273,7 +259,6 @@ export default {
         this.commentsList.sort(function (a,b) {
           return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
         })
-        // console.log(this.commentsList,'댓글?')
       } catch {
         console.log('epicomment 에러!!')
       }
@@ -305,12 +290,10 @@ export default {
     },
     timeToSec(time){
       let splitTime = time.split(':')
-      // console.log(splitTime)
       let changeTime = Number(splitTime[splitTime.length-1])
       for (let i = splitTime.length-2; i >= 0; i--) {
           let element = Number(splitTime[i]);
           changeTime += element*(60**(splitTime.length-i-1))
-          // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
       }
       return changeTime
     },
@@ -321,7 +304,6 @@ export default {
     // 비디오 불러오기
     getVideo() {
       const path =`${process.env.VUE_APP_VIDEO}${this.vodEpiInfo.gd_id}_${this.vodEpiInfo.v_title.replace(/(\s*)/g, "")}_${this.vodEpiInfo.ve_episode_num}화`
-      // console.log(path,'동영상주소')
       return path
     },
     // 해당시간으로 댓글 이동
@@ -340,7 +322,6 @@ export default {
       }
       try {
         const vod = document.getElementById("videotag");
-        // console.log(vod.currentTime,'댓글시간등록')
         const commentInfo = {
           c_contents : this.userComment,
           c_playtime : this.nowTime(vod.currentTime),
@@ -348,7 +329,6 @@ export default {
           ve_id : this.$route.params.id
         }
         await commentInsert(commentInfo)
-        // console.log(res,'댓글써졌니?')
         this.getEpiComment();
         this.userComment=""
       } catch {
@@ -357,8 +337,7 @@ export default {
     },
     scrollEvent (){
       let _documentY = document.documentElement.scrollTop;
-      let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
-      console.log(_direction); // 콘솔창에 스크롤 방향을 출력
+      // let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
 
       window.__scrollPosition = _documentY; // Update scrollY
     },
@@ -375,7 +354,6 @@ export default {
     },
     // 차단한 댓글 강조
     userBlocking(uId){
-      // console.log(this.myUnFollowingList,'언팔리스트')
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const blocking = this.myUnFollowingList[i];
         if (blocking.f_id == uId) {      
@@ -389,7 +367,6 @@ export default {
       const likeBtn = document.querySelector(`#like-btn-${cId}`)
       likeBtn.classList.toggle('comment__like')
       likeBtn.classList.toggle('comment__unlike')
-      // console.log(likeBtn,'이댓글 좋아용')
     },
     //유저 댓글 좋아요 class추가/제거
     commentLike(index,comment){
@@ -407,7 +384,6 @@ export default {
         u_id : this.userInfo.u_id
       }
       userlikeComment(commentInfo)
-      // this.getEpiComment();
     },
     getUserBlockedInfo(){
       if(this.userInfo.is_blocked) {
@@ -454,12 +430,10 @@ export default {
   },
   beforeDestroy(){
     const watching = {
-      // u_id: this.userInfo.u_id,
       ve_id: this.vodEpiInfo.ve_id,
       vh_watching_time: this.nowTime(this.videoCurrentTime)
     }
     endVodWatch(watching);
-    // console.log('시청기록끝',watching,end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
   }
 };
 </script>

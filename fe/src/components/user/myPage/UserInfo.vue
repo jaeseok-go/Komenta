@@ -69,15 +69,6 @@ export default {
           u_profile_pic:this.userProfile
         };
         await this.$store.dispatch('MODIFY',userData)
-      
-      
-        // console.log('유저데이터잘들어왔니',userData)
-        // console.log(this.userInfo)
-
-      // catch(err) {
-      //   console.log("수정 에러")
-      //   console.log(err);
-      // }
     }
   }
 }

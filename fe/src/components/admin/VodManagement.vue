@@ -69,19 +69,13 @@ export default {
     },
     async getVODList() {
       const response = await fetchAllEpi();
-      console.log("vod list : ",response);
       this.vodList = response.data;
     },
     goVod(veId) {
       this.$router.push(`/voddetail/${veId}`);
     },
-    // setVodModify(ve_id) {
-
-    // },
     async deleteVod(v_id) {
-      console.log("현재 ve_id : ", v_id)
       const response = await deleteVOD(v_id);
-      console.log('삭제 결과 : ', response)
       if(response.data == 1) {
         alert('성공적으로 삭제되었습니다.')
         window.location.reload();

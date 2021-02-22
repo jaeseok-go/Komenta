@@ -12,8 +12,8 @@
         <img :src="getProfile(userInfo.u_profile_pic)" alt="">
       </div>
       <div class="web-navigation__userText">
-        <p class="web-navigation__userNickName" v-text="getUserNickName(userInfo.u_nickname)"></p> <!-- v-text="getNickName(userInfo.u_nickname)" -->
-        <p class="web-navigation__userId" v-text="userInfo.u_email"></p> <!-- v-text="getEmail(userInfo.u_email)" -->
+        <p class="web-navigation__userNickName" v-text="getUserNickName(userInfo.u_nickname)"></p>
+        <p class="web-navigation__userId" v-text="userInfo.u_email"></p>
       </div>
     </div>
     <div class="web-navigation__scrollable">
@@ -118,7 +118,6 @@
 
 <script>
 import { mapState } from 'vuex';
-// import store from '@/stores/modules/user'
 
 export default {
   methods: {
@@ -147,7 +146,6 @@ export default {
             showConfirmButton: false,
           }).then(()=>{
             this.$store.commit('logout')
-            // this.$router.push('/')
             window.location.href = '/'
 
           })
@@ -166,14 +164,6 @@ export default {
         return nickname+" 님";
       }
     },
-    // getUserEmail(email) {
-    //   if(email.length > 18) {
-    //     const rename = email.substring(0,17);
-    //     return rename;
-    //   }else {
-    //     return email;
-    //   }
-    // }
   },
   computed: {
     ...mapState({
@@ -186,8 +176,6 @@ export default {
   created() {
     const userId = this.userInfo.u_id;
     this.$store.dispatch('FETCH_MYPLAYLIST', userId);
-    // console.log(this.myPlayList, '아아아아아ㅏ');
-    // console.log(this.userInfo, '유저ㅏ인포???????');
   },
 };
 </script>

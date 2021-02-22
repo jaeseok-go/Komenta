@@ -3,8 +3,6 @@
 }
 
 .category {
-  // font-family: 'Roboto', sans-serif;
-
   & hr {
     margin-bottom: 0 !important;
   }
@@ -83,9 +81,6 @@
 .__select-form {
   display: inline-block;
   margin: 0 1rem;
-  // border: 1px solid;
-  // border-radius: 10px;
-  // padding: 0.3rem;
   text-align: center;
 
   & select {
