@@ -7,12 +7,10 @@
         <!-- 전체 리스트 선택하는 기능 -->
         <div class="inline-block" :style="{display:editInlineDisplay}">
           <input type="checkbox" id="allChk" value="allChk" v-model="allChk">
-          <!-- <label for="allChk"><font-awesome-icon class="chk-label" :icon="[chkIcon, 'check-circle']" /></label> -->
           <label for="allChk">전체 선택</label>
         </div>
         <!-- 선택한 댓글 삭제 기능 -->
         <p class="inline-block" :style="{display:editInlineDisplay}">삭제</p>
-        <!-- <button @click="commentDelete">{{editBtnText}}</button> -->
       </div>
       <table class="table-border-style">
         <tr>
@@ -21,7 +19,6 @@
           <td>댓글 내용</td>
           <td>좋아요</td>
           <td>날짜</td>
-          <!-- <td :style="{display:editDisplay}">삭제</td> -->
         </tr>
         <tr v-if="commentContents.length == 0">
           <td colspan="5">등록한 댓글이 없습니다.</td>
@@ -32,7 +29,6 @@
           <td>{{comm.c_contents}}</td>
           <td>{{comm.c_good_count}}개</td>
           <td>{{comm.c_upload_time}}</td>
-          <!-- <td :style="{display:editDisplay}"><input type="checkbox" :id="index" :vlaue="index" :v-model="deleteList"></td> -->
         </tr>
       </table>
       <div class="admin-btn-cover">
@@ -44,16 +40,7 @@
         <font-awesome-icon :icon="['fas', 'angle-right']"/>
       </button>
     </div>
-      <!-- {{deleteList}} -->
     </div>
-    <!-- 
-      1. 컨텐츠 명(제목+회차)<br>
-      2. 댓글 내용(a태그 -> 해당 회차 페이지로 이동)<br>
-      3. 좋아요 수<br>
-      4. 대댓글 수<br>
-      5. 댓글 쓴 날짜<br>
-      6. 편집 버튼 클릭 시, 댓글 수정, 삭제 가능<br> 
-    -->
   </b-col>
 </template>
 
@@ -91,7 +78,6 @@ export default {
       let listLeng = this.commentContents.length,
           listSize = this.pageSize,
           page = Math.floor(listLeng / listSize);
-      // console.log("commentContents 수 : ",listLeng)
       if(listLeng % listSize > 0) page += 1;
 
       return page;
@@ -112,8 +98,6 @@ export default {
       for(let i = response.data.length-1; i >= 0; i--){
         this.commentContents.push(response.data[i]);
       }
-      // this.commentContents = response.data
-      console.log("내 댓글 : ",this.commentContents)
     },
     commentDelete() {
       if(this.editDisplay == 'none'){
@@ -126,13 +110,6 @@ export default {
         this.editBtnText='편집';
       }
     },
-    // allCheck(){
-  //   if(this.allChk) {
-  //     this.chkIcon='fas'
-  //   }else {
-  //     this.chkIcon='far'
-  //   }
-  // },
   nextPage() {
       this.pageNum += 1;
     },
