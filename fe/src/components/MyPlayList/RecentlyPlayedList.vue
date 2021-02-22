@@ -16,10 +16,7 @@
         <div v-for="(vod,index) in paginatedData" :key="vod.v_id">
           <!-- vod poster -->
           <div class="vodPoster">
-            <img :src="getPoster(index)" @click="goVodDetail(vod.ve_id)"> <!--  @mouseover="showOnInfo" -->
-            <!-- <div class="recent-play-vodInfo" :style="{display:rVodInfo}">
-              test
-            </div> -->
+            <img :src="getPoster(index)" @click="goVodDetail(vod.ve_id)">
           </div>
         </div>
         <!-- 다음 버튼 -->
@@ -55,7 +52,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters(['fetchedRecentPlaylist']),
     ...mapState({
         userInfo: state => state.user.userInfo,
       }),
@@ -88,15 +84,10 @@ export default {
     getPoster(index) {
       const idx = (index + ((this.pageNum*this.pageSize)));
       const poster = String(this.episodeList[idx].gd_id+'_'+ this.episodeList[idx].v_title);
-      // console.log("popular poster name : ",poster)
       return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
-      //this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg' //포스터 이름
-      //this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4' //vod 영상 이름
-      // return require(`${process.env.VUE_APP_PICTURE}poster/${poster}`);
     },
     async fetchRPlayList(){
       const response = await fetchRecentPlaylist(this.userInfo.u_id);
-      // console.log("최근 시청 VOD 정보 : ",response);
       this.historyList = response.data.historyList;
       this.episodeList = response.data.episodeList;
     },

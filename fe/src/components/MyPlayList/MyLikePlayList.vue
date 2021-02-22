@@ -98,7 +98,6 @@ export default {
     this.$store.dispatch('FETCH_LIKEPLAYLIST', this.userInfo.u_id);
     this.getPopularPlayList();
     setTimeout(this.getByUserNickname,100);
-    // this.getLikePlayList()
   },
   computed: {
     ...mapState({
@@ -114,11 +113,9 @@ export default {
       for (let i = 0; i < this.likeUserPlaylists.length; i++) {
         const playlist = this.likeUserPlaylists[i];
         if (playlist[0].pl_id == plId) {
-            // console.log('false')
           return false;
         }
       }
-      // console.log('true')
       return true;
     },
     async addlikeUserPlaylist(plId) {
@@ -161,16 +158,14 @@ export default {
     async getPopularPlayList() {
       try{
         const response = await fetchPopularPlayList();
-        // console.log("popular play list : ",response.data);
         for (let i = 0; i < response.data.length; i++) {
           const now = response.data[i];
           if (now.pldetail[0].v_id !== 0 && now.pldetail[0].u_id != this.userInfo.u_id) {
             this.popularPlayList.push(response.data[i])
           }   
         }
-        // console.log("popular play list!!!!!!!!!!! : ",this.popularPlayList);
       }catch(err) {
-        console.log(err,"err")
+        console.log(err)
       }
     },
     async getByUserNickname() {
@@ -182,12 +177,9 @@ export default {
           }
         }
       }
-      // console.log("유저 닉네임 잘 들어왔니? : ",this.likeUserPlaylists)
     },
     vodTitleReName(title, epi_num) {
-    //{{vod.v_title}} {{vod.ve_episode_num}}화
       let name = String(title+" "+epi_num+"화");
-      // console.log('name : ',name)
       let rename = "";
       for(let i = 0; i<name.length; i++){
         if(i%10 == 0) {
@@ -196,7 +188,6 @@ export default {
           rename += name.charAt(i);
         }
       }
-      // console.log("rename : ",rename)
       return rename;
     },
     getRecommTitle() {
