@@ -3,9 +3,6 @@ import { loginUser,
     fetchLikePlaylist, fetchfollowinglist, fetchunfollowinglist, fetchMyPlaylist, fetchRecentPlaylist } from '@/api/user.js' //fetchRecentPlaylist, 
 import jwtDecode from 'jwt-decode'
 
-
-
-// localstorage에 토큰 저장하는 방식으로 바꾸기! -> 이름만 localStorage로 바꾸면됨
 const state = {
     adminAuth: 0,
     token: sessionStorage.getItem('auth-token'),
@@ -15,7 +12,6 @@ const state = {
         token_expired : null,
         u_id: null,
         u_email: null,
-        // u_pw: null,
         u_phone_number: null,
         u_nickname: null,
         u_expire_member: null,
@@ -34,14 +30,11 @@ const state = {
 
 const mutations = {
     setToken(state, token) {
-        console.log("수정 후 처음 들어오는 토큰 : ",token);
         state.token = token
         sessionStorage.setItem('auth-token', token)
         state.isLogin = true
         state.isLoginError = false
-        // state.userInfo = userData
         state.userInfo = jwtDecode(token)
-        console.log('여긴 store', state.userInfo)
     },
     fetchInfo(state, userData) {
         state.userInfo = userData
@@ -79,11 +72,9 @@ const mutations = {
     //1-3.최근 목록 플레이 리스트 저장
     setRecentPlaylist(state, recentPlaylist) {
         state.recentPlaylist = recentPlaylist
-        console.log(state.recentPlaylist,'최근목록리스트 state')
     },
     setLikePlaylist(state, likePlaylist) {
         state.likePlaylist = likePlaylist
-        console.log('유저가 좋아요한 플레이리스트 : ',state.likePlaylist)
     },
     setMyfollowingList(state, followingList){
         state.myFollowingList = followingList
@@ -98,24 +89,18 @@ const mutations = {
         state.userFeed = userFeed
     },
     setExpireMember(state, memDate) {
-        console.log("여기는 setExpireMember : ",memDate)
         state.userInfo.u_expire_member = memDate;
     }
 }
 
 const actions = {
     async LOGIN({ commit }, userData) {
-        console.log("로그인한다", commit, userData)
         const response = await loginUser(userData);
         if (response.data['auth-token']) {
             commit('setToken', response.data['auth-token'])
-            // commit('fetchInfo', response.data.data)
-            console.log(response.data.data, '유저정보들어왔니')
-
         } else {
             commit('loginError')
         }
-        console.log(userData,'유저데이터')
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist()
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
@@ -124,15 +109,10 @@ const actions = {
         //로그인할때, 내가 만든 플레이리스트 목록 저장 
         const myPlayList = await fetchMyPlaylist(state.userInfo.u_id)
         commit('setMyPlayList',myPlayList.data)
-        
-        console.log(state.userInfo)
         return response
     },
     async MODIFY({ commit }, userData) {
-        console.log("수정할 정보 : ",userData);
         const response = await updateMyInfo(userData);
-        console.log("회원 정보 수정 response : ",response)
-        console.log('token jwt decode',jwtDecode(response.data['auth-token']))
         commit('setToken',response.data['auth-token'])
     },
     async PASSWORDCONFIRM({ commit }, userData) {
@@ -148,7 +128,6 @@ const actions = {
     async FETCH_RECENTPLAYLIST({ commit }, userId) {
         //1-1.로그인할때 u_id로 최근 시청 목록, 좋아요 누른 플레이 리스트 목록 갖고오기
         const recentPlaylist = await fetchRecentPlaylist(userId)
-        console.log(recentPlaylist.data,'최근 플레이리스트..')
         //1-2.응답으로 들어온 recentPlaylist를 store에 저장하기
         commit('setRecentPlaylist', recentPlaylist.data)
     },
@@ -172,7 +151,6 @@ const actions = {
         commit('setMyPlayList',myPlayList.data)
     },
     FETCH_MEMBERSHIP({ commit }, memberDate) {
-        console.log('바뀐 날짜 잘 들어오나? ',memberDate)
         commit('setExpireMember', memberDate);
     }
 
