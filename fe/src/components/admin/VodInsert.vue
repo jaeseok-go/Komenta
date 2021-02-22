@@ -31,7 +31,7 @@
                 </b-select>
               </div>
             </div>
-            <!-- <br> -->
+
             <input type="hidden" id="v_id" v-model="vod_all.v_id">
             <b-input type="text" id="v_title" v-model="vod_all.v_title" placeholder="VOD 제목을 입력하세요."></b-input>
             <b-input type="text" id="v_summary" v-model="vod_all.v_summary" placeholder="VOD 전체 줄거리를 입력하세요."></b-input>
@@ -57,15 +57,13 @@
               <b-th>종류/장르</b-th>
               <b-th>등록일</b-th>
               <b-th>담당자</b-th>
-              <b-th>설정</b-th>
             </b-tr>
-            <b-tr @click="toVideo()" v-for="all_episode in all_episode" :key=all_episode.ve_id>
+            <b-tr v-for="all_episode in all_episode" :key=all_episode.ve_id>
               <b-td>{{ all_episode.ve_id }}</b-td>
               <b-td>{{ all_episode.v_title }}-{{ all_episode.ve_episode_num }}화</b-td>
               <b-td>{{ all_episode.g_name }}/{{all_episode.gd_name}}</b-td>
               <b-td>{{ all_episode.ve_upload_date }}</b-td>
               <b-td>{{ all_episode.ve_admin }}</b-td>
-              <b-td>수정/삭제</b-td>
             </b-tr>
           </table>
         </b-col>
@@ -108,17 +106,14 @@ export default {
     fetchVodList()
     .then((response) => {
       this.vod_list = response.data;
-      // console.log("VOD 리스트 가져오기 : ",this.vod_list);
     })
-    .catch((ex) => {
+    .catch(() => {
       alert('VOD 리스트를 가져오는데 문제가 발생했습니다.')
-      console.log(ex);
     });
 
     fetchAllEpi()
     .then((response)=>{
       this.all_episode = response.data;
-      // console.log("모든 episode 가져오기 : ",this.all_episode);
     })
     .catch(() => {
       alert('VOD episode를 가져오는데 문제가 생겼습니다.');
@@ -126,7 +121,6 @@ export default {
 
     fetchAllGenre()
     .then((response) =>{
-      // console.log("모든 장르 가져오기 : ",response.data)
       this.genre_list = response.data;
     })
     .catch(()=>{
@@ -144,7 +138,6 @@ export default {
      fetchGenreDetail(this.genre_id)
      .then((response) => {
        this.genre_detail_list = response.data;
-      //  console.log("genre detail 여깄다"+ response);
      })
      .catch(()=>{
        alert('소장르를 가져오는데 문제가 생겼습니다.');
@@ -170,61 +163,44 @@ export default {
      }
    },
    async send(){
-     
     this.vod_all.gd_id = this.genre_detail_id;
-    // let vposter_name = this.file1.name.split('.');
-    // this.vod_all.v_poster = vposter_name[0]+'.'+vposter_name[1].toLowerCase();
-    // console.log("들어가기전 최종",this.vod_all);
+    
     let formData1 = new FormData();
     let vodTitle = this.vod_all.v_title;
     let vodReplace = vodTitle.replace(/(\s*)/g, "");
-    console.log(vodReplace)
     formData1.append("file",this.file, String(this.vod_all.gd_id+'_'+vodReplace+"_"+this.vod_all.ve_episode_num+'화.mp4'))
-    console.log('formData1 : ', formData1.get('file'))
+    
     let formData2 = new FormData();
-    // let poster_name = this.file1.name;
-    // let extensions = poster_name.split('.');
     formData2.append("v_poster", this.file1, String(this.vod_all.gd_id+'_'+this.vod_all.v_title+'.jpg'));
     this.vod_all.v_poster = String(this.vod_all.gd_id+'_'+this.vod_all.v_title);
 
+    let errNum = 0;
+
     await sendVODInfo(this.vod_all)
-    .then((response)=>{
-      console.log("vod regist 잘들어감",  response.data);
-    })
-    .catch((err)=>{
-      console.log("vod, vod epi 업로드에러");
-      console.log(err)
+    .catch(()=>{
       alert("vod 정보를 업로드 하던 중 오류가 발생했습니다.")
+      errNum++;
       return;
     });
      
     await insertVOD(formData1)
-    .then((response)=>{
-      console.log("video data 잘들어감", response.data);
-    })
-    .catch((err)=>{
-      console.log("video 업로드에러");
-      console.log(err)
+    .catch(()=>{
       alert("vod 영상을 업로드 하던 중 오류가 발생했습니다.")
+      errNum++;
       return;
     });
      
     await insertVodPoster(formData2)
-    .then((response)=>{
-      console.log("poster 사진 잘 들어감", response.data);
-    })
-    .catch((err)=>{
-      console.log("poster 업로드에러");
-      console.log(err)
+    .catch(()=>{
       alert("vod 포스터를 업로드 하던 중 오류가 발생했습니다.")
+      errNum++;
       return;
     })
 
-    alert("VOD가 정상적으로 등록되었습니다.");
-    window.location.reload();
-  },
-  toVideo(){
-    location.href="test";
+    if(errNum == 0){
+      alert("VOD가 정상적으로 등록되었습니다.");
+      window.location.reload();
+    }
   }
   }
 };

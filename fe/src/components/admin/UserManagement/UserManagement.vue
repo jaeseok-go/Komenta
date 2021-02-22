@@ -52,7 +52,6 @@ export default {
     },
     async getUserList() {
       const response = await fetchAllUsers();
-      console.log("회원 목록 : ",response);
 
       for (let user = 0; user < response.data.length; user++) {
         if(response.data[user].u_is_admin) {

@@ -16,7 +16,6 @@
         <td>{{user.u_id}}</td>
         <td>{{user.u_email}}</td>
         <td>{{user.u_nickname}}</td>
-          <!-- 라벨버튼 모양으로 만들기 -->
         <td>
           <div :class="`btn-label ${user.u_state}`" @click="changeState(index)">
             {{user.u_state}}
@@ -78,8 +77,7 @@ export default {
             u_profile_pic:this.adminList[idx].u_profile_pic,
             u_pw:this.adminList[idx].u_pw,
           };
-          const response = await updateUserInfo(userdata);
-          console.log("일반->제한: ",response);
+          await updateUserInfo(userdata);
           window.location.reload();
         }else if(this.adminList[idx].u_state === '제한회원'){
           this.adminList[idx].u_state = '일반회원';
@@ -94,12 +92,11 @@ export default {
             u_profile_pic:this.adminList[idx].u_profile_pic,
             u_pw:this.adminList[idx].u_pw,
           };
-          const response = await updateUserInfo(userdata);
-          console.log("제한->일반: ",response);
+          await updateUserInfo(userdata);
           window.location.reload();
         }
       }catch(err) {
-        console.log("상태수정 에러 : ",err);
+        console.log(err);
       }
     }
   },
