@@ -26,6 +26,6 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-//vod files
+#vod files
 .mp4
 
