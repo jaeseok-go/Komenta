@@ -1,7 +1,6 @@
 <template>
     <div >
         <div>
-            <!-- <button @click="getCurTime">현재시간?</button> -->
             <video height="300px" ref="video" id="videotag" controls="controls" @timeupdate="onTimeUpdate">
                 <source :src="getVideo()" id="player" type='video/mp4'/>
             </video>
@@ -35,14 +34,12 @@ export default {
     veId : Number,
     sendcommenttime:[String,Number],
     vodEpiInfo:Object,
-    // 반드시 필요하다는 의미
+    // 반드시 요청받아야한다는 의미
     // required: true,
     // 값을 전달하지 않을 경우 디폴트값 설정 가능 
-   
     },
     data () {
         return {
-            // showComment:false,
             selectedId:0,
             videoCurrentTime: '',
             userComment:'',
@@ -53,45 +50,34 @@ export default {
         }
     },
     created() {
-        // comments 시간순으로 정렬, parseFloat(문자열 실수로 크기비교)
         this.getEpiComment();
     },
     methods:{   
     async getEpiComment() {
     try {
         const epiId = this.$route.params.id;
-        console.log(epiId,this.veId,'ve_id')  
-      const res = await fetchEpiComment(epiId)
-      console.log(res.data,'Comment??')
-      this.comments = res.data
-      this.comments.sort(function (a,b) {
+        const res = await fetchEpiComment(epiId)
+        this.comments = res.data
+        this.comments.sort(function (a,b) {
             return a.c_playtime < b.c_playtime ? -1 :a.c_playtime > b.c_playtime ? 1:0;
         })
-        console.log(this.comments,'댓글?')
-
     } catch {
-      console.log('epicomment 에러!!')
+      console.log('epicomment 에러')
     }
   },
         onscroll() {
             const objDiv = document.getElementById("comment_div");
-
             if((objDiv.scrollTop + objDiv.clientHeight) == objDiv.scrollHeight){
                     // 채팅창 전체높이 + 스크롤높이가 스크롤 전체높이와 같다면
                     // 이는 스크롤이 바닥을 향해있다는것이므로
                     // 스크롤 바닥을 유지하도록 플래그 설정
                     this.bottom_flag = true;
             }
-
             if(this.pre_diffHeight > objDiv.scrollTop + objDiv.clientHeight ){
                 // 스크롤이 한번이라도 바닥이 아닌 위로 상승하는 액션이 발생할 경우
                 // 스크롤 바닥유지 플래그 해제
                 this.bottom_flag = false;  
             }
-                    //
-                // this.pre_diffHeight = objDiv.scrollTop + objDiv.clientHeight
-            // }
-
         },
         nowTime(num){
             let myNum = parseInt(num, 10);
@@ -106,12 +92,10 @@ export default {
         },
         timeToSec(time){
             let splitTime = time.split(':')
-            // console.log(splitTime)
             let changeTime = Number(splitTime[splitTime.length-1])
             for (let i = splitTime.length-2; i >= 0; i--) {
                 let element = Number(splitTime[i]);
                 changeTime += element*(60**(splitTime.length-i-1))
-                // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
             }
             return changeTime
         },
@@ -147,7 +131,6 @@ export default {
         async createComment() {
             try {
                 const vod = document.getElementById("videotag");
-                console.log(vod.currentTime,'????댓글시간등록')
                 const commentInfo = {
                     c_contents : this.userComment,
                     c_playtime : vod.currentTime,
@@ -155,32 +138,28 @@ export default {
                     ve_id : this.veId
                 }
             const res = await commentInsert(commentInfo)
-            console.log(res,'댓글써졌니?')
             this.getEpiComment();
             this.userComment=""
             } catch {
                 console.log('댓글썼는데 실패함')
                 
             }
-
-
-
-  },
-  likeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
-      }
-      this.$emit('likeComment',commentInfo)
-      
-  },
-  unlikeComment(cId){
-      const commentInfo = {
-        c_id : cId,
-        u_id : this.userInfo.u_id
-      }
-      this.$emit('unlikeComment',commentInfo)
-  },
+        },
+        likeComment(cId){
+            const commentInfo = {
+                c_id : cId,
+                u_id : this.userInfo.u_id
+            }
+            this.$emit('likeComment',commentInfo)
+            
+        },
+        unlikeComment(cId){
+            const commentInfo = {
+                c_id : cId,
+                u_id : this.userInfo.u_id
+            }
+            this.$emit('unlikeComment',commentInfo)
+        },
     },
     watch : {
         sendcommenttime : function() {
@@ -194,19 +173,17 @@ export default {
 
     },
     computed:{
-         ...mapState({
-      userInfo: state => state.user.userInfo,
-    }),
+        ...mapState({
+            userInfo: state => state.user.userInfo,
+        }),
     },
     beforeDestroy(){
         const watching = {
-            // u_id: this.userInfo.u_id,
             ve_id: this.veId,
             vh_watching_time: this.nowTime(this.videoCurrentTime)
         }
         const end = endVodWatch(watching);
-        console.log('시청기록끝',end,this.videoCurrentTime,'->',this.nowTime(this.videoCurrentTime))
-}
+    }   
 }
 </script>
 

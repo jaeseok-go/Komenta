@@ -35,7 +35,6 @@ export default {
       if (store.state.userInfo.u_email) {
         this.userId = store.state.userInfo.u_email;
       } else {
-        // alert('회원가입이 필요합니다.')
         this.$swal({
           customClass: {
           container: 'swal2-container'

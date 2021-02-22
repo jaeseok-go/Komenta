@@ -24,7 +24,6 @@
       <span>{{ comment.c_contents}} </span> <br>
       </template>
       <span class="comment__uploadtime"> {{comment.c_upload_time}} </span>
-      <!-- :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" -->
       <span @click="commentLike(index,comment)"><font-awesome-icon :icon="['fas', 'thumbs-up']" :id="`like-btn-${comment.c_id}`" :class="[comment.is_like_comment ? 'commet__like' :' comment__unlike' ]" style="cursor:pointer"/><span :id="`like-cnt-${comment.c_id}`">{{ comment.comment_good_count }}</span> </span>
       </div>
       <hr>
@@ -49,30 +48,24 @@ export default {
 
     }
   },
-  // props:{
-  //   commentsList:Array,
-  // },
-   computed:{
-      ...mapState({
+  computed:{
+    ...mapState({
       userInfo: state => state.user.userInfo,
       myUnFollowingList: state => state.user.myUnFollowingList,
     }),
-    },
+  },
   created() {
-  this.getEpiComment();
-  // this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
-  // console.log(this.myUnFollowingList,'언팔유저')
-    },
+    this.getEpiComment();
+  },
   methods : {
-      itsMe(uId) {
-            if (this.userInfo.u_id == uId) {
-                return true
-            }
-            return false
-      },
-        DeleteComment(cId){
+    itsMe(uId) {
+          if (this.userInfo.u_id == uId) {
+              return true
+          }
+          return false
+    },
+    DeleteComment(cId){
       this.$swal({
-        // title: '플레이리스트를 삭제하시겠습니까?',
         text: '댓글을 삭제하시겠습니까?',
         icon:'error',
          customClass: {
@@ -82,8 +75,6 @@ export default {
         confirmButtonText: '삭제',
         confirmButtonColor: "#fc3c44",
         cancelButtonText: '취소',
-        // showCloseButton: true,
-        // showLoaderOnConfirm: true
       }).then((result) => {
         if(result.value) {
           this.$swal({
@@ -106,82 +97,63 @@ export default {
       })
     },
     isBlockUser(uId){
-      // console.log(this.myUnFollowingList,'언팔')
       for (let i = 0; i < this.myUnFollowingList.length; i++) {
         const unfollowuser = this.myUnFollowingList[i];
         if (unfollowuser.f_id == uId) {
-
           return true
         }
       }
-
       return false
     },
     async blockUser(uId) {
-    const blockInfo = {
-      u_id : this.userInfo.u_id,
-      uf_id : uId
-    }
-    await modifyunfollow(blockInfo)
-    this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
-
-  },
+      const blockInfo = {
+        u_id : this.userInfo.u_id,
+        uf_id : uId
+      }
+      await modifyunfollow(blockInfo)
+      this.$store.dispatch('FETCH_UNFOLLOWING',this.userInfo.u_id)
+    },
     goFeed(uId){
       this.$router.push(`/feed/${uId}`)
     },
     async getEpiComment() {
-    try {
-        const epiId = this.$route.params.id; 
-      const res = await fetchEpiComment(epiId)
-      this.commentsList = res.data.sort(function (a,b) {
-             return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
-        }).slice(0,10)
+      try {
+          const epiId = this.$route.params.id; 
+        const res = await fetchEpiComment(epiId)
+        this.commentsList = res.data.sort(function (a,b) {
+              return parseFloat(a.comment_good_count) > parseFloat(b.comment_good_count) ? -1 : parseFloat(a.comment_good_count) < parseFloat(b.comment_good_count) ? 1:0;
+          }).slice(0,10)
+      } catch {
+        console.log('epicomment 에러!!')
+      }
+    },
+    goCommentTime(time){
+      this.$emit('goCommentTime',time)
+    },
+    timeToSec(time){
+      let splitTime = time.split(':')
+      let changeTime = Number(splitTime[splitTime.length-1])
+      for (let i = splitTime.length-2; i >= 0; i--) {
+          let element = Number(splitTime[i]);
+          changeTime += element*(60**(splitTime.length-i-1))
+      }
+      return changeTime
+    },
+    async commentLike(index,comment){
+      const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
+      this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
 
-    } catch {
-      console.log('epicomment 에러!!')
-    }
-  },
-      goCommentTime(time){
-        this.$emit('goCommentTime',time)
-      },
-      timeToSec(time){
-        let splitTime = time.split(':')
-        // console.log(splitTime)
-        let changeTime = Number(splitTime[splitTime.length-1])
-        for (let i = splitTime.length-2; i >= 0; i--) {
-            let element = Number(splitTime[i]);
-            changeTime += element*(60**(splitTime.length-i-1))
-            // console.log(changeTime,'??초초초초??',element,60**(splitTime.length-i-1))
-        }
-        return changeTime
-        },
-   async commentLike(index,comment){
-    const likeBtn = document.getElementById(`like-btn-${comment.c_id}`)
-    // const likeCount = document.querySelector(`#like-cnt-${comment.c_id}`)
-    // likeBtn.style.color = comment.is_like_comment ? 'crimson' : 'black'
-  this.commentsList[index].is_like_comment = !this.commentsList[index].is_like_comment
-    
-    likeBtn.classList.toggle('comment__like')
-    likeBtn.classList.toggle('comment__unlike')
-    // console.log('버튼',likeBtn)
-// if (this.commentsList[index].is_like_comment){
-      // this.commentsList[index].comment_good_count += 1
-      // likeBtn.style.color = '#fc3c44'
-    // } else {
-      // this.commentsList[index].comment_good_count -=1
-      // likeBtn.style.color ='grey'
-    // }
+      likeBtn.classList.toggle('comment__like')
+      likeBtn.classList.toggle('comment__unlike')
       const commentInfo = {
         c_id : comment.c_id,
         u_id : this.userInfo.u_id
-    }
+      }
       await userlikeComment(commentInfo)
       this.getEpiComment();
       this.$emit('commentLike',comment.c_id)
+    }    
   }
-
-      
-    }
 }
 </script>
 
