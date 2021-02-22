@@ -2123,6 +2123,10 @@ select {
   border-color: #3b7ddd;
 }
 
+.v-image {
+  height: 100%;
+}
+
 .follow-setting .inline-block {
   display: inline-block;
 }
