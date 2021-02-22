@@ -1,6 +1,4 @@
 // 폰트
-
-
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -190,9 +188,9 @@
 ::after,
 ::before {
   box-sizing: border-box;
-  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-family: '나눔바른고딕', 'NanumBarunGothic', helvetica, '돋움', Dotum,
-    'Apple SD Gothic Neo', MS PGothic, arial, sans-serif, 'Indie Flower', cursive;
+    'Apple SD Gothic Neo', MS PGothic, arial, sans-serif, 'Indie Flower',
+    cursive;
 }
 
 #page-view {

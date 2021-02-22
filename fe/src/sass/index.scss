@@ -1,9 +1,7 @@
 @import 'base/base';
 
 @import 'abstracts/variables';
-@import 'abstracts/mixins';
 
-@import 'base/animations';
 @import 'base/typo';
 @import 'base/utilities';
 
@@ -12,7 +10,6 @@
 @import 'layout/form';
 @import 'layout/input';
 @import 'layout/main';
-@import 'layout/nav';
 @import 'layout/footer';
 
 @import 'components/button';
@@ -29,7 +26,3 @@
 @import 'components/comments';
 @import 'components/aboutpage';
 @import 'components/category';
-
-// @import '../../public/css/component.css';
-// @import '../../public/css/demo.css';
-// @import '../../public/css/normalize.css';

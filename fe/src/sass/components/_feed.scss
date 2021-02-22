@@ -4,16 +4,10 @@
   }
 
   .userprofile {
-    // margin-bottom: 2rem;
     padding: 1rem 3rem 1rem;
-    // border-radius: 30px;
     font-size: 2rem;
     color: #fff;
-    // border: double 4px transparent;
-    // background: linear-gradient(to left, #f00,#3020ff);
-    // background: linear-gradient(to right, #009fff, #ec2f4b);
     background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
-    // background: linear-gradient(to right, #fc354c, #0abfbc);
 
     text-align: center;
     font-family: 'Lato', sans-serif;
@@ -121,19 +115,11 @@
   &.vod-detail {
     top: 15px;
     right: -6px;
-
-    & .triangle::before {
-      // left: ;
-    }
   }
 
   & .triangle {
-    //   width: 0;
     position: relative;
     left: 340px;
-    //   border-bottom: 20px solid;
-    //   border-left: 10px solid transparent;
-    //   border-right: 10px solid transparent;
   }
 
   & .triangle::before {
@@ -166,18 +152,12 @@
     border-radius: 5px;
     background-color: white;
     border: 2px solid $komenta-color;
-    // background-image: linear-gradient(white, white),
-    //   radial-gradient(circle at top left, #feac5e, #c779d0, #4bc0c8);
-    // background-origin: border-box;
-    // background-clip: content-box, border-box;
-    // border: double 2px transparent;
     box-shadow: 5px 5px 10px #c8c8c8;
     text-align: center;
     display: inline-block;
     line-height: 250px;
     & img {
       width: 390px;
-      // posistion: relative;
       vertical-align: middle;
     }
   }
@@ -186,7 +166,6 @@
 .drop-zone {
   margin-top: 10px;
   height: 300px;
-  // border-radius: 20px;
   box-shadow: 0 1px 15px -7.5px #000000;
   border: double 2px transparent;
   border-radius: 10px;
@@ -241,7 +220,6 @@
 .modal-input {
   width: 100%;
   height: 50px;
-  // border: 1px solid #ced4da;
   border-bottom: 1px solid #dee2e6;
   border-radius: 0.2rem;
   display: inline-flex;
@@ -250,7 +228,6 @@
 .modal-textarea {
   width: 100%;
   height: 100px;
-  // border: 1px solid #ced4da;
   border-bottom: 1px solid #dee2e6;
   border-radius: 0.2rem;
   display: inline-flex;
