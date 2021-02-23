@@ -11,16 +11,16 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: komenta201@gmail.com
-    password: ssafy@201
+    username: "Email Here"
+    password: "Password Here"
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/komenta?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: b201root
+    username: "ID here"
+    password: "Password here"
 server:
   port : 9999
   servlet:
