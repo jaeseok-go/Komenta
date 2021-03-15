@@ -37,7 +37,7 @@ export default {
             idDisplay: 'none',
             resetBtnDisplay: 'none',
             authenNum: '',
-            confirmNum: '',
+            confirmNum: '0000',
         };
     },
     computed: {
@@ -65,10 +65,11 @@ export default {
     async sendCertificationNumber() {
       const response = await phoneAuth(this.userPhoneNum)
       // 인증번호 params response에서 확인필요
-      this.confirmNum = `${response.data.auth_number}`;
+      // this.confirmNum = `${response.data.auth_number}`;
       // response.data.u_email
       this.userId = response.data.u_email;
       console.log(response)
+      this.confirmNum = response.data.auth_number;
       window.alert('인증 번호를 발송했습니다.');
       this.start();
       this.authenDisplay = 'block';
@@ -80,18 +81,16 @@ export default {
         this.timeStop();
         this.resetBtnDisplay = 'none';
         if ((this.userInfo.u_phone_number === null) && this.userInfo.u_email) {
-        console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
-        this.$store.commit('setPhonenum',this.userPhoneNum);
-        console.log(this.userInfo,'데이터들어왔니카카오구글')
-        const res = await registerUser(this.userInfo);
-        console.log(res,'sns회원가입')
-      } else {
-        store.commit('setEmail', this.userId);
-        store.commit('setPhonenum',this.userPhoneNum);
-        this.$emit('checkCertification')
-      }
-        // this.$router.push('/')
-        
+          console.log(this.userInfo,this.snsFlag,'어떻게들어오니ㅠ')
+          this.$store.commit('setPhonenum',this.userPhoneNum);
+          console.log(this.userInfo,'데이터들어왔니카카오구글')
+          const res = await registerUser(this.userInfo);
+          console.log(res,'sns회원가입')
+        } else {
+          store.commit('setEmail', this.userId);
+          store.commit('setPhonenum',this.userPhoneNum);
+          this.$emit('checkCertification')
+        }
       } else {
         window.alert('인증 실패했습니다. 다시 시도해주세요.');
       }

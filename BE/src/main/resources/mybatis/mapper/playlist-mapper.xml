@@ -1,0 +1,147 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.komenta.be.mapper.PlayListMapper">
+    <insert id="createPlayList" parameterType="com.komenta.be.model.playlist.PlayListDTO">
+        insert into play_list(pl_name, pl_comment, u_id)
+        values (#{pl_name}, #{pl_comment}, #{u_id})
+    </insert>
+
+    <update id="playlist_info_modify" parameterType = "com.komenta.be.model.playlist.PlayListDTO">
+        UPDATE play_list
+        SET pl_name = #{pl_name},
+            pl_comment = #{pl_comment}
+        WHERE pl_id = #{pl_id}
+    </update>
+
+    <delete id="playlist_delete" parameterType =  "int">
+        DELETE
+        FROM play_list
+        WHERE pl_id = #{pl_id}
+    </delete>
+    <delete id="unLikePList" parameterType = "com.komenta.be.model.playlist.PlayListGoodDTO">
+        DELETE
+        FROM play_list_good
+        where pl_id = #{pl_id} and u_id = #{u_id}
+    </delete>
+
+    <select id="playlist_info" parameterType = "int" resultType="com.komenta.be.model.playlist.PlayListGetAllDTO">
+        SELECT M.pl_id, M.pl_name, M.pl_comment, M.pl_good_count, M.u_id, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id, N.v_id, N.v_title, N.v_director, N.v_actors, N.v_poster, N.g_name, N.gd_name, N.ve_episode_num
+        FROM (SELECT C.pl_id, C.pl_name, C.pl_comment, C.u_id, C.pl_good_count, F.plc_id, F.vh_id, F.vh_comment, F.vh_score, F.ve_id
+              FROM (SELECT A.pl_id, A.pl_name, A.pl_comment, A.u_id, (case when B.pl_good_count IS NULL then 0 ELSE B.pl_good_count END) AS pl_good_count
+                    FROM play_list A LEFT OUTER JOIN (SELECT pl_id, COUNT(*) AS pl_good_count
+                                                      FROM play_list_good
+                                                      GROUP BY pl_id) B
+                                                     ON A.pl_id = B.pl_id
+                    WHERE A.pl_id = #{pl_id}) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
+                                                                 FROM play_list_contents D LEFT OUTER JOIN vod_history E
+                                                                                                           ON D.vh_id = E.vh_id) F
+                                                                ON C.pl_id = F.pl_id) M LEFT OUTER JOIN (SELECT K.*, L.ve_id, L.ve_episode_num
+                                                                                                         FROM (SELECT I.*, J.g_name
+                                                                                                               FROM (SELECT G.v_id, G.v_title, G.v_director, G.v_actors, G.v_poster, H.gd_id, H.gd_name, H.g_id
+                                                                                                                     FROM vod G LEFT OUTER JOIN genre_detail H
+                                                                                                                                                ON G.gd_id = H.gd_id) I LEFT OUTER JOIN genre J
+                                                                                                                                                                                        ON I.g_id = J.g_id) K LEFT OUTER JOIN vod_episode L
+                                                                                                                                                                                                                              ON K.v_id = L.v_id) N
+                                                                                                        ON M.ve_id = N.ve_id
+    </select>
+
+    <select id="select_follower_pl_id" parameterType="int" resultType="int">
+        SELECT B.pl_id
+        FROM (SELECT f_id
+              FROM follow
+              WHERE u_id = #{u_id}) A LEFT OUTER JOIN play_list B
+        ON A.f_id = B.u_id
+        WHERE B.pl_update_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        ORDER BY pl_update_date desc
+    </select>
+
+    <select id="select_favorite_pl_id" parameterType="int" resultType="int">
+        SELECT pl_id
+        FROM play_list_good
+        WHERE u_id = #{u_id}
+    </select>
+
+    <select id="select_regist_pl_id" parameterType="int" resultType="int">
+        SELECT pl_id
+        FROM play_list
+        WHERE u_id = #{u_id}
+    </select>
+
+    <insert id="moveHistoryToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromHistoryDTO">
+        insert into play_list_contents(vh_id, pl_id)
+        values (#{vh_id}, #{pl_id})
+    </insert>
+
+    <insert id="likePList" parameterType="com.komenta.be.model.playlist.PlayListGoodDTO">
+        insert into play_list_good (pl_id, u_id)
+        values (#{pl_id}, #{u_id});
+    </insert>
+
+    <update id="movePlaylistToPlaylist" parameterType="com.komenta.be.model.playlist.PlayListFromPlayListDTO">
+        update play_list_contents
+        set pl_id = #{pl_id}
+        where plc_id = #{plc_id}
+    </update>
+
+    <select id="getPlayListDetail" parameterType="int" resultType="com.komenta.be.model.playlist.PlayListDetailDTO">
+        SELECT O.*, P.u_nickname, P.u_profile_pic
+        FROM (SELECT M.pl_id, M.pl_name, M.pl_comment, (case when M.pl_good_count IS NULL then 0 ELSE M.pl_good_count end) AS pl_good_count,
+                     M.u_id, M.plc_id, M.vh_id, M.vh_comment, M.vh_score, M.ve_id,
+                     N.v_id, N.v_title, N.v_director, N.v_actors, N.v_poster, N.g_name, N.gd_name, N.ve_episode_num
+              FROM(SELECT C.pl_id, C.pl_name, C.pl_comment, C.u_id, C.pl_good_count, F.plc_id, F.vh_id, F.vh_comment, F.vh_score, F.ve_id
+                   FROM (SELECT A.pl_id, A.pl_name, A.pl_comment, A.u_id, B.pl_good_count
+                         FROM play_list A LEFT OUTER JOIN ( SELECT pl_id, COUNT(*) AS pl_good_count
+                                                            FROM play_list_good
+                                                            GROUP BY pl_id) B
+                         ON A.pl_id = B.pl_id
+                         WHERE A.pl_id = #{pl_id}) C LEFT OUTER JOIN (SELECT D.plc_id, D.pl_id, D.vh_id, E.vh_comment, E.vh_score, E.ve_id
+                                                               FROM play_list_contents D LEFT OUTER JOIN vod_history E
+                                                               ON D.vh_id = E.vh_id) F
+                   ON C.pl_id = F.pl_id) M LEFT OUTER JOIN (SELECT K.*, L.ve_id, L.ve_episode_num
+                                                            FROM (SELECT I.*, J.g_name
+                                                                  FROM (SELECT G.v_id, G.v_title, G.v_director, G.v_actors, G.v_poster, H.gd_id, H.gd_name, H.g_id
+                                                                        FROM vod G LEFT OUTER JOIN genre_detail H
+                                                                        ON G.gd_id = H.gd_id) I LEFT OUTER JOIN genre J
+                                                                  ON I.g_id = J.g_id) K LEFT OUTER JOIN vod_episode L
+                                                            ON K.v_id = L.v_id) N
+              ON M.ve_id = N.ve_id) O left outer join member P
+        ON O.u_id = P.u_id
+    </select>
+
+    <select id="getBestPlayList" resultType="com.komenta.be.model.playlist.PlaytListBestDTO">
+        SELECT B.pl_id AS plb_id, (case when C.pl_good_count IS NULL then 0 ELSE C.pl_good_count END) AS plb_cnt, RANK() Over (ORDER BY plb_cnt desc) AS plb_rank
+        FROM play_list B LEFT OUTER JOIN (SELECT pl_id, count(*) AS pl_good_count
+                                          FROM play_list_good
+                                          GROUP BY pl_id) C
+                                         ON B.pl_id = C.pl_id
+         LIMIT 10
+
+    </select>
+
+    <select id="getContentDetail" parameterType="int" resultType="com.komenta.be.model.playlist.ContentDetailDTO">
+        SELECT B.v_title, B.ve_episode_num, A.vh_comment
+        FROM (SELECT ve_id, vh_comment
+              FROM vod_history
+              WHERE vh_id = (SELECT vh_id
+                             FROM play_list_contents
+                             WHERE plc_id = #{plc_id})) A LEFT OUTER JOIN (SELECT C.ve_id, C.ve_episode_num, D.v_title
+                                                                   FROM vod_episode C LEFT OUTER JOIN vod D
+                                                                   ON C.v_id = D.v_id) B
+        ON A.ve_id = B.ve_id;
+    </select>
+
+    <update id="addContentsReview" parameterType="com.komenta.be.model.playlist.AddContentsReviewDTO">
+        UPDATE vod_history
+        SET vh_comment = #{vh_comment}
+        WHERE vh_id = (SELECT vh_id
+                       FROM play_list_contents
+                       WHERE plc_id = #{plc_id});
+    </update>
+
+    <update id="updatePlayListUpdateTime" parameterType="int">
+        UPDATE play_list
+        SET pl_update_date = NOW()
+        WHERE pl_id = #{pl_id}
+    </update>
+</mapper>

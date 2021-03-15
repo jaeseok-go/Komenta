@@ -4,6 +4,15 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
+// const originalPush = Router.prototype.push;
+// Router.prototype.push = function push(location) {
+// 	return originalPush.call(this, location).catch(err => {
+// 		if (err.name !== 'NavigationDuplicated') throw err;
+// 	});
+// };
+
+
+
 export default new Router({
   mode: 'history',
   // base: process.env.VUE_APP_URL,
@@ -12,30 +21,24 @@ export default new Router({
     {
       path: '/',
       name: 'Main',
-      component: () => import('@/components/Main/Main.vue')
-    },
-    {
-      path:'/vodSection',
-      name:'VodSection',
-      component: () => import('@/components/Main/VODSections.vue'),
-      redirect: '/vodSection/vodPopular',
+      component: () => import('@/components/Main/Main.vue'),
+      redirect: '/vodpopular',
       children: [
         {
-          path: 'vodPopular',
+          path: 'vodpopular',
           name: 'VodPopular',
           component: () => import('@/components/Main/VodPopular.vue'),
         },
         {
-          path: 'vodRecent',
+          path: 'vodrecent',
           name: "VodRecent",
           component: () => import('@/components/Main/VodRecent.vue')
         },
         {
-          path: 'vodComment',
+          path: 'vodcomment',
           name: "VodComment",
           component: () => import('@/components/Main/VodComment.vue')
         },
-
       ]
     },
     {
@@ -44,12 +47,12 @@ export default new Router({
       component: () => import('@/views/user/Login.vue'),
       children: [
         {
-          path: 'findId',
+          path: 'findid',
           name: 'FindId',
           component: () => import('@/components/FindId.vue'),
         },
         {
-          path: 'findPw',
+          path: 'findpw',
           name: "FindPw",
           component: () => import('@/components/FindPw.vue')
         },
@@ -86,45 +89,92 @@ export default new Router({
       component: () => import('@/components/admin/Test.vue'),
     },
     {
-      path: '/member/myPage',
+      path: '/admin/vodPosterInput',
+      name: 'PosterInput',
+      component: () => import('@/components/admin/vodPosterInput.vue')
+    },
+    {
+      path: 'people',
+      name:'People',
+      component: () => import('@/components/People/PeopleList.vue')
+    },
+    {
+      path: '/member/mypage',
       name: 'MyPage',
       component: () => import('@/views/user/MyPage.vue'),
-      redirect: '/member/myPage/userManage',
+      // redirect: '/member/myPage/userManage',
       children: [
         {
-          path: 'userManage',
+          path: 'usermanage',
           name: 'UserManage',
-          component: () => import('@/components/admin/UserManagement.vue'),
+          component: () => import('@/components/admin/UserManagement/UserManagement.vue'),
+          // redirect: 'usermanage/allUser',
+          children: [
+            {
+              path: 'alluser',
+              name: 'AllUser',
+              component: () => import('@/components/admin/UserManagement/AllUser.vue'),
+              props: true
+            },
+            {
+              path: 'blockeduser',
+              name: 'BlockedUser',
+              component: () => import('@/components/admin/UserManagement/BlockedUser.vue'),
+              props: true
+            },
+            {
+              path: 'adminUser',
+              name: 'AdminUser',
+              component: () => import('@/components/admin/UserManagement/AdminUser.vue'),
+              props: true
+            },
+          ]
         },
         {
-          path: 'vodManage',
+          path: 'vodmanage',
           name: "VodManage",
-          component: () => import('@/components/admin/VodManagement.vue')
+          component: () => import('@/components/admin/VodManagement.vue'),
         },
       ]
     },
     {
-      path: '/MyFeed',
-      name: 'MyFeed',
-      component: () => import('@/components/Feed/MyFeed'),
+      path: '/admin/vodInsert',
+      name: 'VODInsert',
+      component: () => import('@/components/admin/VodInsert.vue')
     },
     {
-      path: '/VodDetail',
+      path: '/voddetail/:id',
       name: 'VodDetail',
       component: () => import('@/views/vod/VodDetail.vue'),
+      props: true,
+      redirect:'/voddetail/:id/bestcomments',
+      children: [
+        {
+          path: 'bestcomments',
+          name: 'BestComments',
+          component: () => import('@/components/vod/BestComments.vue'),
+          props: true,
+        },
+        {
+          path: 'allcomments',
+          name: "AllComments",
+          component: () => import('@/components/vod/AllComments.vue'),
+          props: true,
+        },
+      ]
     },
     {
-      path: '/Category',
+      path: '/category',
       name: 'Category',
       component: () => import('@/views/vod/Category.vue'),
     },
     {
-      path: '/Myplaylist',
-      name: 'Myplaylist',
-      component: () => import('@/components/Feed/MyPlayList.vue'),
+      path: '/feed/:id',
+      name: 'Feed',
+      component: () => import('@/components/Feed/MyFeed.vue'),
     },
     {
-      path: '/Google',
+      path: '/google',
       name: 'GoogleLogin',
       component: () => import('@/components/user/snsLogin/GoogleLogin.vue'),
     },
@@ -134,34 +184,16 @@ export default new Router({
       component: () => import('@/views/NotFoundPage.vue'),
     },
     {
-      path:'/playlist/:id',
-      name:'PlaylistDetail',
-      component: () => import('@/components/MyStreamingList/StreamingListDetail'),
-
+      path:'/myplaylist',
+      name:'MyPlayList',
+      component: () => import('@/components/MyPlayList/MyPlayList.vue'),
     },
-    //path 정해지면 추가예정
-    // {
-    //   path: '',
-    //   name: 'VODSections',
-    //   component: () => import('@/components/Main/VODSections.vue'),
-    //   children: [
-    //     {
-    //       path: 'popular',
-    //       name: 'VodPopular',
-    //       component: () => import('@/components/Main/VodPopular'),
-    //     },
-    //     {
-    //       path: 'recent',
-    //       name: "VodRecent",
-    //       component: () => import('@/components/Main/VodRecent'),
-    //     }, 
-    //     {
-    //       path: 'comment',
-    //       name: "VodComment",
-    //       component: () => import('@/components/Main/VodComment'),
-    //     },
+    {
+      path:'/playlist/:id',
+      name:'PlayListDetail',
+      component: () => import('@/components/MyPlayList/PlayListDetail')
+    },
 
-    //   ]
-    // },
+
   ],
 });

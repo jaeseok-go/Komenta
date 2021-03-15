@@ -1,34 +1,125 @@
 <template>
-    <div>
-        <h1>댓글순</h1>
-        <div>{{this.commentVODs }}}}</div>
+  <b-col>
+    <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-left']"/>
+      </button>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">
+        <font-awesome-icon :icon="['fas', 'angle-right']"/>
+      </button>
     </div>
-  
+    <ul class="stage clearfix">
+      <li v-if="this.commentVODs.length == 0">
+        <div class="noRegister-text">등록된 VOD가 없습니다.</div>
+      </li>
+      <li class="scene" v-for="(vod,index) in paginatedData" :key="index" v-else>
+        <div class="movie" onclick="return true">
+          <div class="poster">
+            <img :src="getPoster(vod.v_id)" height="100%" alt="" />
+          </div>
+          <div class="info" @click="goVod(vod.ve_id)">
+            <header class="info-text">
+              <h1>{{ vod.v_title }} {{ vod.ve_episode_num }}회</h1>
+              <span class="year" v-text="getRegistDate(vod.ve_upload_date)"></span>
+              <hr>
+              <span v-text="getVeContents(vod.ve_contents)"></span>
+              <!-- <span class="rating">PG</span>
+            <span class="duration">130 minutes</span> -->
+            </header>
+            <div>
+              <button>보러가기</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </b-col>
 </template>
 
 <script>
-import { fetchCommentVOD } from '@/api/vod'
+import { fetchCommentVOD } from '@/api/vod';
+import { fetchAllVOD } from '@/api/user';
 export default {
-    data(){
-        return {
-            commentVODs:[]
+  data() {
+    return {
+      pageNum:0,
+      allVODInfo:[],
+      commentVODs: [],
+    };
+  },
+  created() {
+    this.getcommentVOD();
+    this.getVODPoster();
+  },
+  props: {
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 5
+    }
+  },
+  methods: {
+    //fetchCommentVOD api만들어야함
+    async getcommentVOD() {
+      const response = await fetchCommentVOD();
+      console.log('댓글순 정렬 왜 암것도 없냐 ',response)
+      this.commentVODs = response.data;
+    },
+    async getVODPoster(){
+        const response = await fetchAllVOD();
+        this.allVODInfo = response.data;
+    },
+    getPoster(index) {
+        for (let i = 0; i < this.allVODInfo.length; i++) {
+            if(this.allVODInfo[i].v_id === index) {
+                const poster = this.allVODInfo[i].v_poster;
+                return `${process.env.VUE_APP_PICTURE}poster/${poster}`;
+            }
         }
     },
-    methods:{
-        //fetchCommentVOD api만들어야함
-        getcommentVOD() {
-            this.commentVODs = fetchCommentVOD()
-        }
-        
+    goVod(vId) {
+      this.$router.push(`/voddetail/${vId}`);
     },
-    created(){
-        //댓글순 vod get
-        this.getcommentVOD()
+    nextPage() {
+      this.pageNum += 1;
     },
+    prevPage() {
+      this.pageNum -= 1;
+    },
+    getRegistDate(date){
+      const year = date.split(" ");
+      return year[0];
+    },
+    getVeContents(contents) {
+      if(contents === null){
+        const errStr = "해당 VOD 줄거리를 제공하지 않습니다.";
+        return errStr;
+      }else if(contents.length > 93) {
+        const reContents = contents.substring(0,94)+'...';
+        return reContents;
+      }else{
+        return contents;
+      }
+    }
+  },
+  computed:{
+    pageCount() {
+        let listLeng = this.commentVODs.length,
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
 
-}
+        if(listLeng % listSize > 0) page += 1;
+
+        return page;
+    },
+    paginatedData() {
+        const start = this.pageNum * this.pageSize,
+        end = start + this.pageSize;
+
+        return this.commentVODs.slice(start, end);
+        }
+    }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

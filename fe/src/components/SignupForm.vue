@@ -1,10 +1,10 @@
 <template>
   <b-container class="container-setting">
 
-    <b-form @submit.prevent="submitSignup">
-      <b-row>
+    <b-form @submit.prevent="submitSignup" style="margin-left:7rem">
+      <b-row style="width:40rem">
         <b-col class="col-setting">
-          <h2 class="title-text">회원가입하기</h2>
+          <h2 class="title-text">WELCOME TO KOMENTA</h2>
             <div>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -22,12 +22,12 @@
                 />
               </div>
               <!-- 중복 아이디가 아닐 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && !isIdDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && !idCheck">
               <!-- 체크표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 아이디일 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && isIdDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserIdEmpty && isUserIdValid && idCheck">
               <!-- 엑스표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
@@ -44,7 +44,7 @@
                   v-model="password"
                   class="form-control form-control-lg"
                   :type="passwordType"
-                  placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
+                  placeholder="8자 이상 입력"
                 />
                 <!-- 눈 모양 클릭하면 아이콘 바뀌면서 비밀번호 표출(구현예정) -->
                 <div class="input-group-append">
@@ -82,12 +82,12 @@
                 type="text"
               />
               <!-- 중복 닉네임이 아닐 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !isNickNameDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && !nickCheck">
               <!-- 체크표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwCheck" :icon="['fas', 'check' ]" />
               </p>
               <!-- 중복 닉네임일 때 표출(구현예정) -->
-              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && isNickNameDuplicaionCheck">
+              <p class="icon-inline-block" v-show="!isUserNickNameEmpty && nickCheck">
               <!-- 엑스표시 아이콘 -->
                 <font-awesome-icon class="fw-icon fwTimes" :icon="['fas', 'times' ]" />
               </p>
@@ -118,15 +118,20 @@
             <label for="allTerm">전체 동의</label>
           </div>
         </b-col>
-        <b-col>
+        <!-- <b-col> -->
           <!-- DB에서 받아와서 가장 최신 등록된 VOD 포스터를 광고로 띄우면 될듯(구현예정) -->
-          <img src="@/assets/images/test.png" alt="테스트용">
-        </b-col>
+          <!-- <img src="@/assets/images/test.png" alt="테스트용">
+        </b-col> -->
       </b-row>
       <button
         class="btn btn-normal btn-middle"
         :disabled="isSignupDisabled"
+        type="submit"
         @click="signupComplete"
+        style="margin-left: -12rem; width: 262.31px; height: 40.4px; 
+    font-size: 1.075rem; 
+    padding: 0.4rem 5.3rem;
+    cursor: pointer;"
       >
         가입하기
       </button>
@@ -136,7 +141,7 @@
 
 <script>
 import PhoneCertification from './user/PhoneCertification.vue';
-import { registerUser } from '@/api/user'; //, userIdChk, userNickNameChk
+import { registerUser, dupIdChk, dupNickNameChk } from '@/api/user'; //, userIdChk, userNickNameChk
 // password,email유효성검사
 import { validateEmail, validatePassword, validatePhoneNum } from '@/utils/validations';
 import store from '@/stores/modules/user'
@@ -167,7 +172,9 @@ export default {
       termPopup: false,
       showCertiForm: true,
       isAuthentic:false,
-      authenResult:'휴대폰 인증'
+      authenResult:'휴대폰 인증',
+      idCheck:false,
+      nickCheck:false,
     };
   },
   computed: {
@@ -236,33 +243,71 @@ export default {
       }
       return false;
     },
-    isIdDuplicaionCheck() { //async
-      // const result = await userIdChk(this.username)
-      const result = 'true';
-      console.log(result)
-      if(result === 'true') {
-        // console.log('DUPLICATED')
-        return true;
+    // isNickNameDuplicaionCheck() {
+    //   const response = this.isDupNickNameCheck();
+    //   if (response.data) {
+    //     return true;
+    //   }
+    //   return false;
+    // },
+  },
+  watch: {
+    'isTerm.term1': function() {
+      if(this.isTerm.term1) {
+        this.isTerm.icon1 = 'fas'
+      }else {
+        this.isTerm.icon1 = 'far'
       }
-      return false;
     },
-    isNickNameDuplicaionCheck() { //async
-      // const result = await userNickNameChk(this.username)
-      const result = 'true';
-      console.log(result)
-      if(result === 'true') {
-        // console.log('DUPLICATED')
-        return true;
+    'isTerm.term2': function() {
+      if(this.isTerm.term2) {
+        this.isTerm.icon2 = 'fas'
+      }else {
+        this.isTerm.icon2 = 'far'
       }
-      return false;
     },
+    'isTerm.term3': function() {
+      if(this.isTerm.term3) {
+        this.isTerm.icon3 = 'fas'
+      }else {
+        this.isTerm.icon3 = 'far'
+      }
+    },
+    userId : function () {
+      this.isDupIdCheck()
+    },
+    username : function () {
+      this.isDupNickNameCheck()
+    }
   },
   methods: {
+    //아이디 중복 체크 데이터 넘어가는 순서 꼬임...
+    async isDupIdCheck() {
+      try{
+        // console.log("userId: ",this.userId)
+        const response = await dupIdChk(this.userId);
+        // console.log("중복?!",response);
+        this.idCheck = response.data;
+      }catch(err) {
+        console.log(err);
+      }
+      return false;
+    },
+    //닉네임 중복 체크 데이터 넘어가는 것도...
+    async isDupNickNameCheck() {
+      try{
+        const result = await dupNickNameChk(this.username);
+        this.nickCheck = result.data;
+      }catch(err) {
+        console.log(err);
+      }
+      return false;
+      
+    },
     checkCertification() {
       console.log(store.state.userInfo,'들어왓니 유저정보야')
       this.userPhoneNumber = store.state.userInfo.u_phone_number;
       this.showCertiForm = false;
-
     },
     clickphonebtn() {
       this.phonebtn = !this.phonebtn
@@ -301,8 +346,16 @@ export default {
     },
     // 우리서버이용
     async submitSignup() {
+      if(this.idCheck){
+        alert("이미 사용중인 아이디입니다.");
+        return;
+      }
+      if(this.nickCheck) {
+        alert("이미 사용중인 닉네임입니다.");
+        return;
+      }
       if (!this.clickSignupBtn) {
-        return
+        return;
       }
       // nickname params로 넘겨주기 추가해야함
       // String u_email, String u_pw, String u_phone_number, String u_nickname, String u_expire_member, boolean u_is_admin, boolean u_is_blocked, String u_profile_pic
@@ -313,10 +366,6 @@ export default {
             u_pw: this.password,
             u_phone_number : this.userPhoneNumber,
             u_nickname : this.username,
-            // u_expire_member :null,
-            // u_is_admin:false,
-            // u_is_blocked:false,
-            // u_profile_pic:null,
         };
         console.log(userData,'유저데이터다')
         console.log(typeof userData.u_email, typeof userData.u_nickname, typeof userData.u_phone_number,typeof userData.u_pw)
@@ -341,30 +390,15 @@ export default {
     },
  
   },
-  watch: {
-    'isTerm.term1': function() {
-      if(this.isTerm.term1) {
-        this.isTerm.icon1 = 'fas'
-      }else {
-        this.isTerm.icon1 = 'far'
-      }
-    },
-    'isTerm.term2': function() {
-      if(this.isTerm.term2) {
-        this.isTerm.icon2 = 'fas'
-      }else {
-        this.isTerm.icon2 = 'far'
-      }
-    },
-    'isTerm.term3': function() {
-      if(this.isTerm.term3) {
-        this.isTerm.icon3 = 'fas'
-      }else {
-        this.isTerm.icon3 = 'far'
-      }
-    },
-    
-  },
 };
 </script>
 
+
+<style scoped>
+  .title-text {
+    background: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.3rem;
+  }
+</style>

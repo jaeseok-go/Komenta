@@ -1,6 +1,6 @@
 <template>
     <div id="kakao-login" class="sns-login-logo">
-        <button @click="logoutWithKakao">KakaoLogout</button>
+        <!-- <button @click="logoutWithKakao">KakaoLogout</button> -->
         <button @click="loginWithKakao">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +34,8 @@
 
 <script>
 import { getKakaoToken, getKakaoUserInfo } from "@/api/snslogin";
+import { dupIdChk }  from '@/api/user'
+
 export default {
     data(){
         return {
@@ -66,9 +68,9 @@ export default {
       },
         })
         },
-        loginWithKakao() {
+    loginWithKakao() {
         const params = {
-            redirectUri: "http://localhost:8080/auth",
+            redirectUri: `process.env.VUE_APP_URL/Auth`,
             // scope: 'phone_number_needs_agreement'
             // scope:'phone_number'
         };
@@ -87,10 +89,21 @@ export default {
         }
         window.Kakao.Auth.setAccessToken(data.access_token);
         const res = await getKakaoUserInfo();
+        const response  = await dupIdChk(res.kakao_account.email)
+        console.log(res,response)
+        if (response.data) {
+            console.log('로그인하러가자,,')
+            this.$store.dispatch('LOGIN',{
+            u_email:res.kakao_account.email,
+            u_pw:res.kakao_account.email
+          })
+          this.$router.push({ name: 'Main'});
+          return
+          }
         const userInfo = {
             u_nickname: res.kakao_account.profile.nickname,
             u_email:res.kakao_account.email,
-            u_pw:this.token,
+            u_pw:res.kakao_account.email,
             u_phone_number : null,
         }
         this.$store.commit('fetchInfo',userInfo);

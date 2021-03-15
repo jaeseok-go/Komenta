@@ -1,8 +1,6 @@
 import { setInterceptors } from './config/interceptors'
-// import axios from 'axios';
-// import store from '@/stores/index.js';
-
-
+import axios from 'axios';
+import store from '@/stores/modules/user'
 const instance = setInterceptors()
 // const instance = axios.create({
 //     baseURL: process.env.VUE_APP_URL,
@@ -14,46 +12,59 @@ const instance = setInterceptors()
 //회원가입 API
 function registerUser(userData) {
     console.log('넘어는왔니?',userData)
-    return instance.post('member/join/', userData);
+    return instance.post('member/join', userData);
     // return axios.post(`http://i4b201.p.ssafy.io:8080/member/join/`,userData)
 }
 
 //로그인 API
 function loginUser(userData) {
-    return instance.post('member/login/', userData);
+    return instance.post('member/login', userData);
 }
 
 // 내 정보 가져오는 API
 function fetchMyInfo(userId) {
-    return instance.get(`member/info/`,userId)
+    return instance.get(`member/info`,{
+        params:{
+            u_id: userId
+        }
+    })
 }
 
 // 내 정보 수정
 function updateMyInfo(userData) {
-    return instance.put('member/update/', userData)
+    return instance.put('member/update', userData)
 }
 
 // 회원탈퇴
 function deleteMyInfo(userId) {
-    return instance.delete(`member/delete/`, userId)
+    return instance.delete(`member/delete`, {
+        params: { u_id: userId }
+    })
 }
 
 // 이메일 인증
 function emailAuth(userId) {
     //비밀번호 찾기
-    return instance.get(`check/sendEmail/`, userId)
+    return instance.get(`check/sendEmail`, userId)
+}
+
+//아이디 가입 여부 확인
+function userIdChk(userId) {
+    return instance.get(`member/chk_id`, {
+        params: { u_email: userId }
+    })
 }
 
 //아이디 중복 확인
-function userIdChk(userId) {
-    return instance.get(`member/chk_id/`, {
+function dupIdChk(userId) {
+    return instance.get(`member/dup_id_chk`, {
         params: { u_email: userId }
     })
 }
 
 //닉네임 중복 확인
-function userNickNameChk(userNickName) {
-    return instance.get(`member/chk_nickname/`, {
+function dupNickNameChk(userNickName) {
+    return instance.get(`member/dup_nickname_chk`, {
         params: { u_nickname: userNickName }
     })
 }
@@ -72,14 +83,30 @@ function phoneAuth(userPhonenum) {
     }) 
 }
 
+// 멤버십 가입/해지
+function membership() {
+    return instance.post('member/membership')
+}
+
+// 프로필 사진 file 업로드 
+function uploadProfile(profile) {
+    console.log('프로필 마지막 확인 : ',profile.get('profile'))
+    return axios.post(`${process.env.VUE_APP_URL}member/profile_upload`,profile, { 
+        headers: {
+           'Content-Type': 'multipart/form-data',
+           'auth-token': store.state.token
+       }
+    })
+}
+
 // 유저 전체 목록 불러오기(관리자용)
 function fetchAllUsers() {
-    return instance.get('admin/member_list/')
+    return instance.get('admin/member_list')
 }
 
 // 유저 정보 수정(관리자용)
 function updateUserInfo(userData) {
-    return instance.put('admin/member_update/', userData)
+    return instance.put('admin/member_update', userData)
 }
 
 //VOD 목록 조회(관리자용)
@@ -89,30 +116,112 @@ function fetchAllVOD() {
 
 // 유저가 최근 본 시청기록 목록
 function fetchRecentPlaylist(userId) {
-    return instance.get('vod/myvod',userId)
+    return instance.get('vod/myvod', {
+        params: { u_id: userId }
+    })
 }
 
 // 유저가 좋아요 누른 플레이 리스트
 function fetchLikePlaylist(userId) {
-    return instance.get('',userId)
+    return instance.get(`playlist/get_favorite_plist/${userId}`, {
+        params: { u_id: userId }
+    })
 }
 
 // 유저가 피드에서 플레이 리스트 생성
 function addPlaylist(data) {
-    return instance.post('',data)
+    return instance.post('playlist/plist_regist',data)
 }
 
-function fetchfollowinglist(userId) {
-    return instance.get('',userId)
+//플레이리스트 VOD생성(나의 시청기록에서 시청기록을 끌어당겨 플레이리스트에 추가)
+function addPlaylistVod(vodInfo) {
+    return instance.post('playlist/move_history_to_playlist',vodInfo)
 }
 
+// 플레이리스트 수정
+function modifyPlaylist(playlistInfo) {
+    return instance.put('playlist/plist_update',playlistInfo)
+}
+
+// 플레이리스트 삭제
+function deletePlaylist(plId){
+    return instance.delete('playlist/plist_delete',{
+        params:{
+            pl_id:plId
+        }
+    })
+}
+
+//플레이리스트 좋아요 추가
+function likePlaylist(plId){
+    return instance.post('playlist/like', plId)
+}
+
+//플레이리스트 좋아요 취소
+function unlikePlaylist(plId) {
+    return instance.post('playlist/unlike', plId)
+}
+
+// 플레이리스트 좋아요 취소
+function removePlaylist(playlistInfo){
+    return instance.put('playlist/plist_update', playlistInfo)
+}
+
+// 회원이 등록한 플레이리스트 목록 조회
 function fetchMyPlaylist(userId){
-    return instance.get(`/${userId}`)
+    return instance.get(`playlist/get_plist_list/${userId}`, {
+        params: { u_id: userId }
+    })
 }
 
-function fetchUserFeed(userId){
-    return instance.get(`뭐뭐/머머/${userId}`)
+// 플레이리스트의 컨텐츠 리뷰 입력
+function addReviewPlaylist(playlistInfo){
+    return instance.put('playlist/add_contents_review', playlistInfo)
 }
+
+// 나의 팔로잉들의 최근 갱신 플레이리스트
+function updateFollowPlaylist() {
+    return instance.get('playlist/recent_update_follow_playlist')
+}
+
+// 팔로잉 조회 
+function fetchfollowinglist(userId) {
+    return instance.get('follow/following_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 팔로워 조회 
+function fetchfollowerlist(userId) {
+    return instance.get('follow/follower_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 팔로우 추가/ 취소
+function modifyfollow(followInfo) {
+    return instance.post('follow/add_sub',followInfo)
+}
+
+
+// 언팔로잉 조회
+function fetchunfollowinglist(userId) {
+    return instance.get('follow/unfollowing_list', {
+        params: { u_id: userId }
+    })
+}
+
+// 언팔로우 추가 / 취소
+function modifyunfollow(unfollowInfo) {
+    return instance.post('follow/un_add_sub',unfollowInfo)
+}
+
+// 유저 검색
+function searchUserlist(){
+    return instance.get('search/list_member')
+}
+
+
 export {
     registerUser,
     loginUser,
@@ -124,14 +233,30 @@ export {
     fetchAllVOD,
     emailAuth,
     phoneAuth,
+    membership,
+    uploadProfile,
     userIdChk,
-    userNickNameChk,
+    dupIdChk,
+    dupNickNameChk,
     changePw,
     fetchRecentPlaylist,
     fetchLikePlaylist,
+    likePlaylist,
+    unlikePlaylist,
     addPlaylist,
+    addPlaylistVod,
+    deletePlaylist,
     fetchfollowinglist,
     fetchMyPlaylist,
-    fetchUserFeed
+    modifyPlaylist,
+    fetchfollowerlist,
+    modifyfollow,
+    fetchunfollowinglist,
+    updateFollowPlaylist,
+    modifyunfollow,
+    removePlaylist,
+    addReviewPlaylist,
+    searchUserlist,
+
     
 }

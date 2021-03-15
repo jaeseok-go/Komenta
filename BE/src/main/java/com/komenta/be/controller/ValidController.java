@@ -49,7 +49,7 @@ public class ValidController {
             @ApiImplicitParam(name = "u_phone_number", value = "회원 휴대전화 번호", dataType = "String", required = true)
     })
     @GetMapping("/sendSMS")
-    public String sendSMS(@RequestBody String phoneNumber){
+    public String sendSMS(String u_phone_number){
         Random rand = new Random();
         String numStr = "";
         for(int i=0; i<4; i++){
@@ -57,7 +57,7 @@ public class ValidController {
             numStr+=ran;
         }
 
-        System.out.println("수신자 번호 : "+phoneNumber);
+        System.out.println("수신자 번호 : " + u_phone_number);
         System.out.println("인증 번호 : "+numStr);
 //        certifiedPhoneNumber(phoneNumber,numStr);
 

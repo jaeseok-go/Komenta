@@ -7,6 +7,7 @@ import com.komenta.be.model.vod.VodEpisodeAllDTO;
 import com.komenta.be.model.vod.VodEpisodeDTO;
 import com.komenta.be.service.AdminService;
 import com.komenta.be.service.GenreService;
+import com.komenta.be.service.JwtService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,10 +18,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,6 +38,8 @@ public class AdminController {
     @Autowired
     GenreService genreService;
 
+    @Autowired
+    JwtService jwtService;
 
 
     @ApiOperation(value = "회원목록 조회", notes = "모든 회원 정보를 리스트로 반환")
@@ -52,90 +59,103 @@ public class AdminController {
     })
     @PutMapping("/member_update")
     public int updateMember(@RequestBody MemberDTO member){
-        return adminService.updateMember(member);
+        System.out.println(member);
+        int result = adminService.updateMember(member);
+        return result;
+
     }
 
-
-
-
-
-    @ApiOperation(value = "정보가 없던 VOD 업로드", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
+    @ApiOperation(value = " VOD 업로드", notes = "VOD 정보와 VOD Episode 정보를 입력받고 VOD가 있으면 VOD EPISODE만 등록")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true),
-            @ApiImplicitParam(name = "vod", value = "VDO Episode 정보", dataType = "VodEpisodeDTO", required = true)
-    })
-    @PostMapping("/vod_regist_first")
-    public int registVodFirst(VodDTO vdto, VodEpisodeDTO vedto, @RequestParam("file") MultipartFile multipartFile){
-        int a = adminService.registVod(vdto);
-        int b = adminService.uploadEpisode(vedto);
-        /*
-         * 파일 업로드
-         */
-        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
-        System.out.println(targetFile);
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);
-            e.printStackTrace();
-        }
-
-        return -1+a+b;
-    }
-
-
-
-
-    @ApiOperation(value = "VOD 업로드(test용)", notes = "VOD 정보를 입력받아 VOD 회차를 업로드할 수 있는 VOD 등록")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "vod", value = "VDO 정보", dataType = "VodDTO", required = true)
+            @ApiImplicitParam(name = "vod_all", value = "VDO episode까지의 정보", dataType = "VodEpisodeAllDTO", required = true),
     })
     @PostMapping("/vod_regist")
-    public int registVod(@RequestBody VodDTO vdto, @RequestParam("file") MultipartFile multipartFile){
-        int result = adminService.registVod(vdto);
-        System.out.println("result :"+result);
-        /*
-         * VOD 파일 업로드
-         */
-        File targetFile = new File("resources/vod" + multipartFile.getOriginalFilename());
-        System.out.println(targetFile);
+    public int registVod(@RequestBody VodEpisodeAllDTO vod_all, HttpServletRequest request) {
+//        System.out.println("여기 들어옴???");
+
+        System.out.println(vod_all);
+        VodDTO vod = new VodDTO();
+        VodEpisodeDTO vodepi = new VodEpisodeDTO();
+        int vod_id = vod_all.getV_id();
+        System.out.println("vod_id는?"+vod_id);
+        if(vod_id == 0){
+            vod.setV_title(vod_all.getV_title());
+            vod.setV_summary(vod_all.getV_summary());
+            vod.setV_director(vod_all.getV_director());
+            vod.setV_actors(vod_all.getV_actors());
+            vod.setV_age_grade(vod_all.getV_age_grade());
+            vod.setV_poster(vod_all.getV_poster());
+            vod.setGd_id(vod_all.getGd_id());
+
+            vod_id = adminService.registVod(vod);
+
+        }
+        vodepi.setV_id(vod_id);
+        System.out.println(request.getHeader("auth-token"));
+        String token = request.getHeader("auth-token");
+        System.out.println("여기 토큰 들어가게 해줘 : "+token);
+        String nickname = (String) jwtService.get(token).get("u_nickname");
+        System.out.println(nickname);
+        vodepi.setVe_admin(nickname);
+        vodepi.setVe_episode_num(vod_all.getVe_episode_num());
+        vodepi.setVe_contents(vod_all.getVe_contents());
+        adminService.uploadEpisode(vodepi);
+        System.out.println("vod episode regist test" + vodepi);
+
+        return 1;
+    }
+
+    @ApiOperation(value = " Poster 업로드", notes = "vod,vod episode 등록과 같이 파일 등록")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "posterfile", value = "jpg file", dataType = "file", required = true),
+    })
+    @PostMapping("/poster_upload")
+    public int registPoster(@RequestParam("v_poster") MultipartFile posterfile, HttpServletRequest request) {
+
+//        String poster = "C:/Users/multicampus/Desktop/Komenta/" + posterfile.getOriginalFilename();
+//        String poster = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getV_title() + ".jpg";
+        String poster = "/home/ubuntu/Picture/Poster/" + posterfile.getOriginalFilename();
+//        video.replace(" ", "_");
+
+        File targetFile = new File(poster);
+//        System.out.println(targetFile);
+
         try {
-            InputStream fileStream = multipartFile.getInputStream();
+            InputStream fileStream = posterfile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
+            System.out.println("그림 파일 업로드 성공");
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
-        return result;
+        return 1;
     }
 
+    @ApiOperation(value = " File 업로드", notes = "vod,vod episode 등록과 같이 파일 등록")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "videofile", value = "video file", dataType = "file", required = true),
+    })
+    @PostMapping("/video_upload")
+    public int registVideo(@RequestParam("file") MultipartFile videofile, HttpServletRequest request) {
+//        System.out.println(request.getHeader("auth-token"));
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
+            String video = "/home/ubuntu/Video/" + videofile.getOriginalFilename();
+//        video.replace(" ", "_");
 
+        File targetFile = new File(video);
+//        System.out.println(targetFile);
 
-
-
-    @PostMapping("/vod_uploadtest")
-    public int uploadVodtest(@RequestParam("v_title") String v_title, @RequestParam("v_summary") String v_summary,@RequestParam("v_director") String v_director,@RequestParam("v_actors") String v_actors,@RequestParam("v_age_grade") String v_age_grade,@RequestParam("v_poster") String v_poster,@RequestParam("gd_id") String gd_id, @RequestParam("file") MultipartFile multipartFile){
-        System.out.println(v_title);
-        File targetFile = new File("C:/Users/multicampus/Desktop/Komenta/s04p12b201/BE/src/main/resources/vod/" + multipartFile.getOriginalFilename());
-        System.out.println(targetFile);
         try {
-            InputStream fileStream = multipartFile.getInputStream();
+            InputStream fileStream = videofile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
-            System.out.println("성공");
+            System.out.println("파일 업로드 성공");
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);
             e.printStackTrace();
         }
-        VodDTO vod = new VodDTO(v_title, v_summary, v_director, v_actors, Integer.parseInt(v_age_grade),v_poster,  Integer.parseInt(gd_id));
-        return adminService.registVod(vod);
+        return 1;
     }
-
-
-
-
 
 
     @ApiOperation(value = "VOD 목록 조회", notes = "모든 VOD 정보를 조회")
@@ -147,13 +167,17 @@ public class AdminController {
 
 
 
+
+
     @ApiOperation(value = "장르별 VOD 리스트 조회", notes = "디테일 장르 id를 url 파라미터로 입력받아 장르별 VOD 리스트를 반환")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "gd_id", value = "디테일 장르 아이디", dataType = "int", required = true)
     })
     @GetMapping("/vod_list_by_gdid/{gd_id}")
     public ResponseEntity<List<VodDTO>> selectVodByGd(@PathVariable int gd_id){
-        return new ResponseEntity<List<VodDTO>>(adminService.selectVodByGd(gd_id), HttpStatus.OK);
+        ResponseEntity<List<VodDTO>> dto =new ResponseEntity<List<VodDTO>>(adminService.selectVodByGd(gd_id), HttpStatus.OK);
+        System.out.println(dto.getBody().get(0));
+        return dto;
     }
 
 
@@ -253,7 +277,7 @@ public class AdminController {
 
 
 
-    @ApiOperation(value = "댓글 기능 차단 당한 회원 리스트 조회", notes = "모든 차단당한 회원 리스트 반환")
+    @ApiOperation(value = "댓글 기능 차단당한 회원 리스트 조회", notes = "모든 댓글 기능 차단당한 회원 리스트 반환")
     @GetMapping("/blocked_member_list")
     public List<MemberDTO> selectBlockedMember(){
         return adminService.selectBlockedMember();

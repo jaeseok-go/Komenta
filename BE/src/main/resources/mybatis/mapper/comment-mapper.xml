@@ -5,21 +5,77 @@
 
     <insert id = "insertComment" parameterType="com.komenta.be.model.comment.CommentInfoDTO">
         insert into comment_info(c_contents, c_playtime, u_id, ve_id)
-        values (#{c_contents}, #{c_playtime}, #{u_id}, #{ve_id});
+        values (#{c_contents}, #{c_playtime}, #{u_id}, #{ve_id})
     </insert>
 
-    <select id = "getVodEpisodeComment" parameterType="int" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
-        select C.c_id, C.c_contents, C.c_playtime, C.c_upload_time, C.u_id, C.u_nickname, D.comment_good_count
-        FROM (SELECT A.c_id, A.c_contents, A.c_playtime, A.c_upload_time, A.u_id, B.u_nickname
-              FROM (select c_id, c_contents, c_playtime, c_upload_time, u_id
-                    from comment_info
-                    where ve_id = 1) A
-                       left outer join member B
-                                       on A.u_id = B.u_id) C
-                 left outer join
-             (select c_id, count(*) as comment_good_count
-              from comment_good
-              group by c_id) D
-             on C.c_id = D.c_id;
+    <select id="isCommentGood" parameterType="com.komenta.be.model.comment.CommentGoodDTO" resultType="int">
+        SELECT COUNT(*) AS count
+        FROM comment_good
+        WHERE u_id = #{u_id}
+        AND c_id = #{c_id};
+    </select>
+
+    <insert id="addLikeComment" parameterType="com.komenta.be.model.comment.CommentGoodDTO">
+        insert into comment_good(c_id, u_id)
+        values (#{c_id}, #{u_id})
+    </insert>
+
+    <delete id="cancelLikeComment" parameterType="com.komenta.be.model.comment.CommentGoodDTO">
+        delete from comment_good
+        where c_id = #{c_id} and u_id = #{u_id}
+    </delete>
+
+    <select id = "getVodEpisodeComment" parameterType="com.komenta.be.model.comment.CommentListByVeIdDTO" resultType="com.komenta.be.model.comment.VodEpisodeCommentDTO">
+        SELECT E.*, (case when F.like_comment IS NULL then FALSE ELSE TRUE END) AS is_like_comment
+        FROM (select C.c_id, C.c_contents, C.c_playtime, C.c_upload_time, C.u_id, C.u_nickname,
+		            (case when D.comment_good_count IS NULL then 0 ELSE D.comment_good_count END) AS comment_good_count
+		      FROM (SELECT A.c_id, A.c_contents, A.c_playtime, A.c_upload_time, A.u_id, B.u_nickname
+      		        FROM (select c_id, c_contents, c_playtime, c_upload_time, u_id
+            		      from comment_info
+            		      where ve_id = #{ve_id}) A left outer join member B
+       		        on A.u_id = B.u_id) C left outer JOIN (select c_id, COUNT(*) as comment_good_count
+              											   from comment_good
+              											   group by c_id) D
+		      on C.c_id = D.c_id) E LEFT OUTER JOIN (SELECT *, COUNT(*) AS like_comment
+													 FROM comment_good
+													 WHERE u_id = #{u_id}
+													 GROUP BY c_id, u_id) F
+        ON E.c_id = F.c_id;
+    </select>
+
+    <select id = "getCommentRankList" resultType="com.komenta.be.model.comment.CommentRankDTO">
+        SELECT E.rank, F.v_id, F.v_title, E.ve_id, F.ve_episode_num, E.c_id, E.c_good_count, E.c_contents, E.c_playtime, E.u_id, E.u_email, E.u_nickname, E.u_profile_pic
+        FROM (SELECT C.rank, C.c_id, C.c_good_count, C.c_contents, C.c_playtime, C.u_id, C.ve_id, D.u_email, D.u_nickname, D.u_profile_pic
+              FROM (SELECT A.rank, A.c_id, A.c_good_count, B.c_contents, B.c_playtime, B.u_id, B.ve_id
+                    FROM (SELECT @rownum := @rownum + 1 as rank, c_id, COUNT(*) AS c_good_count
+                          FROM comment_good, (SELECT @rownum := 0) rownum
+                          GROUP BY c_id
+                          ORDER BY c_good_count DESC) A LEFT OUTER JOIN comment_info B
+                    ON A.c_id = B.c_id) C LEFT OUTER JOIN member D
+              ON C.u_id = D.u_id) E LEFT OUTER JOIN (SELECT Y.v_id, X.ve_id, Y.v_title, X.ve_episode_num
+                                                     FROM vod_episode X LEFT OUTER JOIN vod Y
+                                                     ON X.v_id = Y.v_id) F
+        ON E.ve_id = F.ve_id
+    </select>
+
+    <select id="getMyComment" parameterType="int" resultType="com.komenta.be.model.comment.MyCommentDTO">
+        SELECT G.c_id, G.c_contents, G.c_playtime, G.c_upload_time, G.ve_id, H.ve_id, H.ve_episode_num, H.v_title,
+               G.c_good_count, G.re_comment_count
+        FROM (SELECT C.c_id, C.c_contents, C.c_playtime, C.c_upload_time, C.ve_id,
+                     (case when C.c_good_count is null then 0 ELSE C.c_good_count END) AS c_good_count,
+                     (case when D.re_comment_count is null then 0 ELSE D.re_comment_count END) AS re_comment_count
+              FROM (SELECT A.c_id, A.c_contents, A.c_playtime, A.c_upload_time, A.ve_id, B.c_good_count
+                    FROM(SELECT c_id, c_contents, c_playtime, c_upload_time, ve_id
+                         FROM comment_info
+                         WHERE u_id = #{u_id}) A LEFT OUTER JOIN ( SELECT c_id, COUNT(*) AS c_good_count
+                                                             FROM comment_good
+                                                             GROUP BY c_id) B
+                    ON A.c_id = B.c_id) C LEFT OUTER JOIN ( SELECT c_id, COUNT(*) AS re_comment_count
+                                                            FROM re_comment
+                                                            GROUP BY c_id) D
+              ON C.c_id = D.c_id) G LEFT OUTER JOIN (SELECT E.ve_id, E.ve_episode_num, F.v_title
+                                                     FROM vod_episode E LEFT OUTER JOIN vod F
+                                                     ON E.v_id = F.v_id) H
+        ON G.ve_id = H.ve_id
     </select>
 </mapper>

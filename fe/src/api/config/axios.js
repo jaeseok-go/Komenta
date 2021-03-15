@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = process.env.VUE_APP_URL;
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {

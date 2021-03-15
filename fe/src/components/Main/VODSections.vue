@@ -1,22 +1,51 @@
 <template>
   <div>
-
-        <router-link :to="{name:'VodPopular'}">조회순</router-link> | <router-link :to="{name:'VodComment'}">댓글순</router-link> | <router-link :to="{name:'VodRecent'}">최신순</router-link>
-        <!-- 조회순 가장 많은 순서대로 ve_id, v_poster 요청
-        댓글순 가장 많은 순서대로 ve_id, v_poster 요청
-        조회순 가장 많은 순서대로 ve_id, v_poster 요청 -->
-
-        <router-view></router-view>
-  </div>
+    <!-- <div class="container">
+      <div class="btn-group">
+        <div class="btn">First</div>
+        <div class="btn active">Middle</div>
+        <div class="btn">Last</div>
+     </div> -->
+      <div class="selectTab">
+        <router-link :to="{name:'VodPopular'}" class="text-color">
+          <ion-chip outline color="primary">
+            <ion-label>인기순</ion-label>
+          </ion-chip>
+        </router-link>
+        <router-link :to="{name:'VodComment'}" class="text-color">
+        <ion-chip outline color="success">
+          <ion-label>댓글순</ion-label>
+        </ion-chip>
+        </router-link>
+        <router-link :to="{name:'VodRecent'}" class="text-color">
+          <ion-chip outline color="danger">
+            <ion-label>최신순</ion-label>
+          </ion-chip>
+        </router-link>
+      </div>
+      <router-view></router-view>
+    </div>
 </template>
 
-<script>
-export default {
-
-    
-}
-</script>
-
 <style>
+  ion-chip {
+    margin: 0.2rem;
+    padding: 0.5rem;
+  }
+
+  ion-label {
+    color: black;
+  }
+
+  .selectTab {
+    z-index: 999;
+    position: relative;
+    display: inline-block;
+  }
+
+  /* .col {
+    z-index: 998;
+  } */
 
 </style>
+

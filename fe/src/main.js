@@ -8,11 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC } from "@fortawesome/free-regular-svg-icons";
-import { faCheckCircle as fasCheckC, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faEnvelope, faCheckCircle as farCheckC, faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle as fasCheckC, faCheck, faTimes, faThumbsUp, faStar, faAngleRight, faAngleLeft, faUserCog} from "@fortawesome/free-solid-svg-icons";
 import '@/css/index.css'
+import '@/assets/ionic.css'
 // google 로그인
 import GAuth from 'vue-google-oauth2'
+
 
 
 Vue.config.productionTip = false;
@@ -20,8 +22,8 @@ Vue.use(BootstrapVue);
 Vue.use(Vuetify);
 
 
-library.add(fasCheckC, faCheck, faTimes) //fas lib
-library.add(faEye, faEyeSlash, faEnvelope, farCheckC) //far lib
+library.add(fasCheckC, faCheck, faTimes, faThumbsUp, faStar, faAngleLeft, faAngleRight, faUserCog) //fas lib
+library.add(faEye, faEyeSlash, faEnvelope, farCheckC, farStar) //far lib
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kakao로그인

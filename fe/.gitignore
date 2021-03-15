@@ -25,3 +25,10 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+//vod files
+.mp4
+
+#index.css
+*.css
+*.css.map

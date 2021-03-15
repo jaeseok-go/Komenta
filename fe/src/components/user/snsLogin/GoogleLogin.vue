@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <button @click="handleClickSignOut">sign out</button><br>
+    <div class="sns-login-logo">
+      <!-- <button @click="handleClickSignOut">sign out</button><br> -->
         <button @click="handleClickSignIn">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="55" viewBox="0 0 55 55">
                 <defs>
@@ -31,8 +31,8 @@
             </svg>
 
         </button>
-        <button @click="handleClickLogin">get authCode</button> <br>
-        <button @click="handleClickDisconnect">disconnect</button><br>
+        <!-- <button @click="handleClickLogin">get authCode</button> <br>
+        <button @click="handleClickDisconnect">disconnect</button><br> -->
         <!-- <button @click="handleClickSignIn">sign in</button><br> -->
         <!-- <button @click="handleClickSignOut">sign out</button><br>
         <p>isInit: {{isInit}}</p>
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { dupIdChk }  from '@/api/user'
+// import store from '@/stores/modules/user'
 
 export default {
     name: 'GoogleLogin',
@@ -83,22 +85,27 @@ export default {
     async handleClickSignIn() {
       try {
         const googleUser = await this.$gAuth.signIn();
+          // 로그인한 아이디였으면!
+          const response  = await dupIdChk(googleUser.Fs.lt)
+          console.log(response.data,'구글 아이디 있나여? 뭐가오니?')
+          if (response.data) {
+            console.log('로그인하러가자,,')
+            this.$store.dispatch('LOGIN',{
+            u_email:googleUser.Fs.lt,
+            u_pw:googleUser.uc.login_hint
+          })
+          this.$router.push({ name: 'Main'});
+          return
+          }
         if (!googleUser) {
           return null;
         }
         console.log("googleUser", googleUser);
         const userData = {
-            // u_id:100,
-            u_email:googleUser.Fs.lt,
-            u_pw: googleUser.uc.id_token,
+          u_email:googleUser.Fs.lt,
+            u_pw: googleUser.uc.login_hint,
             u_phone_number : null,
-            // googleUser.Fs.KR 가 이름 근데 중복된값 피하기 위해 유니크한값..
             u_nickname : googleUser.Fs.sd,
-            // u_expire_member :null,
-            // u_is_admin:false,
-            // u_is_blocked:false,
-            // u_profile_pic:null,
-   
         };
         this.$store.commit('fetchInfo',userData);
         console.log("getId", googleUser.getId());

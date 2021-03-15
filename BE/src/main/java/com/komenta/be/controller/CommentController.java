@@ -1,7 +1,6 @@
 package com.komenta.be.controller;
 
-import com.komenta.be.model.comment.CommentInfoDTO;
-import com.komenta.be.model.comment.VodEpisodeCommentDTO;
+import com.komenta.be.model.comment.*;
 import com.komenta.be.model.member.AuthPhoneDTO;
 import com.komenta.be.model.member.MemberDTO;
 import com.komenta.be.service.CommentService;
@@ -18,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +35,8 @@ public class CommentController {
 
     @Autowired
     CommentService cservice;
-
+    @Autowired
+    JwtService jwtService;
 
     @ApiOperation(value = "댓글 입력", notes = "댓글을 입력하면 해당 댓글을 DB에 저장하고 이를 반환")
     @ApiImplicitParams({
@@ -54,8 +55,43 @@ public class CommentController {
             @ApiImplicitParam(name = "ve_id", value = "회차 아이디", dataType = "int",required = true)
     })
     @GetMapping("/ve_c_list/{ve_id}")
-    public List<VodEpisodeCommentDTO> getVodEpisodeComment(@PathVariable("ve_id") int ve_id){
-        return cservice.getVodEpisodeComment(ve_id);
+    public List<VodEpisodeCommentDTO> getVodEpisodeComment(@PathVariable("ve_id") int ve_id, HttpServletRequest request){
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        CommentListByVeIdDTO comment_info = new CommentListByVeIdDTO(ve_id, u_id);
+        return cservice.getVodEpisodeComment(comment_info);
     }
 
+
+
+    @ApiOperation(value = "실시간 베스트 댓글 유저 랭킹", notes = "현재 가장 많은 좋아요를 받은 댓글 랭킹 10위")
+    @GetMapping("/comment_rank")
+    public List<CommentRankDTO> getCommentRankList(){
+        return cservice.getCommentRankList();
+    }
+
+
+    @ApiOperation(value = "회원이 단 모든 댓글 조회", notes = "입력받은 u_id가 달았던 모든 댓글 조회")
+    @GetMapping("/comment_list")
+    public List<MyCommentDTO> getMyComment(int u_id, HttpServletRequest request){
+        return cservice.getMyComment(u_id);
+    }
+
+
+    @ApiOperation(value = "댓글 좋아요 추가/취소", notes = "해당 유저가 좋아요한 댓글은 취소, 아닌 댓글은 좋아요 추가")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "comment_good", value = "c_id (댓글 아이디)", dataType = "CommentGoodDTO", required = true)
+    })
+    @PostMapping("/comment_good_cancel")
+    public int cancelLikeComment(@RequestBody CommentGoodDTO comment_good, HttpServletRequest request){
+        // DTO 채워준다. (u_id)
+        int u_id = jwtService.getUidFromJwt(request.getHeader("auth-token"));
+        comment_good.setU_id(u_id);
+
+        // 만약에 내가 이 댓글을 좋아요한 상태가 아니면 좋아요 추가하고 리턴
+        // 좋아요 한 상태면 좋아요 삭제하고 리턴
+        if(cservice.isCommentGood(comment_good) == 0) {
+            return cservice.addLikeComment(comment_good);
+        }
+        return cservice.cancelLikeComment(comment_good);
+    }
 }

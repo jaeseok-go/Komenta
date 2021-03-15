@@ -1,61 +1,97 @@
 <template>
-  <b-container>
+  <b-col>
     <h4>전체 VOD</h4>
-    <table style="text-align:center;">
-      <colgroup>
-        <col width="10%" />
-        <col width="15%" />
-        <col width="45%" />
-        <col width="30%" />
-      </colgroup>
-      <thead>
-        <th>등록번호</th>
-        <th>이미지</th>
-        <th>제목</th>
-        <th>종류/장르</th>
-      </thead>
-      <tbody v-if="vodList.length == 0">
-        <td colspan="4">
+    <div class="btn-right">
+      <router-link :to="{name:'VODInsert'}">VOD 추가</router-link>
+    </div>
+    <table class="table-border-style" style="text-align:center;">
+      <tr>
+        <td>등록번호</td>
+        <td>제목</td>
+        <td>종류/장르</td>
+        <td>등록일</td>
+        <td>담당자</td>
+        <td>설정</td>
+      </tr>
+      <tr v-if="vodList.length == 0">
+        <td colspan="6">
           등록된 VOD가 없습니다.
         </td>
-      </tbody>
-      <!-- 페이징 처리...어케해... -->
-      <tbody v-for="(vod, index) in vodList" :key="index" v-else>
-        <td>{{vod.v_id}}</td>
-        <td><img :src="getPicPath(index)" width="50%"></td>
-        <td>{{vod.v_title}}</td>
+      </tr>
+      <tr v-for="(vod, index) in paginatedData" :key="index" v-else>
+        <td>{{vod.ve_id}}</td>
+        <td><p @click="goVod(vod.ve_id)">{{vod.v_title}}</p></td>
         <td>{{vod.g_name}}/{{vod.gd_name}}</td>
-      </tbody>
+        <td>{{vod.ve_upload_date}}</td>
+        <td>{{vod.ve_admin}}</td>
+        <td>수정 / 삭제</td>
+      </tr>
     </table>
-    <br>
-  </b-container>
+    <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
+      <span class="page-count">{{pageNum+1}}/{{pageCount}} 페이지 </span>
+      <button :disabled="pageNum >= pageCount-1" @click="nextPage" class="page-btn">다음</button>
+    </div>
+  </b-col>
 </template>
 
 <script>
-import {fetchAllVOD} from '@/api/user';
+import {fetchAllEpi} from '@/api/vod';
 export default {
   data() {
     return {
+      pageNum:0,
       vodList:[],
     }
+  },
+  props: {
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 10
+    },
   },
   created() {
     this.getVODList();
   },
   methods: {
+    nextPage() {
+      this.pageNum += 1;
+    },
+    prevPage() {
+      this.pageNum -= 1;
+    },
     async getVODList() {
-      const response = await fetchAllVOD();
+      const response = await fetchAllEpi();
       console.log("vod list : ",response);
       this.vodList = response.data;
     },
-    getPicPath(index){
-      const picPath = require(`@/assets/images/${this.vodList[index].v_poster}.png`);
-      return picPath;
+    goVod(veId) {
+      this.$router.push(`/voddetail/${veId}`);
     }
   },
+  computed: {
+    pageCount() {
+      let listLeng = this.vodList.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+
+      if(listLeng % listSize > 0) page += 1;
+
+      return page;
+    },
+    paginatedData() {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+
+      return this.vodList.slice(start, end);
+    }
+  }
 }
 </script>
 
 <style>
-
+  .btn-right {
+    text-align: right;
+  }
 </style>

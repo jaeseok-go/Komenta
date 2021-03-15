@@ -1,107 +1,143 @@
 <template>
-        <!-- 사이드바 <br>
-        1. Komenta로고 <br>
-        로그인전 / 로그인시 store에 저장된 값 가져오기
-        2. 회색사람 아이콘 / 유저 프로필사진 <br>
-        3. 로그인 후 이용해 주세요(로그인으로 가는 a링크) / 유저 닉네임 <br>
-        4. 메뉴 / 로그인 안하면로그인페이지로 이동! <br>
-        1) Home -> mainpage로 이동 <br>
-        2) My StreamingList -> StreamingList로 이동 <br>
-        3) VOD -> 카테고리 페이지로 이동 <br>
-        4) 마이페이지 -> 마이페이지로 이동 <br>
-        5) 내피드 -> myFeed로 이동 <br>
-        6) 고객센터 -> 아직 안정함 <br>
-        7) 로그아웃 <br> -->
-
-    <div id="#app">
-        <v-app id="inspire">
-            <v-card
-            width="256"
-            height="70rem"
-            tile
-        >
-            <v-navigation-drawer permanent>
-                <h1>Komenta</h1>
-                <v-list>
-                    <v-list-item>
-                        <v-list-item-avatar>
-                            <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-                        </v-list-item-avatar>
-                    </v-list-item>
-  
-                    <v-list-item link>
-                        <v-list-item-content>
-                            <v-list-item-title class="title">
-                                John Leider
-                            </v-list-item-title>
-                            <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
-                        </v-list-item-content>
-  
-                        <v-list-item-action>
-                            <v-icon>mdi-menu-down</v-icon>
-                        </v-list-item-action>
-                        </v-list-item>
-                        </v-list>
-                        <v-divider></v-divider>
-                        <v-list
-                            nav
-                            dense
-                        >
-                        <v-list-item-group
-                            v-model="selectedItem"
-                            color="primary"
-                        >
-                        <v-list-item
-                        v-for="(item, i) in items"
-                        :key="i"
-                        >
-                        <v-list-item-icon>
-                            <v-icon v-text="item.icon"></v-icon>
-                        </v-list-item-icon>
-  
-                        <v-list-item-content>
-                            <v-list-item-title v-text="item.text"></v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
-    </v-card>
-  </v-app>
+  <div class="web-navigation">
+    <div class="web-navigation__header">
+      <router-link :to="{ name: 'Main' }">
+        <span class="web-navigation__logo">
+          <img src="@/assets/images/KOMENTA_logo.png" alt="" />
+        </span>
+      </router-link>
     </div>
+    <div class="web-navigation__scrollable">
+      <ul class="web-navigation__nav-list">
+        <div class="web-navigation__nav">
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Main' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-home"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">Home</span>
+              </span>
+            </router-link>
+          </li>
 
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'MyPlayList' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-folder-open"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">Subscriptions</span>
+              </span>
+            </router-link>
+          </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Category' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-play-circle"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">ALL Video</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
+
+        <div class="web-navigation__nav">
+          <span id="sub-group">SOCIAL</span>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'People' }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-globe"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">People</span>
+              </span>
+            </router-link>
+          </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'Feed', params: { id: userInfo.u_id } }">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="fas fa-user-circle"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">My Feed</span>
+              </span>
+            </router-link>
+          </li>
+          <li class="web-navigation__nav-list-item">
+            <router-link :to="{ name: 'MyPage'}">
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5">
+                  <font-awesome-icon :icon="['fas', 'user-cog']" :style="{ color: '#fa233b' }"/>
+                </span>
+                <span class="sidebar-scrollable-title-text">My Page</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
+
+        <div class="web-navigation__nav">
+          <span id="sub-group">PLAYLISTS</span>
+          <li
+            class="web-navigation__nav-list-item"
+            v-for="(my, index) in myPlayList"
+            :key="index"
+            @click="reload(my[0].pl_id)"
+          >
+            <router-link
+              :to="{ name: 'PlayListDetail', params: { id: my[0].pl_id } }" 
+            >
+              <span class="sidebar-scrollable-title">
+                <span class="sidebar-scrollable-title-icon icon-bg5"
+                  ><i class="far fa-file-video"></i
+                ></span>
+                <span class="sidebar-scrollable-title-text">{{
+                  my[0].pl_name
+                }}</span>
+              </span>
+            </router-link>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <button @click="logout">LOGOUT</button>
+    </div>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+// import store from '@/stores/modules/user'
 
 export default {
-    // el: '#app',
-
-    name: 'asidebar',
-    data:() => ({
-        selectedItem: 0,
-        items: [
-        { text: 'Home', icon: 'home' },
-        { text: 'My Streaming List', icon: 'album' },
-        { text: 'VOD', icon: 'ondemand_video' },
-        { text: 'My Feed', icon: 'mdi-check-circle' },
-        { text: 'My Page', icon: 'account_circle' },
-        { text: '고객센터', icon: 'support_agent' },
-        ],
+  methods: {
+    reload(id) {
+      this.$router.push(`/playlist/${id}`);
+    },
+    logout() {
+      if (confirm('로그아웃 하시겠습니까?')) {
+        this.$store.commit('logout');
+        if (this.$route.path !== '/member/login') {
+          this.$router.push('/member/login');
+        }
+      }
+    },
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
     }),
-    mounted() {
-        
-    },
-    methods: {
-        
-    },
+    ...mapState({
+      myPlayList: (state) => state.user.myPlayList,
+    }),
+  },
+  created() {
+    const userId = this.userInfo.u_id;
+    this.$store.dispatch('FETCH_MYPLAYLIST', userId);
+    // console.log(this.myPlayList, '아아아아아ㅏ');
+    // console.log(this.userInfo, '유저ㅏ인포???????');
+  },
 };
 </script>
-
-<style scoped>
-    /* #app {
-        width: 200px;
-        display: inline-block;
-        background-color: yellowgreen;
-    } */
-</style>

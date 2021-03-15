@@ -1,0 +1,16 @@
+.searchbar-container {
+  position: relative;
+  width: 100%;
+  background-color: $base-color4;
+  border-radius: 99px;
+  margin-bottom: 10px;
+
+  .searchbar input {
+    width: 100%;
+    background-color: transparent;
+    border-style: none;
+    height: 50px;
+    padding-left: 50px;
+    color: black;
+  }
+}

@@ -1,24 +1,67 @@
 <template>
   <div id="app">
-    헤더<br>
-    1. 검색창<br>
-      1-1. 돋보기 아이콘 1번 클릭 : 검색창 표출<br>
-      1-2. 돋보기 아이콘 2번 클릭 : 실시간 인기 검색어 표출
-    2. 알림 아이콘 : 해당 사용자에게 알림오면 표시
+    <!-- Searchbar with a placeholder -->
+    <!-- <ion-searchbar placeholder="검색어를 입력하세요"></ion-searchbar> -->
+    <form class="search-box" @submit.prevent="searchTemplate" :style="{border:searchBox}">
+      <input type="text" id="search" placeholder="검색어를 입력하세요" v-model="keyword" v-if="isView">
+      <label for="search" @click="viewSearchBox"><i class="fas fa-search icon-color"/></label>
+    </form>
   </div>
 </template>
 
 <script>
+// import { IonSearchbar, IonToolbar } from '@ionic/vue';
+// import { defineComponent } from 'vue';
+import {searchVodlist} from '@/api/vod';
+import {searchUserlist} from '@/api/user';
+
 export default {
+  data() {
+    return {
+      keyword: '',
+      isView: false,
+      searchBox:'none',
+      vodlists :[],
+      userlists:[],
+      searchlists:[]
+    }
+  },
+  methods: {
+   async getAllVodandUser(){
+     const vods = await searchVodlist();
+     this.vodlists = vods.data
+     const users = await searchUserlist();
+     this.userlists = users.data
+   },
+      searchTemplate() {
+        this.getAllVodandUser();
+        this.vodlists.forEach((vod) => {
+          vod.indexOf(this.keyword)
+          this.searchlists.push(vod)
+        })
+        
+      if (this.keyword) {
+        this.$router.push(`/search/${this.keyword}`)
+      } else {
+        alert('키워드를 입력해주세요.');
+      }
+    },
+    viewSearchBox(){
+      if(!this.isView) {
+        this.isView = true;
+        this.searchBox='1.3px solid rgb(158, 158, 158)';
+        return;
+      }else {
+        this.searchTemplate();
+      }
+    }
+  }
 
 }
 </script>
 
 <style scoped>
-  #app {
-    background-color: yellow;
-    display: inline-block;
-    width: 100%;
-    position: fixed;
-  }
+#app {
+  text-align: right;
+}
 </style>

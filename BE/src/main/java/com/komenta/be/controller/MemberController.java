@@ -9,13 +9,19 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -90,6 +96,7 @@ public class MemberController{
         params.put("text", " 인증번호는 " + "[ "+auth_number+" ]" + "입니다.");
         params.put("app_version", "test app 1.2"); // application name and version
 
+        System.out.println(auth_number);
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
             System.out.println(obj.toString());
@@ -98,7 +105,7 @@ public class MemberController{
             System.out.println(e.getCode());
         }
 
-        AuthPhoneDTO result = new AuthPhoneDTO(Integer.parseInt(auth_number), mservice.findId(u_phone_number));
+        AuthPhoneDTO result = new AuthPhoneDTO(auth_number, mservice.findId(u_phone_number));
 
         return result;
     }
@@ -137,7 +144,30 @@ public class MemberController{
     }
 
 
+    @ApiOperation(value = " 프로필 사진 File 업로드", notes = "picture 등록 이름:u_id나 nickname?")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "profile", value = "profile picture file", dataType = "file", required = true),
+    })
+    @PostMapping("/profile_upload")
+    public int registVideo(@RequestParam("profile") MultipartFile profile) {
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + videofile.getOriginalFilename();
+//        String video = "C:/Users/multicampus/Desktop/Komenta/" + vod_all.getVe_id() + vod_all.getV_title() + vod_all.getVe_episode_num() + ".mp4";
+        String video = "/home/ubuntu/Picture/User/" + profile.getOriginalFilename();
+//        video.replace(" ", "_");
 
+        File targetFile = new File(video);
+        System.out.println(targetFile);
+
+        try {
+            InputStream fileStream = profile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);
+            System.out.println("파일 업로드 성공");
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);
+            e.printStackTrace();
+        }
+        return 1;
+    }
 
 
 
@@ -161,7 +191,7 @@ public class MemberController{
                 resultMap.put("data", getMember);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-                System.out.println(response.getHeader("auth-token"));
+//                System.out.println(response.getHeader("auth-token"));
             }
             else{
                 System.out.println("아디 비번 다름");
@@ -184,20 +214,29 @@ public class MemberController{
                     " u_expire_member(멤버쉽 종료일자), u_is_admin(관리자 여부), u_profile_pic(프로필 사진 경로), u_is_blocked(댓글 기능 제한 여부)", dataType = "MemberDTO", required = true)
     })
     @PutMapping("/update")
-    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletResponse response){
+    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO member, HttpServletRequest request, HttpServletResponse response){
         HttpStatus status = null;
         Map<String, Object> resultMap = new HashMap<>();
+
+        String token1 = request.getHeader("auth-token");
+        int idid = (int) jwtService.get(token1).get("u_id");
+        boolean is_blocked = (boolean) jwtService.get(token1).get("is_blocked");
+        boolean is_admin = (boolean) jwtService.get(token1).get("is_admin");
+        member.setU_is_admin(is_admin);
+        member.setU_is_blocked(is_blocked);
+
+        System.out.println("수정 할 정보 :  "+member);
         try{
             int result = mservice.updateMember(member);
             if(result == 1) {
                 String token = jwtService.create(member);
-
+                System.out.println("수정 성공");
                 response.setHeader("auth-token", token);
                 resultMap.put("status", true);
                 resultMap.put("data", result);
                 resultMap.put("auth-token", token);
                 status = HttpStatus.ACCEPTED;
-                System.out.println(response.getHeader("auth-token"));
+//                System.out.println(response.getHeader("auth-token"));
             }
             else{
                 resultMap.put("status", false);
@@ -223,7 +262,7 @@ public class MemberController{
             @ApiImplicitParam(name = "u_id", value = "회원 번호", dataType = "int", required = true)
     })
     @DeleteMapping("/delete")
-    public int deleteMember(@RequestBody int u_id){
+    public int deleteMember(@RequestParam int u_id){
         return mservice.deleteMember(u_id);
     }
 
@@ -257,5 +296,13 @@ public class MemberController{
             result = true;
         }
         return result;
+    }
+
+    @ApiOperation(value = "멤버십 가입/해지", notes = "회원 멤버십 가입 상태이면 해지, 해지 상태이면 가입")
+    @PostMapping("/membership")
+    public int updateMembership(HttpServletRequest request){
+        String token = request.getHeader("auth_token");
+        int u_id = (int) jwtService.get(token).get("u_id");
+        return mservice.updateMembership(u_id);
     }
 }

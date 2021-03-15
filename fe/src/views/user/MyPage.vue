@@ -1,6 +1,5 @@
 <template>
-  <b-container>
-
+  <div>
     <!-- 회원 정보 관리 -->
     <user-info @showUserInfoForm="showUserInfoForm"></user-info>
     <Modal v-if="showUserInfoModal">
@@ -13,8 +12,21 @@
         </div>
         <div slot="body">
           <form @submit.prevent="modifyUserInfo">
-            <div>
-              <!-- <img src="@/imgs/{{userProfilePic}}"> -->
+            <div class="profile-form">
+              <div class="img">
+                <v-img v-if="userProfilePic" :src="getUserProfile(userProfilePic)" width="90px"/>
+                <!-- <img :src="require(`@/assets/images/${userProfilePic}`)" width="100px"> -->
+                <!-- {{userProfilePic}} -->
+              </div>
+              <div class="file-input">
+                <!-- <input type="file" :v-model="modifyUserInfo" accept="image/gif,image/jpeg,image/png" /> -->
+                <!-- <button>프로필 사진 변경</button> -->
+                <input id="profile" ref="imageInput" type="file" hidden @change="onChangeImages()" required accept="image/jpeg,image/jpg">
+                <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
+                {{userProfilePic}}
+              </div>
+              
+              <!-- <img :src="require(`../../assets/images/${userProfilePic}`)"> -->
             </div>
             <hr>
             <div class="modi-form form-text">
@@ -58,7 +70,7 @@
               <phone-certification class="modify-authentic" @click="changePhoneNumber" v-if="authPhoneNumForm"></phone-certification>
             </div>
             <div>
-              <a href="#">회원탈퇴</a>
+              <p @click="unSubscribe">회원탈퇴</p>
               <button>수정완료</button>
             </div>
           </form>
@@ -73,39 +85,24 @@
       <my-comment></my-comment>
 
       <!-- 시청 VOD 관리 -->
-      <watched-vod @showVODForm="showVODForm" :getUserId="this.uId"></watched-vod>
-      <Modal v-if="showVODModal">
-        <div slot="header">
-            <h3 class="findIdPw__title">시청 VOD 관리</h3>
-            <span id="closeModalBtn" @click="closeVODModal">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </span>
-            <hr>                                                                                                      
-          </div>
-          <div slot="body">
-          </div>
-      </Modal>
-
-      <!-- 관심 리스트 관리 -->
-      <interest-play-list></interest-play-list>
+      <watched-vod :getUserId="uId"></watched-vod>
 
       <!-- 팔로우 관리 -->
-      <follow></follow>
+      <follow :getUserId="uId"></follow>
 
       <!-- 언팔로우 관리 -->
       <un-follow></un-follow>
 
       <!-- 멤버십 관리 -->
-      <membership-setting></membership-setting>
+      <membership-setting :userInfo="this.userInfo"></membership-setting>
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
 import UserInfo from '@/components/user/myPage/UserInfo'
 import MyComment from '@/components/user/myPage/MyComment';
 import WatchedVod from '@/components/user/myPage/WatchedVOD'
-import InterestPlayList from '@/components/user/myPage/InterestPlayList.vue';
 import Follow from '@/components/user/myPage/Follow.vue';
 import UnFollow from '@/components/user/myPage/UnFollow.vue';
 import MembershipSetting from '@/components/user/myPage/MembershipSetting.vue';
@@ -114,6 +111,7 @@ import Modal from '@/components/common/Modal';
 import PhoneCertification from '@/components/user/PhoneCertification.vue';
 
 import { validatePassword } from '@/utils/validations';
+import { deleteMyInfo, uploadProfile } from '@/api/user';
 import { mapState } from 'vuex';
 
 
@@ -122,7 +120,6 @@ export default {
     UserInfo,
     MyComment,
     WatchedVod,
-    InterestPlayList,
     Follow,
     UnFollow,
     MembershipSetting,
@@ -139,12 +136,13 @@ export default {
       userNickName:'',
       userPhoneNumber:'',
       userProfilePic:'',
+      profilePicFile:'',
       userIsAdmin:0,
       modiForm:'none',
       showUserInfoModal:false,
-      showVODModal:false,
       phoneNumForm:true,
-      authPhoneNumForm: false
+      authPhoneNumForm: false,
+
     }
   },
   created() {
@@ -152,7 +150,7 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
     }),
     isUserNickNameEmpty() {
       if(!this.userNickName || (this.userNickName == this.userInfo.u_nickname)) {
@@ -184,21 +182,19 @@ export default {
       }
       return true;
     },
+
   },
   methods: {
+    getUserProfile(profile){
+      const picName = profile.split('.')
+      return `${process.env.VUE_APP_PICTURE}profile/${picName[0]}`
+    },
     closeUserInfoModal() {
       this.showUserInfoModal = false;
       console.log('들어와라,,')
     },
-    closeVODModal() {
-      this.showVODModal = false;
-      console.log('들어와라,,')
-    },
     showUserInfoForm() {
       this.showUserInfoModal = true;
-    },
-    showVODForm() {
-      this.showVODModal = true;
     },
     getUserInfo() {
       this.uId = this.userInfo.u_id;
@@ -206,7 +202,7 @@ export default {
       // this.userPassword = this.userInfo.u_pw;
       this.userNickName = this.userInfo.u_nickname;
       this.userPhoneNumber = this.userInfo.u_phone_number;
-      // this.userProfilePic = this.userInfo.u_profile_pic;
+      this.userProfilePic = this.userInfo.u_profile_pic;
       this.userIsAdmin = this.userInfo.is_admin;
       console.log(this.userInfo,'바꼈니?')
     },
@@ -216,6 +212,15 @@ export default {
     changePhoneNumber() {
       this.phoneNumForm =false;
       this.authPhoneNumForm = true;
+    },
+    onClickImageUpload() {
+      this.$refs.imageInput.click();
+    },
+    onChangeImages() {
+      this.userProfilePic = this.$refs.imageInput.files[0].name;
+      this.profilePicFile = this.$refs.imageInput.files[0];
+      console.log("user pic : ",this.userProfilePic)
+      console.log("user pic Info : ",this.profilePicFile)
     },
     async modifyUserInfo(){
       if(!this.userPassword) {
@@ -235,12 +240,31 @@ export default {
         return;
       }
       try {
+        let profilePic = new FormData();
+        let pic = this.userProfilePic.split('.');
+        // console.log(pic,'잘렸니?')
+        profilePic.append("profile", this.profilePicFile, String(pic[0]+'.jpg'))
+
+        // controller 수정!!! 아마 경로 잘못 되어 있어서? Profile 아니고 User
+        await uploadProfile(profilePic)
+        .then((response) => {
+          console.log("프로필 사진 잘 들어감",response.data);
+          this.closeUserInfoModal();
+          
+          // window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("프로필 사진을 업로드 하던 중 오류가 발생했습니다.");
+          return false;
+        });
         const userData = {
           u_id:this.uId,
           u_email:this.userId,
           u_pw: this.userPassword,
           u_nickname : this.userNickName,
-          u_phone_number : this.userPhoneNumber
+          u_phone_number : this.userPhoneNumber,
+          u_profile_pic : this.userProfilePic
         };
         console.log('유저데이터잘들어왔니',userData)
         await this.$store.dispatch('MODIFY',userData)
@@ -249,15 +273,28 @@ export default {
         this.userNickName = this.userInfo.u_nickname
         this.u_phone_number = this.userInfo.u_phone_number
         
-        // this.getUserInfo();
-        this.closeUserInfoModal();
+
       }catch(err) {
         console.log("수정 에러")
         console.log(err);
       }
-        
+    },
+    async unSubscribe(){
+      const userConfirm = confirm("회원 탈퇴 시, 모든 데이터는 복구가 불가능합니다.\n 탈퇴를 계속 진행하시겠습니까?");
+      console.log(userConfirm);
 
-    }
+      try{
+        if(userConfirm) {
+          console.log('회원탈퇴 진행',this.uId);
+          const response = await deleteMyInfo(this.uId);
+          console.log("회원탈퇴...",response);
+          alert("Komenta를 이용해주셔서 감사합니다. 정상적으로 탈퇴처리 되었습니다.");
+        }
+        this.$route.push({name:'Login'});
+      }catch(err){
+        console.log(err)
+      }
+    },
   },
 }
 </script>
@@ -279,4 +316,33 @@ export default {
   .form-text {
     text-align: right;
   }
+
+  .profile-form .img {
+    /* background-color: blueviolet; */
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-form div {
+    display: inline-block;
+    text-align: center;
+  }
+
+  .profile-form input[type="file"] {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .profile-form .file-input{
+    position: relative;
+    bottom: 40px;
+    margin-left: 1rem;
+  }
+
+  .profile-form .v-btn {
+    border: 1px solid black;
+    padding: 0.1rem 5.7em;
+  }
+
 </style>

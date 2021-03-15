@@ -25,7 +25,9 @@
             keyProperty="v_id">
         insert into vod(v_title, v_summary, v_director, v_actors, v_age_grade, v_poster, gd_id)
         values (#{v_title}, #{v_summary}, #{v_director}, #{v_actors}, #{v_age_grade}, #{v_poster}, #{gd_id})
-
+        <selectKey keyProperty="v_id" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 
@@ -133,10 +135,10 @@
 
 
     <select id="selectReportedCommentAndReComment" resultType="com.komenta.be.model.admin.ReportListDTO">
-        select R.r_id, R.r_type, R.r_contents, R.cu_id, R.u_id, M.u_email, M.u_pw, M.u_phone_number, M.u_nickname, M.u_expire_member, M.u_is_admin, M.u_is_blocked, M.u_profile_pic
+        select R.r_id, R.r_type, R.r_contents, R.ru_id, R.u_id, M.u_email, M.u_pw, M.u_phone_number, M.u_nickname, M.u_expire_member, M.u_is_admin, M.u_is_blocked, M.u_profile_pic
         from
             (
-                ( select A.r_id, A.r_type, A.r_contents, A.u_id as cu_id, A.c_id, A.rc_id, B.u_id
+                ( select A.r_id, A.r_type, A.r_contents, A.u_id as ru_id, A.c_id, A.rc_id, B.u_id
                   from
                       (select *
                        from report
@@ -144,7 +146,7 @@
                           inner join comment_info B
                                      on A.c_id = B.c_id)
                 union
-                ( select A.r_id, A.r_type, A.r_contents, A.u_id as cu_id, A.c_id, A.rc_id, B.u_id
+                ( select A.r_id, A.r_type, A.r_contents, A.u_id as ru_id, A.c_id, A.rc_id, B.u_id
                   from
                       (select *
                        from report

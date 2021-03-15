@@ -1,42 +1,82 @@
 <template>
     <div>
-        <Header></Header>
-        <Asidebar></Asidebar>
-        1. 장르 대분류 / 소분류 셀렉트 박스
-        1) 장르 대분류 선택시
-        GET('g_name') 보냄 -> res(해당 대분류 장르의 VOD(v_id,v_poster)받음)
-        2) 장르 대분류 + 소분류 선택시
-        GET('g_id,gd_name') 보냄 -> res(해당 소분류 장르의 VOD(v_id,v_poster)받음)
-        3)받은 VOD v-for
-
-
+    <label for="mainGenre">장르</label>
+    <select v-model="selectedGenre" id="mainGenre">
+        <option disabled value="">--장르선택--</option>
+        <option v-for="genre in allGenres" :key="genre.g_id" :value="`${genre.g_id}`">{{genre.g_name}}</option>
+    </select>
+    <label for="subGenre">세부장르</label>
+    <select v-model="selectedGenreDetail" id="subGenre">
+        <option disabled value="">--세부 장르선택--</option>
+        <option v-for="genrdetail in subGenres" :key="genrdetail.gd_id" :value="`${genrdetail.gd_id}`">{{genrdetail.gd_name}}</option>
+    </select>
+    <div v-for='vod in vodlists' :key="vod.v_id">
+    <span @click="goVodDetail(vod.v_id)"><img :src="getPoster(vod.v_poster)" alt="" height="200px"></span>
+    </div>
     </div>
 </template>
 
 <script>
-import Header from '@/components/common/Header'
-import Asidebar from '@/components/common/Asidebar'
+import {fetchAllGenre,fetchGenreDetail,fetchMainGenreVod, fetchSubGenreVod, fetchVodDetail} from '@/api/vod'
 
 export default {
     name: 'Category',
-    components: {
-        Header,
-        Asidebar
-    },
     data() {
         return {
-            
+            selectedGenre:'',
+            selectedGenreDetail:'',
+            allGenres :[],
+            vodlists:[],
+            subGenres:[],
         };
     },
-    mounted() {
-        
+    created(){
+        this.getMainGenre();
     },
     methods: {
-        
+        async getMainGenre() {
+            const genres = await fetchAllGenre();
+            this.allGenres = genres.data
+            console.log(this.allGenres,'대분류장르')
+        },
+        async getMainGenreDetail(gId) {
+            const sub = await fetchGenreDetail(gId);
+            this.subGenres = sub.data
+            const vod = await fetchMainGenreVod(gId);
+            this.vodlists = vod.data
+            console.log(gId,'대분류 장르 vod',this.vodlists)
+        },
+        async getSubGenre(gdId) {
+            const vod = await fetchSubGenreVod(gdId);
+            this.vodlists = vod.data
+            console.log(gdId,'장르세부vod')
+        },
+        async goVodDetail(vId){
+            console.log(vId,'vod가장 첫 epi로 이동')
+            const res = await fetchVodDetail(vId)
+            // VOD의 가장 첫 epi로 보내기
+            this.$router.push(`/voddetail/${res.data[0].ve_id}`)
+        },
+        getPoster(path){
+            return `${process.env.VUE_APP_PICTURE}poster/${path}`
+        }
+    },
+    watch:{
+        selectedGenre : function(){
+            console.log(this.selectedGenre,'대분류 장르 선택')
+            this.getMainGenreDetail(this.selectedGenre)
+        },
+        selectedGenreDetail:function(){
+            console.log(this.selectedGenreDetail,'소분류 장르 선택')
+            this.getSubGenre(this.selectedGenreDetail)
+        }
     },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+label {
+    font-weight: bold;
+}
 
 </style>

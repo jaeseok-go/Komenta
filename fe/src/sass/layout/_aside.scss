@@ -1,0 +1,202 @@
+a:hover {
+  // background-color: hotpink;
+  color: transparent;
+}
+
+.asideOn {
+  padding-left: 220px;
+}
+
+.web-navigation {
+  overflow: hidden;
+  padding: 0;
+  top: 0;
+  flex-direction: column;
+  left: 0;
+  height: 100%;
+  width: $web-navigation-width;
+  min-width: $web-navigation-width;
+  max-width: $web-navigation-width;
+
+  background-color: $sidebar;
+  box-shadow: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 55px auto 1fr auto;
+  grid-template-areas:
+    'header'
+    'search'
+    'scrollable'
+    'upsell';
+  border-inline-end-color: $sidebarBorderRule;
+  border-inline-end-style: solid;
+  border-inline-end-width: 1px;
+  z-index: 9890;
+
+  .web-navigation__scrollable {
+    margin: 3rem 0 3rem 1rem;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 15px;
+      height: 18px;
+    }
+
+    &::-webkit-scrollbar-button {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 6px;
+      border: 4px solid transparent;
+      background-clip: padding-box;
+      -webkit-border-radius: 100px;
+      background-color: rgb(194, 190, 190);
+    }
+  }
+
+  &__header {
+    position: relative;
+    flex-shrink: 0;
+    font-size: unset;
+    // align-self: flex-end;
+
+    margin-top: 17px;
+    margin-bottom: 18px;
+    padding-top: 0;
+    padding-bottom: 0;
+    -webkit-padding-start: 25px;
+    padding-inline-start: 25px;
+    -webkit-padding-end: 25px;
+    padding-inline-end: 25px;
+  }
+
+  .web-navigation__logo {
+    color: black;
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+
+  &__scrollable {
+    // margin-top: 3rem;
+
+    .web-navigation__nav-list {
+      list-style-type: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      padding: 0;
+      display: block;
+      list-style-type: disc;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      padding-inline-start: 5px;
+
+      .web-navigation__nav {
+        margin-bottom: 1em;
+      }
+
+      .web-navigation__nav-list-item {
+        text-decoration: none;
+        height: 32px;
+        margin: 0 0 2px;
+        padding: 4px;
+        height: 42px;
+        list-style: none;
+        border-radius: 6px;
+
+        .sidebar-scrollable-title {
+          text-decoration: none;
+          margin: -3px;
+          padding: 3px;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          /* border-radius: 6px; */
+          box-sizing: content-box;
+          text-align: start;
+
+          .sidebar-scrollable-title-icon icon-bg1 {
+            font-size: x-large;
+            font-size: 25px;
+            margin: 0 0.5rem;
+            height: 24px;
+            width: 24px;
+            text-align: start;
+            letter-spacing: inherit;
+            list-style: none;
+            font-size: 15px;
+            line-height: 1.46667;
+            font-weight: 400;
+          }
+          .sidebar-scrollable-title-text {
+            font-size: 100px;
+            line-height: 1.46667;
+            font-weight: 400;
+            letter-spacing: 0;
+            flex: 1;
+            color: $labelPrimary;
+            font-size: 15px;
+            line-height: 1.29412;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-left: 0.7rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.icon-bg5 {
+  color: $apple-color;
+  font-size: 15px;
+}
+
+// router-link-exact-active router-link-active {
+//   text-decoration: none;
+
+// }
+
+.web-navigation__nav-list-item.active {
+  border: 1px solid white;
+}
+
+.web-navigation__nav-list-item:hover {
+  border-color: white;
+  background-color: #d3d3d3;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  color: #495057;
+}
+
+#sub-group {
+  display: inline-block;
+  margin-top: 22px;
+  margin-bottom: 0.8rem;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0;
+  opacity: 0.5;
+  text-transform: uppercase;
+}

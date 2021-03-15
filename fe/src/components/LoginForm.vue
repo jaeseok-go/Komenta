@@ -9,9 +9,11 @@
       </div>
     </div>
     <b-container class="container-setting">
-      <GoogleLogin/>
-      <kakao/>
-      <hr class="inContent or" />
+      <b-col>
+        <GoogleLogin/>
+        <kakao/>
+      </b-col>
+      <hr class="inContent or"/>
       <b-col class="bcol-login">
         <b-form @submit.prevent="loginComplete">
           <div class="input-group">
@@ -54,7 +56,7 @@
               v-model="password"
               class="form-control form-control-lg"
               :type="passwordType"
-              placeholder="영문, 숫자, 특수문자 포함 10~15자 이내"
+              placeholder="●●●●●●●●(8자 이상)"
             />
             <div class="input-group-append">
               <div class="input-group-text input-group-button" @click="viewPassword">
@@ -62,7 +64,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-normal btn-large temp-color" :disabled="isLoginValid">로그인</button>
+          <button class="btn btn-normal btn-large temp-color" type="submit" :disabled="isLoginValid">로그인</button>
         </b-form>
         <div class="sign-setting">
           <h6><a @click="showModalForm">아이디 또는 비밀번호</a>를 잊으셨습니까?</h6>
@@ -132,7 +134,7 @@ export default {
         //   return
         // }
         this.initForm()
-        this.$router.push('/member/myPage');
+        this.$router.push('/');
       } catch (error) {
         console.log(error,'로그인에러ㅓ')
         if(error.status === 500) {
