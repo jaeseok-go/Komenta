@@ -411,7 +411,7 @@ Merge 후 Branch 삭제.
 ## ERD
 
 
-![image-erd](README.assets/image-erd.png)
+![image-erd](README.assets/erd.png)
 
 
 
